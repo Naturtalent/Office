@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         id="id1"
+         point="org.eclipse.e4.workbench.model">
+      <fragment
+            uri="fragment.e4xmi">
+      </fragment>
+      <processor
+            beforefragment="false"
+            class="it.naturtalent.e4.office.ui.OfficeProcessor">
+      </processor>
+   </extension>
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            class="it.naturtalent.e4.office.ui.OfficeView"
+            id="it.naturtalent.e4.office.ui.OfficeView"
+            name="Office Dokumentenanzeige">
+      </view>
+      <view
+            class="it.naturtalent.e4.office.ui.OfficeView"
+            id="it.naturtalent.e4.office.ui.OfficeView"
+            name="Office Dokument">
+      </view>
+   </extension>
+
+</plugin>

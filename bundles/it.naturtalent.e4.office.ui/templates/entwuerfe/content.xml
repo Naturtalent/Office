@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<office:document-content
+	xmlns:office="urn:oasis:names:tc:opendocument:xmlns:office:1.0"
+	xmlns:style="urn:oasis:names:tc:opendocument:xmlns:style:1.0"
+	xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0"
+	xmlns:table="urn:oasis:names:tc:opendocument:xmlns:table:1.0"
+	xmlns:draw="urn:oasis:names:tc:opendocument:xmlns:drawing:1.0"
+	xmlns:fo="urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0"
+	xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:meta="urn:oasis:names:tc:opendocument:xmlns:meta:1.0"
+	xmlns:number="urn:oasis:names:tc:opendocument:xmlns:datastyle:1.0"
+	xmlns:svg="urn:oasis:names:tc:opendocument:xmlns:svg-compatible:1.0"
+	xmlns:chart="urn:oasis:names:tc:opendocument:xmlns:chart:1.0"
+	xmlns:dr3d="urn:oasis:names:tc:opendocument:xmlns:dr3d:1.0" xmlns:math="http://www.w3.org/1998/Math/MathML"
+	xmlns:form="urn:oasis:names:tc:opendocument:xmlns:form:1.0"
+	xmlns:script="urn:oasis:names:tc:opendocument:xmlns:script:1.0"
+	xmlns:ooo="http://openoffice.org/2004/office" xmlns:ooow="http://openoffice.org/2004/writer"
+	xmlns:oooc="http://openoffice.org/2004/calc" xmlns:dom="http://www.w3.org/2001/xml-events"
+	xmlns:xforms="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:rpt="http://openoffice.org/2005/report"
+	xmlns:of="urn:oasis:names:tc:opendocument:xmlns:of:1.2" xmlns:xhtml="http://www.w3.org/1999/xhtml"
+	xmlns:grddl="http://www.w3.org/2003/g/data-view#" xmlns:tableooo="http://openoffice.org/2009/table"
+	xmlns:field="urn:openoffice:names:experimental:ooo-ms-interop:xmlns:field:1.0"
+	xmlns:formx="urn:openoffice:names:experimental:ooxml-odf-interop:xmlns:form:1.0"
+	xmlns:css3t="http://www.w3.org/TR/css3-text/" office:version="1.2">
+	<office:scripts />
+	<office:font-face-decls>
+		<style:font-face style:name="Tahoma1" svg:font-family="Tahoma" />
+		<style:font-face style:name="Novak Spring"
+			svg:font-family="&apos;Novak Spring&apos;" style:font-pitch="variable" />
+		<style:font-face style:name="Times New Roman"
+			svg:font-family="&apos;Times New Roman&apos;"
+			style:font-family-generic="roman" style:font-pitch="variable" />
+		<style:font-face style:name="Arial" svg:font-family="Arial"
+			style:font-family-generic="swiss" style:font-pitch="variable" />
+		<style:font-face style:name="SimSun" svg:font-family="SimSun"
+			style:font-family-generic="system" style:font-pitch="variable" />
+		<style:font-face style:name="Tahoma" svg:font-family="Tahoma"
+			style:font-family-generic="system" style:font-pitch="variable" />
+	</office:font-face-decls>
+	<office:automatic-styles>
+		<style:style style:name="Absendertabelle" style:family="table">
+			<style:table-properties style:width="8.493cm"
+				table:align="left" />
+		</style:style>
+		<style:style style:name="Absendertabelle.A" style:family="table-column">
+			<style:table-column-properties
+				style:column-width="8.493cm" />
+		</style:style>
+		<style:style style:name="Adresstabelle" style:family="table">
+			<style:table-properties style:width="8.493cm"
+				table:align="left" />
+		</style:style>
+		<style:style style:name="Adresstabelle.A" style:family="table-column">
+			<style:table-column-properties
+				style:column-width="8.493cm" />
+		</style:style>
+		<style:style style:name="PrÃ¤sentationstabelle"
+			style:family="table">
+			<style:table-properties style:width="7.497cm"
+				fo:margin-left="8.504cm" fo:margin-right="0cm" table:align="margins" />
+		</style:style>
+		<style:style style:name="PrÃ¤sentationstabelle.A"
+			style:family="table-column">
+			<style:table-column-properties
+				style:column-width="7.497cm" style:rel-column-width="65535*" />
+		</style:style>
+		<style:style style:name="Referenztabelle" style:family="table">
+			<style:table-properties style:width="10.5cm"
+				fo:margin-left="-2.499cm" fo:margin-right="7.999cm" table:align="margins" />
+		</style:style>
+		<style:style style:name="Referenztabelle.A" style:family="table-column">
+			<style:table-column-properties
+				style:column-width="2.302cm" style:rel-column-width="14366*" />
+		</style:style>
+		<style:style style:name="Referenztabelle.B" style:family="table-column">
+			<style:table-column-properties
+				style:column-width="0.212cm" style:rel-column-width="1321*" />
+		</style:style>
+		<style:style style:name="Referenztabelle.C" style:family="table-column">
+			<style:table-column-properties
+				style:column-width="7.987cm" style:rel-column-width="49848*" />
+		</style:style>
+		<style:style style:name="Betrefftabelle" style:family="table">
+			<style:table-properties style:width="18.5cm"
+				fo:margin-left="-2.499cm" fo:margin-right="0cm" table:align="margins" />
+		</style:style>
+		<style:style style:name="Betrefftabelle.A" style:family="table-column">
+			<style:table-column-properties
+				style:column-width="2.302cm" style:rel-column-width="8154*" />
+		</style:style>
+		<style:style style:name="Betrefftabelle.B" style:family="table-column">
+			<style:table-column-properties
+				style:column-width="0.212cm" style:rel-column-width="749*" />
+		</style:style>
+		<style:style style:name="Betrefftabelle.C" style:family="table-column">
+			<style:table-column-properties
+				style:column-width="15.986cm" style:rel-column-width="56632*" />
+		</style:style>
+		<style:style style:name="P1" style:family="paragraph"
+			style:parent-style-name="Standard">
+			<style:paragraph-properties
+				fo:margin-left="0cm" fo:margin-right="0.035cm" fo:line-height="100%"
+				fo:text-align="end" style:justify-single-word="false"
+				fo:text-indent="0cm" style:auto-text-indent="false" />
+			<style:text-properties fo:color="#666666"
+				style:font-name="Arial" fo:font-size="8pt" fo:font-weight="bold"
+				style:font-size-asian="8pt" style:font-weight-asian="bold"
+				style:font-size-complex="8pt" style:font-weight-complex="bold" />
+		</style:style>
+		<style:style style:name="P2" style:family="paragraph"
+			style:parent-style-name="Standard">
+			<style:paragraph-properties
+				fo:margin-left="0cm" fo:margin-right="0.035cm" fo:line-height="100%"
+				fo:text-align="start" style:justify-single-word="false"
+				fo:text-indent="0cm" style:auto-text-indent="false" />
+			<style:text-properties fo:color="#666666"
+				style:font-name="Arial" fo:font-size="8pt" style:font-size-asian="8pt"
+				style:font-size-complex="8pt" />
+		</style:style>
+		<style:style style:name="P3" style:family="paragraph"
+			style:parent-style-name="Standard">
+			<style:paragraph-properties
+				fo:margin-left="0cm" fo:margin-right="0.035cm" fo:line-height="0.406cm"
+				fo:text-align="end" style:justify-single-word="false"
+				fo:text-indent="0cm" style:auto-text-indent="false" />
+			<style:text-properties fo:color="#666666"
+				style:font-name="Arial" fo:font-size="8pt" style:font-size-asian="8pt"
+				style:font-size-complex="8pt" />
+		</style:style>
+		<style:style style:name="P4" style:family="paragraph"
+			style:parent-style-name="Table_20_Contents">
+			<style:text-properties fo:color="#808080"
+				fo:font-size="8pt" style:font-name-asian="Novak Spring"
+				style:font-size-asian="7pt" style:font-name-complex="Novak Spring"
+				style:font-size-complex="8pt" />
+		</style:style>
+		<style:style style:name="P5" style:family="paragraph">
+			<style:paragraph-properties fo:text-align="center" />
+		</style:style>
+		<style:style style:name="gr1" style:family="graphic">
+			<style:graphic-properties svg:stroke-color="#808080"
+				draw:textarea-horizontal-align="center"
+				draw:textarea-vertical-align="middle" style:run-through="foreground"
+				style:wrap="run-through" style:number-wrapped-paragraphs="no-limit"
+				style:vertical-pos="from-top" style:vertical-rel="page"
+				style:horizontal-pos="from-left" style:horizontal-rel="page"
+				draw:wrap-influence-on-position="once-concurrent"
+				style:flow-with-text="false" />
+		</style:style>
+	</office:automatic-styles>
+	<office:body>
+		<office:text>
+			<text:sequence-decls>
+				<text:sequence-decl text:display-outline-level="0"
+					text:name="Illustration" />
+				<text:sequence-decl text:display-outline-level="0"
+					text:name="Table" />
+				<text:sequence-decl text:display-outline-level="0"
+					text:name="Text" />
+				<text:sequence-decl text:display-outline-level="0"
+					text:name="Drawing" />
+			</text:sequence-decls>
+			<draw:line text:anchor-type="page" text:anchor-page-number="1"
+				draw:z-index="0" draw:style-name="gr1" draw:text-style-name="P5"
+				svg:x1="0.582cm" svg:y1="7.98cm" svg:x2="0cm" svg:y2="7.98cm">
+				<text:p />
+			</draw:line>
+			<table:table table:name="Absendertabelle"
+				table:style-name="Absendertabelle">
+				<table:table-column table:style-name="Absendertabelle.A" />
+				<table:table-row>
+					<table:table-cell office:value-type="string">
+						<text:p text:style-name="P4" />
+					</table:table-cell>
+				</table:table-row>
+				<table:table-row>
+					<table:table-cell office:value-type="string">
+						<text:p text:style-name="P4" />
+					</table:table-cell>
+				</table:table-row>
+				<table:table-row>
+					<table:table-cell office:value-type="string">
+						<text:p text:style-name="P4" />
+					</table:table-cell>
+				</table:table-row>
+			</table:table>
+			<table:table table:name="Adresstabelle" table:style-name="Adresstabelle">
+				<table:table-column table:style-name="Adresstabelle.A" />
+				<table:table-row>
+					<table:table-cell office:value-type="string">
+						<text:p text:style-name="Table_20_Contents" />
+					</table:table-cell>
+				</table:table-row>
+				<table:table-row>
+					<table:table-cell office:value-type="string">
+						<text:p text:style-name="Table_20_Contents" />
+					</table:table-cell>
+				</table:table-row>
+				<table:table-row>
+					<table:table-cell office:value-type="string">
+						<text:p text:style-name="Table_20_Contents" />
+					</table:table-cell>
+				</table:table-row>
+				<table:table-row>
+					<table:table-cell office:value-type="string">
+						<text:p text:style-name="Table_20_Contents" />
+					</table:table-cell>
+				</table:table-row>
+				<table:table-row>
+					<table:table-cell office:value-type="string">
+						<text:p text:style-name="Table_20_Contents" />
+					</table:table-cell>
+				</table:table-row>
+			</table:table>
+			<table:table table:name="PrÃ¤sentationstabelle"
+				table:style-name="PrÃ¤sentationstabelle">
+				<table:table-column table:style-name="PrÃ¤sentationstabelle.A" />
+				<table:table-row>
+					<table:table-cell office:value-type="string">
+						<text:p text:style-name="Table_20_Contents" />
+					</table:table-cell>
+				</table:table-row>
+				<table:table-row>
+					<table:table-cell office:value-type="string">
+						<text:p text:style-name="Table_20_Contents" />
+					</table:table-cell>
+				</table:table-row>
+				<table:table-row>
+					<table:table-cell office:value-type="string">
+						<text:p text:style-name="Table_20_Contents" />
+					</table:table-cell>
+				</table:table-row>
+				<table:table-row>
+					<table:table-cell office:value-type="string">
+						<text:p text:style-name="Table_20_Contents" />
+					</table:table-cell>
+				</table:table-row>
+				<table:table-row>
+					<table:table-cell office:value-type="string">
+						<text:p text:style-name="Table_20_Contents" />
+					</table:table-cell>
+				</table:table-row>
+			</table:table>
+			<table:table table:name="Referenztabelle"
+				table:style-name="Referenztabelle">
+				<table:table-column table:style-name="Referenztabelle.A" />
+				<table:table-column table:style-name="Referenztabelle.B" />
+				<table:table-column table:style-name="Referenztabelle.C" />
+				<table:table-row>
+					<table:table-cell office:value-type="string">
+						<text:p text:style-name="P3">Ihre Referenzen </text:p>
+					</table:table-cell>
+					<table:table-cell office:value-type="string">
+						<text:p text:style-name="Table_20_Contents" />
+					</table:table-cell>
+					<table:table-cell office:value-type="string">
+						<text:p text:style-name="Table_20_Contents" />
+					</table:table-cell>
+				</table:table-row>
+				<table:table-row>
+					<table:table-cell office:value-type="string">
+						<text:p text:style-name="P3">Ansprechpartner </text:p>
+					</table:table-cell>
+					<table:table-cell office:value-type="string">
+						<text:p text:style-name="Table_20_Contents" />
+					</table:table-cell>
+					<table:table-cell office:value-type="string">
+						<text:p text:style-name="Table_20_Contents" />
+					</table:table-cell>
+				</table:table-row>
+				<table:table-row>
+					<table:table-cell office:value-type="string">
+						<text:p text:style-name="P3">Durchwahl </text:p>
+					</table:table-cell>
+					<table:table-cell office:value-type="string">
+						<text:p text:style-name="Table_20_Contents" />
+					</table:table-cell>
+					<table:table-cell office:value-type="string">
+						<text:p text:style-name="Table_20_Contents" />
+					</table:table-cell>
+				</table:table-row>
+			</table:table>
+			<table:table table:name="Betrefftabelle"
+				table:style-name="Betrefftabelle">
+				<table:table-column table:style-name="Betrefftabelle.A" />
+				<table:table-column table:style-name="Betrefftabelle.B" />
+				<table:table-column table:style-name="Betrefftabelle.C" />
+				<table:table-row>
+					<table:table-cell office:value-type="string">
+						<text:p text:style-name="P3">Datum </text:p>
+					</table:table-cell>
+					<table:table-cell office:value-type="string">
+						<text:p text:style-name="Table_20_Contents" />
+					</table:table-cell>
+					<table:table-cell office:value-type="string">
+						<text:p text:style-name="Table_20_Contents" />
+					</table:table-cell>
+				</table:table-row>
+				<table:table-row>
+					<table:table-cell office:value-type="string">
+						<text:p text:style-name="P3">Betrifft </text:p>
+					</table:table-cell>
+					<table:table-cell office:value-type="string">
+						<text:p text:style-name="Table_20_Contents" />
+					</table:table-cell>
+					<table:table-cell office:value-type="string">
+						<text:p text:style-name="Table_20_Contents" />
+					</table:table-cell>
+				</table:table-row>
+			</table:table>
+			<text:p text:style-name="Standard" />
+		</office:text>
+	</office:body>
+</office:document-content>

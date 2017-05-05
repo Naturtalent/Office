@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Address
+Bundle-SymbolicName: it.naturtalent.e4.project.address;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: it.naturtalent.e4.project.address.Activator
+Bundle-Vendor: dieter.apel
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Import-Package: javax.annotation;version="1.1.0",
+ org.osgi.framework;version="1.3.0"
+Bundle-ActivationPolicy: lazy
+Require-Bundle: it.naturtalent.e4.project;bundle-version="1.0.0",
+ it.wp.common.io;bundle-version="1.0.0",
+ org.eclipse.equinox.preferences
+Export-Package: it.naturtalent.e4.project.address

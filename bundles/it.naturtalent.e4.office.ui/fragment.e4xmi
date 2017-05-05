@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="ASCII"?>
+<fragment:ModelFragments xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:commands="http://www.eclipse.org/ui/2010/UIModel/application/commands" xmlns:fragment="http://www.eclipse.org/ui/2010/UIModel/fragment" xmlns:menu="http://www.eclipse.org/ui/2010/UIModel/application/ui/menu" xmi:id="_aPNj4McYEeKqZc4ZAHukUw">
+  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_afXDQMcZEeKqZc4ZAHukUw" featurename="commands" parentElementId="it.naturtalent.e4.application">
+    <elements xsi:type="commands:Command" xmi:id="_qSqj8McZEeKqZc4ZAHukUw" elementId="it.naturtalent.office.command.openOfficeDocument" commandName="openOfficeDocument"/>
+    <elements xsi:type="commands:Command" xmi:id="_QDAWoN5mEeKY0vaxDsCDDg" elementId="it.naturtalent.office.command.newOfficeDocument" commandName="newOfficeDocument"/>
+    <elements xsi:type="commands:Command" xmi:id="_zwgk8FSTEeOeJaMXyGLlAg" elementId="it.naturtalent.office.command.openDrawDocument" commandName="openDrawDocument"/>
+    <elements xsi:type="commands:Command" xmi:id="_7FsPYFYrEeOtRJGUYoQOPg" elementId="it.naturtalent.office.command.openCalcDocument" commandName="openCalcDocument"/>
+    <elements xsi:type="commands:Command" xmi:id="_NS3JkEjTEeSf4c25KFxh5g" elementId="it.naturtalent.office.command.newDrawDocument" commandName="newDrawDocument"/>
+  </fragments>
+  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_X6DYcMcaEeKqZc4ZAHukUw" featurename="handlers" parentElementId="it.naturtalent.e4.application">
+    <elements xsi:type="commands:Handler" xmi:id="_kSJWgMcaEeKqZc4ZAHukUw" elementId="it.naturtalent.office.handler.openOfficeDocument" contributionURI="bundleclass://it.naturtalent.e4.office.ui/it.naturtalent.e4.office.ui.handlers.OpenOfficeHandler" command="_qSqj8McZEeKqZc4ZAHukUw"/>
+    <elements xsi:type="commands:Handler" xmi:id="_tJY28N5mEeKY0vaxDsCDDg" elementId="it.naturtalent.office.handler.createOfficeDocument" contributionURI="bundleclass://it.naturtalent.e4.office.ui/it.naturtalent.e4.office.ui.handlers.NewLetterHandler" command="_QDAWoN5mEeKY0vaxDsCDDg"/>
+    <elements xsi:type="commands:Handler" xmi:id="_qPZJIFSVEeOeJaMXyGLlAg" elementId="it.naturtalent.e4.office.handler.openDrawDocument" contributionURI="bundleclass://it.naturtalent.e4.office.ui/it.naturtalent.e4.office.ui.handlers.OpenDrawHandler" command="_zwgk8FSTEeOeJaMXyGLlAg"/>
+    <elements xsi:type="commands:Handler" xmi:id="_-5F4oFZkEeO1L4EhIDW9MQ" elementId="it.naturtalent.e4.office.calchandler" contributionURI="bundleclass://it.naturtalent.e4.office.ui/it.naturtalent.e4.office.ui.handlers.CalcOfficeHandler" command="_7FsPYFYrEeOtRJGUYoQOPg"/>
+    <elements xsi:type="commands:Handler" xmi:id="_rAyLAEjTEeSf4c25KFxh5g" elementId="it.naturtalent.e4.office.handler.newDrawDocument" contributionURI="bundleclass://it.naturtalent.e4.office.ui/it.naturtalent.e4.office.ui.handlers.NewDrawOfficeHandler" command="_NS3JkEjTEeSf4c25KFxh5g"/>
+  </fragments>
+  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_eGZ_8N5mEeKY0vaxDsCDDg" featurename="children" parentElementId="it.naturtalent.e4.application.menu.new" positionInList="first">
+    <elements xsi:type="menu:HandledMenuItem" xmi:id="_h_qJcN5mEeKY0vaxDsCDDg" elementId="it.naturtalent.office.menue.createOfficeDocument" label="%Office.NewLetterLabel" command="_QDAWoN5mEeKY0vaxDsCDDg"/>
+    <elements xsi:type="menu:HandledMenuItem" xmi:id="_M8ynMFSUEeOeJaMXyGLlAg" elementId="it.naturtalent.e4.office.menue.DrawDocument" label="%Office.DrawLabel" command="_NS3JkEjTEeSf4c25KFxh5g"/>
+    <elements xsi:type="menu:HandledMenuItem" xmi:id="_vbrfUFYrEeOtRJGUYoQOPg" elementId="it.naturtalent.e4.office.menue.CalcDocument" label="%Office.CalcLabel" command="_7FsPYFYrEeOtRJGUYoQOPg"/>
+  </fragments>
+</fragment:ModelFragments>
