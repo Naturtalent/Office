@@ -1,0 +1,27 @@
+<project>
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>it.naturtalent.office</groupId>
+	<artifactId>it.naturtalent.office.bundles</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<parent>
+		<groupId>it.naturtalent.office</groupId>
+		<artifactId>it.naturtalent.office.root</artifactId>
+		<version>1.0.0-SNAPSHOT</version>		
+	</parent>
+
+	<modules>
+		<!-- <module>it.naturtalent.e4.Kontakte</module>  -->
+		<!-- <module>it.naturtalent.e4.kontakte.ui</module> -->
+		<module>it.naturtalent.e4.office</module>
+		<module>it.naturtalent.e4.office.odf</module>
+		<module>it.naturtalent.e4.office.ui</module>
+		<module>it.naturtalent.e4.project.address</module>
+		<!-- <module>it.naturtalent.e4.project.address.ui</module> -->
+	</modules>
+
+</project>
+
+

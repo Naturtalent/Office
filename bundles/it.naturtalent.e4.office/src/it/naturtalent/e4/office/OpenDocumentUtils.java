@@ -804,6 +804,9 @@ public class OpenDocumentUtils
 		return null;
 	}
 
+	/*
+	 * Gibt das Directory der Vorlagen im aktuellen Workspace ('office') zurueck
+	 */
 	private static File getBaseOfficeDir()
 	{
 		IWorkspace workspace = ResourcesPlugin.getWorkspace();  
@@ -1095,8 +1098,8 @@ public class OpenDocumentUtils
 
 	
 	/**
-	 * Kopiert ein PluginTemplate in den Workspace und registriert es
-	 * im OfficeService
+	 * Kopiert ein PluginTemplate in den aktuellen Workspace und registriert es gleichzeitig
+	 * in der OfficeService Registry
 	 * 
 	 * @param pluginTemplate
 	 * @param officeContext
@@ -1105,13 +1108,15 @@ public class OpenDocumentUtils
 	public static void registerPluginLetterTemplate(File pluginTemplate,
 			String officeContext, IOfficeService officeService)
 	{
-		// Ziel Workspacepath registrieren
+		// den Zielpfad der Vorlage im aktuellen Workspace deginiern (ist auch Key der Vorlage im Registry) 
 		File workspaceDir = OpenDocumentUtils.getWorkspaceTemplateDir(OpenDocumentUtils.OFFICEDATADIR + File.separator
 				+ officeContext);
 		File workspaceTemplateFile = new File(workspaceDir,pluginTemplate.getName());
+		
+		// Template registieren
 		officeService.registerLetterTemplate(workspaceTemplateFile.getPath());
 
-		// ggf. physikalisch kopieren
+		// ggf. auch physikalisch in das Workspace kopieren
 		if(!workspaceTemplateFile.exists())
 		{
 			try
@@ -1125,6 +1130,11 @@ public class OpenDocumentUtils
 		}
 	}
 	
+	/*
+	 * Kopiert alle Dateien mit einer bestimment Dateierweiterung (z.B. odt) in das Zielverzeichnis im Workspace. 
+	 * 
+	 * templateDirName = Unterverzeichnis im Workspace (office/xntw)
+	 */
 	private static File destDir = null;
 	public static void copyTemplatesToWorkspace(File templatesSrcDir, String templateDirName, String suffixFilter)
 	{

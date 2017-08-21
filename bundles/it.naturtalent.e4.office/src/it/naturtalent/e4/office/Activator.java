@@ -14,9 +14,6 @@ public class Activator implements BundleActivator
 	public static final String OFFICE_PROFILE_FILE = "profiles.xml"; //$NON-NLS-1$
 	public static final String OFFICE_LETTERPROFILE_FILE = "letterprofiles.xml"; //$NON-NLS-1$
 	
-	public static final String ROOT_OFFICE_PREFERENCES_NODE = "it.naturtalent.e4.office"; //$NON-NLS-1$
-	
-	
 	public static Map<String,String> mapXMLTextTags = new HashMap<String, String>();
 	{
 		mapXMLTextTags.put(INtOffice.DOCUMENT_ABSENDER, "Absendertabelle");		

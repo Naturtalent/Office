@@ -10,10 +10,10 @@ import java.util.List;
 
 import it.naturtalent.e4.office.INtOffice;
 import it.naturtalent.e4.office.IOfficeService;
+import it.naturtalent.e4.office.OfficeConstants;
 import it.naturtalent.e4.office.ProfilePreferences;
 import it.naturtalent.e4.office.letter.IOfficeLetterAdapter;
 import it.naturtalent.e4.office.letter.OfficeLetterModel;
-import it.naturtalent.e4.office.ui.OfficeConstants;
 import it.naturtalent.e4.project.IResourceNavigator;
 import it.naturtalent.e4.project.ui.navigator.ResourceNavigator;
 import it.naturtalent.e4.project.ui.utils.CreateNewFile;
@@ -47,7 +47,6 @@ public class NewLetterWizard extends Wizard
 	
 	
 	protected NewLetterWizardPage newOfficeTextWizardPage;
-	protected LetterAddressWizardPage addressOfficeWizardPage;
 	protected ProfileLetterWizardPage profileWizardPage;
 	
 	// ueber 'context' fuer alle Pages verfuegbar
@@ -101,9 +100,12 @@ public class NewLetterWizard extends Wizard
 		newOfficeTextWizardPage = ContextInjectionFactory.make(NewLetterWizardPage.class, context);		
 		addPage(newOfficeTextWizardPage);		
 			
+		
+		/*
 		// Adresse
 		addressOfficeWizardPage = ContextInjectionFactory.make(LetterAddressWizardPage.class, context);
 		addPage(addressOfficeWizardPage);
+		*/
 				
 		// Profil
 		profileWizardPage = ContextInjectionFactory.make(ProfileLetterWizardPage.class, context);		

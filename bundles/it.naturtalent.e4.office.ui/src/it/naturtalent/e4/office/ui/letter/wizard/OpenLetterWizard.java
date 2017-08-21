@@ -34,7 +34,7 @@ public class OpenLetterWizard extends Wizard
 
 	
 	private WizardPage parentWizardPage;
-	private LetterAddressWizardPage addressOfficeWizardPage;	
+	//private LetterAddressWizardPage addressOfficeWizardPage;	
 	private ProfileLetterWizardPage profileWizardPage;
 	
 	// unter diesem Schluessel wird der Name des momentanen Profils gespeichert
@@ -65,8 +65,10 @@ public class OpenLetterWizard extends Wizard
 		addPage(officeTextWizardPage);
 		
 		// Adresse
+		/*
 		addressOfficeWizardPage = ContextInjectionFactory.make(LetterAddressWizardPage.class, context);
 		addPage(addressOfficeWizardPage);
+		*/
 		
 		// Profil
 		profileWizardPage = ContextInjectionFactory.make(ProfileLetterWizardPage.class, context);		

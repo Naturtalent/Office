@@ -1,10 +1,20 @@
-package it.naturtalent.e4.office.ui;
+package it.naturtalent.e4.office;
 
 public class OfficeConstants
 {
 	// Plugin ID (MANIFEST.MF)
 	public static final String PLUGIN_ID = "it.naturtalent.e4.office.ui"; //$NON-NLS-1$
+	
+	// Office Preferencenode
+	public static final String ROOT_OFFICE_PREFERENCES_NODE = "it.naturtalent.e4.office"; //$NON-NLS-1$
+	
+	// Praeferenzkey zum Pfad der Officeapplication
+	public static final String OFFICE_APPLICATION_PREF = "officeapplication_pref"; //$NON-NLS-1$
+	
+	// Praeferenzkey zum Pfad der JPIPE-Library
+	public static final String OFFICE_JPIPE_PREF = "officejpipe_pref"; //$NON-NLS-1$
 
+	
 	// plugin.properties
 	public static final String PROPERTY_OFFICENEWLETTER = "Office.NewLetterLabel"; //$NON-NLS-1$
 

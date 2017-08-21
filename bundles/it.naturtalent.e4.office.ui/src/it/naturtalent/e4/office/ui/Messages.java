@@ -52,6 +52,12 @@ public class Messages extends NLS {
 
 	public static String LetterOfficeWizardComposite_TEMPORAER_CONTAINER_MARKER;
 
+	public static String OfficeApplicationPreferenceAdapter_ApplicationReferenceLabel;
+
+	public static String OfficeApplicationPreferenceAdapter_JPIPEnotFoundError;
+
+	public static String OfficeApplicationPreferenceAdapter_OfficeReferenceNode;
+
 	public static String OfficeWizardComposite_lblContainer_text;
 	public static String OfficeWizardComposite_lblFile_text;
 	public static String OfficeWizardComposite_lblLayout_text;

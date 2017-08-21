@@ -5,6 +5,7 @@ import it.naturtalent.application.IPreferenceRegistry;
 import it.naturtalent.application.IShowViewAdapterRepository;
 import it.naturtalent.e4.office.IOfficeDocumentHandler;
 import it.naturtalent.e4.office.IOfficeService;
+import it.naturtalent.e4.office.OfficeConstants;
 import it.naturtalent.e4.office.OpenDocumentUtils;
 import it.naturtalent.e4.office.odf.ODFOfficeDocumentHandler;
 import it.naturtalent.e4.office.ui.expimp.OfficeProfileExportAdapter;
@@ -38,6 +39,7 @@ import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.model.application.commands.MCommand;
+import org.eclipse.e4.ui.workbench.IWorkbench;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
 
@@ -53,7 +55,7 @@ public class OfficeProcessor
 	private @Inject @Optional EPartService partService;
 	private @Inject @Optional EModelService modelService;			
 	private @Inject @Optional MApplication application;
-
+	
 	// Dynamic New
 	public static final String NEW_OFFICE_MENUE_ID = "it.naturtalent.office.menue.createOfficeDocument"; //$NON-NLS-1$
 	public static final String NEW_OFFICE_LABEL = "Office.NewLetterLabel"; //$NON-NLS-1$
@@ -76,7 +78,7 @@ public class OfficeProcessor
 	public static final String OPEN_ODFDRAW_WITHMENUE_LABEL = "Office.DrawLabel"; //$NON-NLS-1$
 	public static final String OPEN_ODFDRAW_WITHCOMMAND_ID = "it.naturtalent.office.command.openDrawDocument"; //$NON-NLS-1$
 
-	
+	private IWorkbench workbench;
 	
 	@Execute
 	void init (IEventBroker eventBroker, IEclipseContext context)
@@ -120,16 +122,30 @@ public class OfficeProcessor
 				DynamicOpenWithMenu openWithMenu = new DynamicOpenWithMenu();				
 				openWithMenu.addHandledDynamicItem(OPEN_ODFDRAW_WITHMENUE_ID,label,command,0);								
 			}
+			
+			
+			this.workbench = null;
 
 		}
 		
 		/* 
-		 * Preference 'ODFOfficeDocumentHandler.OFFICE_APPLICATION_PREF'
+		 * Preferences LibreOffice
 		 * 
 		 */
-		IEclipsePreferences defaultPreferences = DefaultScope.INSTANCE
-				.getNode(it.naturtalent.e4.office.Activator.ROOT_OFFICE_PREFERENCES_NODE);
+		IEclipsePreferences defaultPreferences = DefaultScope.INSTANCE.getNode(OfficeConstants.ROOT_OFFICE_PREFERENCES_NODE);
+	
+		if (SystemUtils.IS_OS_LINUX)
+		{
+			defaultPreferences.put(OfficeConstants.OFFICE_APPLICATION_PREF,OfficeConstants.LINUX_UNO_PATH);
+		}
+		else
+		{
+			
+		}
 		
+		
+		
+		/*
 		String officApplicationPath = defaultPreferences.get(ODFOfficeDocumentHandler.OFFICE_APPLICATION_PREF, null);
 		if(StringUtils.isEmpty(officApplicationPath))
 		{			
@@ -158,9 +174,12 @@ public class OfficeProcessor
 				}
 			}
 		}
+		*/
 		
 		if(preferenceRegistry != null)
+		{			
 			preferenceRegistry.getPreferenceAdapters().add(new OfficeApplicationPreferenceAdapter());
+		}
 		
 		/*
 		 *  Templates registrieren

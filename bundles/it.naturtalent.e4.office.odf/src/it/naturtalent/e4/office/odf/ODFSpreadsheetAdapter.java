@@ -13,6 +13,12 @@ import it.naturtalent.e4.office.spreadsheet.AbstractSpreadSheetAdapter;
 import it.naturtalent.e4.office.spreadsheet.ISpreadSheetAdapter;
 
 
+/**
+ * ODF Tabellenadapter
+ * 
+ * @author dieter
+ *
+ */
 public class ODFSpreadsheetAdapter extends AbstractSpreadSheetAdapter
 {
 	

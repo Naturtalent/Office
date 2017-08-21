@@ -1,5 +1,6 @@
 package it.naturtalent.e4.office.ui;
 
+import it.naturtalent.e4.office.OfficeConstants;
 import it.naturtalent.e4.office.ui.actions.NewLetterAction;
 import it.naturtalent.e4.project.AbstractNewActionAdapter;
 

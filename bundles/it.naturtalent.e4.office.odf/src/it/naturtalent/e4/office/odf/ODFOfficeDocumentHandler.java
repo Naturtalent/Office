@@ -1,14 +1,7 @@
 package it.naturtalent.e4.office.odf;
 
-import it.naturtalent.e4.office.IOfficeDocumentHandler;
-
-
-
-
-
 import java.awt.Desktop;
 import java.io.File;
-import java.util.List;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -26,12 +19,15 @@ import org.odftoolkit.odfdom.dom.element.meta.MetaUserDefinedElement;
 import org.odftoolkit.simple.TextDocument;
 import org.odftoolkit.simple.meta.Meta;
 
+import it.naturtalent.e4.office.IOfficeDocumentHandler;
+import it.naturtalent.e4.office.OfficeConstants;
+
 public class ODFOfficeDocumentHandler implements IOfficeDocumentHandler
 {
 	private static final String OFFICE_PROCESS = Messages.ODFOfficeDocumentHandler_OFFICEPATH; 
 	
 	// Praeferenzkey zum Pfad der Officeapplication
-	public static final String OFFICE_APPLICATION_PREF = "officeapplication_pref"; //$NON-NLS-1$
+	//public static final String OFFICE_APPLICATION_PREF = "officeapplication_pref"; //$NON-NLS-1$
 	
 	protected File fileDoc;
 	
@@ -113,14 +109,17 @@ public class ODFOfficeDocumentHandler implements IOfficeDocumentHandler
 					
 					// Pfad zur externen Officeanwendung (s. it.naturtalent.e4.office.ui.OfficeProcessor)
 					String defPath = null;
-					IEclipsePreferences defpreferences = DefaultScope.INSTANCE
-							  .getNode(it.naturtalent.e4.office.Activator.ROOT_OFFICE_PREFERENCES_NODE);
-					if(defpreferences != null)
-						defPath = defpreferences.get(OFFICE_APPLICATION_PREF, null);
-										
+					IEclipsePreferences defaultPreferenceNode = DefaultScope.INSTANCE
+							.getNode(
+									OfficeConstants.ROOT_OFFICE_PREFERENCES_NODE);
+					// Pfad zur LibreOffice-Application aus dem DefaultPreference 
+					if(defaultPreferenceNode != null)
+						defPath = defaultPreferenceNode.get(OfficeConstants.OFFICE_APPLICATION_PREF, null);
+						
+					// Pfad zur LibreOffice-Application aus den Preferences
 					IEclipsePreferences preferences = InstanceScope.INSTANCE
-							  .getNode(it.naturtalent.e4.office.Activator.ROOT_OFFICE_PREFERENCES_NODE);					 
-					String unoPath = preferences.get(OFFICE_APPLICATION_PREF, defPath);
+							  .getNode(OfficeConstants.ROOT_OFFICE_PREFERENCES_NODE);					 
+					String unoPath = preferences.get(OfficeConstants.OFFICE_APPLICATION_PREF, defPath);
 					if(StringUtils.isEmpty(unoPath))
 						throw new java.io.IOException( Messages.ODFOfficeDocumentHandler_NO_OFFICE_ERROR );
 

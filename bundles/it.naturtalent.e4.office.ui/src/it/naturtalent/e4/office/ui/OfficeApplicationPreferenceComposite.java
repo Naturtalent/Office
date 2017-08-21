@@ -10,6 +10,10 @@ public class OfficeApplicationPreferenceComposite extends Composite
 
 	private DirectoryEditorComposite directoryEditorComposite;
 	
+	private DirectoryEditorComposite jpipeDirectoryComposite;
+	
+	private DirectoryEditorComposite unoDirectoryComposite;
+	
 	/**
 	 * Create the composite.
 	 * @param parent
@@ -20,8 +24,21 @@ public class OfficeApplicationPreferenceComposite extends Composite
 		super(parent, style);
 		setLayout(null);
 		
+		// Verzeichnis indem LibreOffice 'soffice' installiert ist
 		directoryEditorComposite = new DirectoryEditorComposite(this, SWT.NONE);
 		directoryEditorComposite.setBounds(5, 5, 529, 61);
+				
+		// Verzeichnis indem sich die 'JPipe' - Bibliothek befindet
+		jpipeDirectoryComposite = new DirectoryEditorComposite(this, SWT.NONE);
+		jpipeDirectoryComposite.setBounds(5, 99, 529, 61);
+		jpipeDirectoryComposite.setLabel("Verzeichnis der JPIPE-Biblipthek");
+		jpipeDirectoryComposite.setEnable(false);
+		
+		// Verzeichnis indem sich die UNO - Klassen befinden
+		unoDirectoryComposite = new DirectoryEditorComposite(this, SWT.NONE);
+		unoDirectoryComposite.setLabel("Verzeichnis LibreOffice UNO Klassen (juh.jar, jurt.jar...) ");
+		unoDirectoryComposite.setBounds(10, 202, 529, 61);
+		unoDirectoryComposite.setEnable(false);
 
 	}
 	
@@ -30,6 +47,15 @@ public class OfficeApplicationPreferenceComposite extends Composite
 	public DirectoryEditorComposite getDirectoryEditorComposite()
 	{
 		return directoryEditorComposite;
+	}
+	
+	
+
+
+
+	public DirectoryEditorComposite getJpipeDirectoryComposite()
+	{
+		return jpipeDirectoryComposite;
 	}
 
 
