@@ -1,7 +1,6 @@
 package it.naturtalent.e4.office.ui;
 
 
-import it.naturtalent.application.IPreferenceRegistry;
 import it.naturtalent.application.IShowViewAdapterRepository;
 import it.naturtalent.e4.office.IOfficeDocumentHandler;
 import it.naturtalent.e4.office.IOfficeService;
@@ -12,6 +11,7 @@ import it.naturtalent.e4.office.ui.expimp.OfficeProfileExportAdapter;
 import it.naturtalent.e4.office.ui.expimp.OfficeProfileImportAdapter;
 import it.naturtalent.e4.office.ui.expimp.TextmoduleExportAdapter;
 import it.naturtalent.e4.office.ui.expimp.TextmoduleImportAdapter;
+import it.naturtalent.e4.preferences.IPreferenceRegistry;
 import it.naturtalent.e4.project.IExportAdapterRepository;
 import it.naturtalent.e4.project.IImportAdapterRepository;
 import it.naturtalent.e4.project.INewActionAdapterRepository;

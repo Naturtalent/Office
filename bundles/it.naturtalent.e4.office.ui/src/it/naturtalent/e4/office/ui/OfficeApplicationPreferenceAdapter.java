@@ -31,12 +31,13 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.PlatformUI;
 import org.osgi.service.prefs.BackingStoreException;
 
-import it.naturtalent.application.AbstractPreferenceAdapter;
 import it.naturtalent.application.ChooseWorkspaceData;
 import it.naturtalent.application.IPreferenceNode;
 import it.naturtalent.e4.office.OfficeConstants;
+import it.naturtalent.e4.preferences.AbstractPreferenceAdapter;
 import it.naturtalent.e4.preferences.DirectoryEditorComposite;
-import it.naturtalent.e4.preferences.PreferenceHandler;
+import it.naturtalent.e4.preferences.handlers.PreferenceHandler;
+
 
 public class OfficeApplicationPreferenceAdapter extends AbstractPreferenceAdapter
 {
