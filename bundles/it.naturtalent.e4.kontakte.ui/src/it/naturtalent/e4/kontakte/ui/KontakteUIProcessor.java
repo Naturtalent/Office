@@ -1,10 +1,10 @@
 package it.naturtalent.e4.kontakte.ui;
 
-import it.naturtalent.application.IPreferenceRegistry;
 import it.naturtalent.application.IShowViewAdapterRepository;
 import it.naturtalent.e4.kontakte.IKontakteDataFactory;
 import it.naturtalent.e4.kontakte.ui.expimp.ExportKontakteAdapter;
 import it.naturtalent.e4.kontakte.ui.expimp.ImportKontakteAdapter;
+import it.naturtalent.e4.preferences.IPreferenceRegistry;
 import it.naturtalent.e4.project.IExportAdapterRepository;
 import it.naturtalent.e4.project.IImportAdapterRepository;
 import it.naturtalent.e4.project.INewActionAdapterRepository;

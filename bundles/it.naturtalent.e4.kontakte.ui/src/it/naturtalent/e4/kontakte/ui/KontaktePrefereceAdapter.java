@@ -9,9 +9,10 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.osgi.service.prefs.BackingStoreException;
 
-import it.naturtalent.application.AbstractPreferenceAdapter;
+
 import it.naturtalent.application.IPreferenceNode;
 import it.naturtalent.e4.kontakte.KontaktePreferences;
+import it.naturtalent.e4.preferences.AbstractPreferenceAdapter;
 import it.naturtalent.e4.preferences.ListEditorComposite;
 
 

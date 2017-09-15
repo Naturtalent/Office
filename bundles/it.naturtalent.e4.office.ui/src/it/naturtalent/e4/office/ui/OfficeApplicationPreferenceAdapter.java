@@ -37,6 +37,7 @@ import it.naturtalent.e4.office.OfficeConstants;
 import it.naturtalent.e4.preferences.AbstractPreferenceAdapter;
 import it.naturtalent.e4.preferences.DirectoryEditorComposite;
 import it.naturtalent.e4.preferences.handlers.PreferenceHandler;
+import it.naturtalent.e4.preferences.handlers.PreferenceHandler;
 
 
 public class OfficeApplicationPreferenceAdapter extends AbstractPreferenceAdapter

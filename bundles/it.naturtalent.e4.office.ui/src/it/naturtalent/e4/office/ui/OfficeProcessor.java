@@ -201,7 +201,6 @@ public class OfficeProcessor
 			{
 				OpenDocumentUtils.registerPluginLetterTemplate(templateIt.next(),
 						IOfficeService.NTOFFICE_CONTEXT, officeService);
-						
 			}			
 		}
 
