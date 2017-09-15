@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
+	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
+	<classpathentry exported="true" kind="lib" path="poi310/poi-3.10-beta2-20130904.jar"/>
+	<classpathentry exported="true" kind="lib" path="poi310/poi-scratchpad-3.10-beta2-20130904.jar"/>
+	<classpathentry exported="true" kind="lib" path="poi310/poi-examples-3.10-beta2-20130904.jar"/>
+	<classpathentry exported="true" kind="lib" path="poi310/poi-excelant-3.10-beta2-20130904.jar"/>
+	<classpathentry exported="true" kind="lib" path="poi310/poi-ooxml-3.10-beta2-20130904.jar"/>
+	<classpathentry exported="true" kind="lib" path="poi310/poi-ooxml-schemas-3.10-beta2-20130904.jar"/>
+	<classpathentry exported="true" kind="lib" path="dom4J/dom4j-2.0.0-ALPHA-2.jar"/>
+	<classpathentry exported="true" kind="lib" path="xmlbeans/jsr173_1.0_api.jar"/>
+	<classpathentry exported="true" kind="lib" path="xmlbeans/resolver.jar"/>
+	<classpathentry exported="true" kind="lib" path="xmlbeans/xbean_xpath.jar"/>
+	<classpathentry exported="true" kind="lib" path="xmlbeans/xbean.jar"/>
+	<classpathentry exported="true" kind="lib" path="xmlbeans/xmlbeans-qname.jar"/>
+	<classpathentry exported="true" kind="lib" path="xmlbeans/xmlpublic.jar"/>
+	<classpathentry kind="output" path="target/classes"/>
+</classpath>
