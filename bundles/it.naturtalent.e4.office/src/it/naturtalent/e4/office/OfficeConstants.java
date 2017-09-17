@@ -14,6 +14,9 @@ public class OfficeConstants
 	// Praeferenzkey zum Pfad der JPIPE-Library
 	public static final String OFFICE_JPIPE_PREF = "officejpipe_pref"; //$NON-NLS-1$
 
+	// Praeferenzkey zum Pfad der UNO-Komponenten
+	public static final String OFFICE_UNO_PREF = "officeuno_pref"; //$NON-NLS-1$
+
 	
 	// plugin.properties
 	public static final String PROPERTY_OFFICENEWLETTER = "Office.NewLetterLabel"; //$NON-NLS-1$

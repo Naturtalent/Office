@@ -12,6 +12,8 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.filefilter.FileFilterUtils;
 import org.apache.commons.io.filefilter.IOFileFilter;
+import org.apache.commons.io.filefilter.NameFileFilter;
+import org.apache.commons.io.filefilter.TrueFileFilter;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -192,17 +194,26 @@ public class OfficeApplicationPreferenceAdapter extends AbstractPreferenceAdapte
 		directoryEditorComposite = comp.getDirectoryEditorComposite();
 		directoryEditorComposite.setLabel("Homeverzeichnis LibreOffice auswählen"); //$NON-NLS-1$
 		
+		// Verzeichnis indem Libreoffice installiert ist
 		String value = getInstancePreference().get(OfficeConstants.OFFICE_APPLICATION_PREF, null);
 		if(StringUtils.isEmpty(value))
 			value = getDefaultPreference().get(OfficeConstants.OFFICE_APPLICATION_PREF, null);		
 		if(StringUtils.isNotEmpty(value))		
 			directoryEditorComposite.setDirectory(value);
 
+		// Verzeichnis indem eine JPIPE - Library gespeichert ist
 		value = getInstancePreference().get(OfficeConstants.OFFICE_JPIPE_PREF, null);
 		if(StringUtils.isEmpty(value))
 			value = getDefaultPreference().get(OfficeConstants.OFFICE_JPIPE_PREF, null);		
 		if(StringUtils.isNotEmpty(value))		
 			comp.getJpipeDirectoryComposite().setDirectory(value);
+
+		// Verzeichnis mit den UNO - Komponenten (juh, jurt ...)
+		value = getInstancePreference().get(OfficeConstants.OFFICE_UNO_PREF, null);
+		if(StringUtils.isEmpty(value))
+			value = getDefaultPreference().get(OfficeConstants.OFFICE_UNO_PREF, null);		
+		if(StringUtils.isNotEmpty(value))		
+			comp.getUnoDirectoryComposite().setDirectory(value);
 
 		
 		return comp;
@@ -214,7 +225,7 @@ public class OfficeApplicationPreferenceAdapter extends AbstractPreferenceAdapte
 	 * 
 	 * null - wenn keine jpipe Bibliothek gefunden wurde 
 	 */
-	private String findJPIPELibDirectory(String libreOfficePath)
+	public static String findJPIPELibDirectory(String libreOfficePath)
 	{
 		// Filerdefinition
 		IOFileFilter jpipeFileFilterf = FileFilterUtils.asFileFilter(new FilenameFilter()
@@ -232,6 +243,55 @@ public class OfficeApplicationPreferenceAdapter extends AbstractPreferenceAdapte
 		{		
 			List<File>libFiles =  FileFilterUtils.filterList(jpipeFileFilterf, libreOfficeDir.listFiles());
 			return (libFiles.isEmpty() ? null : libFiles.get(0).getParent());
+		}
+		
+		return null;
+	}
+	
+	/**
+	 * Sucht ausgehend vom Libreoffice-Path nach dem Verzeichnis, indem die uebergebene Komponente gespeichert ist.
+	 * 
+	 * @param unoComponentName
+	 * @return
+	 */	
+	public static String findUNOLibraryPath(final String unoComponentName)
+	{				
+		// definiert einen Filter fuer den uebergebenen Filenamen 'unoComponentName'
+		IOFileFilter fileFilter = new IOFileFilter(){
+
+			@Override
+			public boolean accept(File arg0)
+			{
+				String baseName = FilenameUtils.getBaseName(arg0.getName());
+				return(StringUtils.contains(baseName, unoComponentName));				
+			}
+
+			@Override
+			public boolean accept(File arg0, String arg1)
+			{				
+				return false;
+			}			
+		};
+		
+		// mit dem Filter in allen definierten LibraryPath-Verzeichnissen nach der UNO-Komponenten suchen
+		ChooseWorkspaceData wd = new ChooseWorkspaceData();		
+		String [] libraryPaths = wd.getConfigLibraryPaths();
+		if(libraryPaths != null)
+		{	
+			for(String libPath : libraryPaths)
+			{
+				File libDir = new File(libPath);
+				if(libDir.isDirectory())
+				{					
+					Iterator<File>itFiles = FileUtils.iterateFiles(libDir, fileFilter, TrueFileFilter.INSTANCE);
+					for ( Iterator<File> iterator = itFiles; iterator.hasNext(); )
+					{
+						File baseFile = iterator.next();
+							return baseFile.getParentFile().getPath();
+	
+					}						  
+				}
+			}
 		}
 		
 		return null;

@@ -129,18 +129,29 @@ public class OfficeProcessor
 		}
 		
 		/* 
-		 * Preferences LibreOffice
+		 * Defaultpreferences LibreOffice
 		 * 
 		 */
 		IEclipsePreferences defaultPreferences = DefaultScope.INSTANCE.getNode(OfficeConstants.ROOT_OFFICE_PREFERENCES_NODE);
 	
 		if (SystemUtils.IS_OS_LINUX)
 		{
+			// Linux speichert Libreoffice in einem definierten Speicher (OfficeConstants.LINUX_UNO_PATH)
 			defaultPreferences.put(OfficeConstants.OFFICE_APPLICATION_PREF,OfficeConstants.LINUX_UNO_PATH);
+			
+			// Default JPIPE-Verzeichnis
+			String check = OfficeApplicationPreferenceAdapter.findJPIPELibDirectory(OfficeConstants.LINUX_UNO_PATH);
+			if(StringUtils.isNotEmpty(check))
+				defaultPreferences.put(OfficeConstants.OFFICE_JPIPE_PREF,check);
+			
+			// Default UNO-Verzeichnis (wird exemplarisch mit der Komponente "jurt" gesucht)
+			check = OfficeApplicationPreferenceAdapter.findUNOLibraryPath("jurt");
+			if(StringUtils.isNotEmpty(check))
+				defaultPreferences.put(OfficeConstants.OFFICE_UNO_PREF,check);
 		}
 		else
 		{
-			
+			// in Windows gibt es kein definiertes Verzeicnis für Libreoffice, somit auch kein Defaultverzeicnis 
 		}
 		
 		

@@ -49,13 +49,14 @@ public class OfficeApplicationPreferenceComposite extends Composite
 		return directoryEditorComposite;
 	}
 	
-	
-
-
-
 	public DirectoryEditorComposite getJpipeDirectoryComposite()
 	{
 		return jpipeDirectoryComposite;
+	}
+
+	public DirectoryEditorComposite getUnoDirectoryComposite()
+	{
+		return unoDirectoryComposite;
 	}
 
 
