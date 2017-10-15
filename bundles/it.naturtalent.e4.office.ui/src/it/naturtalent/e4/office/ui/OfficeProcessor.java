@@ -93,20 +93,22 @@ public class OfficeProcessor
 			if(StringUtils.equals(command.getElementId(),NEW_OFFICE_COMMAND_ID))
 			{						
 				label = Activator.properties.getProperty(NEW_OFFICE_LABEL);											
-				newMenu.addHandledDynamicItem(NEW_OFFICE_MENUE_ID,label,command,0);				
+				newMenu.addHandledDynamicItem(NEW_OFFICE_MENUE_ID,label,command,5);				
 			}
 
 			if(StringUtils.equals(command.getElementId(),NEW_CALC_COMMAND_ID))
 			{						
 				label = Activator.properties.getProperty(NEW_CALC_LABEL);											
-				newMenu.addHandledDynamicItem(NEW_CALC_MENUE_ID,label,command,0);				
+				newMenu.addHandledDynamicItem(NEW_CALC_MENUE_ID,label,command,4);				
 			}
 
+			
 			if(StringUtils.equals(command.getElementId(),NEW_DRAW_COMMAND_ID))
 			{						
 				label = Activator.properties.getProperty(NEW_DRAW_LABEL);											
-				newMenu.addHandledDynamicItem(NEW_DRAW_MENUE_ID,label,command,0);				
+				newMenu.addHandledDynamicItem(NEW_DRAW_MENUE_ID,label,command,3);				
 			}
+			
 
 			// Dynamic OpenWith
 			if(StringUtils.equals(command.getElementId(),OFFICE_OPENWITHCOMMAND_ID))

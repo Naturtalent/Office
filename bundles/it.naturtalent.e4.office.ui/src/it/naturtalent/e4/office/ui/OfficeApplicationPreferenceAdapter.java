@@ -14,7 +14,9 @@ import org.apache.commons.io.filefilter.FileFilterUtils;
 import org.apache.commons.io.filefilter.IOFileFilter;
 import org.apache.commons.io.filefilter.NameFileFilter;
 import org.apache.commons.io.filefilter.TrueFileFilter;
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.SystemUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.eclipse.core.runtime.preferences.DefaultScope;
@@ -276,6 +278,13 @@ public class OfficeApplicationPreferenceAdapter extends AbstractPreferenceAdapte
 		// mit dem Filter in allen definierten LibraryPath-Verzeichnissen nach der UNO-Komponenten suchen
 		ChooseWorkspaceData wd = new ChooseWorkspaceData();		
 		String [] libraryPaths = wd.getConfigLibraryPaths();
+		
+		if(ArrayUtils.isEmpty(libraryPaths))
+		{
+			if (SystemUtils.IS_OS_LINUX)
+				libraryPaths = new String [] {OfficeConstants.LINUX_UNO_PATH};
+		}
+				
 		if(libraryPaths != null)
 		{	
 			for(String libPath : libraryPaths)
