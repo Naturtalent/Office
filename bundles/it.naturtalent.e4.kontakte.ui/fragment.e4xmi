@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ASCII"?>
 <fragment:ModelFragments xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:basic="http://www.eclipse.org/ui/2010/UIModel/application/ui/basic" xmlns:basic_1="http://www.eclipse.org/ui/2010/UIModel/application/descriptor/basic" xmlns:commands="http://www.eclipse.org/ui/2010/UIModel/application/commands" xmlns:fragment="http://www.eclipse.org/ui/2010/UIModel/fragment" xmlns:menu="http://www.eclipse.org/ui/2010/UIModel/application/ui/menu" xmi:id="_SnYrAKZXEeKd3qo3Qsz7yA">
   <fragments xsi:type="fragment:StringModelFragment" xmi:id="_YGA58KpUEeKGDulBT9RYOQ" featurename="children" parentElementId="it.naturtalent.e4.project.ui.partstack.1" positionInList="">
-    <elements xsi:type="basic:Part" xmi:id="_es_1AKpUEeKGDulBT9RYOQ" elementId="it.naturtalent.contact.view" contributionURI="bundleclass://it.naturtalent.e4.kontakte.ui/it.naturtalent.e4.kontakte.ui.parts.ContactView" label="Kontakte" closeable="true"/>
+    <elements xsi:type="basic:Part" xmi:id="_es_1AKpUEeKGDulBT9RYOQ" elementId="it.naturtalent.contact.view" visible="false" contributionURI="bundleclass://it.naturtalent.e4.kontakte.ui/it.naturtalent.e4.kontakte.ui.parts.ContactView" label="Kontakte" closeable="true"/>
   </fragments>
   <fragments xsi:type="fragment:StringModelFragment" xmi:id="_dYgrQKZXEeKd3qo3Qsz7yA" featurename="commands" parentElementId="it.naturtalent.e4.application">
     <elements xsi:type="commands:Command" xmi:id="_fBHAwKZXEeKd3qo3Qsz7yA" elementId="it.naturtalent.kontakte.command.newKontakt" commandName="newKontaktCommand"/>
