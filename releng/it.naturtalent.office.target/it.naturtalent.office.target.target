@@ -1,26 +1,30 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<?pde version="3.8"?><target includeMode="feature" name="TargetRuntimeDefinition" sequenceNumber="57">
+<?pde version="3.8"?><target includeMode="feature" name="TargetRuntimeDefinition" sequenceNumber="66">
 <locations>
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
 <unit id="org.eclipse.emf.ecp.e4.feature.feature.group" version="1.14.0.20170911-0944"/>
 <unit id="org.eclipse.emf.ecp.e4.feature.source.feature.group" version="1.14.0.20170911-0944"/>
 <unit id="org.eclipse.emf.ecp.emfforms.sdk.feature.feature.group" version="1.14.0.20170911-0944"/>
 <unit id="org.eclipse.equinox.p2.sdk.feature.group" version="3.10.1.v20170928-1405"/>
-<repository location="http://download.eclipse.org/releases/oxygen"/>
+<repository location="http://download.eclipse.org/releases/oxygen/201710111001"/>
 </location>
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
-<unit id="org.eclipse.nebula.examples.release.feature.feature.group" version="1.1.0.201711021145"/>
-<unit id="org.eclipse.nebula.feature.feature.group" version="1.4.0.201711021145"/>
+<unit id="it.naturtalent.feature.basis.feature.group" version="0.0.0"/>
+<repository location="file:/media/NAS/UpdateSites/Basis/repository/"/>
+</location>
+<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
+<unit id="org.eclipse.nebula.examples.release.feature.feature.group" version="0.0.0"/>
+<unit id="org.eclipse.nebula.feature.feature.group" version="0.0.0"/>
 <repository location="http://download.eclipse.org/nebula/releases/latest"/>
+</location>
+<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
+<unit id="it.naturtalent.feature.libreoffice.feature.group" version="0.0.0"/>
+<repository location="file:/media/NAS/UpdateSites/Libreoffice/repository/"/>
 </location>
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
 <unit id="org.eclipse.equinox.sdk.feature.group" version="3.13.1.v20170928-1405"/>
 <unit id="org.eclipse.sdk.ide" version="4.7.1.M20171009-0410"/>
 <repository location="http://download.eclipse.org/eclipse/updates/4.7"/>
-</location>
-<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
-<unit id="it.naturtalent.feature.basis.feature.group" version="1.0.0.201712172051"/>
-<repository location="file:/media/NAS/UpdateSites/Basis/repository/"/>
 </location>
 </locations>
 </target>

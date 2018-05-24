@@ -8,9 +8,9 @@ import java.io.InputStream;
 import it.naturtalent.e4.office.INtOffice;
 import it.naturtalent.e4.office.IOfficeService;
 import it.naturtalent.e4.office.OpenDocumentUtils;
-import it.naturtalent.e4.office.odf.ODFOfficeDocumentHandler;
-import it.naturtalent.e4.office.odf.ODFSpreadsheetDocumentHandler;
 import it.naturtalent.e4.project.ui.utils.CreateNewFile;
+import it.naturtalent.libreoffice.odf.ODFOfficeDocumentHandler;
+import it.naturtalent.libreoffice.odf.ODFSpreadsheetDocumentHandler;
 
 import org.apache.commons.io.FilenameUtils;
 import org.eclipse.core.resources.IContainer;

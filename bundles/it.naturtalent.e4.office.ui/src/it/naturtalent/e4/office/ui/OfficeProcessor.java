@@ -6,7 +6,6 @@ import it.naturtalent.e4.office.IOfficeDocumentHandler;
 import it.naturtalent.e4.office.IOfficeService;
 import it.naturtalent.e4.office.OfficeConstants;
 import it.naturtalent.e4.office.OpenDocumentUtils;
-import it.naturtalent.e4.office.odf.ODFOfficeDocumentHandler;
 import it.naturtalent.e4.office.ui.expimp.OfficeProfileExportAdapter;
 import it.naturtalent.e4.office.ui.expimp.OfficeProfileImportAdapter;
 import it.naturtalent.e4.office.ui.expimp.TextmoduleExportAdapter;
@@ -17,6 +16,7 @@ import it.naturtalent.e4.project.IImportAdapterRepository;
 import it.naturtalent.e4.project.INewActionAdapterRepository;
 import it.naturtalent.e4.project.ui.DynamicNewMenu;
 import it.naturtalent.e4.project.ui.DynamicOpenWithMenu;
+import it.naturtalent.libreoffice.odf.ODFOfficeDocumentHandler;
 
 import java.io.File;
 import java.util.Collection;
@@ -45,6 +45,9 @@ import org.eclipse.e4.ui.workbench.modeling.EPartService;
 
 public class OfficeProcessor
 {
+	private @Inject @Optional IODFWriteAdapterFactoryRepository writeAdapterFactoryRepository;
+	
+	
 	private @Inject @Optional IImportAdapterRepository importAdapterRepository;
 	private @Inject @Optional IExportAdapterRepository exportAdapterRepository;
 	private @Inject @Optional IShowViewAdapterRepository showViewAdapterRepository;
@@ -55,6 +58,8 @@ public class OfficeProcessor
 	private @Inject @Optional EPartService partService;
 	private @Inject @Optional EModelService modelService;			
 	private @Inject @Optional MApplication application;
+	
+	private static final int OFFICE_MENUE_POSITION = 5;
 	
 	// Dynamic New
 	public static final String NEW_OFFICE_MENUE_ID = "it.naturtalent.office.menue.createOfficeDocument"; //$NON-NLS-1$
@@ -84,8 +89,28 @@ public class OfficeProcessor
 	void init (IEventBroker eventBroker, IEclipseContext context)
 	{	
 		String label;
-		DynamicNewMenu newMenu = new DynamicNewMenu();
 		
+		if(writeAdapterFactoryRepository != null)
+			writeAdapterFactoryRepository.getWriteAdapterFactories()
+					.add(new DefaultWriteAdapterFactory());
+		
+		
+		DynamicNewMenu newMenu = new DynamicNewMenu();
+
+		List<MCommand>commands = application.getCommands();
+		for(MCommand command : commands)
+		{
+			// Dynamic New			
+			if(StringUtils.equals(command.getElementId(),NEW_OFFICE_COMMAND_ID))
+			{						
+				label = Activator.properties.getProperty(NEW_OFFICE_LABEL);											
+				newMenu.addHandledDynamicItem(NEW_OFFICE_MENUE_ID,label,command,6);				
+			}
+		}
+		
+		
+		
+		/*
 		List<MCommand>commands = application.getCommands();
 		for(MCommand command : commands)
 		{
@@ -124,11 +149,12 @@ public class OfficeProcessor
 				DynamicOpenWithMenu openWithMenu = new DynamicOpenWithMenu();				
 				openWithMenu.addHandledDynamicItem(OPEN_ODFDRAW_WITHMENUE_ID,label,command,0);								
 			}
-			
+		
 			
 			this.workbench = null;
 
 		}
+		*/
 		
 		/* 
 		 * Defaultpreferences LibreOffice

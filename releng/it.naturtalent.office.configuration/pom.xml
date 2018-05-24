@@ -37,12 +37,12 @@
 				<version>${tycho.version}</version>
 				<configuration>
 					<target>
-					<!-- This block activates the usage of the target definition file -->
+					<!-- This block activates the usage of the target definition file -->							
 						<artifact>
 							<groupId>it.naturtalent.office</groupId>
 							<artifactId>it.naturtalent.office.target</artifactId>
 							<version>1.0.0-SNAPSHOT</version>
-						</artifact>
+						</artifact>		
 					</target>
 
 

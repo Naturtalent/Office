@@ -75,6 +75,9 @@ public class Messages extends NLS {
 	public static String LetterAddressWizardPage_mghprlnkProjectAddress_text;
 
 	public static String NewLetterAdapter_Message;
+	public static String SelectWriteAdapter_lblAvailableAdapter_text;
+	public static String SelectWriteAdapter_this_title;
+	public static String SelectWriteAdapter_this_message;
 
 	
 	////////////////////////

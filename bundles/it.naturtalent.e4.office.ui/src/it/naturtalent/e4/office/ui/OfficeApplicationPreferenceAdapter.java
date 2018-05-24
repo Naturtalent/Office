@@ -126,7 +126,8 @@ public class OfficeApplicationPreferenceAdapter extends AbstractPreferenceAdapte
 
 			// den alten Eintrag gegen den neuen tauschen
 			ChooseWorkspaceData wd = new ChooseWorkspaceData();
-			wd.setJPIPEConfigurationEntry(jpipeEntry, libPath);
+			//wd.setJPIPEConfigurationEntry(jpipeEntry, libPath);
+			wd.setJavaLibraryPath(libPath);
 
 			// Neustart der Applikation abfragen
 			if (MessageDialog.openQuestion(
@@ -144,6 +145,7 @@ public class OfficeApplicationPreferenceAdapter extends AbstractPreferenceAdapte
 						Object object = handler.getObject(); 
 						if(object instanceof PreferenceHandler)
 						{
+							// Application wird neu gestartet
 							IWorkbench workbench = ((PreferenceHandler)object).getWorkbench();
 							if(workbench != null)
 								workbench.restart();

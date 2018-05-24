@@ -1114,7 +1114,7 @@ public class OpenDocumentUtils
 		File workspaceTemplateFile = new File(workspaceDir,pluginTemplate.getName());
 		
 		// Template registieren
-		officeService.registerLetterTemplate(workspaceTemplateFile.getPath());
+		//officeService.registerLetterTemplate(workspaceTemplateFile.getPath());
 
 		// ggf. auch physikalisch in das Workspace kopieren
 		if(!workspaceTemplateFile.exists())

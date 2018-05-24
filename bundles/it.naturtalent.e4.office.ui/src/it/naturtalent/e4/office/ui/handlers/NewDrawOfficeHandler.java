@@ -1,11 +1,11 @@
 package it.naturtalent.e4.office.ui.handlers;
 
-import it.naturtalent.e4.office.odf.ODFDrawDocumentHandler;
-
 import java.io.File;
 
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 import org.eclipse.swt.widgets.Shell;
+
+import it.naturtalent.libreoffice.odf.ODFDrawDocumentHandler;
 
 public class NewDrawOfficeHandler extends CalcOfficeHandler
 {

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="ASCII"?>
+<org.eclipse.emf.ecp.view.model:View xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:org.eclipse.emf.ecp.view.model="http://org/eclipse/emf/ecp/view/model/170" xmi:id="_NrHFoF8sEeingtzSzVi-0A" name="Senders" ecorePath="/Office_bundles/it.naturtalent.office.model/model/address.ecore">
+  <rootEClass href="http://it.naturtalent/address#//Senders"/>
+  <children xsi:type="org.eclipse.emf.ecp.view.model:Control" xmi:id="_NrL-IF8sEeingtzSzVi-0A" name="Control Senders">
+    <domainModelReference xsi:type="org.eclipse.emf.ecp.view.model:FeaturePathDomainModelReference" xmi:id="_tzNssF87Eei88ec1rKr1sg">
+      <domainModelEFeature xsi:type="ecore:EReference" href="http://it.naturtalent/address#//Senders/Senders"/>
+    </domainModelReference>
+  </children>
+</org.eclipse.emf.ecp.view.model:View>
