@@ -17,7 +17,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link it.naturtalent.office.model.address.Adresse#getName2 <em>Name2</em>}</li>
  *   <li>{@link it.naturtalent.office.model.address.Adresse#getName3 <em>Name3</em>}</li>
  *   <li>{@link it.naturtalent.office.model.address.Adresse#getStrasse <em>Strasse</em>}</li>
- *   <li>{@link it.naturtalent.office.model.address.Adresse#getHsnr <em>Hsnr</em>}</li>
  *   <li>{@link it.naturtalent.office.model.address.Adresse#getPlz <em>Plz</em>}</li>
  *   <li>{@link it.naturtalent.office.model.address.Adresse#getOrt <em>Ort</em>}</li>
  *   <li>{@link it.naturtalent.office.model.address.Adresse#getType <em>Type</em>}</li>
@@ -132,32 +131,6 @@ public interface Adresse extends EObject
 	 * @generated
 	 */
 	void setStrasse(String value);
-
-	/**
-	 * Returns the value of the '<em><b>Hsnr</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Hsnr</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Hsnr</em>' attribute.
-	 * @see #setHsnr(String)
-	 * @see it.naturtalent.office.model.address.AddressPackage#getAdresse_Hsnr()
-	 * @model
-	 * @generated
-	 */
-	String getHsnr();
-
-	/**
-	 * Sets the value of the '{@link it.naturtalent.office.model.address.Adresse#getHsnr <em>Hsnr</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Hsnr</em>' attribute.
-	 * @see #getHsnr()
-	 * @generated
-	 */
-	void setHsnr(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Plz</b></em>' attribute.

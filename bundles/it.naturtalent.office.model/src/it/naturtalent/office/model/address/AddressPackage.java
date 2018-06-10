@@ -207,22 +207,13 @@ public interface AddressPackage extends EPackage
 	int ADRESSE__STRASSE = 3;
 
 	/**
-	 * The feature id for the '<em><b>Hsnr</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ADRESSE__HSNR = 4;
-
-	/**
 	 * The feature id for the '<em><b>Plz</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ADRESSE__PLZ = 5;
+	int ADRESSE__PLZ = 4;
 
 	/**
 	 * The feature id for the '<em><b>Ort</b></em>' attribute.
@@ -231,7 +222,7 @@ public interface AddressPackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-	int ADRESSE__ORT = 6;
+	int ADRESSE__ORT = 5;
 
 	/**
 	 * The feature id for the '<em><b>Type</b></em>' attribute.
@@ -240,7 +231,7 @@ public interface AddressPackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-	int ADRESSE__TYPE = 7;
+	int ADRESSE__TYPE = 6;
 
 	/**
 	 * The number of structural features of the '<em>Adresse</em>' class.
@@ -249,7 +240,7 @@ public interface AddressPackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-	int ADRESSE_FEATURE_COUNT = 8;
+	int ADRESSE_FEATURE_COUNT = 7;
 
 	/**
 	 * The number of operations of the '<em>Adresse</em>' class.
@@ -306,6 +297,227 @@ public interface AddressPackage extends EPackage
 	int REFERENZ_OPERATION_COUNT = 0;
 
 	/**
+	 * The meta object id for the '{@link it.naturtalent.office.model.address.impl.EmpfaengerImpl <em>Empfaenger</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.naturtalent.office.model.address.impl.EmpfaengerImpl
+	 * @see it.naturtalent.office.model.address.impl.AddressPackageImpl#getEmpfaenger()
+	 * @generated
+	 */
+	int EMPFAENGER = 4;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EMPFAENGER__NAME = 0;
+
+	/**
+	 * The feature id for the '<em><b>Adresse</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EMPFAENGER__ADRESSE = 1;
+
+	/**
+	 * The number of structural features of the '<em>Empfaenger</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EMPFAENGER_FEATURE_COUNT = 2;
+
+	/**
+	 * The number of operations of the '<em>Empfaenger</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EMPFAENGER_OPERATION_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link it.naturtalent.office.model.address.impl.ReceiversImpl <em>Receivers</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.naturtalent.office.model.address.impl.ReceiversImpl
+	 * @see it.naturtalent.office.model.address.impl.AddressPackageImpl#getReceivers()
+	 * @generated
+	 */
+	int RECEIVERS = 5;
+
+	/**
+	 * The feature id for the '<em><b>Receivers</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RECEIVERS__RECEIVERS = 0;
+
+	/**
+	 * The number of structural features of the '<em>Receivers</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RECEIVERS_FEATURE_COUNT = 1;
+
+	/**
+	 * The number of operations of the '<em>Receivers</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RECEIVERS_OPERATION_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link it.naturtalent.office.model.address.impl.KontaktImpl <em>Kontakt</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.naturtalent.office.model.address.impl.KontaktImpl
+	 * @see it.naturtalent.office.model.address.impl.AddressPackageImpl#getKontakt()
+	 * @generated
+	 */
+	int KONTAKT = 6;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int KONTAKT__NAME = 0;
+
+	/**
+	 * The feature id for the '<em><b>Adresse</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int KONTAKT__ADRESSE = 1;
+
+	/**
+	 * The feature id for the '<em><b>Kommunikation</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int KONTAKT__KOMMUNIKATION = 2;
+
+	/**
+	 * The number of structural features of the '<em>Kontakt</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int KONTAKT_FEATURE_COUNT = 3;
+
+	/**
+	 * The number of operations of the '<em>Kontakt</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int KONTAKT_OPERATION_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link it.naturtalent.office.model.address.impl.KontakteImpl <em>Kontakte</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.naturtalent.office.model.address.impl.KontakteImpl
+	 * @see it.naturtalent.office.model.address.impl.AddressPackageImpl#getKontakte()
+	 * @generated
+	 */
+	int KONTAKTE = 7;
+
+	/**
+	 * The feature id for the '<em><b>Kontakte</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int KONTAKTE__KONTAKTE = 0;
+
+	/**
+	 * The number of structural features of the '<em>Kontakte</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int KONTAKTE_FEATURE_COUNT = 1;
+
+	/**
+	 * The number of operations of the '<em>Kontakte</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int KONTAKTE_OPERATION_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link it.naturtalent.office.model.address.impl.NtProjektKontakteImpl <em>Nt Projekt Kontakte</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.naturtalent.office.model.address.impl.NtProjektKontakteImpl
+	 * @see it.naturtalent.office.model.address.impl.AddressPackageImpl#getNtProjektKontakte()
+	 * @generated
+	 */
+	int NT_PROJEKT_KONTAKTE = 8;
+
+	/**
+	 * The feature id for the '<em><b>Nt Projekt ID</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NT_PROJEKT_KONTAKTE__NT_PROJEKT_ID = 0;
+
+	/**
+	 * The feature id for the '<em><b>Kontakte</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NT_PROJEKT_KONTAKTE__KONTAKTE = 1;
+
+	/**
+	 * The number of structural features of the '<em>Nt Projekt Kontakte</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NT_PROJEKT_KONTAKTE_FEATURE_COUNT = 2;
+
+	/**
+	 * The number of operations of the '<em>Nt Projekt Kontakte</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NT_PROJEKT_KONTAKTE_OPERATION_COUNT = 0;
+
+	/**
 	 * The meta object id for the '{@link it.naturtalent.office.model.address.AddressType <em>Type</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -313,7 +525,7 @@ public interface AddressPackage extends EPackage
 	 * @see it.naturtalent.office.model.address.impl.AddressPackageImpl#getAddressType()
 	 * @generated
 	 */
-	int ADDRESS_TYPE = 4;
+	int ADDRESS_TYPE = 9;
 
 
 	/**
@@ -369,17 +581,6 @@ public interface AddressPackage extends EPackage
 	 * @generated
 	 */
 	EAttribute getAdresse_Strasse();
-
-	/**
-	 * Returns the meta object for the attribute '{@link it.naturtalent.office.model.address.Adresse#getHsnr <em>Hsnr</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Hsnr</em>'.
-	 * @see it.naturtalent.office.model.address.Adresse#getHsnr()
-	 * @see #getAdresse()
-	 * @generated
-	 */
-	EAttribute getAdresse_Hsnr();
 
 	/**
 	 * Returns the meta object for the attribute '{@link it.naturtalent.office.model.address.Adresse#getPlz <em>Plz</em>}'.
@@ -456,6 +657,155 @@ public interface AddressPackage extends EPackage
 	 * @generated
 	 */
 	EAttribute getReferenz_Referenz3();
+
+	/**
+	 * Returns the meta object for class '{@link it.naturtalent.office.model.address.Empfaenger <em>Empfaenger</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Empfaenger</em>'.
+	 * @see it.naturtalent.office.model.address.Empfaenger
+	 * @generated
+	 */
+	EClass getEmpfaenger();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.naturtalent.office.model.address.Empfaenger#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see it.naturtalent.office.model.address.Empfaenger#getName()
+	 * @see #getEmpfaenger()
+	 * @generated
+	 */
+	EAttribute getEmpfaenger_Name();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link it.naturtalent.office.model.address.Empfaenger#getAdresse <em>Adresse</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Adresse</em>'.
+	 * @see it.naturtalent.office.model.address.Empfaenger#getAdresse()
+	 * @see #getEmpfaenger()
+	 * @generated
+	 */
+	EReference getEmpfaenger_Adresse();
+
+	/**
+	 * Returns the meta object for class '{@link it.naturtalent.office.model.address.Receivers <em>Receivers</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Receivers</em>'.
+	 * @see it.naturtalent.office.model.address.Receivers
+	 * @generated
+	 */
+	EClass getReceivers();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link it.naturtalent.office.model.address.Receivers#getReceivers <em>Receivers</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Receivers</em>'.
+	 * @see it.naturtalent.office.model.address.Receivers#getReceivers()
+	 * @see #getReceivers()
+	 * @generated
+	 */
+	EReference getReceivers_Receivers();
+
+	/**
+	 * Returns the meta object for class '{@link it.naturtalent.office.model.address.Kontakt <em>Kontakt</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Kontakt</em>'.
+	 * @see it.naturtalent.office.model.address.Kontakt
+	 * @generated
+	 */
+	EClass getKontakt();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.naturtalent.office.model.address.Kontakt#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see it.naturtalent.office.model.address.Kontakt#getName()
+	 * @see #getKontakt()
+	 * @generated
+	 */
+	EAttribute getKontakt_Name();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link it.naturtalent.office.model.address.Kontakt#getAdresse <em>Adresse</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Adresse</em>'.
+	 * @see it.naturtalent.office.model.address.Kontakt#getAdresse()
+	 * @see #getKontakt()
+	 * @generated
+	 */
+	EReference getKontakt_Adresse();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.naturtalent.office.model.address.Kontakt#getKommunikation <em>Kommunikation</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Kommunikation</em>'.
+	 * @see it.naturtalent.office.model.address.Kontakt#getKommunikation()
+	 * @see #getKontakt()
+	 * @generated
+	 */
+	EAttribute getKontakt_Kommunikation();
+
+	/**
+	 * Returns the meta object for class '{@link it.naturtalent.office.model.address.Kontakte <em>Kontakte</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Kontakte</em>'.
+	 * @see it.naturtalent.office.model.address.Kontakte
+	 * @generated
+	 */
+	EClass getKontakte();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link it.naturtalent.office.model.address.Kontakte#getKontakte <em>Kontakte</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Kontakte</em>'.
+	 * @see it.naturtalent.office.model.address.Kontakte#getKontakte()
+	 * @see #getKontakte()
+	 * @generated
+	 */
+	EReference getKontakte_Kontakte();
+
+	/**
+	 * Returns the meta object for class '{@link it.naturtalent.office.model.address.NtProjektKontakte <em>Nt Projekt Kontakte</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Nt Projekt Kontakte</em>'.
+	 * @see it.naturtalent.office.model.address.NtProjektKontakte
+	 * @generated
+	 */
+	EClass getNtProjektKontakte();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.naturtalent.office.model.address.NtProjektKontakte#getNtProjektID <em>Nt Projekt ID</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Nt Projekt ID</em>'.
+	 * @see it.naturtalent.office.model.address.NtProjektKontakte#getNtProjektID()
+	 * @see #getNtProjektKontakte()
+	 * @generated
+	 */
+	EAttribute getNtProjektKontakte_NtProjektID();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link it.naturtalent.office.model.address.NtProjektKontakte#getKontakte <em>Kontakte</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Kontakte</em>'.
+	 * @see it.naturtalent.office.model.address.NtProjektKontakte#getKontakte()
+	 * @see #getNtProjektKontakte()
+	 * @generated
+	 */
+	EReference getNtProjektKontakte_Kontakte();
 
 	/**
 	 * Returns the meta object for class '{@link it.naturtalent.office.model.address.Absender <em>Absender</em>}'.
@@ -593,13 +943,6 @@ public interface AddressPackage extends EPackage
 		 */
 		EAttribute ADRESSE__STRASSE = eINSTANCE.getAdresse_Strasse();
 		/**
-		 * The meta object literal for the '<em><b>Hsnr</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute ADRESSE__HSNR = eINSTANCE.getAdresse_Hsnr();
-		/**
 		 * The meta object literal for the '<em><b>Plz</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -650,6 +993,114 @@ public interface AddressPackage extends EPackage
 		 * @generated
 		 */
 		EAttribute REFERENZ__REFERENZ3 = eINSTANCE.getReferenz_Referenz3();
+		/**
+		 * The meta object literal for the '{@link it.naturtalent.office.model.address.impl.EmpfaengerImpl <em>Empfaenger</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.naturtalent.office.model.address.impl.EmpfaengerImpl
+		 * @see it.naturtalent.office.model.address.impl.AddressPackageImpl#getEmpfaenger()
+		 * @generated
+		 */
+		EClass EMPFAENGER = eINSTANCE.getEmpfaenger();
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute EMPFAENGER__NAME = eINSTANCE.getEmpfaenger_Name();
+		/**
+		 * The meta object literal for the '<em><b>Adresse</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference EMPFAENGER__ADRESSE = eINSTANCE.getEmpfaenger_Adresse();
+		/**
+		 * The meta object literal for the '{@link it.naturtalent.office.model.address.impl.ReceiversImpl <em>Receivers</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.naturtalent.office.model.address.impl.ReceiversImpl
+		 * @see it.naturtalent.office.model.address.impl.AddressPackageImpl#getReceivers()
+		 * @generated
+		 */
+		EClass RECEIVERS = eINSTANCE.getReceivers();
+		/**
+		 * The meta object literal for the '<em><b>Receivers</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference RECEIVERS__RECEIVERS = eINSTANCE.getReceivers_Receivers();
+		/**
+		 * The meta object literal for the '{@link it.naturtalent.office.model.address.impl.KontaktImpl <em>Kontakt</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.naturtalent.office.model.address.impl.KontaktImpl
+		 * @see it.naturtalent.office.model.address.impl.AddressPackageImpl#getKontakt()
+		 * @generated
+		 */
+		EClass KONTAKT = eINSTANCE.getKontakt();
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute KONTAKT__NAME = eINSTANCE.getKontakt_Name();
+		/**
+		 * The meta object literal for the '<em><b>Adresse</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference KONTAKT__ADRESSE = eINSTANCE.getKontakt_Adresse();
+		/**
+		 * The meta object literal for the '<em><b>Kommunikation</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute KONTAKT__KOMMUNIKATION = eINSTANCE.getKontakt_Kommunikation();
+		/**
+		 * The meta object literal for the '{@link it.naturtalent.office.model.address.impl.KontakteImpl <em>Kontakte</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.naturtalent.office.model.address.impl.KontakteImpl
+		 * @see it.naturtalent.office.model.address.impl.AddressPackageImpl#getKontakte()
+		 * @generated
+		 */
+		EClass KONTAKTE = eINSTANCE.getKontakte();
+		/**
+		 * The meta object literal for the '<em><b>Kontakte</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference KONTAKTE__KONTAKTE = eINSTANCE.getKontakte_Kontakte();
+		/**
+		 * The meta object literal for the '{@link it.naturtalent.office.model.address.impl.NtProjektKontakteImpl <em>Nt Projekt Kontakte</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.naturtalent.office.model.address.impl.NtProjektKontakteImpl
+		 * @see it.naturtalent.office.model.address.impl.AddressPackageImpl#getNtProjektKontakte()
+		 * @generated
+		 */
+		EClass NT_PROJEKT_KONTAKTE = eINSTANCE.getNtProjektKontakte();
+		/**
+		 * The meta object literal for the '<em><b>Nt Projekt ID</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute NT_PROJEKT_KONTAKTE__NT_PROJEKT_ID = eINSTANCE.getNtProjektKontakte_NtProjektID();
+		/**
+		 * The meta object literal for the '<em><b>Kontakte</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference NT_PROJEKT_KONTAKTE__KONTAKTE = eINSTANCE.getNtProjektKontakte_Kontakte();
 		/**
 		 * The meta object literal for the '{@link it.naturtalent.office.model.address.impl.AbsenderImpl <em>Absender</em>}' class.
 		 * <!-- begin-user-doc -->

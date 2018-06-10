@@ -4,6 +4,36 @@
    <extension
          point="org.eclipse.emf.ecp.view.model.provider.xmi.file">
 <file
+      filePath="viewmodels/NtProjektKontakteDetails.view">
+   <filter
+         key="detail"
+         value="true">
+   </filter>
+</file>
+
+<file filePath="viewmodels/NtProjektKontakte.view"/>
+
+<file
+      filePath="viewmodels/KontakteDetail.view">
+   <filter
+         key="detail"
+         value="true">
+   </filter>
+</file>
+
+<file filePath="viewmodels/Kontakte.view"/>
+
+<file
+      filePath="viewmodels/ReceiversDetail.view">
+   <filter
+         key="detail"
+         value="true">
+   </filter>
+</file>
+
+<file filePath="viewmodels/Receivers.view"/>
+
+<file
       filePath="viewmodels/SendersDetail.view">
    <filter
          key="detail"

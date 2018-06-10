@@ -124,6 +124,131 @@ public class AddressItemProviderAdapterFactory extends AddressAdapterFactory imp
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link it.naturtalent.office.model.address.Empfaenger} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected EmpfaengerItemProvider empfaengerItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.naturtalent.office.model.address.Empfaenger}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createEmpfaengerAdapter()
+	{
+		if (empfaengerItemProvider == null)
+		{
+			empfaengerItemProvider = new EmpfaengerItemProvider(this);
+		}
+
+		return empfaengerItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.naturtalent.office.model.address.Receivers} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ReceiversItemProvider receiversItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.naturtalent.office.model.address.Receivers}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createReceiversAdapter()
+	{
+		if (receiversItemProvider == null)
+		{
+			receiversItemProvider = new ReceiversItemProvider(this);
+		}
+
+		return receiversItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.naturtalent.office.model.address.Kontakt} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected KontaktItemProvider kontaktItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.naturtalent.office.model.address.Kontakt}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createKontaktAdapter()
+	{
+		if (kontaktItemProvider == null)
+		{
+			kontaktItemProvider = new KontaktItemProvider(this);
+		}
+
+		return kontaktItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.naturtalent.office.model.address.Kontakte} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected KontakteItemProvider kontakteItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.naturtalent.office.model.address.Kontakte}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createKontakteAdapter()
+	{
+		if (kontakteItemProvider == null)
+		{
+			kontakteItemProvider = new KontakteItemProvider(this);
+		}
+
+		return kontakteItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.naturtalent.office.model.address.NtProjektKontakte} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected NtProjektKontakteItemProvider ntProjektKontakteItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.naturtalent.office.model.address.NtProjektKontakte}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createNtProjektKontakteAdapter()
+	{
+		if (ntProjektKontakteItemProvider == null)
+		{
+			ntProjektKontakteItemProvider = new NtProjektKontakteItemProvider(this);
+		}
+
+		return ntProjektKontakteItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link it.naturtalent.office.model.address.Absender} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -288,6 +413,11 @@ public class AddressItemProviderAdapterFactory extends AddressAdapterFactory imp
 		if (absenderItemProvider != null) absenderItemProvider.dispose();
 		if (adresseItemProvider != null) adresseItemProvider.dispose();
 		if (referenzItemProvider != null) referenzItemProvider.dispose();
+		if (empfaengerItemProvider != null) empfaengerItemProvider.dispose();
+		if (receiversItemProvider != null) receiversItemProvider.dispose();
+		if (kontaktItemProvider != null) kontaktItemProvider.dispose();
+		if (kontakteItemProvider != null) kontakteItemProvider.dispose();
+		if (ntProjektKontakteItemProvider != null) ntProjektKontakteItemProvider.dispose();
 	}
 
 }

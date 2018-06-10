@@ -68,7 +68,6 @@ public class AdresseItemProvider
 			addName2PropertyDescriptor(object);
 			addName3PropertyDescriptor(object);
 			addStrassePropertyDescriptor(object);
-			addHsnrPropertyDescriptor(object);
 			addPlzPropertyDescriptor(object);
 			addOrtPropertyDescriptor(object);
 			addTypePropertyDescriptor(object);
@@ -160,29 +159,6 @@ public class AdresseItemProvider
 				 getString("_UI_Adresse_strasse_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_Adresse_strasse_feature", "_UI_Adresse_type"),
 				 AddressPackage.Literals.ADRESSE__STRASSE,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Hsnr feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addHsnrPropertyDescriptor(Object object)
-	{
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_Adresse_hsnr_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_Adresse_hsnr_feature", "_UI_Adresse_type"),
-				 AddressPackage.Literals.ADRESSE__HSNR,
 				 true,
 				 false,
 				 false,
@@ -306,7 +282,6 @@ public class AdresseItemProvider
 			case AddressPackage.ADRESSE__NAME2:
 			case AddressPackage.ADRESSE__NAME3:
 			case AddressPackage.ADRESSE__STRASSE:
-			case AddressPackage.ADRESSE__HSNR:
 			case AddressPackage.ADRESSE__PLZ:
 			case AddressPackage.ADRESSE__ORT:
 			case AddressPackage.ADRESSE__TYPE:

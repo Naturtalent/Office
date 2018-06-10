@@ -95,6 +95,31 @@ public class AddressAdapterFactory extends AdapterFactoryImpl
 				return createReferenzAdapter();
 			}
 			@Override
+			public Adapter caseEmpfaenger(Empfaenger object)
+			{
+				return createEmpfaengerAdapter();
+			}
+			@Override
+			public Adapter caseReceivers(Receivers object)
+			{
+				return createReceiversAdapter();
+			}
+			@Override
+			public Adapter caseKontakt(Kontakt object)
+			{
+				return createKontaktAdapter();
+			}
+			@Override
+			public Adapter caseKontakte(Kontakte object)
+			{
+				return createKontakteAdapter();
+			}
+			@Override
+			public Adapter caseNtProjektKontakte(NtProjektKontakte object)
+			{
+				return createNtProjektKontakteAdapter();
+			}
+			@Override
 			public Adapter defaultCase(EObject object)
 			{
 				return createEObjectAdapter();
@@ -142,6 +167,81 @@ public class AddressAdapterFactory extends AdapterFactoryImpl
 	 * @generated
 	 */
 	public Adapter createReferenzAdapter()
+	{
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.naturtalent.office.model.address.Empfaenger <em>Empfaenger</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.naturtalent.office.model.address.Empfaenger
+	 * @generated
+	 */
+	public Adapter createEmpfaengerAdapter()
+	{
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.naturtalent.office.model.address.Receivers <em>Receivers</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.naturtalent.office.model.address.Receivers
+	 * @generated
+	 */
+	public Adapter createReceiversAdapter()
+	{
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.naturtalent.office.model.address.Kontakt <em>Kontakt</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.naturtalent.office.model.address.Kontakt
+	 * @generated
+	 */
+	public Adapter createKontaktAdapter()
+	{
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.naturtalent.office.model.address.Kontakte <em>Kontakte</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.naturtalent.office.model.address.Kontakte
+	 * @generated
+	 */
+	public Adapter createKontakteAdapter()
+	{
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.naturtalent.office.model.address.NtProjektKontakte <em>Nt Projekt Kontakte</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.naturtalent.office.model.address.NtProjektKontakte
+	 * @generated
+	 */
+	public Adapter createNtProjektKontakteAdapter()
 	{
 		return null;
 	}

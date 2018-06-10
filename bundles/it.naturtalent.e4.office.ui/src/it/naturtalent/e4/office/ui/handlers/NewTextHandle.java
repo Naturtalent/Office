@@ -38,6 +38,7 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.CanExecute;
 
 /**
@@ -58,7 +59,8 @@ public class NewTextHandle
 	private static final String ODFTEXT_TEMPLATE = "/templates/ODFText.odt"; //$NON-NLS-1$
 	
 	@Execute
-	public void execute(IEventBroker eventBroker, @Named(IServiceConstants.ACTIVE_SHELL) Shell shell)
+	public void execute(IEventBroker eventBroker,
+			@Named(IServiceConstants.ACTIVE_SHELL) Shell shell, IEclipseContext context)
 	{
 		Object selObject = selectionService.getSelection(ResourceNavigator.RESOURCE_NAVIGATOR_ID);
 		if (selObject instanceof IResource)
@@ -80,22 +82,19 @@ public class NewTextHandle
 					IPath path = iResource.getLocation();					
 					File newODF = writeAdapter.createODF(path.toFile());
 					
-					//WizardDialog wizardDialog = new WizardDialog(shell,writeAdapter.createWizard());					
-					//wizardDialog.open();
-					
-					//writeAdapter.openODF(newODF);
-
 					// Refresh IContainer (neue Datei im ResourceNavigator anzeigen)
 					RefreshResource refreshResource = new RefreshResource();
 					refreshResource.refresh(shell, iResource);
-
+					
 					// neue Datei im ResourceNavigator anzeigen
 					IWorkspace workspace = ResourcesPlugin.getWorkspace();				
 					IPath location = Path.fromOSString(newODF.getAbsolutePath());
 					IFile ifile = workspace.getRoot().getFileForLocation(location);
 					eventBroker.post(IResourceNavigator.NAVIGATOR_EVENT_SELECT_REQUEST,ifile);
 					
-					WizardDialog wizardDialog = new WizardDialog(shell,writeAdapter.createWizard());					
+					// Wizard Daten zu dem Anschreibes abfragen 
+					WizardDialog wizardDialog = new WizardDialog(shell,writeAdapter.createWizard(context));
+					eventBroker.post(IODFWriteAdapter.ODFWRITE_FILEDEFINITIONEVENT,ifile);
 					wizardDialog.open();
 
 				}
@@ -112,9 +111,9 @@ public class NewTextHandle
 	}
 	
 	/*
-	 * Kopiert die DrawTemplateDatei in das Zielverzeichnis.
+	 * Kopiert die Vorlage in das Zielverzeichnis.
 	 */
-	public static void createDrawFile(File destDrawFile)
+	public static void createWriteFile(File destDirectory)
 	{
 		Bundle bundle = FrameworkUtil.getBundle(Activator.class);
 		BundleContext bundleContext = bundle.getBundleContext();
@@ -124,7 +123,7 @@ public class NewTextHandle
 			urlTemplate = FileLocator.resolve(urlTemplate);
 			try
 			{				
-				FileUtils.copyURLToFile(urlTemplate, destDrawFile);				
+				FileUtils.copyURLToFile(urlTemplate, destDirectory);				
 			} catch (IOException e)
 			{							
 				//log.error(Messages.DesignUtils_ErrorCreateDrawFile);

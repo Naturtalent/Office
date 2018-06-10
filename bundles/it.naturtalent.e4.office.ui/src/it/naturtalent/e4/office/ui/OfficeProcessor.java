@@ -1,23 +1,6 @@
 package it.naturtalent.e4.office.ui;
 
 
-import it.naturtalent.application.IShowViewAdapterRepository;
-import it.naturtalent.e4.office.IOfficeDocumentHandler;
-import it.naturtalent.e4.office.IOfficeService;
-import it.naturtalent.e4.office.OfficeConstants;
-import it.naturtalent.e4.office.OpenDocumentUtils;
-import it.naturtalent.e4.office.ui.expimp.OfficeProfileExportAdapter;
-import it.naturtalent.e4.office.ui.expimp.OfficeProfileImportAdapter;
-import it.naturtalent.e4.office.ui.expimp.TextmoduleExportAdapter;
-import it.naturtalent.e4.office.ui.expimp.TextmoduleImportAdapter;
-import it.naturtalent.e4.preferences.IPreferenceRegistry;
-import it.naturtalent.e4.project.IExportAdapterRepository;
-import it.naturtalent.e4.project.IImportAdapterRepository;
-import it.naturtalent.e4.project.INewActionAdapterRepository;
-import it.naturtalent.e4.project.ui.DynamicNewMenu;
-import it.naturtalent.e4.project.ui.DynamicOpenWithMenu;
-import it.naturtalent.libreoffice.odf.ODFOfficeDocumentHandler;
-
 import java.io.File;
 import java.util.Collection;
 import java.util.Iterator;
@@ -32,7 +15,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.SystemUtils;
 import org.eclipse.core.runtime.preferences.DefaultScope;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
-import org.eclipse.e4.core.commands.ECommandService;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.core.di.annotations.Optional;
@@ -43,10 +25,33 @@ import org.eclipse.e4.ui.workbench.IWorkbench;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
 
+import it.naturtalent.application.IShowViewAdapterRepository;
+import it.naturtalent.application.services.IOpenWithEditorAdapterRepository;
+import it.naturtalent.e4.office.IOfficeDocumentHandler;
+import it.naturtalent.e4.office.IOfficeService;
+import it.naturtalent.e4.office.OfficeConstants;
+import it.naturtalent.e4.office.OpenDocumentUtils;
+import it.naturtalent.e4.office.ui.expimp.OfficeProfileExportAdapter;
+import it.naturtalent.e4.office.ui.expimp.OfficeProfileImportAdapter;
+import it.naturtalent.e4.office.ui.expimp.TextmoduleExportAdapter;
+import it.naturtalent.e4.office.ui.expimp.TextmoduleImportAdapter;
+import it.naturtalent.e4.preferences.IPreferenceRegistry;
+import it.naturtalent.e4.project.IExportAdapterRepository;
+import it.naturtalent.e4.project.IImportAdapterRepository;
+import it.naturtalent.e4.project.INewActionAdapterRepository;
+import it.naturtalent.e4.project.INtProjectPropertyFactory;
+import it.naturtalent.e4.project.INtProjectPropertyFactoryRepository;
+import it.naturtalent.e4.project.ui.DynamicNewMenu;
+
 public class OfficeProcessor
 {
+
 	private @Inject @Optional IODFWriteAdapterFactoryRepository writeAdapterFactoryRepository;
+	@Inject @Optional
+	private IOpenWithEditorAdapterRepository openwithAdapterRepository;
 	
+	// das zentrale ProjectPropertyRepository
+	private @Inject INtProjectPropertyFactoryRepository ntProjektDataFactoryRepository;
 	
 	private @Inject @Optional IImportAdapterRepository importAdapterRepository;
 	private @Inject @Optional IExportAdapterRepository exportAdapterRepository;
@@ -94,19 +99,27 @@ public class OfficeProcessor
 			writeAdapterFactoryRepository.getWriteAdapterFactories()
 					.add(new DefaultWriteAdapterFactory());
 		
+		// Kontakte Projectproperties
+		List<INtProjectPropertyFactory>ntPropertyFactories = ntProjektDataFactoryRepository.getAllProjektDataFactories();
+		ntPropertyFactories.add(new KontakteProjectPropertyFactory());
+
+		// 'Open With' Menue 
+		openwithAdapterRepository.getOpenWithAdapters().add(new ODFWriteOpenWithAdapter());
 		
 		DynamicNewMenu newMenu = new DynamicNewMenu();
 
 		List<MCommand>commands = application.getCommands();
 		for(MCommand command : commands)
 		{
+			
 			// Dynamic New			
 			if(StringUtils.equals(command.getElementId(),NEW_OFFICE_COMMAND_ID))
 			{						
 				label = Activator.properties.getProperty(NEW_OFFICE_LABEL);											
-				newMenu.addHandledDynamicItem(NEW_OFFICE_MENUE_ID,label,command,6);				
+				newMenu.addHandledDynamicItem(NEW_OFFICE_MENUE_ID,label,command,6);
+				continue;
 			}
-		}
+					}
 		
 		
 		
@@ -245,12 +258,14 @@ public class OfficeProcessor
 
 		if(importAdapterRepository != null)
 		{
+			importAdapterRepository.addImportAdapter(new ImportKontakteAdapter());
 			importAdapterRepository.addImportAdapter(new TextmoduleImportAdapter());
 			importAdapterRepository.addImportAdapter(new OfficeProfileImportAdapter());
 		}
 				
 		if(exportAdapterRepository != null)
 		{
+			exportAdapterRepository.addExportAdapter(new ExportKontakteAdapter());
 			exportAdapterRepository.addExportAdapter(new TextmoduleExportAdapter());
 			exportAdapterRepository.addExportAdapter(new OfficeProfileExportAdapter());
 		}

@@ -100,6 +100,41 @@ public class AddressSwitch<T> extends Switch<T>
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case AddressPackage.EMPFAENGER:
+			{
+				Empfaenger empfaenger = (Empfaenger)theEObject;
+				T result = caseEmpfaenger(empfaenger);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case AddressPackage.RECEIVERS:
+			{
+				Receivers receivers = (Receivers)theEObject;
+				T result = caseReceivers(receivers);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case AddressPackage.KONTAKT:
+			{
+				Kontakt kontakt = (Kontakt)theEObject;
+				T result = caseKontakt(kontakt);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case AddressPackage.KONTAKTE:
+			{
+				Kontakte kontakte = (Kontakte)theEObject;
+				T result = caseKontakte(kontakte);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case AddressPackage.NT_PROJEKT_KONTAKTE:
+			{
+				NtProjektKontakte ntProjektKontakte = (NtProjektKontakte)theEObject;
+				T result = caseNtProjektKontakte(ntProjektKontakte);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			default: return defaultCase(theEObject);
 		}
 	}
@@ -132,6 +167,86 @@ public class AddressSwitch<T> extends Switch<T>
 	 * @generated
 	 */
 	public T caseReferenz(Referenz object)
+	{
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Empfaenger</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Empfaenger</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseEmpfaenger(Empfaenger object)
+	{
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Receivers</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Receivers</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseReceivers(Receivers object)
+	{
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Kontakt</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Kontakt</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseKontakt(Kontakt object)
+	{
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Kontakte</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Kontakte</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseKontakte(Kontakte object)
+	{
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Nt Projekt Kontakte</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Nt Projekt Kontakte</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseNtProjektKontakte(NtProjektKontakte object)
 	{
 		return null;
 	}

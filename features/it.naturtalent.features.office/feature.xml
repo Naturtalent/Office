@@ -58,4 +58,24 @@
          version="0.0.0"
          unpack="false"/>
 
+   <plugin
+         id="it.naturtalent.office.model"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="it.naturtalent.office.model.edit"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="it.naturtalent.office.viewmodel"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
 </feature>

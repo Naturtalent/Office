@@ -11,8 +11,14 @@ import it.naturtalent.e4.kontakte.KontakteData;
 import it.naturtalent.e4.kontakte.KontakteDataModel;
 import it.naturtalent.e4.kontakte.ui.Activator;
 import it.naturtalent.e4.kontakte.ui.Messages;
+import it.naturtalent.e4.office.ui.OfficeUtils;
+import it.naturtalent.e4.project.address.AddressData;
 import it.naturtalent.e4.project.expimp.ExpImportData;
 import it.naturtalent.e4.project.expimp.dialogs.DefaultImportDialog;
+import it.naturtalent.office.model.address.AddressPackage;
+import it.naturtalent.office.model.address.Adresse;
+import it.naturtalent.office.model.address.Kontakt;
+import it.naturtalent.office.model.address.Kontakte;
 
 import javax.inject.Inject;
 import javax.xml.bind.JAXB;
@@ -27,6 +33,10 @@ import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.core.services.events.IEventBroker;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.emf.ecp.core.ECPProject;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.dialogs.IDialogSettings;
@@ -86,8 +96,57 @@ public class ImportKontakteAction extends Action
 			ExpImportData [] expImportData = importDialog.getSelectedData();
 			if(ArrayUtils.isNotEmpty(expImportData))
 			{
+				Kontakte kontakte = OfficeUtils.getKontakte();
+				for(ExpImportData impData : expImportData)
+				{
+					KontakteData kontakteData = (KontakteData) impData.getData();	
+					
+					AddressData adrData = kontakteData.getAddress();
+					
+					EClass kontaktClass = AddressPackage.eINSTANCE.getKontakt();
+					Kontakt kontakt = (Kontakt) EcoreUtil.create(kontaktClass);					
+					kontakt.setName(adrData.getName());
+
+					// Adresse
+					EClass adressClass = AddressPackage.eINSTANCE.getAdresse();
+					Adresse adresse = (Adresse) EcoreUtil.create(adressClass);
+					adresse.setName(adrData.getName());
+					adresse.setName2(adrData.getNamezusatz1());
+					adresse.setName3(adrData.getNamezusatz2());
+					adresse.setOrt(adrData.getOrt());
+					adresse.setStrasse(adrData.getStrasse());
+					adresse.setPlz(adrData.getPlz());					
+					kontakt.setAdresse(adresse);
+					
+					// Telekommunikation
+					StringBuilder builder = new StringBuilder();
+					List<String>phones = kontakteData.getPhones();
+					if(phones != null)
+					{
+						for (String phone : phones)
+							builder.append(phone + "\n");
+					}
+											
+					List<String>mails = kontakteData.getEmails();
+					if(mails != null)					
+					for(String mail : mails)
+						builder.append(mails+"\n");
+					
+					kontakt.setKommunikation(builder.toString()); 
+					
+					
+					EList<Kontakt>kontaktList = kontakte.getKontakte();
+					kontaktList.add(kontakt);
+					
+					//System.out.println(adrData.getName());
+					
+				}
 				
-				doImport(expImportData, importDialog.isOverwritePermission());
+				ECPProject officeProject = OfficeUtils.getOfficeProject();
+				officeProject.saveContents();
+				
+				
+				//doImport(expImportData, importDialog.isOverwritePermission());
 				dialogSettings.put(importSettingPath, importPath);
 			}
 

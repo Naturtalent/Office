@@ -2,8 +2,11 @@ package it.naturtalent.e4.office.ui;
 
 import java.io.File;
 
+import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.wizard.IWizard;
+
+import it.naturtalent.office.model.address.Receivers;
 
 /**
  * Mit diesem Adapter werden unterschiedliche Anschreibenformate eingebunden.
@@ -16,9 +19,16 @@ import org.eclipse.jface.wizard.IWizard;
  */
 public interface IODFWriteAdapter
 {
-
+	// In den Metadaten des ODF-Dokuments wird unter diesem Namen
+	// der verwendete Adapter (Adapterfactory) gespeichert
 	public static final String ODFADAPTERFACTORY = "ODFAdapter";
 	
+	// Namen von Tabelle im ODF-Dokument die den Datenaustausch realisiren
+	public static String ODF_WRITEADRESSE = "Adresstabelle";
+	
+	// Eventname einer ODF-Dateidefinition (File des ODF-Dokuments)
+	// wird ein ODF-WriteDokument angelegt erfolgt dieses Event mit 'File' als Datenobjekt 
+	public final static String ODFWRITE_FILEDEFINITIONEVENT = "odfwritedefinition";
 	
 	// Senderdaten eintragen
 	public void setSender(EObject sender);
@@ -27,7 +37,7 @@ public interface IODFWriteAdapter
 	public void setReceiver(EObject receiver);
 	
 	// ein Wizard zur Eingabe der Daten
-	public IWizard createWizard();
+	public IWizard createWizard(IEclipseContext context);
 
 	// ODF-File im Zielverzeichnis erzeugen und zurueckgeben
 	public File createODF(File destDir);

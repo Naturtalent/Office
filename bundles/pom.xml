@@ -13,19 +13,26 @@
 	</parent>
 
 	<modules>
+	 				
+		<module>it.naturtalent.e4.office</module>	
+		<module>it.naturtalent.e4.office.ui</module>
+		<module>it.naturtalent.office.model</module>
+		<module>it.naturtalent.office.model.edit</module>
+		<module>it.naturtalent.office.viewmodel</module>
+						
+		<module>it.naturtalent.e4.project.address</module>
+		<module>it.naturtalent.e4.project.address.ui</module>
+		
+		
+	
 		<module>it.naturtalent.e4.Kontakte</module>
 		<module>it.naturtalent.e4.kontakte.ui</module>	
-				
-		<module>it.naturtalent.e4.office</module>
-	<!-- 
+	 <!--
 		<module>it.naturtalent.e4.office.ms</module>	
 		<module>it.naturtalent.e4.office.service</module>
 		<module>it.naturtalent.e4.office.service.libo</module>
 		<module>it.naturtalent.poi</module>		
 		 -->		
-		<module>it.naturtalent.e4.office.ui</module>				
-		<module>it.naturtalent.e4.project.address</module>
-		<module>it.naturtalent.e4.project.address.ui</module>
 		
 	</modules>
 

@@ -10,8 +10,11 @@ import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.e4.core.contexts.ContextInjectionFactory;
+import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.wizard.IWizard;
+import org.eclipse.ui.internal.contexts.ContextServiceFactory;
 import org.odftoolkit.simple.TextDocument;
 import org.odftoolkit.simple.meta.Meta;
 import org.osgi.framework.Bundle;
@@ -52,9 +55,9 @@ public class ODFDefaultWriteAdapter implements IODFWriteAdapter
 	}
 
 	@Override
-	public IWizard createWizard()
-	{		
-		return new ODFDefaultWriteAdapterWizard();
+	public IWizard createWizard(IEclipseContext context)
+	{				
+		return ContextInjectionFactory.make(ODFDefaultWriteAdapterWizard.class, context);
 	}
 
 	/* Eine neue Datei wird 'erzeugt' durch kopieren einer Vorlage in das Zielverzichnis.
@@ -66,16 +69,18 @@ public class ODFDefaultWriteAdapter implements IODFWriteAdapter
 	{
 		if(destDir.isDirectory())
 		{
+			// sicherstellen, dass kein bereits vorhandener Name benutzt wird
 			String newFileName = getAutoFileName(destDir,ODFTEXT_FILENAME);
 			File newFile = new File(destDir, newFileName);
 			createDrawFile(newFile);
 			try
 			{
-				// die Factoryklasse als Property im Dokument speichern
+				// die Factoryklassname des Adapters als Property im Dokument speichern
 				TextDocument odfDocument = TextDocument.loadDocument(newFile);
 				Meta meta = odfDocument.getOfficeMetadata();
 				meta.setUserDefinedData(ODFADAPTERFACTORY, "Text",
 						DefaultWriteAdapterFactory.class.getName()); // $NON-NLS-N$
+				odfDocument.save(newFile);
 				
 				
 			} catch (Exception e)

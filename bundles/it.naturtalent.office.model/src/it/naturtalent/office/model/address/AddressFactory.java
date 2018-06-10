@@ -41,6 +41,51 @@ public interface AddressFactory extends EFactory
 	Referenz createReferenz();
 
 	/**
+	 * Returns a new object of class '<em>Empfaenger</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Empfaenger</em>'.
+	 * @generated
+	 */
+	Empfaenger createEmpfaenger();
+
+	/**
+	 * Returns a new object of class '<em>Receivers</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Receivers</em>'.
+	 * @generated
+	 */
+	Receivers createReceivers();
+
+	/**
+	 * Returns a new object of class '<em>Kontakt</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Kontakt</em>'.
+	 * @generated
+	 */
+	Kontakt createKontakt();
+
+	/**
+	 * Returns a new object of class '<em>Kontakte</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Kontakte</em>'.
+	 * @generated
+	 */
+	Kontakte createKontakte();
+
+	/**
+	 * Returns a new object of class '<em>Nt Projekt Kontakte</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Nt Projekt Kontakte</em>'.
+	 * @generated
+	 */
+	NtProjektKontakte createNtProjektKontakte();
+
+	/**
 	 * Returns a new object of class '<em>Absender</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

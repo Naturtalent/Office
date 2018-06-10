@@ -8,6 +8,11 @@ import it.naturtalent.office.model.address.AddressPackage;
 import it.naturtalent.office.model.address.AddressType;
 
 import it.naturtalent.office.model.address.Adresse;
+import it.naturtalent.office.model.address.Empfaenger;
+import it.naturtalent.office.model.address.Kontakt;
+import it.naturtalent.office.model.address.Kontakte;
+import it.naturtalent.office.model.address.NtProjektKontakte;
+import it.naturtalent.office.model.address.Receivers;
 import it.naturtalent.office.model.address.Referenz;
 import it.naturtalent.office.model.address.Senders;
 import org.eclipse.emf.ecore.EAttribute;
@@ -38,6 +43,36 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 	 * @generated
 	 */
 	private EClass referenzEClass = null;
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass empfaengerEClass = null;
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass receiversEClass = null;
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass kontaktEClass = null;
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass kontakteEClass = null;
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass ntProjektKontakteEClass = null;
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -175,7 +210,7 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getAdresse_Hsnr()
+	public EAttribute getAdresse_Plz()
 	{
 		return (EAttribute)adresseEClass.getEStructuralFeatures().get(4);
 	}
@@ -185,7 +220,7 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getAdresse_Plz()
+	public EAttribute getAdresse_Ort()
 	{
 		return (EAttribute)adresseEClass.getEStructuralFeatures().get(5);
 	}
@@ -195,19 +230,9 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getAdresse_Ort()
-	{
-		return (EAttribute)adresseEClass.getEStructuralFeatures().get(6);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EAttribute getAdresse_Type()
 	{
-		return (EAttribute)adresseEClass.getEStructuralFeatures().get(7);
+		return (EAttribute)adresseEClass.getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -248,6 +273,146 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 	public EAttribute getReferenz_Referenz3()
 	{
 		return (EAttribute)referenzEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getEmpfaenger()
+	{
+		return empfaengerEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getEmpfaenger_Name()
+	{
+		return (EAttribute)empfaengerEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getEmpfaenger_Adresse()
+	{
+		return (EReference)empfaengerEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getReceivers()
+	{
+		return receiversEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getReceivers_Receivers()
+	{
+		return (EReference)receiversEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getKontakt()
+	{
+		return kontaktEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getKontakt_Name()
+	{
+		return (EAttribute)kontaktEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getKontakt_Adresse()
+	{
+		return (EReference)kontaktEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getKontakt_Kommunikation()
+	{
+		return (EAttribute)kontaktEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getKontakte()
+	{
+		return kontakteEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getKontakte_Kontakte()
+	{
+		return (EReference)kontakteEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getNtProjektKontakte()
+	{
+		return ntProjektKontakteEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getNtProjektKontakte_NtProjektID()
+	{
+		return (EAttribute)ntProjektKontakteEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getNtProjektKontakte_Kontakte()
+	{
+		return (EReference)ntProjektKontakteEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -363,7 +528,6 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 		createEAttribute(adresseEClass, ADRESSE__NAME2);
 		createEAttribute(adresseEClass, ADRESSE__NAME3);
 		createEAttribute(adresseEClass, ADRESSE__STRASSE);
-		createEAttribute(adresseEClass, ADRESSE__HSNR);
 		createEAttribute(adresseEClass, ADRESSE__PLZ);
 		createEAttribute(adresseEClass, ADRESSE__ORT);
 		createEAttribute(adresseEClass, ADRESSE__TYPE);
@@ -372,6 +536,25 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 		createEAttribute(referenzEClass, REFERENZ__REFERENZ);
 		createEAttribute(referenzEClass, REFERENZ__REFERENZ2);
 		createEAttribute(referenzEClass, REFERENZ__REFERENZ3);
+
+		empfaengerEClass = createEClass(EMPFAENGER);
+		createEAttribute(empfaengerEClass, EMPFAENGER__NAME);
+		createEReference(empfaengerEClass, EMPFAENGER__ADRESSE);
+
+		receiversEClass = createEClass(RECEIVERS);
+		createEReference(receiversEClass, RECEIVERS__RECEIVERS);
+
+		kontaktEClass = createEClass(KONTAKT);
+		createEAttribute(kontaktEClass, KONTAKT__NAME);
+		createEReference(kontaktEClass, KONTAKT__ADRESSE);
+		createEAttribute(kontaktEClass, KONTAKT__KOMMUNIKATION);
+
+		kontakteEClass = createEClass(KONTAKTE);
+		createEReference(kontakteEClass, KONTAKTE__KONTAKTE);
+
+		ntProjektKontakteEClass = createEClass(NT_PROJEKT_KONTAKTE);
+		createEAttribute(ntProjektKontakteEClass, NT_PROJEKT_KONTAKTE__NT_PROJEKT_ID);
+		createEReference(ntProjektKontakteEClass, NT_PROJEKT_KONTAKTE__KONTAKTE);
 
 		// Create enums
 		addressTypeEEnum = createEEnum(ADDRESS_TYPE);
@@ -421,7 +604,6 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 		initEAttribute(getAdresse_Name2(), ecorePackage.getEString(), "name2", null, 0, 1, Adresse.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getAdresse_Name3(), ecorePackage.getEString(), "name3", null, 0, 1, Adresse.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getAdresse_Strasse(), ecorePackage.getEString(), "strasse", null, 0, 1, Adresse.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getAdresse_Hsnr(), ecorePackage.getEString(), "hsnr", null, 0, 1, Adresse.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getAdresse_Plz(), ecorePackage.getEString(), "plz", null, 0, 1, Adresse.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getAdresse_Ort(), ecorePackage.getEString(), "ort", null, 0, 1, Adresse.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getAdresse_Type(), this.getAddressType(), "type", null, 0, 1, Adresse.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -430,6 +612,25 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 		initEAttribute(getReferenz_Referenz(), ecorePackage.getEString(), "referenz", null, 0, 1, Referenz.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getReferenz_Referenz2(), ecorePackage.getEString(), "referenz2", null, 0, 1, Referenz.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getReferenz_Referenz3(), ecorePackage.getEString(), "referenz3", null, 0, 1, Referenz.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(empfaengerEClass, Empfaenger.class, "Empfaenger", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getEmpfaenger_Name(), ecorePackage.getEString(), "name", null, 0, 1, Empfaenger.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getEmpfaenger_Adresse(), this.getAdresse(), null, "adresse", null, 0, 1, Empfaenger.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(receiversEClass, Receivers.class, "Receivers", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getReceivers_Receivers(), this.getEmpfaenger(), null, "Receivers", null, 0, -1, Receivers.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(kontaktEClass, Kontakt.class, "Kontakt", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getKontakt_Name(), ecorePackage.getEString(), "name", null, 0, 1, Kontakt.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getKontakt_Adresse(), this.getAdresse(), null, "adresse", null, 0, 1, Kontakt.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getKontakt_Kommunikation(), ecorePackage.getEString(), "kommunikation", null, 0, 1, Kontakt.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(kontakteEClass, Kontakte.class, "Kontakte", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getKontakte_Kontakte(), this.getKontakt(), null, "kontakte", null, 0, -1, Kontakte.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(ntProjektKontakteEClass, NtProjektKontakte.class, "NtProjektKontakte", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getNtProjektKontakte_NtProjektID(), ecorePackage.getEString(), "ntProjektID", null, 0, 1, NtProjektKontakte.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getNtProjektKontakte_Kontakte(), this.getKontakt(), null, "kontakte", null, 0, -1, NtProjektKontakte.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(addressTypeEEnum, AddressType.class, "AddressType");

@@ -69,6 +69,11 @@ public class AddressFactoryImpl extends EFactoryImpl implements AddressFactory
 			case AddressPackage.ABSENDER: return createAbsender();
 			case AddressPackage.ADRESSE: return createAdresse();
 			case AddressPackage.REFERENZ: return createReferenz();
+			case AddressPackage.EMPFAENGER: return createEmpfaenger();
+			case AddressPackage.RECEIVERS: return createReceivers();
+			case AddressPackage.KONTAKT: return createKontakt();
+			case AddressPackage.KONTAKTE: return createKontakte();
+			case AddressPackage.NT_PROJEKT_KONTAKTE: return createNtProjektKontakte();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -128,6 +133,61 @@ public class AddressFactoryImpl extends EFactoryImpl implements AddressFactory
 	{
 		ReferenzImpl referenz = new ReferenzImpl();
 		return referenz;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Empfaenger createEmpfaenger()
+	{
+		EmpfaengerImpl empfaenger = new EmpfaengerImpl();
+		return empfaenger;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Receivers createReceivers()
+	{
+		ReceiversImpl receivers = new ReceiversImpl();
+		return receivers;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Kontakt createKontakt()
+	{
+		KontaktImpl kontakt = new KontaktImpl();
+		return kontakt;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Kontakte createKontakte()
+	{
+		KontakteImpl kontakte = new KontakteImpl();
+		return kontakte;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NtProjektKontakte createNtProjektKontakte()
+	{
+		NtProjektKontakteImpl ntProjektKontakte = new NtProjektKontakteImpl();
+		return ntProjektKontakte;
 	}
 
 	/**

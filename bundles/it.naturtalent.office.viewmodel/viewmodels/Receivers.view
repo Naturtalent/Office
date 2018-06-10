@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="ASCII"?>
+<org.eclipse.emf.ecp.view.model:View xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:org.eclipse.emf.ecp.view.model="http://org/eclipse/emf/ecp/view/model/170" xmlns:org.eclipse.emf.ecp.view.treemasterview.model="http://org/eclipse/emf/ecp/view/treemasterview/model" xmi:id="_hiLwYF9xEeixU4d6sEeEnQ" name="Receivers" ecorePath="/Office_bundles/it.naturtalent.office.model/model/address.ecore">
+  <rootEClass href="http://it.naturtalent/address#//Receivers"/>
+  <children xsi:type="org.eclipse.emf.ecp.view.treemasterview.model:TreeMasterDetail" xmi:id="_tCoUwF9xEeixU4d6sEeEnQ"/>
+</org.eclipse.emf.ecp.view.model:View>

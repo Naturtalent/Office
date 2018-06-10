@@ -36,6 +36,7 @@ public class KontakteUIProcessor
 			showViewAdapterRepository.addShowViewAdapter(new KontakteShowViewAdapter());
 			*/
 			
+		/*
 		if(newWizardRepository != null)
 			newWizardRepository.addNewActionAdapter(new NewKontaktWizardAdapter());
 		
@@ -50,6 +51,7 @@ public class KontakteUIProcessor
 		
 		if(showViewAdapterRepository != null)
 			showViewAdapterRepository.addShowViewAdapter(new ShowContactsViewAdapter());
+			*/
 		
 		/*
 		MPartStack myPartStack = (MPartStack)modelService.find("it.naturtalent.e4.project.ui.partstack.1", app);

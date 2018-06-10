@@ -25,7 +25,6 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  *   <li>{@link it.naturtalent.office.model.address.impl.AdresseImpl#getName2 <em>Name2</em>}</li>
  *   <li>{@link it.naturtalent.office.model.address.impl.AdresseImpl#getName3 <em>Name3</em>}</li>
  *   <li>{@link it.naturtalent.office.model.address.impl.AdresseImpl#getStrasse <em>Strasse</em>}</li>
- *   <li>{@link it.naturtalent.office.model.address.impl.AdresseImpl#getHsnr <em>Hsnr</em>}</li>
  *   <li>{@link it.naturtalent.office.model.address.impl.AdresseImpl#getPlz <em>Plz</em>}</li>
  *   <li>{@link it.naturtalent.office.model.address.impl.AdresseImpl#getOrt <em>Ort</em>}</li>
  *   <li>{@link it.naturtalent.office.model.address.impl.AdresseImpl#getType <em>Type</em>}</li>
@@ -114,26 +113,6 @@ public class AdresseImpl extends MinimalEObjectImpl.Container implements Adresse
 	 * @ordered
 	 */
 	protected String strasse = STRASSE_EDEFAULT;
-
-	/**
-	 * The default value of the '{@link #getHsnr() <em>Hsnr</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getHsnr()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String HSNR_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getHsnr() <em>Hsnr</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getHsnr()
-	 * @generated
-	 * @ordered
-	 */
-	protected String hsnr = HSNR_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getPlz() <em>Plz</em>}' attribute.
@@ -313,29 +292,6 @@ public class AdresseImpl extends MinimalEObjectImpl.Container implements Adresse
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getHsnr()
-	{
-		return hsnr;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setHsnr(String newHsnr)
-	{
-		String oldHsnr = hsnr;
-		hsnr = newHsnr;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, AddressPackage.ADRESSE__HSNR, oldHsnr, hsnr));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public String getPlz()
 	{
 		return plz;
@@ -418,8 +374,6 @@ public class AdresseImpl extends MinimalEObjectImpl.Container implements Adresse
 				return getName3();
 			case AddressPackage.ADRESSE__STRASSE:
 				return getStrasse();
-			case AddressPackage.ADRESSE__HSNR:
-				return getHsnr();
 			case AddressPackage.ADRESSE__PLZ:
 				return getPlz();
 			case AddressPackage.ADRESSE__ORT:
@@ -451,9 +405,6 @@ public class AdresseImpl extends MinimalEObjectImpl.Container implements Adresse
 				return;
 			case AddressPackage.ADRESSE__STRASSE:
 				setStrasse((String)newValue);
-				return;
-			case AddressPackage.ADRESSE__HSNR:
-				setHsnr((String)newValue);
 				return;
 			case AddressPackage.ADRESSE__PLZ:
 				setPlz((String)newValue);
@@ -490,9 +441,6 @@ public class AdresseImpl extends MinimalEObjectImpl.Container implements Adresse
 			case AddressPackage.ADRESSE__STRASSE:
 				setStrasse(STRASSE_EDEFAULT);
 				return;
-			case AddressPackage.ADRESSE__HSNR:
-				setHsnr(HSNR_EDEFAULT);
-				return;
 			case AddressPackage.ADRESSE__PLZ:
 				setPlz(PLZ_EDEFAULT);
 				return;
@@ -524,8 +472,6 @@ public class AdresseImpl extends MinimalEObjectImpl.Container implements Adresse
 				return NAME3_EDEFAULT == null ? name3 != null : !NAME3_EDEFAULT.equals(name3);
 			case AddressPackage.ADRESSE__STRASSE:
 				return STRASSE_EDEFAULT == null ? strasse != null : !STRASSE_EDEFAULT.equals(strasse);
-			case AddressPackage.ADRESSE__HSNR:
-				return HSNR_EDEFAULT == null ? hsnr != null : !HSNR_EDEFAULT.equals(hsnr);
 			case AddressPackage.ADRESSE__PLZ:
 				return PLZ_EDEFAULT == null ? plz != null : !PLZ_EDEFAULT.equals(plz);
 			case AddressPackage.ADRESSE__ORT:
@@ -555,8 +501,6 @@ public class AdresseImpl extends MinimalEObjectImpl.Container implements Adresse
 		result.append(name3);
 		result.append(", strasse: ");
 		result.append(strasse);
-		result.append(", hsnr: ");
-		result.append(hsnr);
 		result.append(", plz: ");
 		result.append(plz);
 		result.append(", ort: ");

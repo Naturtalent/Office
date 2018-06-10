@@ -12,4 +12,6 @@ public interface IODFWriteAdapterFactoryRepository
 {
 	// gibt alle registrierten WriteAdapterFactories in einer Liste zurueck
 	public List <IODFWriteAdapterFactory> getWriteAdapterFactories();
+	
+	public IODFWriteAdapterFactory getWriteAdapter(String factoryClass);
 }

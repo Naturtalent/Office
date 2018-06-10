@@ -10,26 +10,36 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 
-import it.naturtalent.office.model.address.Absender;
-import it.naturtalent.office.model.address.AbsenderRoot;
 import it.naturtalent.office.model.address.AddressPackage;
-import it.naturtalent.office.model.address.Adresse;
 import it.naturtalent.office.model.address.Senders;
 
 
 
+/**
+ * Wizardseite zur Definition von Empfaengerangaben. 
+ * 
+ * @author dieter
+ *
+ */
 public class ODFSenderWizardPage extends WizardPage
 {
 
+	private Senders senders;
+	
+	
 	/**
 	 * Create the wizard.
 	 */
 	public ODFSenderWizardPage()
 	{
-		super("wizardPage");
+		super(ODFDefaultWriteAdapterWizard.SENDER_PAGE_NAME);
 		setMessage("einen Absender auswählen");
 		setTitle("Absender");
 		setDescription("Angaben zum Absender");
+		
+		EClass sendersClass = AddressPackage.eINSTANCE.getSenders();
+		senders = (Senders) EcoreUtil.create(sendersClass);
+
 	}
 
 	/**
@@ -43,9 +53,6 @@ public class ODFSenderWizardPage extends WizardPage
 		setControl(container);
 		container.setLayout(new GridLayout(2, false));
 		
-		EClass sendersClass = AddressPackage.eINSTANCE.getSenders();
-		Senders senders = (Senders) EcoreUtil.create(sendersClass);
-		
 		try
 		{		
 			ECPSWTViewRenderer.INSTANCE.render(container, (EObject) senders);			
@@ -54,7 +61,18 @@ public class ODFSenderWizardPage extends WizardPage
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-	
 	}
+
+	public Senders getSenders()
+	{
+		return senders;
+	}
+
+	public void setSenders(Senders senders)
+	{
+		this.senders = senders;
+	}
+	
+	
 
 }
