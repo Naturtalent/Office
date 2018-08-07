@@ -10,7 +10,7 @@ import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.widgets.Display;
 
 import it.naturtalent.e4.office.ui.KontakteProjectProperty;
-import it.naturtalent.e4.office.ui.KontakteProjectPropertyWizardPage;
+import it.naturtalent.e4.office.ui.wizards.KontakteProjectPropertyWizardPage;
 
 /**
  * Die Aktion generiert einen DialogWizard mit der WizardPage 
@@ -46,9 +46,8 @@ public class ProjectKontakteAction extends Action
 
 		@Override
 		public boolean performFinish()
-		{
-			// TODO Auto-generated method stub
-			return false;
+		{			
+			return true;
 		}
 
 	}

@@ -1,5 +1,9 @@
 package it.naturtalent.e4.office.ui;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -12,8 +16,15 @@ import org.eclipse.emf.ecp.spi.ui.util.ECPHandlerHelper;
 
 import it.naturtalent.emf.model.EMFModelUtils;
 import it.naturtalent.office.model.address.AddressPackage;
+import it.naturtalent.office.model.address.FootNote;
+import it.naturtalent.office.model.address.FootNotes;
+import it.naturtalent.office.model.address.FooterClass;
+import it.naturtalent.office.model.address.Kontakt;
 import it.naturtalent.office.model.address.Kontakte;
 import it.naturtalent.office.model.address.NtProjektKontakte;
+import it.naturtalent.office.model.address.ReferenzGruppe;
+import it.naturtalent.office.model.address.ReferenzSet;
+import it.naturtalent.office.model.address.ReferenzenClass;
 
 
 
@@ -25,12 +36,17 @@ public class OfficeUtils
 	
 	//MasterTreeRefreshing erforderlich 
 	public final static String KONTAKTE_REFRESH_MASTER_REQUEST = "kontakterefreshmasterrequest";
-
 	
+	// Selection im Master anfordern
+	public static final String KONTACTMASTER_SELECTIONREQUEST = "kontactselectionrequest"; //$NON-NLS-N$
+	
+	// Inhalt des OfficeProjekt wurde gespeichert 
+	public static final String OFFICEPROJECT_CONTENTSAVEACCOMPLISHED = "officesaveaccomplished"; //$NON-NLS-N$
+
 	private static Log log = LogFactory.getLog(OfficeUtils.class);
 	
 	private static Kontakte kontakte;
-
+	
 	/*
 	 * Im OfficeProjekt sind alle Office-Modelle zusammengefasst 
 	 */
@@ -86,7 +102,43 @@ public class OfficeUtils
 		return kontakte;
 	}
 	
+	/**
+	 * Listet alle Kontakte mit den Namen im Array 'kontactNames'
+	 * Sind mehrer Kontakte unter dem gleichen Namen gespeichert (soll eigentlich verhindert werden)
+	 * wird nur der zuerst gefundene Kontakt gelistet.
+	 * 
+	 * @param kontactNames
+	 * @return
+	 */
+	public static List<Kontakt>findKontactsByNames(String [] kontactNames)
+	{
+		List<Kontakt>kontakte = new ArrayList<Kontakt>();
+		if(ArrayUtils.isNotEmpty(kontactNames))
+		{
+			EList<Kontakt>kontacts = getKontakte().getKontakte();
+			for(String kontactName : kontactNames)
+			{
+				Kontakt kontakt = findKontactByName(kontacts, kontactName);
+				if(kontakt != null)
+					kontakte.add(kontakt);				
+			}
+		}
 
+		return kontakte;
+	}
+	
+	// sucht einen Kontakt ueber seinen Namen
+	private static Kontakt findKontactByName(EList<Kontakt>kontacts, String kontactName)
+	{
+		for(Kontakt kontact : kontacts)
+		{
+			if(StringUtils.equals(kontact.getName(), kontactName))
+				return kontact;
+		}
+		
+		return null;
+	}
+	
 	/**
 	 * Alle einem NtProjekt zugeordneten Kontakte zurueckgeben.
 	 * 
@@ -124,4 +176,81 @@ public class OfficeUtils
 		ntKontakte = (NtProjektKontakte) EcoreUtil.create(ntProjektClass);
 		return ntKontakte;
 	}
+	
+	/**
+	 * Rueckgabe der FooterKlasse (Container) aller FootNotes.
+	 * 
+	 * @param footerClassName
+	 * @return
+	 */
+	public static FooterClass getFooterClass(String footerClassName)
+	{	
+		ECPProject ecpProject = getOfficeProject();
+		EList<Object> projectContents = ecpProject.getContents();
+		if (!projectContents.isEmpty())
+		{
+			for (Object projectContent : projectContents)
+			{
+				if (projectContent instanceof FooterClass)
+				{
+					FooterClass footerClass = (FooterClass) projectContent; 
+					if(StringUtils.equals(footerClass.getFooterClassName(), footerClassName))
+						return (FooterClass) projectContent;
+				}
+			}
+		}
+
+		return null;
+	}
+	
+	/**
+	 * Listet alle Footer einer Footerklasse
+	 * @param footerClassName
+	 * @return
+	 */
+	public static List<FootNotes> getFootNotes(String footerClassName)
+	{		
+		FooterClass footerClass = getFooterClass(footerClassName);		
+		return (footerClass != null) ? footerClass.getFooterClassFootNotes() : null;
+	}
+	
+	/**
+	 * Rueckgabe der ReferenzenKlasse (Container)
+	 * 
+	 * @param footerClassName
+	 * @return
+	 */
+	public static ReferenzenClass getReferenzClass(String referenzClassName)
+	{	
+		ECPProject ecpProject = getOfficeProject();
+		EList<Object> projectContents = ecpProject.getContents();
+		if (!projectContents.isEmpty())
+		{
+			for (Object projectContent : projectContents)
+			{
+				if (projectContent instanceof ReferenzenClass)
+				{
+					ReferenzenClass referenzenClass = (ReferenzenClass) projectContent; 
+					if(StringUtils.equals(referenzenClass.getReferenzenClassName(), referenzClassName))
+						return (ReferenzenClass) projectContent;
+				}
+			}
+		}
+
+		return null;
+	}
+
+	/**
+	 * Listet alle ReferenzGroups einer spezifischen Klasse (r.B. Business, Telekom) auf.
+	 * 
+	 * @param referenzClassName
+	 * @return
+	 */
+	public static List<ReferenzGruppe> getReferenzGroups(String referenzClassName)
+	{		
+		ReferenzenClass referenzenClass = getReferenzClass(referenzClassName);		
+		return (referenzenClass != null) ? referenzenClass.getReferenzClassReferenzen() : null;
+	}
+
+
 }

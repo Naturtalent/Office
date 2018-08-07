@@ -249,6 +249,156 @@ public class AddressItemProviderAdapterFactory extends AddressAdapterFactory imp
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link it.naturtalent.office.model.address.FootNote} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected FootNoteItemProvider footNoteItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.naturtalent.office.model.address.FootNote}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createFootNoteAdapter()
+	{
+		if (footNoteItemProvider == null)
+		{
+			footNoteItemProvider = new FootNoteItemProvider(this);
+		}
+
+		return footNoteItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.naturtalent.office.model.address.FootNotes} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected FootNotesItemProvider footNotesItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.naturtalent.office.model.address.FootNotes}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createFootNotesAdapter()
+	{
+		if (footNotesItemProvider == null)
+		{
+			footNotesItemProvider = new FootNotesItemProvider(this);
+		}
+
+		return footNotesItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.naturtalent.office.model.address.FooterClass} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected FooterClassItemProvider footerClassItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.naturtalent.office.model.address.FooterClass}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createFooterClassAdapter()
+	{
+		if (footerClassItemProvider == null)
+		{
+			footerClassItemProvider = new FooterClassItemProvider(this);
+		}
+
+		return footerClassItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.naturtalent.office.model.address.ReferenzSet} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ReferenzSetItemProvider referenzSetItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.naturtalent.office.model.address.ReferenzSet}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createReferenzSetAdapter()
+	{
+		if (referenzSetItemProvider == null)
+		{
+			referenzSetItemProvider = new ReferenzSetItemProvider(this);
+		}
+
+		return referenzSetItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.naturtalent.office.model.address.ReferenzenClass} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ReferenzenClassItemProvider referenzenClassItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.naturtalent.office.model.address.ReferenzenClass}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createReferenzenClassAdapter()
+	{
+		if (referenzenClassItemProvider == null)
+		{
+			referenzenClassItemProvider = new ReferenzenClassItemProvider(this);
+		}
+
+		return referenzenClassItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.naturtalent.office.model.address.ReferenzGruppe} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ReferenzGruppeItemProvider referenzGruppeItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.naturtalent.office.model.address.ReferenzGruppe}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createReferenzGruppeAdapter()
+	{
+		if (referenzGruppeItemProvider == null)
+		{
+			referenzGruppeItemProvider = new ReferenzGruppeItemProvider(this);
+		}
+
+		return referenzGruppeItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link it.naturtalent.office.model.address.Absender} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -412,12 +562,18 @@ public class AddressItemProviderAdapterFactory extends AddressAdapterFactory imp
 		if (sendersItemProvider != null) sendersItemProvider.dispose();
 		if (absenderItemProvider != null) absenderItemProvider.dispose();
 		if (adresseItemProvider != null) adresseItemProvider.dispose();
-		if (referenzItemProvider != null) referenzItemProvider.dispose();
 		if (empfaengerItemProvider != null) empfaengerItemProvider.dispose();
 		if (receiversItemProvider != null) receiversItemProvider.dispose();
 		if (kontaktItemProvider != null) kontaktItemProvider.dispose();
 		if (kontakteItemProvider != null) kontakteItemProvider.dispose();
 		if (ntProjektKontakteItemProvider != null) ntProjektKontakteItemProvider.dispose();
+		if (footNoteItemProvider != null) footNoteItemProvider.dispose();
+		if (footNotesItemProvider != null) footNotesItemProvider.dispose();
+		if (footerClassItemProvider != null) footerClassItemProvider.dispose();
+		if (referenzItemProvider != null) referenzItemProvider.dispose();
+		if (referenzSetItemProvider != null) referenzSetItemProvider.dispose();
+		if (referenzenClassItemProvider != null) referenzenClassItemProvider.dispose();
+		if (referenzGruppeItemProvider != null) referenzGruppeItemProvider.dispose();
 	}
 
 }

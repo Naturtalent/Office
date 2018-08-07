@@ -95,6 +95,7 @@ public class OfficeProcessor
 	{	
 		String label;
 		
+		
 		if(writeAdapterFactoryRepository != null)
 			writeAdapterFactoryRepository.getWriteAdapterFactories()
 					.add(new DefaultWriteAdapterFactory());
@@ -228,10 +229,12 @@ public class OfficeProcessor
 		}
 		*/
 		
+		/*
 		if(preferenceRegistry != null)
 		{			
 			preferenceRegistry.getPreferenceAdapters().add(new OfficeApplicationPreferenceAdapter());
 		}
+		*/
 		
 		/*
 		 *  Templates registrieren

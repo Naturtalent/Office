@@ -108,7 +108,6 @@ public class AbsenderItemProvider
 		{
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(AddressPackage.Literals.ABSENDER__ADRESSE);
-			childrenFeatures.add(AddressPackage.Literals.ABSENDER__REFERENZ);
 		}
 		return childrenFeatures;
 	}
@@ -173,7 +172,6 @@ public class AbsenderItemProvider
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case AddressPackage.ABSENDER__ADRESSE:
-			case AddressPackage.ABSENDER__REFERENZ:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -196,11 +194,6 @@ public class AbsenderItemProvider
 			(createChildParameter
 				(AddressPackage.Literals.ABSENDER__ADRESSE,
 				 AddressFactory.eINSTANCE.createAdresse()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(AddressPackage.Literals.ABSENDER__REFERENZ,
-				 AddressFactory.eINSTANCE.createReferenz()));
 	}
 
 	/**

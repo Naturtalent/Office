@@ -1,6 +1,7 @@
 package it.naturtalent.e4.office.ui;
 
 import org.apache.commons.lang3.StringUtils;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.ui.internal.workbench.E4Workbench;
@@ -10,8 +11,11 @@ import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
 import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.wizard.IWizardPage;
+import org.eclipse.swt.custom.BusyIndicator;
+import org.eclipse.swt.widgets.Display;
 
 import it.naturtalent.e4.office.ui.actions.ProjectKontakteAction;
+import it.naturtalent.e4.office.ui.wizards.KontakteProjectPropertyWizardPage;
 import it.naturtalent.e4.project.INtProjectProperty;
 import it.naturtalent.e4.project.ui.emf.NtProjectPropertyFactory;
 import it.naturtalent.office.model.address.Kontakt;
@@ -53,7 +57,7 @@ public class KontakteProjectProperty implements INtProjectProperty
 	public String getNtProjectID()
 	{
 		// TODO Auto-generated method stub
-		return null;
+		return ntProjectID;
 	}
 
 	@Override
@@ -154,7 +158,7 @@ public class KontakteProjectProperty implements INtProjectProperty
 				ECPProject ecpProject = OfficeUtils.getOfficeProject();
 				ecpProject.getContents().remove(ntProjektKontakte);
 				ECPHandlerHelper.saveProject(OfficeUtils.getOfficeProject());
-			}				
+			}			
 		}
 	}
 

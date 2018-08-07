@@ -1,12 +1,16 @@
-package it.naturtalent.e4.office.ui;
+package it.naturtalent.e4.office.ui.wizards;
 
 import org.eclipse.emf.ecp.ui.view.ECPRendererException;
 import org.eclipse.emf.ecp.ui.view.swt.ECPSWTViewRenderer;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Text;
 
+import it.naturtalent.e4.office.ui.KontakteProjectProperty;
+import it.naturtalent.e4.office.ui.OfficeUtils;
 import it.naturtalent.office.model.address.Kontakte;
 import it.naturtalent.office.model.address.NtProjektKontakte;
 
@@ -20,7 +24,6 @@ public class KontakteProjectPropertyWizardPage extends WizardPage
 {
 
 	private KontakteProjectProperty kontakteProjectProperty;
-	
 	
 	public KontakteProjectPropertyWizardPage()
 	{
@@ -36,7 +39,7 @@ public class KontakteProjectPropertyWizardPage extends WizardPage
 		setControl(container);
 		container.setLayout(new GridLayout(2, false));
 
-		NtProjektKontakte kontakte = OfficeUtils.getProjectKontacts(kontakteProjectProperty.ntProjectID);
+		NtProjektKontakte kontakte = OfficeUtils.getProjectKontacts(kontakteProjectProperty.getNtProjectID());
 		kontakteProjectProperty.setNtPropertyData(kontakte);
 		if(kontakte != null)
 		{

@@ -93,13 +93,6 @@ public class AddressSwitch<T> extends Switch<T>
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case AddressPackage.REFERENZ:
-			{
-				Referenz referenz = (Referenz)theEObject;
-				T result = caseReferenz(referenz);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
 			case AddressPackage.EMPFAENGER:
 			{
 				Empfaenger empfaenger = (Empfaenger)theEObject;
@@ -132,6 +125,55 @@ public class AddressSwitch<T> extends Switch<T>
 			{
 				NtProjektKontakte ntProjektKontakte = (NtProjektKontakte)theEObject;
 				T result = caseNtProjektKontakte(ntProjektKontakte);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case AddressPackage.FOOT_NOTE:
+			{
+				FootNote footNote = (FootNote)theEObject;
+				T result = caseFootNote(footNote);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case AddressPackage.FOOT_NOTES:
+			{
+				FootNotes footNotes = (FootNotes)theEObject;
+				T result = caseFootNotes(footNotes);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case AddressPackage.FOOTER_CLASS:
+			{
+				FooterClass footerClass = (FooterClass)theEObject;
+				T result = caseFooterClass(footerClass);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case AddressPackage.REFERENZ:
+			{
+				Referenz referenz = (Referenz)theEObject;
+				T result = caseReferenz(referenz);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case AddressPackage.REFERENZ_SET:
+			{
+				ReferenzSet referenzSet = (ReferenzSet)theEObject;
+				T result = caseReferenzSet(referenzSet);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case AddressPackage.REFERENZEN_CLASS:
+			{
+				ReferenzenClass referenzenClass = (ReferenzenClass)theEObject;
+				T result = caseReferenzenClass(referenzenClass);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case AddressPackage.REFERENZ_GRUPPE:
+			{
+				ReferenzGruppe referenzGruppe = (ReferenzGruppe)theEObject;
+				T result = caseReferenzGruppe(referenzGruppe);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -247,6 +289,102 @@ public class AddressSwitch<T> extends Switch<T>
 	 * @generated
 	 */
 	public T caseNtProjektKontakte(NtProjektKontakte object)
+	{
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Foot Note</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Foot Note</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseFootNote(FootNote object)
+	{
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Foot Notes</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Foot Notes</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseFootNotes(FootNotes object)
+	{
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Footer Class</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Footer Class</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseFooterClass(FooterClass object)
+	{
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Referenz Set</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Referenz Set</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseReferenzSet(ReferenzSet object)
+	{
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Referenzen Class</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Referenzen Class</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseReferenzenClass(ReferenzenClass object)
+	{
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Referenz Gruppe</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Referenz Gruppe</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseReferenzGruppe(ReferenzGruppe object)
 	{
 		return null;
 	}

@@ -48,9 +48,10 @@ public class KontakteKommunicationRendering extends TextControlSWTRenderer
 		GridLayoutFactory.fillDefaults().numColumns(1).equalWidth(true).applyTo(composite);
 		
 		// Textfeld
-		final Text text = new Text(composite, SWT.BORDER | SWT.WRAP | SWT.V_SCROLL);
+		final Text text = new Text(composite, SWT.BORDER | SWT.WRAP | SWT.V_SCROLL | SWT.H_SCROLL);
 		GridData gd_txtDescription = new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1);
 		gd_txtDescription.heightHint = 180;
+		gd_txtDescription.widthHint = 400;
 		text.setLayoutData(gd_txtDescription);
 		
 		return composite;

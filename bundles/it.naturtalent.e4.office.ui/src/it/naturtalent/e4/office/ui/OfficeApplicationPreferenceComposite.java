@@ -5,6 +5,7 @@ import it.naturtalent.e4.preferences.DirectoryEditorComposite;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 
+@Deprecated
 public class OfficeApplicationPreferenceComposite extends Composite
 {
 

@@ -1,6 +1,7 @@
 
 package it.naturtalent.e4.office.ui.part;
 
+import java.util.Collection;
 import java.util.EventObject;
 import java.util.List;
 
@@ -18,6 +19,7 @@ import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.command.CommandStackListener;
 import org.eclipse.emf.ecp.ui.view.ECPRendererException;
 import org.eclipse.emf.ecp.ui.view.swt.ECPSWTViewRenderer;
+import org.eclipse.emf.edit.command.CreateChildCommand;
 import org.eclipse.emf.edit.command.DeleteCommand;
 import org.eclipse.emf.edit.command.SetCommand;
 import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
@@ -25,10 +27,10 @@ import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.emf.emfstore.internal.client.model.changeTracking.commands.EMFStoreBasicCommandStack;
 import org.eclipse.swt.widgets.Composite;
 
-
 import it.naturtalent.e4.office.ui.OfficeUtils;
 import it.naturtalent.e4.project.ui.Activator;
 import it.naturtalent.e4.project.ui.parts.emf.NtProjectView;
+import it.naturtalent.office.model.address.Kontakt;
 import it.naturtalent.office.model.address.Kontakte;
 
 public class KontakteView
@@ -39,6 +41,8 @@ public class KontakteView
 	// in 'fragment.e4xmi' definiert
 	public static final String SAVE_TOOLBAR_ID = "it.naturtalent.e4.office.ui.directtoolitem.save";
 	public static final String UNDO_TOOLBAR_ID = "it.naturtalent.e4.office.ui.directtoolitem.undo";
+	
+
 	
 	@Inject @Optional private EModelService modelService;
 	@Inject @Optional private EPartService partService;
@@ -55,15 +59,25 @@ public class KontakteView
 		{
 			EMFStoreBasicCommandStack commandStack = (EMFStoreBasicCommandStack) event.getSource();
 			Command command = commandStack.getMostRecentCommand();	
-							
+				
+			if (command instanceof CreateChildCommand)
+			{
+				// selektiert das neue Kontakt im Mastertree
+				CreateChildCommand addCommand = (CreateChildCommand) command;
+				Collection<?>createResults = addCommand.getResult();
+				Object createdObj = createResults.iterator().next();
+				if(createdObj instanceof Kontakt)
+					eventBroker.post(OfficeUtils.KONTACTMASTER_SELECTIONREQUEST, createdObj);
+			}
+			
 			if(command instanceof SetCommand)				
 			{
-				updateUNDOSAVEToolbar();
+				updateUNDOSAVEToolbar(true);
 			}
 			
 			if(command instanceof DeleteCommand)				
 			{
-				updateUNDOSAVEToolbar();
+				updateUNDOSAVEToolbar(true);
 				
 				// NtProjectView aktualisieren
 				//Archive archive = ArchivUtils.getArchive();
@@ -77,7 +91,7 @@ public class KontakteView
 	/*
 	 * Status der Toolbar (undo/save) aktualisieren
 	 */
-	private void updateUNDOSAVEToolbar()
+	private void updateUNDOSAVEToolbar(boolean status)
 	{
 		// Toolbarstatus updaten
 		MPart mPart = partService.findPart(KONTAKTEVIEW_ID);
@@ -85,12 +99,12 @@ public class KontakteView
 		// save - Toolbar
 		List<MToolItem> items = modelService.findElements(mPart, SAVE_TOOLBAR_ID, MToolItem.class,null, EModelService.IN_PART);
 		MToolItem item = items.get(0);
-		item.setEnabled(true);
+		item.setEnabled(status);
 		
 		// undo - Toolbar	
 		items = modelService.findElements(mPart, UNDO_TOOLBAR_ID, MToolItem.class,null, EModelService.IN_PART);
 		item = items.get(0);
-		item.setEnabled(true);
+		item.setEnabled(status);
 		
 	}
 

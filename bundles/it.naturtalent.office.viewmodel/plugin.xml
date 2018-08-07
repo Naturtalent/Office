@@ -3,6 +3,16 @@
 <plugin>
    <extension
          point="org.eclipse.emf.ecp.view.model.provider.xmi.file">
+<file filePath="viewmodels/ReferenzGruppe.view"/>
+
+<file filePath="viewmodels/Referenz.view"/>
+
+<file filePath="viewmodels/ReferenzSet.view"/>
+
+<file filePath="viewmodels/FootNotes.view"/>
+
+<file filePath="viewmodels/Adresse.view"/>
+
 <file
       filePath="viewmodels/NtProjektKontakteDetails.view">
    <filter

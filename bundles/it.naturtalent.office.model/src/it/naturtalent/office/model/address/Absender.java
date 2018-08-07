@@ -15,7 +15,6 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link it.naturtalent.office.model.address.Absender#getName <em>Name</em>}</li>
  *   <li>{@link it.naturtalent.office.model.address.Absender#getAdresse <em>Adresse</em>}</li>
- *   <li>{@link it.naturtalent.office.model.address.Absender#getReferenz <em>Referenz</em>}</li>
  * </ul>
  *
  * @see it.naturtalent.office.model.address.AddressPackage#getAbsender()
@@ -75,31 +74,5 @@ public interface Absender extends EObject
 	 * @generated
 	 */
 	void setAdresse(Adresse value);
-
-	/**
-	 * Returns the value of the '<em><b>Referenz</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Referenz</em>' containment reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Referenz</em>' containment reference.
-	 * @see #setReferenz(Referenz)
-	 * @see it.naturtalent.office.model.address.AddressPackage#getAbsender_Referenz()
-	 * @model containment="true"
-	 * @generated
-	 */
-	Referenz getReferenz();
-
-	/**
-	 * Sets the value of the '{@link it.naturtalent.office.model.address.Absender#getReferenz <em>Referenz</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Referenz</em>' containment reference.
-	 * @see #getReferenz()
-	 * @generated
-	 */
-	void setReferenz(Referenz value);
 
 } // Absender

@@ -6,15 +6,12 @@ import java.net.URL;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
-import org.eclipse.core.resources.IContainer;
-import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.wizard.IWizard;
-import org.eclipse.ui.internal.contexts.ContextServiceFactory;
 import org.odftoolkit.simple.TextDocument;
 import org.odftoolkit.simple.meta.Meta;
 import org.osgi.framework.Bundle;
@@ -24,7 +21,7 @@ import org.osgi.framework.FrameworkUtil;
 import it.naturtalent.e4.office.ui.wizards.ODFDefaultWriteAdapterWizard;
 
 /**
- * Diese Klasse realisiert einen Adapter standardmaessig zur Verfuegung steht.
+ * Diese Klasse realisiert einen Adapter der standardmaessig zur Verfuegung steht.
  * 
  * @author dieter
  *
@@ -39,6 +36,7 @@ public class ODFDefaultWriteAdapter implements IODFWriteAdapter
 	private static final String ODFTEXT_TEMPLATE = "/templates/ODFText.odt"; //$NON-NLS-1$
 
 	private TextDocument odfDocument;
+	 
 
 	@Override
 	public void setSender(EObject sender)

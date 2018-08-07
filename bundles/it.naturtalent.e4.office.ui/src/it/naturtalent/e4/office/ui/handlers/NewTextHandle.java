@@ -95,8 +95,14 @@ public class NewTextHandle
 					// Wizard Daten zu dem Anschreibes abfragen 
 					WizardDialog wizardDialog = new WizardDialog(shell,writeAdapter.createWizard(context));
 					eventBroker.post(IODFWriteAdapter.ODFWRITE_FILEDEFINITIONEVENT,ifile);
-					wizardDialog.open();
-
+					if(wizardDialog.open() == WizardDialog.OK)
+					{
+						// Dokument in LibreOffice oeffnen
+						it.naturtalent.libreoffice.text.TextDocument writeDocument = new it.naturtalent.libreoffice.text.TextDocument();
+						//File file = ifile.getFullPath().toFile();
+						File file = ifile.getLocation().toFile();
+						writeDocument.loadPage(file.toString());
+					}
 				}
 			}
 		}

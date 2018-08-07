@@ -86,6 +86,60 @@ public interface AddressFactory extends EFactory
 	NtProjektKontakte createNtProjektKontakte();
 
 	/**
+	 * Returns a new object of class '<em>Foot Note</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Foot Note</em>'.
+	 * @generated
+	 */
+	FootNote createFootNote();
+
+	/**
+	 * Returns a new object of class '<em>Foot Notes</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Foot Notes</em>'.
+	 * @generated
+	 */
+	FootNotes createFootNotes();
+
+	/**
+	 * Returns a new object of class '<em>Footer Class</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Footer Class</em>'.
+	 * @generated
+	 */
+	FooterClass createFooterClass();
+
+	/**
+	 * Returns a new object of class '<em>Referenz Set</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Referenz Set</em>'.
+	 * @generated
+	 */
+	ReferenzSet createReferenzSet();
+
+	/**
+	 * Returns a new object of class '<em>Referenzen Class</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Referenzen Class</em>'.
+	 * @generated
+	 */
+	ReferenzenClass createReferenzenClass();
+
+	/**
+	 * Returns a new object of class '<em>Referenz Gruppe</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Referenz Gruppe</em>'.
+	 * @generated
+	 */
+	ReferenzGruppe createReferenzGruppe();
+
+	/**
 	 * Returns a new object of class '<em>Absender</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

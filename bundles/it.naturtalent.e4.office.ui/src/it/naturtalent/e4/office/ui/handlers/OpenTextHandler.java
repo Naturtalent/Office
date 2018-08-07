@@ -1,30 +1,6 @@
  
 package it.naturtalent.e4.office.ui.handlers;
 
-import org.eclipse.e4.core.di.annotations.Execute;
-import org.eclipse.e4.core.di.annotations.Optional;
-import org.eclipse.e4.core.services.events.IEventBroker;
-import org.eclipse.e4.ui.services.IServiceConstants;
-import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
-import org.eclipse.jface.wizard.WizardDialog;
-import org.eclipse.swt.widgets.Shell;
-import org.odftoolkit.odfdom.dom.element.meta.MetaUserDefinedElement;
-import org.odftoolkit.simple.TextDocument;
-import org.odftoolkit.simple.meta.Meta;
-import org.osgi.framework.Bundle;
-import org.osgi.framework.BundleContext;
-import org.osgi.framework.FrameworkUtil;
-
-import it.naturtalent.e4.office.ui.Activator;
-import it.naturtalent.e4.office.ui.IODFWriteAdapter;
-import it.naturtalent.e4.office.ui.IODFWriteAdapterFactory;
-import it.naturtalent.e4.office.ui.IODFWriteAdapterFactoryRepository;
-import it.naturtalent.e4.office.ui.dialogs.SelectWriteAdapterDialog;
-import it.naturtalent.e4.project.IResourceNavigator;
-import it.naturtalent.e4.project.ui.navigator.ResourceNavigator;
-import it.naturtalent.e4.project.ui.utils.RefreshResource;
-import it.naturtalent.libreoffice.odf.text.ODFTextHandler;
-
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -35,7 +11,6 @@ import javax.inject.Named;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspace;
@@ -45,6 +20,26 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.CanExecute;
+import org.eclipse.e4.core.di.annotations.Execute;
+import org.eclipse.e4.core.di.annotations.Optional;
+import org.eclipse.e4.core.services.events.IEventBroker;
+import org.eclipse.e4.ui.services.IServiceConstants;
+import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
+import org.eclipse.jface.wizard.WizardDialog;
+import org.eclipse.swt.widgets.Shell;
+import org.odftoolkit.odfdom.dom.element.meta.MetaUserDefinedElement;
+import org.odftoolkit.simple.TextDocument;
+//import org.odftoolkit.simple.TextDocument;
+import org.odftoolkit.simple.meta.Meta;
+import org.osgi.framework.Bundle;
+import org.osgi.framework.BundleContext;
+import org.osgi.framework.FrameworkUtil;
+
+import it.naturtalent.e4.office.ui.Activator;
+import it.naturtalent.e4.office.ui.IODFWriteAdapter;
+import it.naturtalent.e4.office.ui.IODFWriteAdapterFactory;
+import it.naturtalent.e4.office.ui.IODFWriteAdapterFactoryRepository;
+import it.naturtalent.e4.project.ui.navigator.ResourceNavigator;
 
 /**
  * Ein Anschreiben mit Hilfe des zugeordneten Adapters oeffnen.
@@ -71,21 +66,41 @@ public class OpenTextHandler
 			@Named(IServiceConstants.ACTIVE_SHELL) Shell shell, IEclipseContext context)
 	{
 		Object selObject = selectionService.getSelection(ResourceNavigator.RESOURCE_NAVIGATOR_ID);
+		
+		// WriteAdapterFactory-Name ermitteln
 		String factoryName = getAdapterFactoryName(selObject);		
 		if(StringUtils.isNotEmpty(factoryName))
 		{
+			// Factory ueber den Namen aus dem Repository laden  
 			IODFWriteAdapterFactory writeAdapterFactory = writeAdapterFactoryRepository
 					.getWriteAdapter(factoryName);
 			if(writeAdapterFactory != null)
 			{
-				// ueber den Adapter wird der Wizard erzeugt
-				IODFWriteAdapter writeAdapter = writeAdapterFactory.createAdapter();				
+				// den eigentlichen Adapter durch die Factory erzeugen
+				IODFWriteAdapter writeAdapter = writeAdapterFactory.createAdapter();
+				
+				// der Adapter wiederum erzeugt den dokumentsprezifischen Wizard
 				WizardDialog wizardDialog = new WizardDialog(shell,writeAdapter.createWizard(context));
 				
-				// Die Daten des Dokuments werden an den Wizard uebergeben
-				
-				
-				wizardDialog.open();
+				// Broker sendet Dokument Location 'IFile' an den Wizard
+				IResource iResource = (IResource) selObject;
+				if (iResource.getType() == IResource.FILE)
+				{
+					// @see ODFDefaultWriteAdapterWizard
+					IWorkspace workspace = ResourcesPlugin.getWorkspace();		
+					IFile ifile = workspace.getRoot().getFileForLocation(iResource.getLocation());
+					eventBroker.post(IODFWriteAdapter.ODFWRITE_FILEDEFINITIONEVENT,ifile);
+					
+					// den Wizard oeffnen und Dokument editieren
+					if(wizardDialog.open() == WizardDialog.OK)
+					{
+						// Dokument in LibreOffice oeffnen
+						it.naturtalent.libreoffice.text.TextDocument writeDocument = new it.naturtalent.libreoffice.text.TextDocument();
+						//File file = ifile.getFullPath().toFile();
+						File file = ifile.getLocation().toFile();
+						writeDocument.loadPage(file.toString());
+					}
+				}
 			}
 		}
 		
@@ -151,6 +166,9 @@ public class OpenTextHandler
 		return StringUtils.isNotEmpty(factoryName);
 	}
 	
+	/*
+	 * WriteAdapterFactoryName aus dem Dokument lesen
+	 */
 	private String getAdapterFactoryName (Object selObject)
 	{		
 		if (selObject instanceof IResource)
@@ -166,6 +184,7 @@ public class OpenTextHandler
 					TextDocument odfDocument;
 					try
 					{
+						// der FactoryName ist als MetaData im Dokument gespeichert
 						odfDocument = TextDocument.loadDocument(writeFile);
 						Meta meta = odfDocument.getOfficeMetadata();
 						MetaUserDefinedElement element = meta

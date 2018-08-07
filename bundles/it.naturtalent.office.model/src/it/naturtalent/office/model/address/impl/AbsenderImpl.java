@@ -6,7 +6,6 @@ import it.naturtalent.office.model.address.Absender;
 import it.naturtalent.office.model.address.AddressPackage;
 
 import it.naturtalent.office.model.address.Adresse;
-import it.naturtalent.office.model.address.Referenz;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
@@ -24,7 +23,6 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * <ul>
  *   <li>{@link it.naturtalent.office.model.address.impl.AbsenderImpl#getName <em>Name</em>}</li>
  *   <li>{@link it.naturtalent.office.model.address.impl.AbsenderImpl#getAdresse <em>Adresse</em>}</li>
- *   <li>{@link it.naturtalent.office.model.address.impl.AbsenderImpl#getReferenz <em>Referenz</em>}</li>
  * </ul>
  *
  * @generated
@@ -60,16 +58,6 @@ public class AbsenderImpl extends MinimalEObjectImpl.Container implements Absend
 	 * @ordered
 	 */
 	protected Adresse adresse;
-
-	/**
-	 * The cached value of the '{@link #getReferenz() <em>Referenz</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getReferenz()
-	 * @generated
-	 * @ordered
-	 */
-	protected Referenz referenz;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -168,54 +156,6 @@ public class AbsenderImpl extends MinimalEObjectImpl.Container implements Absend
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Referenz getReferenz()
-	{
-		return referenz;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain basicSetReferenz(Referenz newReferenz, NotificationChain msgs)
-	{
-		Referenz oldReferenz = referenz;
-		referenz = newReferenz;
-		if (eNotificationRequired())
-		{
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AddressPackage.ABSENDER__REFERENZ, oldReferenz, newReferenz);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setReferenz(Referenz newReferenz)
-	{
-		if (newReferenz != referenz)
-		{
-			NotificationChain msgs = null;
-			if (referenz != null)
-				msgs = ((InternalEObject)referenz).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AddressPackage.ABSENDER__REFERENZ, null, msgs);
-			if (newReferenz != null)
-				msgs = ((InternalEObject)newReferenz).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AddressPackage.ABSENDER__REFERENZ, null, msgs);
-			msgs = basicSetReferenz(newReferenz, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, AddressPackage.ABSENDER__REFERENZ, newReferenz, newReferenz));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
 	{
@@ -223,8 +163,6 @@ public class AbsenderImpl extends MinimalEObjectImpl.Container implements Absend
 		{
 			case AddressPackage.ABSENDER__ADRESSE:
 				return basicSetAdresse(null, msgs);
-			case AddressPackage.ABSENDER__REFERENZ:
-				return basicSetReferenz(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -243,8 +181,6 @@ public class AbsenderImpl extends MinimalEObjectImpl.Container implements Absend
 				return getName();
 			case AddressPackage.ABSENDER__ADRESSE:
 				return getAdresse();
-			case AddressPackage.ABSENDER__REFERENZ:
-				return getReferenz();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -266,9 +202,6 @@ public class AbsenderImpl extends MinimalEObjectImpl.Container implements Absend
 			case AddressPackage.ABSENDER__ADRESSE:
 				setAdresse((Adresse)newValue);
 				return;
-			case AddressPackage.ABSENDER__REFERENZ:
-				setReferenz((Referenz)newValue);
-				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -289,9 +222,6 @@ public class AbsenderImpl extends MinimalEObjectImpl.Container implements Absend
 			case AddressPackage.ABSENDER__ADRESSE:
 				setAdresse((Adresse)null);
 				return;
-			case AddressPackage.ABSENDER__REFERENZ:
-				setReferenz((Referenz)null);
-				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -310,8 +240,6 @@ public class AbsenderImpl extends MinimalEObjectImpl.Container implements Absend
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case AddressPackage.ABSENDER__ADRESSE:
 				return adresse != null;
-			case AddressPackage.ABSENDER__REFERENZ:
-				return referenz != null;
 		}
 		return super.eIsSet(featureID);
 	}

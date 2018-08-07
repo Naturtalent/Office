@@ -64,11 +64,35 @@ public class ReferenzItemProvider
 		{
 			super.getPropertyDescriptors(object);
 
+			addNamePropertyDescriptor(object);
 			addReferenzPropertyDescriptor(object);
 			addReferenz2PropertyDescriptor(object);
 			addReferenz3PropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
+	}
+
+	/**
+	 * This adds a property descriptor for the Name feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addNamePropertyDescriptor(Object object)
+	{
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Referenz_name_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Referenz_name_feature", "_UI_Referenz_type"),
+				 AddressPackage.Literals.REFERENZ__NAME,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
 	}
 
 	/**
@@ -161,7 +185,7 @@ public class ReferenzItemProvider
 	@Override
 	public String getText(Object object)
 	{
-		String label = ((Referenz)object).getReferenz();
+		String label = ((Referenz)object).getName();
 		return label == null || label.length() == 0 ?
 			getString("_UI_Referenz_type") :
 			getString("_UI_Referenz_type") + " " + label;
@@ -182,6 +206,7 @@ public class ReferenzItemProvider
 
 		switch (notification.getFeatureID(Referenz.class))
 		{
+			case AddressPackage.REFERENZ__NAME:
 			case AddressPackage.REFERENZ__REFERENZ:
 			case AddressPackage.REFERENZ__REFERENZ2:
 			case AddressPackage.REFERENZ__REFERENZ3:

@@ -9,11 +9,17 @@ import it.naturtalent.office.model.address.AddressType;
 
 import it.naturtalent.office.model.address.Adresse;
 import it.naturtalent.office.model.address.Empfaenger;
+import it.naturtalent.office.model.address.FootNote;
+import it.naturtalent.office.model.address.FootNotes;
+import it.naturtalent.office.model.address.FooterClass;
 import it.naturtalent.office.model.address.Kontakt;
 import it.naturtalent.office.model.address.Kontakte;
 import it.naturtalent.office.model.address.NtProjektKontakte;
 import it.naturtalent.office.model.address.Receivers;
 import it.naturtalent.office.model.address.Referenz;
+import it.naturtalent.office.model.address.ReferenzGruppe;
+import it.naturtalent.office.model.address.ReferenzSet;
+import it.naturtalent.office.model.address.ReferenzenClass;
 import it.naturtalent.office.model.address.Senders;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
@@ -73,6 +79,42 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 	 * @generated
 	 */
 	private EClass ntProjektKontakteEClass = null;
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass footNoteEClass = null;
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass footNotesEClass = null;
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass footerClassEClass = null;
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass referenzSetEClass = null;
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass referenzenClassEClass = null;
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass referenzGruppeEClass = null;
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -250,7 +292,7 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getReferenz_Referenz()
+	public EAttribute getReferenz_Name()
 	{
 		return (EAttribute)referenzEClass.getEStructuralFeatures().get(0);
 	}
@@ -260,7 +302,7 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getReferenz_Referenz2()
+	public EAttribute getReferenz_Referenz()
 	{
 		return (EAttribute)referenzEClass.getEStructuralFeatures().get(1);
 	}
@@ -270,9 +312,19 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getReferenz_Referenz3()
+	public EAttribute getReferenz_Referenz2()
 	{
 		return (EAttribute)referenzEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getReferenz_Referenz3()
+	{
+		return (EAttribute)referenzEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -420,6 +472,186 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getFootNote()
+	{
+		return footNoteEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getFootNote_Key()
+	{
+		return (EAttribute)footNoteEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getFootNote_Value()
+	{
+		return (EAttribute)footNoteEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getFootNotes()
+	{
+		return footNotesEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getFootNotes_Name()
+	{
+		return (EAttribute)footNotesEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getFootNotes_Footnotes()
+	{
+		return (EReference)footNotesEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getFooterClass()
+	{
+		return footerClassEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getFooterClass_FooterClassName()
+	{
+		return (EAttribute)footerClassEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getFooterClass_FooterClassFootNotes()
+	{
+		return (EReference)footerClassEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getReferenzSet()
+	{
+		return referenzSetEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getReferenzSet_Name()
+	{
+		return (EAttribute)referenzSetEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getReferenzSet_Referenzen()
+	{
+		return (EReference)referenzSetEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getReferenzenClass()
+	{
+		return referenzenClassEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getReferenzenClass_ReferenzenClassName()
+	{
+		return (EAttribute)referenzenClassEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getReferenzenClass_ReferenzClassReferenzen()
+	{
+		return (EReference)referenzenClassEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getReferenzGruppe()
+	{
+		return referenzGruppeEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getReferenzGruppe_Groupname()
+	{
+		return (EAttribute)referenzGruppeEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getReferenzGruppe_Referenz()
+	{
+		return (EReference)referenzGruppeEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getAbsender()
 	{
 		return absenderEClass;
@@ -443,16 +675,6 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 	public EReference getAbsender_Adresse()
 	{
 		return (EReference)absenderEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getAbsender_Referenz()
-	{
-		return (EReference)absenderEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -521,7 +743,6 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 		absenderEClass = createEClass(ABSENDER);
 		createEAttribute(absenderEClass, ABSENDER__NAME);
 		createEReference(absenderEClass, ABSENDER__ADRESSE);
-		createEReference(absenderEClass, ABSENDER__REFERENZ);
 
 		adresseEClass = createEClass(ADRESSE);
 		createEAttribute(adresseEClass, ADRESSE__NAME);
@@ -531,11 +752,6 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 		createEAttribute(adresseEClass, ADRESSE__PLZ);
 		createEAttribute(adresseEClass, ADRESSE__ORT);
 		createEAttribute(adresseEClass, ADRESSE__TYPE);
-
-		referenzEClass = createEClass(REFERENZ);
-		createEAttribute(referenzEClass, REFERENZ__REFERENZ);
-		createEAttribute(referenzEClass, REFERENZ__REFERENZ2);
-		createEAttribute(referenzEClass, REFERENZ__REFERENZ3);
 
 		empfaengerEClass = createEClass(EMPFAENGER);
 		createEAttribute(empfaengerEClass, EMPFAENGER__NAME);
@@ -555,6 +771,36 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 		ntProjektKontakteEClass = createEClass(NT_PROJEKT_KONTAKTE);
 		createEAttribute(ntProjektKontakteEClass, NT_PROJEKT_KONTAKTE__NT_PROJEKT_ID);
 		createEReference(ntProjektKontakteEClass, NT_PROJEKT_KONTAKTE__KONTAKTE);
+
+		footNoteEClass = createEClass(FOOT_NOTE);
+		createEAttribute(footNoteEClass, FOOT_NOTE__KEY);
+		createEAttribute(footNoteEClass, FOOT_NOTE__VALUE);
+
+		footNotesEClass = createEClass(FOOT_NOTES);
+		createEAttribute(footNotesEClass, FOOT_NOTES__NAME);
+		createEReference(footNotesEClass, FOOT_NOTES__FOOTNOTES);
+
+		footerClassEClass = createEClass(FOOTER_CLASS);
+		createEAttribute(footerClassEClass, FOOTER_CLASS__FOOTER_CLASS_NAME);
+		createEReference(footerClassEClass, FOOTER_CLASS__FOOTER_CLASS_FOOT_NOTES);
+
+		referenzEClass = createEClass(REFERENZ);
+		createEAttribute(referenzEClass, REFERENZ__NAME);
+		createEAttribute(referenzEClass, REFERENZ__REFERENZ);
+		createEAttribute(referenzEClass, REFERENZ__REFERENZ2);
+		createEAttribute(referenzEClass, REFERENZ__REFERENZ3);
+
+		referenzSetEClass = createEClass(REFERENZ_SET);
+		createEAttribute(referenzSetEClass, REFERENZ_SET__NAME);
+		createEReference(referenzSetEClass, REFERENZ_SET__REFERENZEN);
+
+		referenzenClassEClass = createEClass(REFERENZEN_CLASS);
+		createEAttribute(referenzenClassEClass, REFERENZEN_CLASS__REFERENZEN_CLASS_NAME);
+		createEReference(referenzenClassEClass, REFERENZEN_CLASS__REFERENZ_CLASS_REFERENZEN);
+
+		referenzGruppeEClass = createEClass(REFERENZ_GRUPPE);
+		createEAttribute(referenzGruppeEClass, REFERENZ_GRUPPE__GROUPNAME);
+		createEReference(referenzGruppeEClass, REFERENZ_GRUPPE__REFERENZ);
 
 		// Create enums
 		addressTypeEEnum = createEEnum(ADDRESS_TYPE);
@@ -597,7 +843,6 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 		initEClass(absenderEClass, Absender.class, "Absender", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getAbsender_Name(), ecorePackage.getEString(), "name", null, 0, 1, Absender.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getAbsender_Adresse(), this.getAdresse(), null, "adresse", null, 0, 1, Absender.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getAbsender_Referenz(), this.getReferenz(), null, "referenz", null, 0, 1, Absender.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(adresseEClass, Adresse.class, "Adresse", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getAdresse_Name(), ecorePackage.getEString(), "name", null, 0, 1, Adresse.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -607,11 +852,6 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 		initEAttribute(getAdresse_Plz(), ecorePackage.getEString(), "plz", null, 0, 1, Adresse.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getAdresse_Ort(), ecorePackage.getEString(), "ort", null, 0, 1, Adresse.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getAdresse_Type(), this.getAddressType(), "type", null, 0, 1, Adresse.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(referenzEClass, Referenz.class, "Referenz", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getReferenz_Referenz(), ecorePackage.getEString(), "referenz", null, 0, 1, Referenz.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getReferenz_Referenz2(), ecorePackage.getEString(), "referenz2", null, 0, 1, Referenz.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getReferenz_Referenz3(), ecorePackage.getEString(), "referenz3", null, 0, 1, Referenz.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(empfaengerEClass, Empfaenger.class, "Empfaenger", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getEmpfaenger_Name(), ecorePackage.getEString(), "name", null, 0, 1, Empfaenger.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -631,6 +871,36 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 		initEClass(ntProjektKontakteEClass, NtProjektKontakte.class, "NtProjektKontakte", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getNtProjektKontakte_NtProjektID(), ecorePackage.getEString(), "ntProjektID", null, 0, 1, NtProjektKontakte.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getNtProjektKontakte_Kontakte(), this.getKontakt(), null, "kontakte", null, 0, -1, NtProjektKontakte.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(footNoteEClass, FootNote.class, "FootNote", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getFootNote_Key(), ecorePackage.getEString(), "key", null, 0, 1, FootNote.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFootNote_Value(), ecorePackage.getEString(), "value", null, 0, 1, FootNote.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(footNotesEClass, FootNotes.class, "FootNotes", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getFootNotes_Name(), ecorePackage.getEString(), "name", null, 0, 1, FootNotes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getFootNotes_Footnotes(), this.getFootNote(), null, "footnotes", null, 0, -1, FootNotes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(footerClassEClass, FooterClass.class, "FooterClass", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getFooterClass_FooterClassName(), ecorePackage.getEString(), "footerClassName", null, 0, 1, FooterClass.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getFooterClass_FooterClassFootNotes(), this.getFootNotes(), null, "footerClassFootNotes", null, 0, -1, FooterClass.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(referenzEClass, Referenz.class, "Referenz", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getReferenz_Name(), ecorePackage.getEString(), "name", null, 0, 1, Referenz.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getReferenz_Referenz(), ecorePackage.getEString(), "referenz", null, 0, 1, Referenz.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getReferenz_Referenz2(), ecorePackage.getEString(), "referenz2", null, 0, 1, Referenz.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getReferenz_Referenz3(), ecorePackage.getEString(), "referenz3", null, 0, 1, Referenz.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(referenzSetEClass, ReferenzSet.class, "ReferenzSet", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getReferenzSet_Name(), ecorePackage.getEString(), "name", null, 0, 1, ReferenzSet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getReferenzSet_Referenzen(), this.getReferenz(), null, "referenzen", null, 0, -1, ReferenzSet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(referenzenClassEClass, ReferenzenClass.class, "ReferenzenClass", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getReferenzenClass_ReferenzenClassName(), ecorePackage.getEString(), "referenzenClassName", null, 0, 1, ReferenzenClass.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getReferenzenClass_ReferenzClassReferenzen(), this.getReferenzGruppe(), null, "referenzClassReferenzen", null, 0, -1, ReferenzenClass.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(referenzGruppeEClass, ReferenzGruppe.class, "ReferenzGruppe", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getReferenzGruppe_Groupname(), ecorePackage.getEString(), "groupname", null, 0, 1, ReferenzGruppe.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getReferenzGruppe_Referenz(), this.getReferenz(), null, "referenz", null, 0, -1, ReferenzGruppe.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(addressTypeEEnum, AddressType.class, "AddressType");

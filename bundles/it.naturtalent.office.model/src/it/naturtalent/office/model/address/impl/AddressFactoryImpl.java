@@ -68,12 +68,18 @@ public class AddressFactoryImpl extends EFactoryImpl implements AddressFactory
 			case AddressPackage.SENDERS: return createSenders();
 			case AddressPackage.ABSENDER: return createAbsender();
 			case AddressPackage.ADRESSE: return createAdresse();
-			case AddressPackage.REFERENZ: return createReferenz();
 			case AddressPackage.EMPFAENGER: return createEmpfaenger();
 			case AddressPackage.RECEIVERS: return createReceivers();
 			case AddressPackage.KONTAKT: return createKontakt();
 			case AddressPackage.KONTAKTE: return createKontakte();
 			case AddressPackage.NT_PROJEKT_KONTAKTE: return createNtProjektKontakte();
+			case AddressPackage.FOOT_NOTE: return createFootNote();
+			case AddressPackage.FOOT_NOTES: return createFootNotes();
+			case AddressPackage.FOOTER_CLASS: return createFooterClass();
+			case AddressPackage.REFERENZ: return createReferenz();
+			case AddressPackage.REFERENZ_SET: return createReferenzSet();
+			case AddressPackage.REFERENZEN_CLASS: return createReferenzenClass();
+			case AddressPackage.REFERENZ_GRUPPE: return createReferenzGruppe();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -188,6 +194,72 @@ public class AddressFactoryImpl extends EFactoryImpl implements AddressFactory
 	{
 		NtProjektKontakteImpl ntProjektKontakte = new NtProjektKontakteImpl();
 		return ntProjektKontakte;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public FootNote createFootNote()
+	{
+		FootNoteImpl footNote = new FootNoteImpl();
+		return footNote;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public FootNotes createFootNotes()
+	{
+		FootNotesImpl footNotes = new FootNotesImpl();
+		return footNotes;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public FooterClass createFooterClass()
+	{
+		FooterClassImpl footerClass = new FooterClassImpl();
+		return footerClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ReferenzSet createReferenzSet()
+	{
+		ReferenzSetImpl referenzSet = new ReferenzSetImpl();
+		return referenzSet;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ReferenzenClass createReferenzenClass()
+	{
+		ReferenzenClassImpl referenzenClass = new ReferenzenClassImpl();
+		return referenzenClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ReferenzGruppe createReferenzGruppe()
+	{
+		ReferenzGruppeImpl referenzGruppe = new ReferenzGruppeImpl();
+		return referenzGruppe;
 	}
 
 	/**

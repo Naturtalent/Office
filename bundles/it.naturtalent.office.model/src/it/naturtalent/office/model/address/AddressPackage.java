@@ -76,7 +76,7 @@ public interface AddressPackage extends EPackage
 	 * @see it.naturtalent.office.model.address.impl.AddressPackageImpl#getReferenz()
 	 * @generated
 	 */
-	int REFERENZ = 3;
+	int REFERENZ = 11;
 
 	/**
 	 * The meta object id for the '{@link it.naturtalent.office.model.address.impl.AbsenderImpl <em>Absender</em>}' class.
@@ -144,22 +144,13 @@ public interface AddressPackage extends EPackage
 	int ABSENDER__ADRESSE = 1;
 
 	/**
-	 * The feature id for the '<em><b>Referenz</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSENDER__REFERENZ = 2;
-
-	/**
 	 * The number of structural features of the '<em>Absender</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ABSENDER_FEATURE_COUNT = 3;
+	int ABSENDER_FEATURE_COUNT = 2;
 
 	/**
 	 * The number of operations of the '<em>Absender</em>' class.
@@ -252,51 +243,6 @@ public interface AddressPackage extends EPackage
 	int ADRESSE_OPERATION_COUNT = 0;
 
 	/**
-	 * The feature id for the '<em><b>Referenz</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REFERENZ__REFERENZ = 0;
-
-	/**
-	 * The feature id for the '<em><b>Referenz2</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REFERENZ__REFERENZ2 = 1;
-
-	/**
-	 * The feature id for the '<em><b>Referenz3</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REFERENZ__REFERENZ3 = 2;
-
-	/**
-	 * The number of structural features of the '<em>Referenz</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REFERENZ_FEATURE_COUNT = 3;
-
-	/**
-	 * The number of operations of the '<em>Referenz</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REFERENZ_OPERATION_COUNT = 0;
-
-	/**
 	 * The meta object id for the '{@link it.naturtalent.office.model.address.impl.EmpfaengerImpl <em>Empfaenger</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -304,7 +250,7 @@ public interface AddressPackage extends EPackage
 	 * @see it.naturtalent.office.model.address.impl.AddressPackageImpl#getEmpfaenger()
 	 * @generated
 	 */
-	int EMPFAENGER = 4;
+	int EMPFAENGER = 3;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -350,7 +296,7 @@ public interface AddressPackage extends EPackage
 	 * @see it.naturtalent.office.model.address.impl.AddressPackageImpl#getReceivers()
 	 * @generated
 	 */
-	int RECEIVERS = 5;
+	int RECEIVERS = 4;
 
 	/**
 	 * The feature id for the '<em><b>Receivers</b></em>' containment reference list.
@@ -387,7 +333,7 @@ public interface AddressPackage extends EPackage
 	 * @see it.naturtalent.office.model.address.impl.AddressPackageImpl#getKontakt()
 	 * @generated
 	 */
-	int KONTAKT = 6;
+	int KONTAKT = 5;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -442,7 +388,7 @@ public interface AddressPackage extends EPackage
 	 * @see it.naturtalent.office.model.address.impl.AddressPackageImpl#getKontakte()
 	 * @generated
 	 */
-	int KONTAKTE = 7;
+	int KONTAKTE = 6;
 
 	/**
 	 * The feature id for the '<em><b>Kontakte</b></em>' containment reference list.
@@ -479,7 +425,7 @@ public interface AddressPackage extends EPackage
 	 * @see it.naturtalent.office.model.address.impl.AddressPackageImpl#getNtProjektKontakte()
 	 * @generated
 	 */
-	int NT_PROJEKT_KONTAKTE = 8;
+	int NT_PROJEKT_KONTAKTE = 7;
 
 	/**
 	 * The feature id for the '<em><b>Nt Projekt ID</b></em>' attribute.
@@ -518,6 +464,336 @@ public interface AddressPackage extends EPackage
 	int NT_PROJEKT_KONTAKTE_OPERATION_COUNT = 0;
 
 	/**
+	 * The meta object id for the '{@link it.naturtalent.office.model.address.impl.FootNoteImpl <em>Foot Note</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.naturtalent.office.model.address.impl.FootNoteImpl
+	 * @see it.naturtalent.office.model.address.impl.AddressPackageImpl#getFootNote()
+	 * @generated
+	 */
+	int FOOT_NOTE = 8;
+
+	/**
+	 * The feature id for the '<em><b>Key</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FOOT_NOTE__KEY = 0;
+
+	/**
+	 * The feature id for the '<em><b>Value</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FOOT_NOTE__VALUE = 1;
+
+	/**
+	 * The number of structural features of the '<em>Foot Note</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FOOT_NOTE_FEATURE_COUNT = 2;
+
+	/**
+	 * The number of operations of the '<em>Foot Note</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FOOT_NOTE_OPERATION_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link it.naturtalent.office.model.address.impl.FootNotesImpl <em>Foot Notes</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.naturtalent.office.model.address.impl.FootNotesImpl
+	 * @see it.naturtalent.office.model.address.impl.AddressPackageImpl#getFootNotes()
+	 * @generated
+	 */
+	int FOOT_NOTES = 9;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FOOT_NOTES__NAME = 0;
+
+	/**
+	 * The feature id for the '<em><b>Footnotes</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FOOT_NOTES__FOOTNOTES = 1;
+
+	/**
+	 * The number of structural features of the '<em>Foot Notes</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FOOT_NOTES_FEATURE_COUNT = 2;
+
+	/**
+	 * The number of operations of the '<em>Foot Notes</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FOOT_NOTES_OPERATION_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link it.naturtalent.office.model.address.impl.FooterClassImpl <em>Footer Class</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.naturtalent.office.model.address.impl.FooterClassImpl
+	 * @see it.naturtalent.office.model.address.impl.AddressPackageImpl#getFooterClass()
+	 * @generated
+	 */
+	int FOOTER_CLASS = 10;
+
+	/**
+	 * The feature id for the '<em><b>Footer Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FOOTER_CLASS__FOOTER_CLASS_NAME = 0;
+
+	/**
+	 * The feature id for the '<em><b>Footer Class Foot Notes</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FOOTER_CLASS__FOOTER_CLASS_FOOT_NOTES = 1;
+
+	/**
+	 * The number of structural features of the '<em>Footer Class</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FOOTER_CLASS_FEATURE_COUNT = 2;
+
+	/**
+	 * The number of operations of the '<em>Footer Class</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FOOTER_CLASS_OPERATION_COUNT = 0;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REFERENZ__NAME = 0;
+
+	/**
+	 * The feature id for the '<em><b>Referenz</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REFERENZ__REFERENZ = 1;
+
+	/**
+	 * The feature id for the '<em><b>Referenz2</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REFERENZ__REFERENZ2 = 2;
+
+	/**
+	 * The feature id for the '<em><b>Referenz3</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REFERENZ__REFERENZ3 = 3;
+
+	/**
+	 * The number of structural features of the '<em>Referenz</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REFERENZ_FEATURE_COUNT = 4;
+
+	/**
+	 * The number of operations of the '<em>Referenz</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REFERENZ_OPERATION_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link it.naturtalent.office.model.address.impl.ReferenzSetImpl <em>Referenz Set</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.naturtalent.office.model.address.impl.ReferenzSetImpl
+	 * @see it.naturtalent.office.model.address.impl.AddressPackageImpl#getReferenzSet()
+	 * @generated
+	 */
+	int REFERENZ_SET = 12;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REFERENZ_SET__NAME = 0;
+
+	/**
+	 * The feature id for the '<em><b>Referenzen</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REFERENZ_SET__REFERENZEN = 1;
+
+	/**
+	 * The number of structural features of the '<em>Referenz Set</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REFERENZ_SET_FEATURE_COUNT = 2;
+
+	/**
+	 * The number of operations of the '<em>Referenz Set</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REFERENZ_SET_OPERATION_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link it.naturtalent.office.model.address.impl.ReferenzenClassImpl <em>Referenzen Class</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.naturtalent.office.model.address.impl.ReferenzenClassImpl
+	 * @see it.naturtalent.office.model.address.impl.AddressPackageImpl#getReferenzenClass()
+	 * @generated
+	 */
+	int REFERENZEN_CLASS = 13;
+
+	/**
+	 * The feature id for the '<em><b>Referenzen Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REFERENZEN_CLASS__REFERENZEN_CLASS_NAME = 0;
+
+	/**
+	 * The feature id for the '<em><b>Referenz Class Referenzen</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REFERENZEN_CLASS__REFERENZ_CLASS_REFERENZEN = 1;
+
+	/**
+	 * The number of structural features of the '<em>Referenzen Class</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REFERENZEN_CLASS_FEATURE_COUNT = 2;
+
+	/**
+	 * The number of operations of the '<em>Referenzen Class</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REFERENZEN_CLASS_OPERATION_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link it.naturtalent.office.model.address.impl.ReferenzGruppeImpl <em>Referenz Gruppe</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.naturtalent.office.model.address.impl.ReferenzGruppeImpl
+	 * @see it.naturtalent.office.model.address.impl.AddressPackageImpl#getReferenzGruppe()
+	 * @generated
+	 */
+	int REFERENZ_GRUPPE = 14;
+
+	/**
+	 * The feature id for the '<em><b>Groupname</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REFERENZ_GRUPPE__GROUPNAME = 0;
+
+	/**
+	 * The feature id for the '<em><b>Referenz</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REFERENZ_GRUPPE__REFERENZ = 1;
+
+	/**
+	 * The number of structural features of the '<em>Referenz Gruppe</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REFERENZ_GRUPPE_FEATURE_COUNT = 2;
+
+	/**
+	 * The number of operations of the '<em>Referenz Gruppe</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REFERENZ_GRUPPE_OPERATION_COUNT = 0;
+
+	/**
 	 * The meta object id for the '{@link it.naturtalent.office.model.address.AddressType <em>Type</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -525,7 +801,7 @@ public interface AddressPackage extends EPackage
 	 * @see it.naturtalent.office.model.address.impl.AddressPackageImpl#getAddressType()
 	 * @generated
 	 */
-	int ADDRESS_TYPE = 9;
+	int ADDRESS_TYPE = 15;
 
 
 	/**
@@ -624,6 +900,17 @@ public interface AddressPackage extends EPackage
 	 * @generated
 	 */
 	EClass getReferenz();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.naturtalent.office.model.address.Referenz#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see it.naturtalent.office.model.address.Referenz#getName()
+	 * @see #getReferenz()
+	 * @generated
+	 */
+	EAttribute getReferenz_Name();
 
 	/**
 	 * Returns the meta object for the attribute '{@link it.naturtalent.office.model.address.Referenz#getReferenz <em>Referenz</em>}'.
@@ -808,6 +1095,198 @@ public interface AddressPackage extends EPackage
 	EReference getNtProjektKontakte_Kontakte();
 
 	/**
+	 * Returns the meta object for class '{@link it.naturtalent.office.model.address.FootNote <em>Foot Note</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Foot Note</em>'.
+	 * @see it.naturtalent.office.model.address.FootNote
+	 * @generated
+	 */
+	EClass getFootNote();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.naturtalent.office.model.address.FootNote#getKey <em>Key</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Key</em>'.
+	 * @see it.naturtalent.office.model.address.FootNote#getKey()
+	 * @see #getFootNote()
+	 * @generated
+	 */
+	EAttribute getFootNote_Key();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.naturtalent.office.model.address.FootNote#getValue <em>Value</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Value</em>'.
+	 * @see it.naturtalent.office.model.address.FootNote#getValue()
+	 * @see #getFootNote()
+	 * @generated
+	 */
+	EAttribute getFootNote_Value();
+
+	/**
+	 * Returns the meta object for class '{@link it.naturtalent.office.model.address.FootNotes <em>Foot Notes</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Foot Notes</em>'.
+	 * @see it.naturtalent.office.model.address.FootNotes
+	 * @generated
+	 */
+	EClass getFootNotes();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.naturtalent.office.model.address.FootNotes#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see it.naturtalent.office.model.address.FootNotes#getName()
+	 * @see #getFootNotes()
+	 * @generated
+	 */
+	EAttribute getFootNotes_Name();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link it.naturtalent.office.model.address.FootNotes#getFootnotes <em>Footnotes</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Footnotes</em>'.
+	 * @see it.naturtalent.office.model.address.FootNotes#getFootnotes()
+	 * @see #getFootNotes()
+	 * @generated
+	 */
+	EReference getFootNotes_Footnotes();
+
+	/**
+	 * Returns the meta object for class '{@link it.naturtalent.office.model.address.FooterClass <em>Footer Class</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Footer Class</em>'.
+	 * @see it.naturtalent.office.model.address.FooterClass
+	 * @generated
+	 */
+	EClass getFooterClass();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.naturtalent.office.model.address.FooterClass#getFooterClassName <em>Footer Class Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Footer Class Name</em>'.
+	 * @see it.naturtalent.office.model.address.FooterClass#getFooterClassName()
+	 * @see #getFooterClass()
+	 * @generated
+	 */
+	EAttribute getFooterClass_FooterClassName();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link it.naturtalent.office.model.address.FooterClass#getFooterClassFootNotes <em>Footer Class Foot Notes</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Footer Class Foot Notes</em>'.
+	 * @see it.naturtalent.office.model.address.FooterClass#getFooterClassFootNotes()
+	 * @see #getFooterClass()
+	 * @generated
+	 */
+	EReference getFooterClass_FooterClassFootNotes();
+
+	/**
+	 * Returns the meta object for class '{@link it.naturtalent.office.model.address.ReferenzSet <em>Referenz Set</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Referenz Set</em>'.
+	 * @see it.naturtalent.office.model.address.ReferenzSet
+	 * @generated
+	 */
+	EClass getReferenzSet();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.naturtalent.office.model.address.ReferenzSet#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see it.naturtalent.office.model.address.ReferenzSet#getName()
+	 * @see #getReferenzSet()
+	 * @generated
+	 */
+	EAttribute getReferenzSet_Name();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link it.naturtalent.office.model.address.ReferenzSet#getReferenzen <em>Referenzen</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Referenzen</em>'.
+	 * @see it.naturtalent.office.model.address.ReferenzSet#getReferenzen()
+	 * @see #getReferenzSet()
+	 * @generated
+	 */
+	EReference getReferenzSet_Referenzen();
+
+	/**
+	 * Returns the meta object for class '{@link it.naturtalent.office.model.address.ReferenzenClass <em>Referenzen Class</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Referenzen Class</em>'.
+	 * @see it.naturtalent.office.model.address.ReferenzenClass
+	 * @generated
+	 */
+	EClass getReferenzenClass();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.naturtalent.office.model.address.ReferenzenClass#getReferenzenClassName <em>Referenzen Class Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Referenzen Class Name</em>'.
+	 * @see it.naturtalent.office.model.address.ReferenzenClass#getReferenzenClassName()
+	 * @see #getReferenzenClass()
+	 * @generated
+	 */
+	EAttribute getReferenzenClass_ReferenzenClassName();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link it.naturtalent.office.model.address.ReferenzenClass#getReferenzClassReferenzen <em>Referenz Class Referenzen</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Referenz Class Referenzen</em>'.
+	 * @see it.naturtalent.office.model.address.ReferenzenClass#getReferenzClassReferenzen()
+	 * @see #getReferenzenClass()
+	 * @generated
+	 */
+	EReference getReferenzenClass_ReferenzClassReferenzen();
+
+	/**
+	 * Returns the meta object for class '{@link it.naturtalent.office.model.address.ReferenzGruppe <em>Referenz Gruppe</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Referenz Gruppe</em>'.
+	 * @see it.naturtalent.office.model.address.ReferenzGruppe
+	 * @generated
+	 */
+	EClass getReferenzGruppe();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.naturtalent.office.model.address.ReferenzGruppe#getGroupname <em>Groupname</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Groupname</em>'.
+	 * @see it.naturtalent.office.model.address.ReferenzGruppe#getGroupname()
+	 * @see #getReferenzGruppe()
+	 * @generated
+	 */
+	EAttribute getReferenzGruppe_Groupname();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link it.naturtalent.office.model.address.ReferenzGruppe#getReferenz <em>Referenz</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Referenz</em>'.
+	 * @see it.naturtalent.office.model.address.ReferenzGruppe#getReferenz()
+	 * @see #getReferenzGruppe()
+	 * @generated
+	 */
+	EReference getReferenzGruppe_Referenz();
+
+	/**
 	 * Returns the meta object for class '{@link it.naturtalent.office.model.address.Absender <em>Absender</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -838,17 +1317,6 @@ public interface AddressPackage extends EPackage
 	 * @generated
 	 */
 	EReference getAbsender_Adresse();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link it.naturtalent.office.model.address.Absender#getReferenz <em>Referenz</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Referenz</em>'.
-	 * @see it.naturtalent.office.model.address.Absender#getReferenz()
-	 * @see #getAbsender()
-	 * @generated
-	 */
-	EReference getAbsender_Referenz();
 
 	/**
 	 * Returns the meta object for class '{@link it.naturtalent.office.model.address.Senders <em>Senders</em>}'.
@@ -972,6 +1440,13 @@ public interface AddressPackage extends EPackage
 		 * @generated
 		 */
 		EClass REFERENZ = eINSTANCE.getReferenz();
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute REFERENZ__NAME = eINSTANCE.getReferenz_Name();
 		/**
 		 * The meta object literal for the '<em><b>Referenz</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
@@ -1102,6 +1577,144 @@ public interface AddressPackage extends EPackage
 		 */
 		EReference NT_PROJEKT_KONTAKTE__KONTAKTE = eINSTANCE.getNtProjektKontakte_Kontakte();
 		/**
+		 * The meta object literal for the '{@link it.naturtalent.office.model.address.impl.FootNoteImpl <em>Foot Note</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.naturtalent.office.model.address.impl.FootNoteImpl
+		 * @see it.naturtalent.office.model.address.impl.AddressPackageImpl#getFootNote()
+		 * @generated
+		 */
+		EClass FOOT_NOTE = eINSTANCE.getFootNote();
+		/**
+		 * The meta object literal for the '<em><b>Key</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute FOOT_NOTE__KEY = eINSTANCE.getFootNote_Key();
+		/**
+		 * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute FOOT_NOTE__VALUE = eINSTANCE.getFootNote_Value();
+		/**
+		 * The meta object literal for the '{@link it.naturtalent.office.model.address.impl.FootNotesImpl <em>Foot Notes</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.naturtalent.office.model.address.impl.FootNotesImpl
+		 * @see it.naturtalent.office.model.address.impl.AddressPackageImpl#getFootNotes()
+		 * @generated
+		 */
+		EClass FOOT_NOTES = eINSTANCE.getFootNotes();
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute FOOT_NOTES__NAME = eINSTANCE.getFootNotes_Name();
+		/**
+		 * The meta object literal for the '<em><b>Footnotes</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference FOOT_NOTES__FOOTNOTES = eINSTANCE.getFootNotes_Footnotes();
+		/**
+		 * The meta object literal for the '{@link it.naturtalent.office.model.address.impl.FooterClassImpl <em>Footer Class</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.naturtalent.office.model.address.impl.FooterClassImpl
+		 * @see it.naturtalent.office.model.address.impl.AddressPackageImpl#getFooterClass()
+		 * @generated
+		 */
+		EClass FOOTER_CLASS = eINSTANCE.getFooterClass();
+		/**
+		 * The meta object literal for the '<em><b>Footer Class Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute FOOTER_CLASS__FOOTER_CLASS_NAME = eINSTANCE.getFooterClass_FooterClassName();
+		/**
+		 * The meta object literal for the '<em><b>Footer Class Foot Notes</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference FOOTER_CLASS__FOOTER_CLASS_FOOT_NOTES = eINSTANCE.getFooterClass_FooterClassFootNotes();
+		/**
+		 * The meta object literal for the '{@link it.naturtalent.office.model.address.impl.ReferenzSetImpl <em>Referenz Set</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.naturtalent.office.model.address.impl.ReferenzSetImpl
+		 * @see it.naturtalent.office.model.address.impl.AddressPackageImpl#getReferenzSet()
+		 * @generated
+		 */
+		EClass REFERENZ_SET = eINSTANCE.getReferenzSet();
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute REFERENZ_SET__NAME = eINSTANCE.getReferenzSet_Name();
+		/**
+		 * The meta object literal for the '<em><b>Referenzen</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference REFERENZ_SET__REFERENZEN = eINSTANCE.getReferenzSet_Referenzen();
+		/**
+		 * The meta object literal for the '{@link it.naturtalent.office.model.address.impl.ReferenzenClassImpl <em>Referenzen Class</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.naturtalent.office.model.address.impl.ReferenzenClassImpl
+		 * @see it.naturtalent.office.model.address.impl.AddressPackageImpl#getReferenzenClass()
+		 * @generated
+		 */
+		EClass REFERENZEN_CLASS = eINSTANCE.getReferenzenClass();
+		/**
+		 * The meta object literal for the '<em><b>Referenzen Class Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute REFERENZEN_CLASS__REFERENZEN_CLASS_NAME = eINSTANCE.getReferenzenClass_ReferenzenClassName();
+		/**
+		 * The meta object literal for the '<em><b>Referenz Class Referenzen</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference REFERENZEN_CLASS__REFERENZ_CLASS_REFERENZEN = eINSTANCE.getReferenzenClass_ReferenzClassReferenzen();
+		/**
+		 * The meta object literal for the '{@link it.naturtalent.office.model.address.impl.ReferenzGruppeImpl <em>Referenz Gruppe</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.naturtalent.office.model.address.impl.ReferenzGruppeImpl
+		 * @see it.naturtalent.office.model.address.impl.AddressPackageImpl#getReferenzGruppe()
+		 * @generated
+		 */
+		EClass REFERENZ_GRUPPE = eINSTANCE.getReferenzGruppe();
+		/**
+		 * The meta object literal for the '<em><b>Groupname</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute REFERENZ_GRUPPE__GROUPNAME = eINSTANCE.getReferenzGruppe_Groupname();
+		/**
+		 * The meta object literal for the '<em><b>Referenz</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference REFERENZ_GRUPPE__REFERENZ = eINSTANCE.getReferenzGruppe_Referenz();
+		/**
 		 * The meta object literal for the '{@link it.naturtalent.office.model.address.impl.AbsenderImpl <em>Absender</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1124,13 +1737,6 @@ public interface AddressPackage extends EPackage
 		 * @generated
 		 */
 		EReference ABSENDER__ADRESSE = eINSTANCE.getAbsender_Adresse();
-		/**
-		 * The meta object literal for the '<em><b>Referenz</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference ABSENDER__REFERENZ = eINSTANCE.getAbsender_Referenz();
 		/**
 		 * The meta object literal for the '{@link it.naturtalent.office.model.address.impl.SendersImpl <em>Senders</em>}' class.
 		 * <!-- begin-user-doc -->

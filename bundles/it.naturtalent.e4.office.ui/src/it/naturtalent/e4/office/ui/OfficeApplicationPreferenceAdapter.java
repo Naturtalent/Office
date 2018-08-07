@@ -43,7 +43,7 @@ import it.naturtalent.e4.preferences.DirectoryEditorComposite;
 import it.naturtalent.e4.preferences.handlers.PreferenceHandler;
 import it.naturtalent.e4.preferences.handlers.PreferenceHandler;
 
-
+@Deprecated
 public class OfficeApplicationPreferenceAdapter extends AbstractPreferenceAdapter
 {
 	private OfficeApplicationPreferenceComposite comp;

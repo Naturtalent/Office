@@ -23,9 +23,12 @@ public interface IODFWriteAdapter
 	// der verwendete Adapter (Adapterfactory) gespeichert
 	public static final String ODFADAPTERFACTORY = "ODFAdapter";
 	
-	// Namen von Tabelle im ODF-Dokument die den Datenaustausch realisiren
+	// Name der Tabelle im ODF-Dokument in die die Absenderdaten (im Kopf des Dokuments) geschrieben werden 
+	public static String ODF_WRITESENDER = "Absendertabelle";
+
+	// Name der Tabelle im ODF-Dokument in die die Adressdaten geschrieben werden
 	public static String ODF_WRITEADRESSE = "Adresstabelle";
-	
+
 	// Eventname einer ODF-Dateidefinition (File des ODF-Dokuments)
 	// wird ein ODF-WriteDokument angelegt erfolgt dieses Event mit 'File' als Datenobjekt 
 	public final static String ODFWRITE_FILEDEFINITIONEVENT = "odfwritedefinition";
