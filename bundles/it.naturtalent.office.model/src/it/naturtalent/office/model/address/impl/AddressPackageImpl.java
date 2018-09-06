@@ -163,7 +163,7 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 
 	/**
 	 * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
-	 * 
+	 *
 	 * <p>This method is used to initialize {@link AddressPackage#eINSTANCE} when that field is accessed.
 	 * Clients should not invoke it directly. Instead, they should simply access that field to obtain the package.
 	 * <!-- begin-user-doc -->
@@ -178,7 +178,8 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 		if (isInited) return (AddressPackage)EPackage.Registry.INSTANCE.getEPackage(AddressPackage.eNS_URI);
 
 		// Obtain or create and register package
-		AddressPackageImpl theAddressPackage = (AddressPackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof AddressPackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new AddressPackageImpl());
+		Object registeredAddressPackage = EPackage.Registry.INSTANCE.get(eNS_URI);
+		AddressPackageImpl theAddressPackage = registeredAddressPackage instanceof AddressPackageImpl ? (AddressPackageImpl)registeredAddressPackage : new AddressPackageImpl();
 
 		isInited = true;
 
@@ -191,7 +192,6 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 		// Mark meta-data to indicate it can't be changed
 		theAddressPackage.freeze();
 
-  
 		// Update the registry and return the package
 		EPackage.Registry.INSTANCE.put(AddressPackage.eNS_URI, theAddressPackage);
 		return theAddressPackage;

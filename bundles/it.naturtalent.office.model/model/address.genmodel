@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel"
-    modelDirectory="/it.naturtalent.office.model/src" modelPluginID="it.naturtalent.office.model"
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/it.naturtalent.office.model/src" modelPluginID="it.naturtalent.office.model"
     modelName="Address" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
     importerID="org.eclipse.emf.importer.ecore" complianceLevel="8.0" copyrightFields="false"
     operationReflection="true" importOrganizing="true">
@@ -11,5 +11,70 @@
       <genEnumLiterals ecoreEnumLiteral="address.ecore#//AddressType/PrivateAddress"/>
       <genEnumLiterals ecoreEnumLiteral="address.ecore#//AddressType/PublicAddress"/>
     </genEnums>
+    <genClasses ecoreClass="address.ecore#//Senders">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference address.ecore#//Senders/Senders"/>
+    </genClasses>
+    <genClasses ecoreClass="address.ecore#//Absender">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute address.ecore#//Absender/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference address.ecore#//Absender/adresse"/>
+    </genClasses>
+    <genClasses ecoreClass="address.ecore#//Adresse">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute address.ecore#//Adresse/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute address.ecore#//Adresse/name2"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute address.ecore#//Adresse/name3"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute address.ecore#//Adresse/strasse"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute address.ecore#//Adresse/plz"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute address.ecore#//Adresse/ort"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute address.ecore#//Adresse/type"/>
+    </genClasses>
+    <genClasses ecoreClass="address.ecore#//Empfaenger">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute address.ecore#//Empfaenger/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference address.ecore#//Empfaenger/adresse"/>
+    </genClasses>
+    <genClasses ecoreClass="address.ecore#//Receivers">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference address.ecore#//Receivers/Receivers"/>
+    </genClasses>
+    <genClasses ecoreClass="address.ecore#//Kontakt">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute address.ecore#//Kontakt/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference address.ecore#//Kontakt/adresse"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute address.ecore#//Kontakt/kommunikation"/>
+    </genClasses>
+    <genClasses ecoreClass="address.ecore#//Kontakte">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference address.ecore#//Kontakte/kontakte"/>
+    </genClasses>
+    <genClasses ecoreClass="address.ecore#//NtProjektKontakte">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute address.ecore#//NtProjektKontakte/ntProjektID"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference address.ecore#//NtProjektKontakte/kontakte"/>
+    </genClasses>
+    <genClasses ecoreClass="address.ecore#//FootNote">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute address.ecore#//FootNote/key"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute address.ecore#//FootNote/value"/>
+    </genClasses>
+    <genClasses ecoreClass="address.ecore#//FootNotes">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute address.ecore#//FootNotes/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference address.ecore#//FootNotes/footnotes"/>
+    </genClasses>
+    <genClasses ecoreClass="address.ecore#//FooterClass">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute address.ecore#//FooterClass/footerClassName"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference address.ecore#//FooterClass/footerClassFootNotes"/>
+    </genClasses>
+    <genClasses ecoreClass="address.ecore#//Referenz">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute address.ecore#//Referenz/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute address.ecore#//Referenz/referenz"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute address.ecore#//Referenz/referenz2"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute address.ecore#//Referenz/referenz3"/>
+    </genClasses>
+    <genClasses ecoreClass="address.ecore#//ReferenzSet">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute address.ecore#//ReferenzSet/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference address.ecore#//ReferenzSet/referenzen"/>
+    </genClasses>
+    <genClasses ecoreClass="address.ecore#//ReferenzenClass">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute address.ecore#//ReferenzenClass/referenzenClassName"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference address.ecore#//ReferenzenClass/referenzClassReferenzen"/>
+    </genClasses>
+    <genClasses ecoreClass="address.ecore#//ReferenzGruppe">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute address.ecore#//ReferenzGruppe/groupname"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference address.ecore#//ReferenzGruppe/referenz"/>
+    </genClasses>
   </genPackages>
 </genmodel:GenModel>

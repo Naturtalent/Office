@@ -230,7 +230,7 @@ public class FooterClassImpl extends MinimalEObjectImpl.Container implements Foo
 	{
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (footerClassName: ");
 		result.append(footerClassName);
 		result.append(')');

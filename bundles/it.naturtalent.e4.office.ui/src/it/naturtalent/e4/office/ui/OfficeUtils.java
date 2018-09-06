@@ -22,6 +22,7 @@ import it.naturtalent.office.model.address.FooterClass;
 import it.naturtalent.office.model.address.Kontakt;
 import it.naturtalent.office.model.address.Kontakte;
 import it.naturtalent.office.model.address.NtProjektKontakte;
+import it.naturtalent.office.model.address.Referenz;
 import it.naturtalent.office.model.address.ReferenzGruppe;
 import it.naturtalent.office.model.address.ReferenzSet;
 import it.naturtalent.office.model.address.ReferenzenClass;
@@ -89,13 +90,13 @@ public class OfficeUtils
 					}
 				}
 			}
-			else
+			
+			if(kontakte == null)
 			{
-				// das Modell Kontakte erzeugen und im ECPProject speichern
 				EClass kontakteClass = AddressPackage.eINSTANCE.getKontakte();
 				kontakte = (Kontakte) EcoreUtil.create(kontakteClass);
 				projectContents.add(kontakte);
-				ecpProject.saveContents();
+				ecpProject.saveContents();				
 			}
 		}
 		
@@ -178,6 +179,17 @@ public class OfficeUtils
 	}
 	
 	/**
+	 * Listet alle Footer einer Footerklasse
+	 * @param footerClassName
+	 * @return
+	 */
+	public static List<FootNotes> getFootNotes(String footerClassName)
+	{		
+		FooterClass footerClass = getFooterClass(footerClassName);		
+		return (footerClass != null) ? footerClass.getFooterClassFootNotes() : null;
+	}
+
+	/**
 	 * Rueckgabe der FooterKlasse (Container) aller FootNotes.
 	 * 
 	 * @param footerClassName
@@ -201,17 +213,6 @@ public class OfficeUtils
 		}
 
 		return null;
-	}
-	
-	/**
-	 * Listet alle Footer einer Footerklasse
-	 * @param footerClassName
-	 * @return
-	 */
-	public static List<FootNotes> getFootNotes(String footerClassName)
-	{		
-		FooterClass footerClass = getFooterClass(footerClassName);		
-		return (footerClass != null) ? footerClass.getFooterClassFootNotes() : null;
 	}
 	
 	/**
@@ -252,5 +253,50 @@ public class OfficeUtils
 		return (referenzenClass != null) ? referenzenClass.getReferenzClassReferenzen() : null;
 	}
 
+	public static ReferenzGruppe findReferenceGroup(String referenzClassName, String referenzGroupName)
+	{
+		List<ReferenzGruppe>referenzGroups = getReferenzGroups(referenzClassName);
+		if((referenzGroups != null) && (!referenzGroups.isEmpty()))
+		{
+			for (ReferenzGruppe referenzGroup : referenzGroups)
+			{
+				if (StringUtils.equals(referenzGroupName,referenzGroup.getGroupname()))
+					return referenzGroup;
+			}
+		}
+
+		return null;
+	}
+	
+
+	/**
+	 * @param referenzClassName
+	 * @param referenzGroupName
+	 * @param referenzName
+	 * @return
+	 */
+	public static Referenz getReferenz(String referenzClassName, String referenzGroupName, String referenzName)
+	{
+		List<ReferenzGruppe>referenzGroups = getReferenzGroups(referenzClassName);
+		if((referenzGroups != null) && (!referenzGroups.isEmpty()))
+		{
+			for (ReferenzGruppe referenzGroup : referenzGroups)
+			{
+				if (StringUtils.equals(referenzGroupName,referenzGroup.getGroupname()))
+				{
+					List<Referenz>references = referenzGroup.getReferenz();
+					if((references != null) && (!references.isEmpty()))
+					{
+						for(Referenz reference : references)
+						{
+							if(StringUtils.equals(referenzName, reference.getName()))
+								return reference;
+						}
+					}
+				}
+			}
+		}
+		return null;
+	}
 
 }

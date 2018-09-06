@@ -3,6 +3,11 @@
 <plugin>
    <extension
          point="org.eclipse.emf.ecp.view.model.provider.xmi.file">
+
+<file filePath="viewmodels/Receivers.view"/>
+
+
+
 <file filePath="viewmodels/ReferenzGruppe.view"/>
 
 <file filePath="viewmodels/Referenz.view"/>

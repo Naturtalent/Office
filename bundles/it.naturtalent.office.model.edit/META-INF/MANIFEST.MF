@@ -1,19 +1,19 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Edit
+Bundle-Name: %pluginName
 Bundle-SymbolicName: it.naturtalent.office.model.edit;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-ClassPath: .
-Bundle-Activator: it.naturtalent.office.model.edit.Activator
-Bundle-Vendor: Dieter Apel
+Bundle-Activator: it.naturtalent.office.model.address.provider.AddressEditPlugin$Implementation
+Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Export-Package: it.naturtalent.office.model.address.provider,
  it.naturtalent.office.model.edit
 Require-Bundle: org.eclipse.core.runtime,
-  it.naturtalent.office.model;visibility:=reexport,
-  org.eclipse.emf.edit;visibility:=reexport,
-  org.eclipse.ui,
-  org.eclipse.core.runtime
-Automatic-Module-Name: it.naturtalent.office.model.edit;singleton:=true
+ it.naturtalent.office.model;visibility:=reexport,
+ org.eclipse.emf.edit;visibility:=reexport,
+ org.eclipse.ui,
+ org.eclipse.core.runtime
+Automatic-Module-Name: it.naturtalent.office.model.edit
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8

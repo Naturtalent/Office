@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="ASCII"?>
-<org.eclipse.emf.ecp.view.model:View xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:org.eclipse.emf.ecp.view.model="http://org/eclipse/emf/ecp/view/model/170" xmlns:org.eclipse.emf.ecp.view.treemasterview.model="http://org/eclipse/emf/ecp/view/treemasterview/model" xmi:id="_WaiYEF8lEeingtzSzVi-0A" name="Senders" ecorePath="/Office_bundles/it.naturtalent.office.model/model/address.ecore">
+<org.eclipse.emf.ecp.view.model:View xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:org.eclipse.emf.ecp.view.model="http://org/eclipse/emf/ecp/view/model/1170" xmlns:org.eclipse.emf.ecp.view.treemasterview.model="http://org/eclipse/emf/ecp/view/treemasterview/model" xmi:id="_gdohMJvMEeiBornFDYthNQ" name="Senders">
   <rootEClass href="http://it.naturtalent/address#//Senders"/>
-  <children xsi:type="org.eclipse.emf.ecp.view.treemasterview.model:TreeMasterDetail" xmi:id="_cZqo8F8lEeingtzSzVi-0A"/>
+  <children xsi:type="org.eclipse.emf.ecp.view.treemasterview.model:TreeMasterDetail" xmi:id="_K1vWQJvNEeiBornFDYthNQ"/>
+  <ecorePaths>/it.naturtalent.office.model/model/address.ecore</ecorePaths>
 </org.eclipse.emf.ecp.view.model:View>
