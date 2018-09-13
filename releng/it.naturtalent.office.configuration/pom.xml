@@ -10,6 +10,7 @@
 		<tycho.version>1.0.0</tycho.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<repo.url>http://download.eclipse.org/releases/photon</repo.url>
+		<url.updateSite>file:/media/dieter/MAXONE/UpdateSites</url.updateSite>
 	</properties>
 	
 	<!-- Repositories should be commented out to only use the target definition --> 
@@ -22,13 +23,13 @@
  		 
   		 <repository>
    			<id>naturtalent-basis</id>
-  			<url>file:/media/NAS/UpdateSites/Basis/repository/</url>
+  			<url>${url.updateSite}/Basis/repository/</url>
    			<layout>p2</layout>
  		 </repository>
  		 
    		 <repository>
    			<id>naturtalent-libreoffice</id>
-  			<url>file:/media/NAS/UpdateSites/Libreoffice/repository/</url>
+  			<url>${url.updateSite}/Libreoffice/repository/</url>
    			<layout>p2</layout>
  		 </repository>
  

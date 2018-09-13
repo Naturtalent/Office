@@ -24,8 +24,9 @@ import it.naturtalent.office.model.address.Empfaenger;
 import it.naturtalent.office.model.address.Referenz;
 
 /**
- * Mit diesem Wizard fragt der DefaultWriteAdapter die erforderlichen Daten ab.
- *  
+ * Mit diesem DefaultWizard fragt der DefaultWriteAdapter die erforderlichen Daten ab und schreibt sie in das Dokument.
+ * @see it.naturtalent.e4.office.ui.ODFDefaultWriteAdapter
+ * 
  * @author dieter
  *
  */
@@ -62,7 +63,7 @@ public class ODFDefaultWriteAdapterWizard extends Wizard
 	@Override
 	public void addPages()
 	{
-		// WizardPages erzeugen
+		// WizardPages (ODFReceiverWizardPage,ODFSenderWizardPage) erzeugen
 		ODFReceiverWizardPage receiverWizardPage = ContextInjectionFactory.make(ODFReceiverWizardPage.class, context);
 		senderWizardPage = ContextInjectionFactory.make(ODFSenderWizardPage.class, context);
 		
