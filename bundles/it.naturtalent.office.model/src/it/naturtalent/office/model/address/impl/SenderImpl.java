@@ -4,32 +4,34 @@ package it.naturtalent.office.model.address.impl;
 
 import it.naturtalent.office.model.address.Absender;
 import it.naturtalent.office.model.address.AddressPackage;
-import it.naturtalent.office.model.address.Senders;
+import it.naturtalent.office.model.address.Sender;
 
 import java.util.Collection;
 import org.eclipse.emf.common.notify.NotificationChain;
+
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
+
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Senders</b></em>'.
+ * An implementation of the model object '<em><b>Sender</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link it.naturtalent.office.model.address.impl.SendersImpl#getSenders <em>Senders</em>}</li>
+ *   <li>{@link it.naturtalent.office.model.address.impl.SenderImpl#getSenders <em>Senders</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class SendersImpl extends MinimalEObjectImpl.Container implements Senders
+public class SenderImpl extends MinimalEObjectImpl.Container implements Sender
 {
 	/**
 	 * The cached value of the '{@link #getSenders() <em>Senders</em>}' containment reference list.
@@ -40,12 +42,13 @@ public class SendersImpl extends MinimalEObjectImpl.Container implements Senders
 	 * @ordered
 	 */
 	protected EList<Absender> senders;
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected SendersImpl()
+	protected SenderImpl()
 	{
 		super();
 	}
@@ -58,7 +61,7 @@ public class SendersImpl extends MinimalEObjectImpl.Container implements Senders
 	@Override
 	protected EClass eStaticClass()
 	{
-		return AddressPackage.Literals.SENDERS;
+		return AddressPackage.Literals.SENDER;
 	}
 
 	/**
@@ -70,7 +73,7 @@ public class SendersImpl extends MinimalEObjectImpl.Container implements Senders
 	{
 		if (senders == null)
 		{
-			senders = new EObjectContainmentEList<Absender>(Absender.class, this, AddressPackage.SENDERS__SENDERS);
+			senders = new EObjectContainmentEList<Absender>(Absender.class, this, AddressPackage.SENDER__SENDERS);
 		}
 		return senders;
 	}
@@ -85,7 +88,7 @@ public class SendersImpl extends MinimalEObjectImpl.Container implements Senders
 	{
 		switch (featureID)
 		{
-			case AddressPackage.SENDERS__SENDERS:
+			case AddressPackage.SENDER__SENDERS:
 				return ((InternalEList<?>)getSenders()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
@@ -101,7 +104,7 @@ public class SendersImpl extends MinimalEObjectImpl.Container implements Senders
 	{
 		switch (featureID)
 		{
-			case AddressPackage.SENDERS__SENDERS:
+			case AddressPackage.SENDER__SENDERS:
 				return getSenders();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -118,7 +121,7 @@ public class SendersImpl extends MinimalEObjectImpl.Container implements Senders
 	{
 		switch (featureID)
 		{
-			case AddressPackage.SENDERS__SENDERS:
+			case AddressPackage.SENDER__SENDERS:
 				getSenders().clear();
 				getSenders().addAll((Collection<? extends Absender>)newValue);
 				return;
@@ -136,7 +139,7 @@ public class SendersImpl extends MinimalEObjectImpl.Container implements Senders
 	{
 		switch (featureID)
 		{
-			case AddressPackage.SENDERS__SENDERS:
+			case AddressPackage.SENDER__SENDERS:
 				getSenders().clear();
 				return;
 		}
@@ -153,10 +156,10 @@ public class SendersImpl extends MinimalEObjectImpl.Container implements Senders
 	{
 		switch (featureID)
 		{
-			case AddressPackage.SENDERS__SENDERS:
+			case AddressPackage.SENDER__SENDERS:
 				return senders != null && !senders.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
 
-} //SendersImpl
+} //SenderImpl

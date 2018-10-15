@@ -65,7 +65,6 @@ public class AddressFactoryImpl extends EFactoryImpl implements AddressFactory
 	{
 		switch (eClass.getClassifierID())
 		{
-			case AddressPackage.SENDERS: return createSenders();
 			case AddressPackage.ABSENDER: return createAbsender();
 			case AddressPackage.ADRESSE: return createAdresse();
 			case AddressPackage.EMPFAENGER: return createEmpfaenger();
@@ -80,6 +79,7 @@ public class AddressFactoryImpl extends EFactoryImpl implements AddressFactory
 			case AddressPackage.REFERENZ_SET: return createReferenzSet();
 			case AddressPackage.REFERENZEN_CLASS: return createReferenzenClass();
 			case AddressPackage.REFERENZ_GRUPPE: return createReferenzGruppe();
+			case AddressPackage.SENDER: return createSender();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -267,10 +267,10 @@ public class AddressFactoryImpl extends EFactoryImpl implements AddressFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Absender createAbsender()
+	public Sender createSender()
 	{
-		AbsenderImpl absender = new AbsenderImpl();
-		return absender;
+		SenderImpl sender = new SenderImpl();
+		return sender;
 	}
 
 	/**
@@ -278,10 +278,10 @@ public class AddressFactoryImpl extends EFactoryImpl implements AddressFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Senders createSenders()
+	public Absender createAbsender()
 	{
-		SendersImpl senders = new SendersImpl();
-		return senders;
+		AbsenderImpl absender = new AbsenderImpl();
+		return absender;
 	}
 
 	/**

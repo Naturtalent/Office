@@ -21,7 +21,8 @@ import org.osgi.framework.FrameworkUtil;
 import it.naturtalent.e4.office.ui.wizards.ODFDefaultWriteAdapterWizard;
 
 /**
- * Diese Klasse realisiert einen Adapter der standardmaessig zur Verfuegung steht.
+ * Diese Klasse implementiert einen Adapter der standardmaessig zur Verfuegung steht.
+ * Der Wizard dieses Adapters ermoeglicht die Eingabe von Empfaenger und Absender.
  * 
  * @author dieter
  *
@@ -37,21 +38,6 @@ public class ODFDefaultWriteAdapter implements IODFWriteAdapter
 
 	private TextDocument odfDocument;
 	 
-
-	@Override
-	public void setSender(EObject sender)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void setReceiver(EObject receiver)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
 	@Override
 	public IWizard createWizard(IEclipseContext context)
 	{				
@@ -70,7 +56,7 @@ public class ODFDefaultWriteAdapter implements IODFWriteAdapter
 			// sicherstellen, dass kein bereits vorhandener Name benutzt wird
 			String newFileName = getAutoFileName(destDir,ODFTEXT_FILENAME);
 			File newFile = new File(destDir, newFileName);
-			createDrawFile(newFile);
+			createODFFile(newFile);
 			try
 			{
 				// die Factoryklassname des Adapters als Property im Dokument speichern
@@ -89,6 +75,33 @@ public class ODFDefaultWriteAdapter implements IODFWriteAdapter
 			return newFile;
 		}		
 		return null;
+	}
+
+	/*
+	 * Vorlage kopieren
+	 */
+	private static void createODFFile(File newODFFile)
+	{
+		Bundle bundle = FrameworkUtil.getBundle(Activator.class);
+		BundleContext bundleContext = bundle.getBundleContext();
+		URL urlTemplate = FileLocator.find(bundleContext.getBundle(),new Path(ODFTEXT_TEMPLATE), null);
+		try
+		{
+			urlTemplate = FileLocator.resolve(urlTemplate);
+			try
+			{				
+				FileUtils.copyURLToFile(urlTemplate, newODFFile);				
+			} catch (IOException e)
+			{							
+				//log.error(Messages.DesignUtils_ErrorCreateDrawFile);
+				e.printStackTrace();
+			}
+			
+		} catch (IOException e1)
+		{						
+			//log.error(Messages.DesignUtils_ErrorCreateDrawFile);
+			e1.printStackTrace();
+		}
 	}
 
 	@Override
@@ -111,33 +124,6 @@ public class ODFDefaultWriteAdapter implements IODFWriteAdapter
 	{
 		// TODO Auto-generated method stub
 		
-	}
-	
-	/*
-	 * Vorlage kopieren
-	 */
-	private static void createDrawFile(File newODFFile)
-	{
-		Bundle bundle = FrameworkUtil.getBundle(Activator.class);
-		BundleContext bundleContext = bundle.getBundleContext();
-		URL urlTemplate = FileLocator.find(bundleContext.getBundle(),new Path(ODFTEXT_TEMPLATE), null);
-		try
-		{
-			urlTemplate = FileLocator.resolve(urlTemplate);
-			try
-			{				
-				FileUtils.copyURLToFile(urlTemplate, newODFFile);				
-			} catch (IOException e)
-			{							
-				//log.error(Messages.DesignUtils_ErrorCreateDrawFile);
-				e.printStackTrace();
-			}
-			
-		} catch (IOException e1)
-		{						
-			//log.error(Messages.DesignUtils_ErrorCreateDrawFile);
-			e1.printStackTrace();
-		}
 	}
 	
 	/*

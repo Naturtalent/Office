@@ -25,6 +25,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * <ul>
  *   <li>{@link it.naturtalent.office.model.address.impl.EmpfaengerImpl#getName <em>Name</em>}</li>
  *   <li>{@link it.naturtalent.office.model.address.impl.EmpfaengerImpl#getAdresse <em>Adresse</em>}</li>
+ *   <li>{@link it.naturtalent.office.model.address.impl.EmpfaengerImpl#getContext <em>Context</em>}</li>
  * </ul>
  *
  * @generated
@@ -60,6 +61,26 @@ public class EmpfaengerImpl extends MinimalEObjectImpl.Container implements Empf
 	 * @ordered
 	 */
 	protected Adresse adresse;
+
+	/**
+	 * The default value of the '{@link #getContext() <em>Context</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getContext()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String CONTEXT_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getContext() <em>Context</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getContext()
+	 * @generated
+	 * @ordered
+	 */
+	protected String context = CONTEXT_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -158,6 +179,29 @@ public class EmpfaengerImpl extends MinimalEObjectImpl.Container implements Empf
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getContext()
+	{
+		return context;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setContext(String newContext)
+	{
+		String oldContext = context;
+		context = newContext;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, AddressPackage.EMPFAENGER__CONTEXT, oldContext, context));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
 	{
@@ -183,6 +227,8 @@ public class EmpfaengerImpl extends MinimalEObjectImpl.Container implements Empf
 				return getName();
 			case AddressPackage.EMPFAENGER__ADRESSE:
 				return getAdresse();
+			case AddressPackage.EMPFAENGER__CONTEXT:
+				return getContext();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -202,6 +248,9 @@ public class EmpfaengerImpl extends MinimalEObjectImpl.Container implements Empf
 				return;
 			case AddressPackage.EMPFAENGER__ADRESSE:
 				setAdresse((Adresse)newValue);
+				return;
+			case AddressPackage.EMPFAENGER__CONTEXT:
+				setContext((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -223,6 +272,9 @@ public class EmpfaengerImpl extends MinimalEObjectImpl.Container implements Empf
 			case AddressPackage.EMPFAENGER__ADRESSE:
 				setAdresse((Adresse)null);
 				return;
+			case AddressPackage.EMPFAENGER__CONTEXT:
+				setContext(CONTEXT_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -241,6 +293,8 @@ public class EmpfaengerImpl extends MinimalEObjectImpl.Container implements Empf
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case AddressPackage.EMPFAENGER__ADRESSE:
 				return adresse != null;
+			case AddressPackage.EMPFAENGER__CONTEXT:
+				return CONTEXT_EDEFAULT == null ? context != null : !CONTEXT_EDEFAULT.equals(context);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -258,6 +312,8 @@ public class EmpfaengerImpl extends MinimalEObjectImpl.Container implements Empf
 		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (name: ");
 		result.append(name);
+		result.append(", context: ");
+		result.append(context);
 		result.append(')');
 		return result.toString();
 	}

@@ -66,6 +66,7 @@ public class AbsenderItemProvider
 			super.getPropertyDescriptors(object);
 
 			addNamePropertyDescriptor(object);
+			addContextPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -85,6 +86,29 @@ public class AbsenderItemProvider
 				 getString("_UI_Absender_name_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_Absender_name_feature", "_UI_Absender_type"),
 				 AddressPackage.Literals.ABSENDER__NAME,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Context feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addContextPropertyDescriptor(Object object)
+	{
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Absender_context_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Absender_context_feature", "_UI_Absender_type"),
+				 AddressPackage.Literals.ABSENDER__CONTEXT,
 				 true,
 				 false,
 				 false,
@@ -169,6 +193,7 @@ public class AbsenderItemProvider
 		switch (notification.getFeatureID(Absender.class))
 		{
 			case AddressPackage.ABSENDER__NAME:
+			case AddressPackage.ABSENDER__CONTEXT:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case AddressPackage.ABSENDER__ADRESSE:

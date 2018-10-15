@@ -58,7 +58,7 @@ public class OfficeProcessor
 	private @Inject @Optional IShowViewAdapterRepository showViewAdapterRepository;
 	private @Optional @Inject INewActionAdapterRepository newWizardRepository;
 	private @Inject @Optional IOfficeService officeService;
-	private @Inject @Optional IPreferenceRegistry preferenceRegistry;
+	//private @Inject @Optional IPreferenceRegistry preferenceRegistry;
 	
 	private @Inject @Optional EPartService partService;
 	private @Inject @Optional EModelService modelService;			
@@ -95,7 +95,7 @@ public class OfficeProcessor
 	{	
 		String label;
 		
-		
+		// ein Defaultanschreiben-FactoryAdapter im Factory-Registry eintragen
 		if(writeAdapterFactoryRepository != null)
 			writeAdapterFactoryRepository.getWriteAdapterFactories()
 					.add(new DefaultWriteAdapterFactory());

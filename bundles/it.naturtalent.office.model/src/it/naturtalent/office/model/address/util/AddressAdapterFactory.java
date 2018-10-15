@@ -75,11 +75,6 @@ public class AddressAdapterFactory extends AdapterFactoryImpl
 		new AddressSwitch<Adapter>()
 		{
 			@Override
-			public Adapter caseSenders(Senders object)
-			{
-				return createSendersAdapter();
-			}
-			@Override
 			public Adapter caseAbsender(Absender object)
 			{
 				return createAbsenderAdapter();
@@ -148,6 +143,11 @@ public class AddressAdapterFactory extends AdapterFactoryImpl
 			public Adapter caseReferenzGruppe(ReferenzGruppe object)
 			{
 				return createReferenzGruppeAdapter();
+			}
+			@Override
+			public Adapter caseSender(Sender object)
+			{
+				return createSenderAdapter();
 			}
 			@Override
 			public Adapter defaultCase(EObject object)
@@ -367,6 +367,21 @@ public class AddressAdapterFactory extends AdapterFactoryImpl
 	}
 
 	/**
+	 * Creates a new adapter for an object of class '{@link it.naturtalent.office.model.address.Sender <em>Sender</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.naturtalent.office.model.address.Sender
+	 * @generated
+	 */
+	public Adapter createSenderAdapter()
+	{
+		return null;
+	}
+
+	/**
 	 * Creates a new adapter for an object of class '{@link it.naturtalent.office.model.address.Absender <em>Absender</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -377,21 +392,6 @@ public class AddressAdapterFactory extends AdapterFactoryImpl
 	 * @generated
 	 */
 	public Adapter createAbsenderAdapter()
-	{
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link it.naturtalent.office.model.address.Senders <em>Senders</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see it.naturtalent.office.model.address.Senders
-	 * @generated
-	 */
-	public Adapter createSendersAdapter()
 	{
 		return null;
 	}

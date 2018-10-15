@@ -20,7 +20,7 @@ import it.naturtalent.office.model.address.Referenz;
 import it.naturtalent.office.model.address.ReferenzGruppe;
 import it.naturtalent.office.model.address.ReferenzSet;
 import it.naturtalent.office.model.address.ReferenzenClass;
-import it.naturtalent.office.model.address.Senders;
+import it.naturtalent.office.model.address.Sender;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EEnum;
@@ -120,13 +120,13 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass absenderEClass = null;
+	private EClass senderEClass = null;
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass sendersEClass = null;
+	private EClass absenderEClass = null;
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -355,6 +355,16 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 	public EReference getEmpfaenger_Adresse()
 	{
 		return (EReference)empfaengerEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getEmpfaenger_Context()
+	{
+		return (EAttribute)empfaengerEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -652,6 +662,26 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getSender()
+	{
+		return senderEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getSender_Senders()
+	{
+		return (EReference)senderEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getAbsender()
 	{
 		return absenderEClass;
@@ -682,19 +712,9 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getSenders()
+	public EAttribute getAbsender_Context()
 	{
-		return sendersEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getSenders_Senders()
-	{
-		return (EReference)sendersEClass.getEStructuralFeatures().get(0);
+		return (EAttribute)absenderEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -737,12 +757,10 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 		isCreated = true;
 
 		// Create classes and their features
-		sendersEClass = createEClass(SENDERS);
-		createEReference(sendersEClass, SENDERS__SENDERS);
-
 		absenderEClass = createEClass(ABSENDER);
 		createEAttribute(absenderEClass, ABSENDER__NAME);
 		createEReference(absenderEClass, ABSENDER__ADRESSE);
+		createEAttribute(absenderEClass, ABSENDER__CONTEXT);
 
 		adresseEClass = createEClass(ADRESSE);
 		createEAttribute(adresseEClass, ADRESSE__NAME);
@@ -756,6 +774,7 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 		empfaengerEClass = createEClass(EMPFAENGER);
 		createEAttribute(empfaengerEClass, EMPFAENGER__NAME);
 		createEReference(empfaengerEClass, EMPFAENGER__ADRESSE);
+		createEAttribute(empfaengerEClass, EMPFAENGER__CONTEXT);
 
 		receiversEClass = createEClass(RECEIVERS);
 		createEReference(receiversEClass, RECEIVERS__RECEIVERS);
@@ -802,6 +821,9 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 		createEAttribute(referenzGruppeEClass, REFERENZ_GRUPPE__GROUPNAME);
 		createEReference(referenzGruppeEClass, REFERENZ_GRUPPE__REFERENZ);
 
+		senderEClass = createEClass(SENDER);
+		createEReference(senderEClass, SENDER__SENDERS);
+
 		// Create enums
 		addressTypeEEnum = createEEnum(ADDRESS_TYPE);
 	}
@@ -837,12 +859,10 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 		// Add supertypes to classes
 
 		// Initialize classes, features, and operations; add parameters
-		initEClass(sendersEClass, Senders.class, "Senders", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getSenders_Senders(), this.getAbsender(), null, "Senders", null, 0, -1, Senders.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
 		initEClass(absenderEClass, Absender.class, "Absender", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getAbsender_Name(), ecorePackage.getEString(), "name", null, 0, 1, Absender.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getAbsender_Adresse(), this.getAdresse(), null, "adresse", null, 0, 1, Absender.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getAbsender_Context(), ecorePackage.getEString(), "context", null, 0, 1, Absender.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(adresseEClass, Adresse.class, "Adresse", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getAdresse_Name(), ecorePackage.getEString(), "name", null, 0, 1, Adresse.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -856,6 +876,7 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 		initEClass(empfaengerEClass, Empfaenger.class, "Empfaenger", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getEmpfaenger_Name(), ecorePackage.getEString(), "name", null, 0, 1, Empfaenger.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getEmpfaenger_Adresse(), this.getAdresse(), null, "adresse", null, 0, 1, Empfaenger.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getEmpfaenger_Context(), ecorePackage.getEString(), "context", null, 0, 1, Empfaenger.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(receiversEClass, Receivers.class, "Receivers", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getReceivers_Receivers(), this.getEmpfaenger(), null, "Receivers", null, 0, -1, Receivers.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -901,6 +922,9 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 		initEClass(referenzGruppeEClass, ReferenzGruppe.class, "ReferenzGruppe", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getReferenzGruppe_Groupname(), ecorePackage.getEString(), "groupname", null, 0, 1, ReferenzGruppe.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getReferenzGruppe_Referenz(), this.getReferenz(), null, "referenz", null, 0, -1, ReferenzGruppe.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(senderEClass, Sender.class, "Sender", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getSender_Senders(), this.getAbsender(), null, "senders", null, 0, -1, Sender.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(addressTypeEEnum, AddressType.class, "AddressType");

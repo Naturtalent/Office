@@ -15,6 +15,7 @@ import org.eclipse.emf.ecp.core.util.ECPUtil;
 import org.eclipse.emf.ecp.spi.ui.util.ECPHandlerHelper;
 
 import it.naturtalent.emf.model.EMFModelUtils;
+import it.naturtalent.office.model.address.Absender;
 import it.naturtalent.office.model.address.AddressPackage;
 import it.naturtalent.office.model.address.FootNote;
 import it.naturtalent.office.model.address.FootNotes;
@@ -26,6 +27,8 @@ import it.naturtalent.office.model.address.Referenz;
 import it.naturtalent.office.model.address.ReferenzGruppe;
 import it.naturtalent.office.model.address.ReferenzSet;
 import it.naturtalent.office.model.address.ReferenzenClass;
+import it.naturtalent.office.model.address.Sender;
+
 
 
 
@@ -43,10 +46,22 @@ public class OfficeUtils
 	
 	// Inhalt des OfficeProjekt wurde gespeichert 
 	public static final String OFFICEPROJECT_CONTENTSAVEACCOMPLISHED = "officesaveaccomplished"; //$NON-NLS-N$
+	
+	public static final String REFERENZGROUP_SELECTREFERENCEEVENT = "selectgroupreferenceselectionevent"; //$NON-NLS-N$
+	public static final String REFERENZGROUP_REQUESTSELECTREFERENCEEVENT = "requestselectgroupreferenceselectionevent"; //$NON-NLS-N$
 
+	// EventBroker Definitions
+	public static final String RECEIVER_SELECTED_EVENT = "receiverselected"; //$NON-NLS-N$
+	public static final String SET_RECEIVER_SELECTED_EVENT = "setreceiverselected"; //$NON-NLS-N$
+	public static final String ABSENDERMASTER_SELECTED_EVENT = "absenderselected"; //$NON-NLS-N$
+	public static final String SET_ABSENDERMASTER_SELECTION_EVENT = "setabsendermasterselection"; //$NON-NLS-N$
+	public static final String ABSENDER_DETAIL_SELECTED_EVENT = "absenderdetailselected"; //$NON-NLS-N$
+	
 	private static Log log = LogFactory.getLog(OfficeUtils.class);
 	
 	private static Kontakte kontakte;
+	
+	private static Sender senders;
 	
 	/*
 	 * Im OfficeProjekt sind alle Office-Modelle zusammengefasst 
@@ -101,6 +116,76 @@ public class OfficeUtils
 		}
 		
 		return kontakte;
+	}
+
+	public static Sender getSender(String context)
+	{
+		// nach 'context' gefilterte Absender
+		List<Absender>contextAbsender = new ArrayList<Absender>();
+		
+		// die nach context gefilterten Elemente hinzufuegen
+		ECPProject ecpProject = getOfficeProject();
+		if(ecpProject != null)
+		{
+			EList<Object> projectContents = ecpProject.getContents();
+			if (!projectContents.isEmpty())
+			{
+				for (Object projectContent : projectContents)
+				{
+					if (projectContents instanceof Sender)
+					{
+						Sender sender = (Sender) projectContents;
+						List<Absender>allAbsender = sender.getSenders();
+						for(Absender absender : allAbsender)
+						{
+							if(StringUtils.equals(absender.getContext(), context))
+								contextAbsender.add(absender);
+						}
+						break;
+					}
+				}
+			}
+		}
+		
+		// Sender mit den gefilterten Absender zurueckgeben
+		EClass sendersClass = AddressPackage.eINSTANCE.getSender();
+		Sender sender = (Sender) EcoreUtil.create(sendersClass);
+		sender.getSenders().addAll(contextAbsender);
+		
+		return sender;
+	}
+	
+	public static Sender getSender()
+	{
+		if(senders != null)
+			return senders;
+		
+		ECPProject ecpProject = getOfficeProject();
+		if(ecpProject != null)
+		{
+			EList<Object> projectContents = ecpProject.getContents();
+			if (!projectContents.isEmpty())
+			{
+				for (Object projectContent : projectContents)
+				{
+					if (projectContent instanceof Sender)
+					{
+						senders = (Sender) projectContent;
+						break;
+					}
+				}
+			}
+			
+			if(senders == null)
+			{
+				EClass sendersClass = AddressPackage.eINSTANCE.getSender();
+				senders = (Sender) EcoreUtil.create(sendersClass);
+				projectContents.add(senders);
+				ecpProject.saveContents();				
+			}
+		}
+		
+		return senders;	
 	}
 	
 	/**
@@ -183,7 +268,7 @@ public class OfficeUtils
 	 * @param footerClassName
 	 * @return
 	 */
-	public static List<FootNotes> getFootNotes(String footerClassName)
+	public static List<FootNotes> getFooterGroups(String footerClassName)
 	{		
 		FooterClass footerClass = getFooterClass(footerClassName);		
 		return (footerClass != null) ? footerClass.getFooterClassFootNotes() : null;

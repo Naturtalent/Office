@@ -399,6 +399,31 @@ public class AddressItemProviderAdapterFactory extends AddressAdapterFactory imp
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link it.naturtalent.office.model.address.Sender} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected SenderItemProvider senderItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.naturtalent.office.model.address.Sender}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createSenderAdapter()
+	{
+		if (senderItemProvider == null)
+		{
+			senderItemProvider = new SenderItemProvider(this);
+		}
+
+		return senderItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link it.naturtalent.office.model.address.Absender} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -421,31 +446,6 @@ public class AddressItemProviderAdapterFactory extends AddressAdapterFactory imp
 		}
 
 		return absenderItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link it.naturtalent.office.model.address.Senders} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected SendersItemProvider sendersItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link it.naturtalent.office.model.address.Senders}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createSendersAdapter()
-	{
-		if (sendersItemProvider == null)
-		{
-			sendersItemProvider = new SendersItemProvider(this);
-		}
-
-		return sendersItemProvider;
 	}
 
 	/**
@@ -559,7 +559,6 @@ public class AddressItemProviderAdapterFactory extends AddressAdapterFactory imp
 	 */
 	public void dispose()
 	{
-		if (sendersItemProvider != null) sendersItemProvider.dispose();
 		if (absenderItemProvider != null) absenderItemProvider.dispose();
 		if (adresseItemProvider != null) adresseItemProvider.dispose();
 		if (empfaengerItemProvider != null) empfaengerItemProvider.dispose();
@@ -574,6 +573,7 @@ public class AddressItemProviderAdapterFactory extends AddressAdapterFactory imp
 		if (referenzSetItemProvider != null) referenzSetItemProvider.dispose();
 		if (referenzenClassItemProvider != null) referenzenClassItemProvider.dispose();
 		if (referenzGruppeItemProvider != null) referenzGruppeItemProvider.dispose();
+		if (senderItemProvider != null) senderItemProvider.dispose();
 	}
 
 }

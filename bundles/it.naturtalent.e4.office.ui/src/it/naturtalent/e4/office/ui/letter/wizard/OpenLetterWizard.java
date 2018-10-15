@@ -19,6 +19,12 @@ import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.jface.wizard.WizardPage;
 
+/**
+ * Wizard zum oeffnen einer Textdatei.
+ * 
+ * @author dieter
+ *
+ */
 public class OpenLetterWizard extends Wizard
 {
 

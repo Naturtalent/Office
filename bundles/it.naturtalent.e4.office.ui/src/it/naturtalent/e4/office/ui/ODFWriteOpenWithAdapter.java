@@ -5,6 +5,10 @@ import it.naturtalent.application.services.IOpenWithEditorAdapter;
 /**
  * Adapter zum Einfuegen eines dynamischen 'OpenWithManue'
  * 
+ * Mit dem Command "it.naturtalent.office.command.openOfficeDocument" wird
+ * der "it.naturtalent.e4.office.ui.handlers.OpenTextHandler" aufgerufen 
+ * 
+ * 
  * @author dieter
  *
  */
@@ -47,6 +51,19 @@ public class ODFWriteOpenWithAdapter implements IOpenWithEditorAdapter
 	public int getIndex()
 	{		
 		return 2;
+	}
+
+	@Override
+	public boolean isExecutable(String filePath)
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void execute(String filePath)
+	{
+		// TODO Auto-generated method stub
 	}
 
 }

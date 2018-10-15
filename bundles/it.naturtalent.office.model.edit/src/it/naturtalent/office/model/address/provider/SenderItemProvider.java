@@ -5,7 +5,8 @@ package it.naturtalent.office.model.address.provider;
 
 import it.naturtalent.office.model.address.AddressFactory;
 import it.naturtalent.office.model.address.AddressPackage;
-import it.naturtalent.office.model.address.Senders;
+import it.naturtalent.office.model.address.Sender;
+
 import java.util.Collection;
 import java.util.List;
 
@@ -13,6 +14,7 @@ import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.common.util.ResourceLocator;
+
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -24,12 +26,12 @@ import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
- * This is the item provider adapter for a {@link it.naturtalent.office.model.address.Senders} object.
+ * This is the item provider adapter for a {@link it.naturtalent.office.model.address.Sender} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class SendersItemProvider 
+public class SenderItemProvider 
 	extends ItemProviderAdapter
 	implements
 		IEditingDomainItemProvider,
@@ -44,7 +46,7 @@ public class SendersItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public SendersItemProvider(AdapterFactory adapterFactory)
+	public SenderItemProvider(AdapterFactory adapterFactory)
 	{
 		super(adapterFactory);
 	}
@@ -80,7 +82,7 @@ public class SendersItemProvider
 		if (childrenFeatures == null)
 		{
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(AddressPackage.Literals.SENDERS__SENDERS);
+			childrenFeatures.add(AddressPackage.Literals.SENDER__SENDERS);
 		}
 		return childrenFeatures;
 	}
@@ -100,7 +102,7 @@ public class SendersItemProvider
 	}
 
 	/**
-	 * This returns Senders.gif.
+	 * This returns Sender.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -108,7 +110,7 @@ public class SendersItemProvider
 	@Override
 	public Object getImage(Object object)
 	{
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/Senders"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/Sender"));
 	}
 
 	/**
@@ -120,9 +122,9 @@ public class SendersItemProvider
 	@Override
 	public String getText(Object object)
 	{
-		return getString("_UI_Senders_type");
+		return getString("_UI_Sender_type");
 	}
-	
+
 
 	/**
 	 * This handles model notifications by calling {@link #updateChildren} to update any cached
@@ -136,9 +138,9 @@ public class SendersItemProvider
 	{
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(Senders.class))
+		switch (notification.getFeatureID(Sender.class))
 		{
-			case AddressPackage.SENDERS__SENDERS:
+			case AddressPackage.SENDER__SENDERS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -159,7 +161,7 @@ public class SendersItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(AddressPackage.Literals.SENDERS__SENDERS,
+				(AddressPackage.Literals.SENDER__SENDERS,
 				 AddressFactory.eINSTANCE.createAbsender()));
 	}
 

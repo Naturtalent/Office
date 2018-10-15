@@ -72,13 +72,6 @@ public class AddressSwitch<T> extends Switch<T>
 	{
 		switch (classifierID)
 		{
-			case AddressPackage.SENDERS:
-			{
-				Senders senders = (Senders)theEObject;
-				T result = caseSenders(senders);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
 			case AddressPackage.ABSENDER:
 			{
 				Absender absender = (Absender)theEObject;
@@ -174,6 +167,13 @@ public class AddressSwitch<T> extends Switch<T>
 			{
 				ReferenzGruppe referenzGruppe = (ReferenzGruppe)theEObject;
 				T result = caseReferenzGruppe(referenzGruppe);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case AddressPackage.SENDER:
+			{
+				Sender sender = (Sender)theEObject;
+				T result = caseSender(sender);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -390,6 +390,22 @@ public class AddressSwitch<T> extends Switch<T>
 	}
 
 	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Sender</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Sender</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseSender(Sender object)
+	{
+		return null;
+	}
+
+	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Absender</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -401,22 +417,6 @@ public class AddressSwitch<T> extends Switch<T>
 	 * @generated
 	 */
 	public T caseAbsender(Absender object)
-	{
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Senders</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Senders</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseSenders(Senders object)
 	{
 		return null;
 	}

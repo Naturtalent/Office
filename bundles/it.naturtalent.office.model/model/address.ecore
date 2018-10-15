@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="address" nsURI="http://it.naturtalent/address" nsPrefix="address">
-  <eClassifiers xsi:type="ecore:EClass" name="Senders">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="Senders" upperBound="-1"
-        eType="#//Absender" containment="true"/>
-  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Absender">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="adresse" eType="#//Adresse"
         containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="context" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Adresse">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -27,6 +24,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="adresse" eType="#//Adresse"
         containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="context" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Receivers">
     <eStructuralFeatures xsi:type="ecore:EReference" name="Receivers" upperBound="-1"
@@ -81,5 +79,9 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="groupname" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="referenz" upperBound="-1"
         eType="#//Referenz" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Sender">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="senders" upperBound="-1"
+        eType="#//Absender" containment="true"/>
   </eClassifiers>
 </ecore:EPackage>

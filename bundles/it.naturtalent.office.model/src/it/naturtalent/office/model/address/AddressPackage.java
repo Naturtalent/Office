@@ -66,7 +66,7 @@ public interface AddressPackage extends EPackage
 	 * @see it.naturtalent.office.model.address.impl.AddressPackageImpl#getAdresse()
 	 * @generated
 	 */
-	int ADRESSE = 2;
+	int ADRESSE = 1;
 
 	/**
 	 * The meta object id for the '{@link it.naturtalent.office.model.address.impl.ReferenzImpl <em>Referenz</em>}' class.
@@ -76,7 +76,7 @@ public interface AddressPackage extends EPackage
 	 * @see it.naturtalent.office.model.address.impl.AddressPackageImpl#getReferenz()
 	 * @generated
 	 */
-	int REFERENZ = 11;
+	int REFERENZ = 10;
 
 	/**
 	 * The meta object id for the '{@link it.naturtalent.office.model.address.impl.AbsenderImpl <em>Absender</em>}' class.
@@ -86,44 +86,7 @@ public interface AddressPackage extends EPackage
 	 * @see it.naturtalent.office.model.address.impl.AddressPackageImpl#getAbsender()
 	 * @generated
 	 */
-	int ABSENDER = 1;
-
-	/**
-	 * The meta object id for the '{@link it.naturtalent.office.model.address.impl.SendersImpl <em>Senders</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see it.naturtalent.office.model.address.impl.SendersImpl
-	 * @see it.naturtalent.office.model.address.impl.AddressPackageImpl#getSenders()
-	 * @generated
-	 */
-	int SENDERS = 0;
-
-	/**
-	 * The feature id for the '<em><b>Senders</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SENDERS__SENDERS = 0;
-
-	/**
-	 * The number of structural features of the '<em>Senders</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SENDERS_FEATURE_COUNT = 1;
-
-	/**
-	 * The number of operations of the '<em>Senders</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SENDERS_OPERATION_COUNT = 0;
+	int ABSENDER = 0;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -144,13 +107,22 @@ public interface AddressPackage extends EPackage
 	int ABSENDER__ADRESSE = 1;
 
 	/**
+	 * The feature id for the '<em><b>Context</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSENDER__CONTEXT = 2;
+
+	/**
 	 * The number of structural features of the '<em>Absender</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ABSENDER_FEATURE_COUNT = 2;
+	int ABSENDER_FEATURE_COUNT = 3;
 
 	/**
 	 * The number of operations of the '<em>Absender</em>' class.
@@ -250,7 +222,7 @@ public interface AddressPackage extends EPackage
 	 * @see it.naturtalent.office.model.address.impl.AddressPackageImpl#getEmpfaenger()
 	 * @generated
 	 */
-	int EMPFAENGER = 3;
+	int EMPFAENGER = 2;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -271,13 +243,22 @@ public interface AddressPackage extends EPackage
 	int EMPFAENGER__ADRESSE = 1;
 
 	/**
+	 * The feature id for the '<em><b>Context</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EMPFAENGER__CONTEXT = 2;
+
+	/**
 	 * The number of structural features of the '<em>Empfaenger</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EMPFAENGER_FEATURE_COUNT = 2;
+	int EMPFAENGER_FEATURE_COUNT = 3;
 
 	/**
 	 * The number of operations of the '<em>Empfaenger</em>' class.
@@ -296,7 +277,7 @@ public interface AddressPackage extends EPackage
 	 * @see it.naturtalent.office.model.address.impl.AddressPackageImpl#getReceivers()
 	 * @generated
 	 */
-	int RECEIVERS = 4;
+	int RECEIVERS = 3;
 
 	/**
 	 * The feature id for the '<em><b>Receivers</b></em>' containment reference list.
@@ -333,7 +314,7 @@ public interface AddressPackage extends EPackage
 	 * @see it.naturtalent.office.model.address.impl.AddressPackageImpl#getKontakt()
 	 * @generated
 	 */
-	int KONTAKT = 5;
+	int KONTAKT = 4;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -388,7 +369,7 @@ public interface AddressPackage extends EPackage
 	 * @see it.naturtalent.office.model.address.impl.AddressPackageImpl#getKontakte()
 	 * @generated
 	 */
-	int KONTAKTE = 6;
+	int KONTAKTE = 5;
 
 	/**
 	 * The feature id for the '<em><b>Kontakte</b></em>' containment reference list.
@@ -425,7 +406,7 @@ public interface AddressPackage extends EPackage
 	 * @see it.naturtalent.office.model.address.impl.AddressPackageImpl#getNtProjektKontakte()
 	 * @generated
 	 */
-	int NT_PROJEKT_KONTAKTE = 7;
+	int NT_PROJEKT_KONTAKTE = 6;
 
 	/**
 	 * The feature id for the '<em><b>Nt Projekt ID</b></em>' attribute.
@@ -471,7 +452,7 @@ public interface AddressPackage extends EPackage
 	 * @see it.naturtalent.office.model.address.impl.AddressPackageImpl#getFootNote()
 	 * @generated
 	 */
-	int FOOT_NOTE = 8;
+	int FOOT_NOTE = 7;
 
 	/**
 	 * The feature id for the '<em><b>Key</b></em>' attribute.
@@ -517,7 +498,7 @@ public interface AddressPackage extends EPackage
 	 * @see it.naturtalent.office.model.address.impl.AddressPackageImpl#getFootNotes()
 	 * @generated
 	 */
-	int FOOT_NOTES = 9;
+	int FOOT_NOTES = 8;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -563,7 +544,7 @@ public interface AddressPackage extends EPackage
 	 * @see it.naturtalent.office.model.address.impl.AddressPackageImpl#getFooterClass()
 	 * @generated
 	 */
-	int FOOTER_CLASS = 10;
+	int FOOTER_CLASS = 9;
 
 	/**
 	 * The feature id for the '<em><b>Footer Class Name</b></em>' attribute.
@@ -663,7 +644,7 @@ public interface AddressPackage extends EPackage
 	 * @see it.naturtalent.office.model.address.impl.AddressPackageImpl#getReferenzSet()
 	 * @generated
 	 */
-	int REFERENZ_SET = 12;
+	int REFERENZ_SET = 11;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -709,7 +690,7 @@ public interface AddressPackage extends EPackage
 	 * @see it.naturtalent.office.model.address.impl.AddressPackageImpl#getReferenzenClass()
 	 * @generated
 	 */
-	int REFERENZEN_CLASS = 13;
+	int REFERENZEN_CLASS = 12;
 
 	/**
 	 * The feature id for the '<em><b>Referenzen Class Name</b></em>' attribute.
@@ -755,7 +736,7 @@ public interface AddressPackage extends EPackage
 	 * @see it.naturtalent.office.model.address.impl.AddressPackageImpl#getReferenzGruppe()
 	 * @generated
 	 */
-	int REFERENZ_GRUPPE = 14;
+	int REFERENZ_GRUPPE = 13;
 
 	/**
 	 * The feature id for the '<em><b>Groupname</b></em>' attribute.
@@ -792,6 +773,43 @@ public interface AddressPackage extends EPackage
 	 * @ordered
 	 */
 	int REFERENZ_GRUPPE_OPERATION_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link it.naturtalent.office.model.address.impl.SenderImpl <em>Sender</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.naturtalent.office.model.address.impl.SenderImpl
+	 * @see it.naturtalent.office.model.address.impl.AddressPackageImpl#getSender()
+	 * @generated
+	 */
+	int SENDER = 14;
+
+	/**
+	 * The feature id for the '<em><b>Senders</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SENDER__SENDERS = 0;
+
+	/**
+	 * The number of structural features of the '<em>Sender</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SENDER_FEATURE_COUNT = 1;
+
+	/**
+	 * The number of operations of the '<em>Sender</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SENDER_OPERATION_COUNT = 0;
 
 	/**
 	 * The meta object id for the '{@link it.naturtalent.office.model.address.AddressType <em>Type</em>}' enum.
@@ -976,6 +994,17 @@ public interface AddressPackage extends EPackage
 	 * @generated
 	 */
 	EReference getEmpfaenger_Adresse();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.naturtalent.office.model.address.Empfaenger#getContext <em>Context</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Context</em>'.
+	 * @see it.naturtalent.office.model.address.Empfaenger#getContext()
+	 * @see #getEmpfaenger()
+	 * @generated
+	 */
+	EAttribute getEmpfaenger_Context();
 
 	/**
 	 * Returns the meta object for class '{@link it.naturtalent.office.model.address.Receivers <em>Receivers</em>}'.
@@ -1287,6 +1316,27 @@ public interface AddressPackage extends EPackage
 	EReference getReferenzGruppe_Referenz();
 
 	/**
+	 * Returns the meta object for class '{@link it.naturtalent.office.model.address.Sender <em>Sender</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Sender</em>'.
+	 * @see it.naturtalent.office.model.address.Sender
+	 * @generated
+	 */
+	EClass getSender();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link it.naturtalent.office.model.address.Sender#getSenders <em>Senders</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Senders</em>'.
+	 * @see it.naturtalent.office.model.address.Sender#getSenders()
+	 * @see #getSender()
+	 * @generated
+	 */
+	EReference getSender_Senders();
+
+	/**
 	 * Returns the meta object for class '{@link it.naturtalent.office.model.address.Absender <em>Absender</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1319,25 +1369,15 @@ public interface AddressPackage extends EPackage
 	EReference getAbsender_Adresse();
 
 	/**
-	 * Returns the meta object for class '{@link it.naturtalent.office.model.address.Senders <em>Senders</em>}'.
+	 * Returns the meta object for the attribute '{@link it.naturtalent.office.model.address.Absender#getContext <em>Context</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Senders</em>'.
-	 * @see it.naturtalent.office.model.address.Senders
+	 * @return the meta object for the attribute '<em>Context</em>'.
+	 * @see it.naturtalent.office.model.address.Absender#getContext()
+	 * @see #getAbsender()
 	 * @generated
 	 */
-	EClass getSenders();
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link it.naturtalent.office.model.address.Senders#getSenders <em>Senders</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Senders</em>'.
-	 * @see it.naturtalent.office.model.address.Senders#getSenders()
-	 * @see #getSenders()
-	 * @generated
-	 */
-	EReference getSenders_Senders();
+	EAttribute getAbsender_Context();
 
 	/**
 	 * Returns the meta object for enum '{@link it.naturtalent.office.model.address.AddressType <em>Type</em>}'.
@@ -1491,6 +1531,13 @@ public interface AddressPackage extends EPackage
 		 * @generated
 		 */
 		EReference EMPFAENGER__ADRESSE = eINSTANCE.getEmpfaenger_Adresse();
+		/**
+		 * The meta object literal for the '<em><b>Context</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute EMPFAENGER__CONTEXT = eINSTANCE.getEmpfaenger_Context();
 		/**
 		 * The meta object literal for the '{@link it.naturtalent.office.model.address.impl.ReceiversImpl <em>Receivers</em>}' class.
 		 * <!-- begin-user-doc -->
@@ -1715,6 +1762,22 @@ public interface AddressPackage extends EPackage
 		 */
 		EReference REFERENZ_GRUPPE__REFERENZ = eINSTANCE.getReferenzGruppe_Referenz();
 		/**
+		 * The meta object literal for the '{@link it.naturtalent.office.model.address.impl.SenderImpl <em>Sender</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.naturtalent.office.model.address.impl.SenderImpl
+		 * @see it.naturtalent.office.model.address.impl.AddressPackageImpl#getSender()
+		 * @generated
+		 */
+		EClass SENDER = eINSTANCE.getSender();
+		/**
+		 * The meta object literal for the '<em><b>Senders</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SENDER__SENDERS = eINSTANCE.getSender_Senders();
+		/**
 		 * The meta object literal for the '{@link it.naturtalent.office.model.address.impl.AbsenderImpl <em>Absender</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1738,21 +1801,12 @@ public interface AddressPackage extends EPackage
 		 */
 		EReference ABSENDER__ADRESSE = eINSTANCE.getAbsender_Adresse();
 		/**
-		 * The meta object literal for the '{@link it.naturtalent.office.model.address.impl.SendersImpl <em>Senders</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see it.naturtalent.office.model.address.impl.SendersImpl
-		 * @see it.naturtalent.office.model.address.impl.AddressPackageImpl#getSenders()
-		 * @generated
-		 */
-		EClass SENDERS = eINSTANCE.getSenders();
-		/**
-		 * The meta object literal for the '<em><b>Senders</b></em>' containment reference list feature.
+		 * The meta object literal for the '<em><b>Context</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference SENDERS__SENDERS = eINSTANCE.getSenders_Senders();
+		EAttribute ABSENDER__CONTEXT = eINSTANCE.getAbsender_Context();
 		/**
 		 * The meta object literal for the '{@link it.naturtalent.office.model.address.AddressType <em>Type</em>}' enum.
 		 * <!-- begin-user-doc -->

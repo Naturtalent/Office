@@ -23,8 +23,10 @@ import org.eclipse.e4.core.di.annotations.CanExecute;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.core.services.events.IEventBroker;
+import org.eclipse.e4.ui.di.UIEventTopic;
 import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
+import org.eclipse.jface.wizard.IWizard;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.widgets.Shell;
 import org.odftoolkit.odfdom.dom.element.meta.MetaUserDefinedElement;
@@ -39,11 +41,15 @@ import it.naturtalent.e4.office.ui.Activator;
 import it.naturtalent.e4.office.ui.IODFWriteAdapter;
 import it.naturtalent.e4.office.ui.IODFWriteAdapterFactory;
 import it.naturtalent.e4.office.ui.IODFWriteAdapterFactoryRepository;
+import it.naturtalent.e4.office.ui.wizards.ODFDefaultWriteAdapterWizard;
 import it.naturtalent.e4.project.ui.navigator.ResourceNavigator;
 
+
 /**
- * Ein Anschreiben mit Hilfe des zugeordneten Adapters oeffnen.
- * Der Klassenamen der AdapterFatory muss im Dokument gespeichert sein. 
+ * Ein Text (LibreOffice Anschreiben) mit Hilfe des zugeordneten Adapters oeffnen.
+ * Der zugehoerige Adapter wird ueber eine AdapterFactory erzeugt.
+ * Der Klassenamen der AdapterFatory e.B. 'it.naturtalent.telekom.office.ODFTelekomWriteAdapterFactory' 
+ * muss im zuoeffenden Dokument gespeichert sein. 
  * 
  * @see NewTextHandle() 
  * 
@@ -61,6 +67,8 @@ public class OpenTextHandler
 	// Template der neuen Tabelle benutze Vorlage (Quelle)  
 	private static final String ODFTEXT_TEMPLATE = "/templates/ODFText.odt"; //$NON-NLS-1$
 	
+	private WizardDialog wizardDialog;
+	
 	@Execute
 	public void execute(IEventBroker eventBroker,
 			@Named(IServiceConstants.ACTIVE_SHELL) Shell shell, IEclipseContext context)
@@ -68,7 +76,7 @@ public class OpenTextHandler
 		Object selObject = selectionService.getSelection(ResourceNavigator.RESOURCE_NAVIGATOR_ID);
 		
 		// WriteAdapterFactory-Name ermitteln
-		String factoryName = getAdapterFactoryName(selObject);		
+		String factoryName = getAdapterFactoryName(selObject);	
 		if(StringUtils.isNotEmpty(factoryName))
 		{
 			// Factory ueber den Namen aus dem Repository laden  
@@ -79,26 +87,34 @@ public class OpenTextHandler
 				// den eigentlichen Adapter durch die Factory erzeugen
 				IODFWriteAdapter writeAdapter = writeAdapterFactory.createAdapter();
 				
-				// der Adapter wiederum erzeugt den dokumentsprezifischen Wizard
-				WizardDialog wizardDialog = new WizardDialog(shell,writeAdapter.createWizard(context));
+				// der Adapter wiederum erzeugt den dokumentspezifischen Wizard
+				context.set(ODFDefaultWriteAdapterWizard.CONTEXTWIZARDMODE, ODFDefaultWriteAdapterWizard.WIZARDOPENMODE);
+				wizardDialog = new WizardDialog(shell,writeAdapter.createWizard(context));
 				
-				// Broker sendet Dokument Location 'IFile' an den Wizard
+				// die im ResourceNavigator selektierte Datei
 				IResource iResource = (IResource) selObject;
 				if (iResource.getType() == IResource.FILE)
 				{
+					// Broker sendet Dokument Location 'IFile' an den Wizard
 					// @see ODFDefaultWriteAdapterWizard
 					IWorkspace workspace = ResourcesPlugin.getWorkspace();		
 					IFile ifile = workspace.getRoot().getFileForLocation(iResource.getLocation());
 					eventBroker.post(IODFWriteAdapter.ODFWRITE_FILEDEFINITIONEVENT,ifile);
+
+					/*
+					it.naturtalent.libreoffice.text.TextDocument writeDocument = new it.naturtalent.libreoffice.text.TextDocument();						
+					File file = ifile.getLocation().toFile();
+					writeDocument.loadPage(file.toString());
+					*/
+
+					it.naturtalent.libreoffice.text.TextDocument writeDocument = new it.naturtalent.libreoffice.text.TextDocument();
 					
 					// den Wizard oeffnen und Dokument editieren
 					if(wizardDialog.open() == WizardDialog.OK)
-					{
+					{					
 						// Dokument in LibreOffice oeffnen
-						it.naturtalent.libreoffice.text.TextDocument writeDocument = new it.naturtalent.libreoffice.text.TextDocument();
-						//File file = ifile.getFullPath().toFile();
 						File file = ifile.getLocation().toFile();
-						writeDocument.loadPage(file.toString());
+						writeDocument.loadPage(file.toString());																
 					}
 				}
 			}
@@ -151,6 +167,19 @@ public class OpenTextHandler
 		}
 		
 	}
+	
+	/*
+	@Inject
+	@Optional
+	public void handleModelChangedEvent(@UIEventTopic(it.naturtalent.libreoffice.text.TextDocument.TEXTDOCUMENT_EVENT_DOCUMENT_OPEN) Object textDocument)
+	{		
+		// den adapterspezifischen Wizard oeffnen
+		if(wizardDialog.open() == WizardDialog.OK)
+		{					
+		
+		}		
+	}
+	*/
 
 	/**
 	 * true, wenn in dem selektierte WriteDocument ein Adapterklassenname gespeichert ist.

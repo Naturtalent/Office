@@ -12,7 +12,8 @@
       <genEnumLiterals ecoreEnumLiteral="address.ecore#//AddressType/PublicAddress"/>
     </genEnums>
     <genClasses ecoreClass="address.ecore#//Senders">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference address.ecore#//Senders/Senders"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute address.ecore#//Senders/context"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference address.ecore#//Senders/senders"/>
     </genClasses>
     <genClasses ecoreClass="address.ecore#//Absender">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute address.ecore#//Absender/name"/>

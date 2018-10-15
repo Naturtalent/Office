@@ -13,6 +13,13 @@ import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.widgets.Shell;
 
+/**
+ * @author dieter
+ * 
+ * Handler oeffnet eine Datei mit einem Wizard.
+ *
+ */
+@Deprecated
 public class OpenOfficeHandler
 {
 	//@Inject @Optional IEclipseContext context;

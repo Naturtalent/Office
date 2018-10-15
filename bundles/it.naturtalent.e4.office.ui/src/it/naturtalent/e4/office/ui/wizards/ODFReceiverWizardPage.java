@@ -1,7 +1,19 @@
 package it.naturtalent.e4.office.ui.wizards;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
+
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.e4.core.di.annotations.Optional;
+import org.eclipse.e4.core.services.events.IEventBroker;
+import org.eclipse.e4.ui.di.UIEventTopic;
+import org.eclipse.e4.ui.services.internal.events.EventBroker;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -14,26 +26,36 @@ import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.odftoolkit.simple.TextDocument;
+import org.odftoolkit.simple.table.CellRange;
+import org.odftoolkit.simple.table.Table;
 
+import it.naturtalent.e4.office.ui.IODFWriteAdapter;
+import it.naturtalent.e4.office.ui.ODFDocumentUtils;
 import it.naturtalent.e4.office.ui.OfficeUtils;
 import it.naturtalent.e4.project.IResourceNavigator;
 import it.naturtalent.office.model.address.AddressPackage;
+import it.naturtalent.office.model.address.Adresse;
 import it.naturtalent.office.model.address.Empfaenger;
 import it.naturtalent.office.model.address.Kontakt;
 import it.naturtalent.office.model.address.NtProjektKontakte;
 import it.naturtalent.office.model.address.Receivers;
+import it.naturtalent.office.model.address.Referenz;
 
 
 
 /**
- * Wizardseite zur Definition von Empfaengerangaben. 
+ * Wizardseite zur Bearbeitung der Empfaenger 
  * 
  * @author dieter
  *
  */
-public class ODFReceiverWizardPage extends WizardPage
+public class ODFReceiverWizardPage extends WizardPage implements IWriteWizardPage
 {
 	private Receivers receivers;
+	private Empfaenger selectedEmpfaenger;
+	
+	private EventBroker eventBroker;
 
 	/**
 	 * Create the wizard.
@@ -45,10 +67,11 @@ public class ODFReceiverWizardPage extends WizardPage
 		setTitle("Empfänger");
 		setDescription("Angaben zum Empfänger");
 		
-		// Eine Receiverklasse anlegen
+		// Eine Receiverklasse (Container der Empfaengerdaten) anlegen
 		EClass receiversClass = AddressPackage.eINSTANCE.getReceivers();
 		receivers = (Receivers) EcoreUtil.create(receiversClass);
-		
+				
+		// die projektspezifisen Kontakte (Adressen)  werden als Empfaenger in das Modell eingelesen
 		IResourceNavigator resourceNavigator = it.naturtalent.e4.project.ui.Activator.findNavigator();
 		TreeViewer treeViewer = resourceNavigator.getViewer();
 		IStructuredSelection selection = treeViewer.getStructuredSelection();
@@ -69,10 +92,23 @@ public class ODFReceiverWizardPage extends WizardPage
 					empfaenger.setAdresse(EcoreUtil.copy(kontact.getAdresse()));
 					receivers.getReceivers().add(empfaenger);
 				}
-			}
-			
+			}			
 		}
 	}
+	
+	@PostConstruct
+	private void postConstruct(@Optional EventBroker eventBroker)
+	{
+		this.eventBroker = eventBroker;
+	}
+	
+	@Inject
+	@Optional
+	public void handleModelChangedEvent(@UIEventTopic(OfficeUtils.RECEIVER_SELECTED_EVENT) Empfaenger empfaenger)
+	{
+		selectedEmpfaenger = empfaenger;
+	}
+
 
 	/**
 	 * Create contents of the wizard.
@@ -95,16 +131,143 @@ public class ODFReceiverWizardPage extends WizardPage
 		}	
 	}
 
-	public Receivers getReceivers()
+	@Override
+	public void writeToDocument(TextDocument odfDocument)
 	{
-		return receivers;
+		if((selectedEmpfaenger != null) && (odfDocument != null))
+		{
+			// Adresstabelle lesen
+			Table table = odfDocument.getTableByName(IODFWriteAdapter.ODF_WRITEADRESSE);
+			if (table != null)
+			{
+				// Tabelle loeschen
+				CellRange cellRange = ODFDocumentUtils.markTable(table); 
+				ODFDocumentUtils.clearCellRange(cellRange);
+				
+				Adresse adr = selectedEmpfaenger.getAdresse();
+				
+				if (adr != null)
+				{
+					int row = 0;
+
+					String adrText = adr.getName();
+					if (StringUtils.isNotEmpty(adrText))
+						ODFDocumentUtils.writeTableText(table, row++, 0,adrText);
+
+					adrText = adr.getName2();
+					if (StringUtils.isNotEmpty(adrText))
+						ODFDocumentUtils.writeTableText(table, row++, 0,adrText);
+
+					adrText = adr.getName3();
+					if (StringUtils.isNotEmpty(adrText))
+						ODFDocumentUtils.writeTableText(table, row++, 0,adrText);
+
+					adrText = adr.getStrasse();
+					if (StringUtils.isNotEmpty(adrText))
+						ODFDocumentUtils.writeTableText(table, row++, 0,adrText);
+
+					adrText = adr.getOrt();
+					if (StringUtils.isNotEmpty(adrText))
+						ODFDocumentUtils.writeTableText(table, row++, 0,adrText);
+
+				}
+			}
+		}
 	}
 
-	public void setReceivers(Receivers receivers)
+	/* 
+	 * Empfaenger aus dem Dokument lesen
+	 * 
+	 */
+	@Override
+	public void readFromDocument(TextDocument odfDocument)
 	{
-		this.receivers = receivers;
+		Table table = odfDocument.getTableByName(IODFWriteAdapter.ODF_WRITEADRESSE);
+		if (table != null)
+		{
+			EClass empfaengerClass = AddressPackage.eINSTANCE.getEmpfaenger();
+			Empfaenger empfaenger = (Empfaenger) EcoreUtil.create(empfaengerClass);
+
+			// Name des Empfaengers
+			empfaenger.setName(ODFDocumentUtils.readTableText(table, 0, 0));
+			
+			// Adresse des Empfaenges einlesen
+			EClass adressClass = AddressPackage.eINSTANCE.getAdresse();
+			Adresse address = (Adresse) EcoreUtil.create(adressClass);
+			readDefaultAddress(address, table);
+			
+			empfaenger.setAdresse(address);
+			receivers.getReceivers().add(empfaenger);
+			
+			//eventBroker.post(OfficeUtils.SET_RECEIVER_SELECTED_EVENT , empfaenger);
+		}		
 	}
 	
+	@Override
+	public void cancelPage(TextDocument odfDocument)
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	// Einlesen der Adresse in das Modell
+	private void readDefaultAddress(Adresse address, Table table)
+	{
+		// mit letzter Zeile beginnen (erwartet wird PLZ u Ort)
+		for(int plzRow = table.getRowCount() - 1;plzRow >= 0;plzRow--)
+		{
+			String value = ODFDocumentUtils.readTableText(table, plzRow, 0);
+			String [] resultPLZ = parsePLZ(value);
+			if(StringUtils.isNotEmpty(resultPLZ[0]))
+			{
+				// PLZ und Ort in Ort eintragen
+				address.setOrt(value);			
+				
+				// eine Zelle oberhalb ist Strasse bzw. Postfach
+				value = ODFDocumentUtils.readTableText(table, --plzRow, 0);
+				address.setStrasse(value);
+								
+				for(int row = 0;row < plzRow;row++)
+				{
+					value = ODFDocumentUtils.readTableText(table, row, 0);
+					stackAdress(address, value);						
+				}
+			}			
+		}
+	}
+	
+	// fuellt das Modell sukzessiv
+	private void stackAdress(Adresse address, String value)
+	{
+		if(StringUtils.isEmpty(address.getName()))
+			address.setName(value);
+		else
+			if(StringUtils.isEmpty(address.getName2()))
+				address.setName2(value);
+			else
+				if(StringUtils.isEmpty(address.getName3()))
+					address.setName3(value);
+	}				
+	
+	// String auf PLZ abklopfen
+	private String [] parsePLZ(String plzOrt)
+	{
+		String [] result = new String [2];
+		Pattern p = Pattern.compile("\\d+");
+		Matcher m = p.matcher(plzOrt);
+		if(m.find())
+		{
+			String numeric = m.group(0);
+			if(StringUtils.startsWith(plzOrt, numeric))
+			{
+				result[0] = StringUtils.substring(plzOrt, 0,StringUtils.indexOf(plzOrt, " "));
+				result[1] = StringUtils.substring(plzOrt, result[0].length()).trim();
+			}
+		}
+		
+		return result;
+	}
+
 	
 
 }

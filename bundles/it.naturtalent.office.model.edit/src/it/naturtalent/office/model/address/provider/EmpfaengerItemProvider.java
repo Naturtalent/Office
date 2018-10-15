@@ -68,6 +68,7 @@ public class EmpfaengerItemProvider
 			super.getPropertyDescriptors(object);
 
 			addNamePropertyDescriptor(object);
+			addContextPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -87,6 +88,29 @@ public class EmpfaengerItemProvider
 				 getString("_UI_Empfaenger_name_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_Empfaenger_name_feature", "_UI_Empfaenger_type"),
 				 AddressPackage.Literals.EMPFAENGER__NAME,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Context feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addContextPropertyDescriptor(Object object)
+	{
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Empfaenger_context_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Empfaenger_context_feature", "_UI_Empfaenger_type"),
+				 AddressPackage.Literals.EMPFAENGER__CONTEXT,
 				 true,
 				 false,
 				 false,
@@ -171,6 +195,7 @@ public class EmpfaengerItemProvider
 		switch (notification.getFeatureID(Empfaenger.class))
 		{
 			case AddressPackage.EMPFAENGER__NAME:
+			case AddressPackage.EMPFAENGER__CONTEXT:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case AddressPackage.EMPFAENGER__ADRESSE:

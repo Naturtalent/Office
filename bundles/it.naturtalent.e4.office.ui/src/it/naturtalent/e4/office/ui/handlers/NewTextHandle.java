@@ -16,6 +16,7 @@ import it.naturtalent.e4.office.ui.Activator;
 import it.naturtalent.e4.office.ui.IODFWriteAdapter;
 import it.naturtalent.e4.office.ui.IODFWriteAdapterFactoryRepository;
 import it.naturtalent.e4.office.ui.dialogs.SelectWriteAdapterDialog;
+import it.naturtalent.e4.office.ui.wizards.ODFDefaultWriteAdapterWizard;
 import it.naturtalent.e4.project.IResourceNavigator;
 import it.naturtalent.e4.project.ui.navigator.ResourceNavigator;
 import it.naturtalent.e4.project.ui.utils.RefreshResource;
@@ -42,7 +43,8 @@ import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.CanExecute;
 
 /**
- * Ein neues Anschreiben erstellen. 
+ * Ein neues Anschreiben mit einem auszuwaehlenden Adapter erstellen.
+ * Die verfuegbaren Adapter sind ueber ihre Factories (alle im Registry 'writeAdapterFactoryRepository') gespeichert. 
  * 
  * @author dieter
  *
@@ -65,7 +67,7 @@ public class NewTextHandle
 		Object selObject = selectionService.getSelection(ResourceNavigator.RESOURCE_NAVIGATOR_ID);
 		if (selObject instanceof IResource)
 		{		
-			// einen Adapter auswaehlen
+			// einen Adapter mit einem Dialog auswaehlen
 			SelectWriteAdapterDialog adapterDialog = new SelectWriteAdapterDialog(shell);
 			adapterDialog.create();
 			adapterDialog.setAdapter(writeAdapterFactoryRepository.getWriteAdapterFactories());
@@ -93,6 +95,8 @@ public class NewTextHandle
 					eventBroker.post(IResourceNavigator.NAVIGATOR_EVENT_SELECT_REQUEST,ifile);
 					
 					// Wizard Daten zu dem Anschreibes abfragen 
+					// der Adapter wiederum erzeugt den dokumentspezifischen Wizard
+					context.set(ODFDefaultWriteAdapterWizard.CONTEXTWIZARDMODE, ODFDefaultWriteAdapterWizard.WIZARDCREATEMODE);
 					WizardDialog wizardDialog = new WizardDialog(shell,writeAdapter.createWizard(context));
 					eventBroker.post(IODFWriteAdapter.ODFWRITE_FILEDEFINITIONEVENT,ifile);
 					if(wizardDialog.open() == WizardDialog.OK)

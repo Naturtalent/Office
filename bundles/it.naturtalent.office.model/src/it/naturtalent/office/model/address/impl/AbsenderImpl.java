@@ -4,7 +4,6 @@ package it.naturtalent.office.model.address.impl;
 
 import it.naturtalent.office.model.address.Absender;
 import it.naturtalent.office.model.address.AddressPackage;
-
 import it.naturtalent.office.model.address.Adresse;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -23,6 +22,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * <ul>
  *   <li>{@link it.naturtalent.office.model.address.impl.AbsenderImpl#getName <em>Name</em>}</li>
  *   <li>{@link it.naturtalent.office.model.address.impl.AbsenderImpl#getAdresse <em>Adresse</em>}</li>
+ *   <li>{@link it.naturtalent.office.model.address.impl.AbsenderImpl#getContext <em>Context</em>}</li>
  * </ul>
  *
  * @generated
@@ -58,6 +58,26 @@ public class AbsenderImpl extends MinimalEObjectImpl.Container implements Absend
 	 * @ordered
 	 */
 	protected Adresse adresse;
+
+	/**
+	 * The default value of the '{@link #getContext() <em>Context</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getContext()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String CONTEXT_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getContext() <em>Context</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getContext()
+	 * @generated
+	 * @ordered
+	 */
+	protected String context = CONTEXT_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -156,6 +176,29 @@ public class AbsenderImpl extends MinimalEObjectImpl.Container implements Absend
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getContext()
+	{
+		return context;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setContext(String newContext)
+	{
+		String oldContext = context;
+		context = newContext;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, AddressPackage.ABSENDER__CONTEXT, oldContext, context));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
 	{
@@ -181,6 +224,8 @@ public class AbsenderImpl extends MinimalEObjectImpl.Container implements Absend
 				return getName();
 			case AddressPackage.ABSENDER__ADRESSE:
 				return getAdresse();
+			case AddressPackage.ABSENDER__CONTEXT:
+				return getContext();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -202,6 +247,9 @@ public class AbsenderImpl extends MinimalEObjectImpl.Container implements Absend
 			case AddressPackage.ABSENDER__ADRESSE:
 				setAdresse((Adresse)newValue);
 				return;
+			case AddressPackage.ABSENDER__CONTEXT:
+				setContext((String)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -222,6 +270,9 @@ public class AbsenderImpl extends MinimalEObjectImpl.Container implements Absend
 			case AddressPackage.ABSENDER__ADRESSE:
 				setAdresse((Adresse)null);
 				return;
+			case AddressPackage.ABSENDER__CONTEXT:
+				setContext(CONTEXT_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -240,6 +291,8 @@ public class AbsenderImpl extends MinimalEObjectImpl.Container implements Absend
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case AddressPackage.ABSENDER__ADRESSE:
 				return adresse != null;
+			case AddressPackage.ABSENDER__CONTEXT:
+				return CONTEXT_EDEFAULT == null ? context != null : !CONTEXT_EDEFAULT.equals(context);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -257,6 +310,8 @@ public class AbsenderImpl extends MinimalEObjectImpl.Container implements Absend
 		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (name: ");
 		result.append(name);
+		result.append(", context: ");
+		result.append(context);
 		result.append(')');
 		return result.toString();
 	}

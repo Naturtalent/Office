@@ -9,9 +9,9 @@ import org.eclipse.jface.wizard.IWizard;
 import it.naturtalent.office.model.address.Receivers;
 
 /**
- * Mit diesem Adapter werden unterschiedliche Anschreibenformate eingebunden.
+ * Interface eines Adapters mit dem TextDocument unterschiedlicher Anschreibenformate einheitlich bearbeitet werden koennen.
  * Die Vorlagen koennen unterschiedliche Layouts haben. Der Zugriff auf die Daten
- * erfolgt im ODF (OpenDocumentFormat).
+ * erfolgt im ODF (OpenDocumentFormat) ueber den jeweiligen Wizard @see createWizard().
  * 
  * 
  * @author dieter
@@ -33,13 +33,7 @@ public interface IODFWriteAdapter
 	// wird ein ODF-WriteDokument angelegt erfolgt dieses Event mit 'File' als Datenobjekt 
 	public final static String ODFWRITE_FILEDEFINITIONEVENT = "odfwritedefinition";
 	
-	// Senderdaten eintragen
-	public void setSender(EObject sender);
-
-	// Empfaengerdaten eintragen
-	public void setReceiver(EObject receiver);
-	
-	// ein Wizard zur Eingabe der Daten
+	// ein Wizard zur Eingabe der Daten und speichern im Dokument
 	public IWizard createWizard(IEclipseContext context);
 
 	// ODF-File im Zielverzeichnis erzeugen und zurueckgeben

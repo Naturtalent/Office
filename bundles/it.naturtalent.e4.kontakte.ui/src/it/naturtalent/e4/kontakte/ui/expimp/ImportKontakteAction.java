@@ -24,8 +24,8 @@ import javax.inject.Inject;
 import javax.xml.bind.JAXB;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.MultiStatus;
 import org.eclipse.core.runtime.Status;

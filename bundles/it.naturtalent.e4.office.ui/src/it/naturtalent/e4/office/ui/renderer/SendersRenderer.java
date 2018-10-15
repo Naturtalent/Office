@@ -1,82 +1,125 @@
 package it.naturtalent.e4.office.ui.renderer;
 
-import java.util.LinkedHashSet;
-import java.util.Set;
-
 import javax.inject.Inject;
 
+import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.core.services.events.IEventBroker;
+import org.eclipse.e4.ui.di.UIEventTopic;
 import org.eclipse.e4.ui.internal.workbench.E4Workbench;
 import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.workbench.IWorkbench;
-import org.eclipse.emf.common.notify.impl.BasicNotifierImpl.EObservableAdapterList.Listener;
-import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.emf.ecp.spi.common.ui.SelectModelElementWizardFactory;
-import org.eclipse.emf.ecp.view.internal.control.multireference.MultiReferenceSWTRenderer;
 import org.eclipse.emf.ecp.view.spi.context.ViewModelContext;
-import org.eclipse.emf.ecp.view.spi.model.VControl;
-import org.eclipse.emf.ecp.view.spi.util.swt.ImageRegistryService;
-import org.eclipse.emf.ecp.view.template.model.VTViewTemplateProvider;
+import org.eclipse.emf.ecp.view.spi.treemasterdetail.ui.swt.TreeMasterDetailSWTRenderer;
+import org.eclipse.emf.ecp.view.treemasterdetail.model.VTreeMasterDetail;
 import org.eclipse.emfforms.spi.common.report.ReportService;
-import org.eclipse.emfforms.spi.core.services.databinding.EMFFormsDatabinding;
-import org.eclipse.emfforms.spi.core.services.label.EMFFormsLabelProvider;
-import org.eclipse.jface.viewers.TableViewer;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.jface.viewers.ILabelProvider;
+import org.eclipse.jface.viewers.ISelectionChangedListener;
+import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.SelectionChangedEvent;
+import org.eclipse.jface.viewers.StructuredSelection;
+import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 
 import it.naturtalent.e4.office.ui.OfficeUtils;
-import it.naturtalent.icons.core.Icon;
-import it.naturtalent.icons.core.IconSize;
 import it.naturtalent.office.model.address.Absender;
-import it.naturtalent.office.model.address.AddressPackage;
-import it.naturtalent.office.model.address.Kontakt;
-import it.naturtalent.office.model.address.NtProjektKontakte;
-import it.naturtalent.office.model.address.Senders;
+import it.naturtalent.office.model.address.Adresse;
+import it.naturtalent.office.model.address.Empfaenger;
 
-public class SendersRenderer extends MultiReferenceSWTRenderer
+/**
+ * MasterViewRenderer des Absender Objekts.
+ *  
+ * 
+ * @author dieter
+ *
+ */
+public class SendersRenderer extends TreeMasterDetailSWTRenderer
 {
 
-	private IEventBroker eventBroker;
+	@Inject private IEventBroker eventBroker;
 	
-	private Button btnAddNew;
+	private TreeViewer treeViewer;
 	
-	@Inject
-	public SendersRenderer(VControl vElement,
-			ViewModelContext viewContext, ReportService reportService,
-			EMFFormsDatabinding emfFormsDatabinding,
-			EMFFormsLabelProvider emfFormsLabelProvider,
-			VTViewTemplateProvider vtViewTemplateProvider,
-			ImageRegistryService imageRegistryService)
-	{
-		super(vElement, viewContext, reportService, emfFormsDatabinding,
-				emfFormsLabelProvider, vtViewTemplateProvider, imageRegistryService);
-		
-		MApplication currentApplication = E4Workbench.getServiceContext().get(IWorkbench.class).getApplication();
-		//eSelectionService = currentApplication.getContext().get(ESelectionService.class);
-		eventBroker = currentApplication.getContext().get(IEventBroker.class);
-	}
+	// Listener informiert ueber den selektierten Absender
+	private ISelectionChangedListener selectionListener = new ISelectionChangedListener()
+	{		
+		@Override
+		public void selectionChanged(SelectionChangedEvent event)
+		{
+			Absender absender = null;
+			IStructuredSelection selection = event.getStructuredSelection();
+			Object selObject = selection.getFirstElement();
+			if (selObject instanceof Absender)
+				absender = (Absender) selObject;
+			else
+			{
+				if (selObject instanceof Adresse)									
+					absender = (Absender) ((Adresse) selObject).eContainer();				
+			}
+			
+			// Broker informiert ueber die Selektion 
+			// @see it.naturtalent.e4.office.ui.wizards.ODFSenderWizardPage
+			eventBroker.post(OfficeUtils.ABSENDERMASTER_SELECTED_EVENT , absender);
+		}
+	};
 	
-	@Override
-	protected boolean showAddExistingButton()
-	{
-		return false;
-	}
-
-	/*
-	 * Die Senderdaten muessen als Kontakt definiert. 
-	 * Mit dieser Funktion wird der Kontakt selektiert und die Daten uebernommen.
+	/**
+	 * Konstruktion
 	 * 
+	 * @param vElement
+	 * @param viewContext
+	 * @param reportService
+	 */
+	@Inject
+	public SendersRenderer(VTreeMasterDetail vElement,
+			ViewModelContext viewContext, ReportService reportService)
+	{
+		super(vElement, viewContext, reportService);	
+	}
+	
+	/* 
+	 * Methodenueberschreibung um Zugriff auf den TreeViewer zu bekommen
+	 * @see org.eclipse.emf.ecp.view.spi.treemasterdetail.ui.swt.TreeMasterDetailSWTRenderer#createMasterTree(org.eclipse.swt.widgets.Composite)
 	 */
 	@Override
-	protected void handleAddNew(TableViewer tableViewer, EObject eObject,
+	protected TreeViewer createMasterTree(Composite masterPanel)
+	{
+		treeViewer = super.createMasterTree(masterPanel);
+		treeViewer.addSelectionChangedListener(selectionListener);
+		
+		
+		//ILabelProvider labelProvider = (ILabelProvider) treeViewer.getLabelProvider();
+		//labelProvider.getText(element);
+		
+		
+		return treeViewer;
+	}
+	
+	@Inject
+	@Optional
+	public void handleModelChangedEvent(@UIEventTopic(OfficeUtils.SET_ABSENDERMASTER_SELECTION_EVENT) Absender absender)
+	{
+		//treeViewer.removeSelectionChangedListener(selectionListener);
+		treeViewer.setSelection(new StructuredSelection(absender));
+		//treeViewer.addSelectionChangedListener(selectionListener);
+	}
+
+/*
+	@Override
+	protected Button createAddExistingButton(Composite parent,
+			EStructuralFeature structuralFeature)
+	{
+		Button btn = super.createAddExistingButton(parent, structuralFeature);
+		btn.setImage(Icon.ICON_DATABASE_GET.getImage(IconSize._16x16_DefaultIconSize));
+		btn.setToolTipText("aus Datenbank kopieren");
+		return btn;
+	}
+*/
+
+/*
+	@Override
+	protected void handleAddExisting(TableViewer tableViewer, EObject eObject,
 			EStructuralFeature structuralFeature)
 	{
 		EList<Kontakt>allKontacts = OfficeUtils.getKontakte().getKontakte();
@@ -100,9 +143,21 @@ public class SendersRenderer extends MultiReferenceSWTRenderer
 				Absender absender = (Absender) EcoreUtil.create(absenderClass);
 				absender.setName(kontakt.getName());
 				absender.setAdresse(kontakt.getAdresse());				
-				((Senders) eObject).getSenders().add(absender);
+				((Sender) eObject).getSenders().add(absender);
 			}
 		}
 	}
+
+
+	@Override
+	protected Button createAddNewButton(Composite parent,
+			EStructuralFeature structuralFeature)
+	{
+		Button btn = super.createAddNewButton(parent, structuralFeature);
+		//btn.setImage(Icon.ICON_DATABASE_GET.getImage(IconSize._16x16_DefaultIconSize));
+		btn.setToolTipText("einen neuen Absender hinzufuegen");
+		return btn;
+	}
+*/
 	
 }

@@ -140,6 +140,15 @@ public interface AddressFactory extends EFactory
 	ReferenzGruppe createReferenzGruppe();
 
 	/**
+	 * Returns a new object of class '<em>Sender</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Sender</em>'.
+	 * @generated
+	 */
+	Sender createSender();
+
+	/**
 	 * Returns a new object of class '<em>Absender</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -147,15 +156,6 @@ public interface AddressFactory extends EFactory
 	 * @generated
 	 */
 	Absender createAbsender();
-
-	/**
-	 * Returns a new object of class '<em>Senders</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Senders</em>'.
-	 * @generated
-	 */
-	Senders createSenders();
 
 	/**
 	 * Returns the package supported by this factory.
