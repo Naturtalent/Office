@@ -6,7 +6,7 @@
       <domainModelEFeature xsi:type="ecore:EAttribute" href="http://it.naturtalent/address#//FootNotes/name"/>
     </domainModelReference>
   </children>
-  <children xsi:type="org.eclipse.emf.ecp.view.table.model:TableControl" xmi:id="_Y5lL4Mb4EeiEJLoJxRtRNg">
+  <children xsi:type="org.eclipse.emf.ecp.view.table.model:TableControl" xmi:id="_Y5lL4Mb4EeiEJLoJxRtRNg" moveUpDownDisabled="false">
     <domainModelReference xsi:type="org.eclipse.emf.ecp.view.table.model:TableDomainModelReference" xmi:id="_5LRxoMb4EeiEJLoJxRtRNg">
       <domainModelReference xsi:type="org.eclipse.emf.ecp.view.model:FeaturePathDomainModelReference" xmi:id="_5LRxocb4EeiEJLoJxRtRNg">
         <domainModelEFeature xsi:type="ecore:EReference" href="http://it.naturtalent/address#//FootNotes/footnotes"/>

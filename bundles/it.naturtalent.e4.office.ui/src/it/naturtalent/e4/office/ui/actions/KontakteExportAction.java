@@ -13,6 +13,12 @@ import org.eclipse.swt.widgets.Shell;
 
 import it.naturtalent.e4.office.ui.dialogs.KontakteExportDialog;
 
+/**
+ * Aktuelle Exportfunktion fuer Kontakte
+ * 
+ * @author dieter
+ *
+ */
 public class KontakteExportAction extends Action
 {
 	@Inject

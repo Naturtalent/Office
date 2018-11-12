@@ -54,8 +54,6 @@ public class ODFReceiverWizardPage extends WizardPage implements IWriteWizardPag
 {
 	private Receivers receivers;
 	private Empfaenger selectedEmpfaenger;
-	
-	private EventBroker eventBroker;
 
 	/**
 	 * Create the wizard.
@@ -71,7 +69,7 @@ public class ODFReceiverWizardPage extends WizardPage implements IWriteWizardPag
 		EClass receiversClass = AddressPackage.eINSTANCE.getReceivers();
 		receivers = (Receivers) EcoreUtil.create(receiversClass);
 				
-		// die projektspezifisen Kontakte (Adressen)  werden als Empfaenger in das Modell eingelesen
+		// die projektspezifischen Kontakte (Adressen)  werden als Empfaenger in das Modell eingelesen
 		IResourceNavigator resourceNavigator = it.naturtalent.e4.project.ui.Activator.findNavigator();
 		TreeViewer treeViewer = resourceNavigator.getViewer();
 		IStructuredSelection selection = treeViewer.getStructuredSelection();
@@ -96,19 +94,12 @@ public class ODFReceiverWizardPage extends WizardPage implements IWriteWizardPag
 		}
 	}
 	
-	@PostConstruct
-	private void postConstruct(@Optional EventBroker eventBroker)
-	{
-		this.eventBroker = eventBroker;
-	}
-	
 	@Inject
 	@Optional
 	public void handleModelChangedEvent(@UIEventTopic(OfficeUtils.RECEIVER_SELECTED_EVENT) Empfaenger empfaenger)
 	{
 		selectedEmpfaenger = empfaenger;
 	}
-
 
 	/**
 	 * Create contents of the wizard.
@@ -176,7 +167,7 @@ public class ODFReceiverWizardPage extends WizardPage implements IWriteWizardPag
 	}
 
 	/* 
-	 * Empfaenger aus dem Dokument lesen
+	 * Empfaenger aus dem Dokument lesen und zu den Empfaenger 'receivers' hinzufuegen
 	 * 
 	 */
 	@Override
@@ -191,7 +182,7 @@ public class ODFReceiverWizardPage extends WizardPage implements IWriteWizardPag
 			// Name des Empfaengers
 			empfaenger.setName(ODFDocumentUtils.readTableText(table, 0, 0));
 			
-			// Adresse des Empfaenges einlesen
+			// Modell 'Adresse' erzeugen, Empfaengeradresse einlesen
 			EClass adressClass = AddressPackage.eINSTANCE.getAdresse();
 			Adresse address = (Adresse) EcoreUtil.create(adressClass);
 			readDefaultAddress(address, table);
@@ -210,7 +201,7 @@ public class ODFReceiverWizardPage extends WizardPage implements IWriteWizardPag
 		
 	}
 
-	// Einlesen der Adresse in das Modell
+	// Einlesen der Adresse in das Modell 'Adresse'
 	private void readDefaultAddress(Adresse address, Table table)
 	{
 		// mit letzter Zeile beginnen (erwartet wird PLZ u Ort)

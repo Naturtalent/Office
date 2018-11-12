@@ -175,8 +175,8 @@ public class EmpfaengerItemProvider
 	{
 		String label = ((Empfaenger)object).getName();
 		return label == null || label.length() == 0 ?
-			getString("_UI_Empfaenger_type") :
-			getString("_UI_Empfaenger_type") + " " + label;
+			getString("_UI_Empfaenger_type") : label;
+			//getString("_UI_Empfaenger_type") + " " + label;
 	}
 	
 

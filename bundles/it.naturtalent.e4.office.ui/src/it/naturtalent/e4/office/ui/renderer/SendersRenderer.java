@@ -2,30 +2,30 @@ package it.naturtalent.e4.office.ui.renderer;
 
 import javax.inject.Inject;
 
+import org.apache.commons.lang3.StringUtils;
+import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.ui.di.UIEventTopic;
 import org.eclipse.e4.ui.internal.workbench.E4Workbench;
-import org.eclipse.e4.ui.model.application.MApplication;
-import org.eclipse.e4.ui.workbench.IWorkbench;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecp.view.spi.context.ViewModelContext;
 import org.eclipse.emf.ecp.view.spi.treemasterdetail.ui.swt.TreeMasterDetailSWTRenderer;
 import org.eclipse.emf.ecp.view.treemasterdetail.model.VTreeMasterDetail;
 import org.eclipse.emfforms.spi.common.report.ReportService;
-import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
-import org.eclipse.swt.widgets.Button;
+import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.swt.widgets.Composite;
 
 import it.naturtalent.e4.office.ui.OfficeUtils;
 import it.naturtalent.office.model.address.Absender;
 import it.naturtalent.office.model.address.Adresse;
-import it.naturtalent.office.model.address.Empfaenger;
+
+
 
 /**
  * MasterViewRenderer des Absender Objekts.
@@ -41,7 +41,31 @@ public class SendersRenderer extends TreeMasterDetailSWTRenderer
 	
 	private TreeViewer treeViewer;
 	
-	// Listener informiert ueber den selektierten Absender
+	// filtert nach dem TelekomOffice - Context
+	private class ContextFilter extends ViewerFilter
+	{
+		String officeContext;
+		
+		public ContextFilter(String officeContext)
+		{
+			super();
+			this.officeContext = officeContext;
+		}
+
+		@Override
+		public boolean select(Viewer viewer, Object parentElement, Object element)
+		{					
+			if (element instanceof Absender)
+			{					
+				String elementContext = ((Absender)element).getContext();
+					return(StringUtils.equals(elementContext, officeContext));															
+			}
+			
+			return true;
+		}
+	}
+	
+	// Listener informiert ueber den selektierten Absender im MasterTree
 	private ISelectionChangedListener selectionListener = new ISelectionChangedListener()
 	{		
 		@Override
@@ -85,14 +109,12 @@ public class SendersRenderer extends TreeMasterDetailSWTRenderer
 	@Override
 	protected TreeViewer createMasterTree(Composite masterPanel)
 	{
+		IEclipseContext context = E4Workbench.getServiceContext();
+		String officeContext = (String) context.get(OfficeUtils.OFFICE_CONTEXT);		
+		
 		treeViewer = super.createMasterTree(masterPanel);
-		treeViewer.addSelectionChangedListener(selectionListener);
-		
-		
-		//ILabelProvider labelProvider = (ILabelProvider) treeViewer.getLabelProvider();
-		//labelProvider.getText(element);
-		
-		
+		treeViewer.addSelectionChangedListener(selectionListener);	
+		treeViewer.setFilters(new ViewerFilter []{new ContextFilter(officeContext)});
 		return treeViewer;
 	}
 	

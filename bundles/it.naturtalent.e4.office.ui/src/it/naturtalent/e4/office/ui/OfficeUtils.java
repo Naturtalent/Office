@@ -56,6 +56,7 @@ public class OfficeUtils
 	public static final String ABSENDERMASTER_SELECTED_EVENT = "absenderselected"; //$NON-NLS-N$
 	public static final String SET_ABSENDERMASTER_SELECTION_EVENT = "setabsendermasterselection"; //$NON-NLS-N$
 	public static final String ABSENDER_DETAIL_SELECTED_EVENT = "absenderdetailselected"; //$NON-NLS-N$
+	public static final String OFFICE_CONTEXT = "officecontect";
 	
 	private static Log log = LogFactory.getLog(OfficeUtils.class);
 	
@@ -226,7 +227,7 @@ public class OfficeUtils
 	}
 	
 	/**
-	 * Alle einem NtProjekt zugeordneten Kontakte zurueckgeben.
+	 * Zurueckgegeben wird ein Container indem die Kontakte eines NtProjekts gehalten werden.
 	 * 
 	 * Wird kein Eintrag gefunden oder ist ist die 'projectID' == null wird
 	 * ein 'leerer' Container zurueckgegeben
@@ -258,6 +259,7 @@ public class OfficeUtils
 			}	
 		}
 		
+		// einen Conteiner erzeugen und zureckgeben
 		EClass ntProjektClass = AddressPackage.eINSTANCE.getNtProjektKontakte();
 		ntKontakte = (NtProjektKontakte) EcoreUtil.create(ntProjektClass);
 		return ntKontakte;

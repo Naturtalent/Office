@@ -1,10 +1,19 @@
 package it.naturtalent.e4.office.ui;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.commons.lang3.StringUtils;
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.ui.internal.workbench.E4Workbench;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecp.core.ECPProject;
 import org.eclipse.emf.ecp.spi.ui.util.ECPHandlerHelper;
 import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
@@ -17,6 +26,8 @@ import org.eclipse.swt.widgets.Display;
 import it.naturtalent.e4.office.ui.actions.ProjectKontakteAction;
 import it.naturtalent.e4.office.ui.wizards.KontakteProjectPropertyWizardPage;
 import it.naturtalent.e4.project.INtProjectProperty;
+import it.naturtalent.e4.project.expimp.ecp.ECPExportHandlerHelper;
+import it.naturtalent.e4.project.ui.emf.ExpImpUtils;
 import it.naturtalent.e4.project.ui.emf.NtProjectPropertyFactory;
 import it.naturtalent.office.model.address.Kontakt;
 import it.naturtalent.office.model.address.NtProjektKontakte;
@@ -30,6 +41,9 @@ import it.naturtalent.office.model.address.NtProjektKontakte;
  */
 public class KontakteProjectProperty implements INtProjectProperty
 {
+	
+	private String EXPIMP_NTPROJECTKONTAKTDATA_FILE = ".kontaktData.xmi";
+	
 	// ID des Projekts, auf das sich die Eigenschaft bezieht
 	protected String ntProjectID;
 	
@@ -39,7 +53,7 @@ public class KontakteProjectProperty implements INtProjectProperty
 	private KontakteProjectPropertyWizardPage ntProjektKontakteWizardPage;
 	
 	/* 
-	 * Ueber die ProjectID wird das zugeordnete Register in den Adapter geladen.
+	 * Ueber die ProjectID wird der Container mit den Kontakten des Projekts geladen
 	 * 
 	 * (non-Javadoc)
 	 * @see it.naturtalent.e4.project.INtProjectProperty#setNtProjectID(java.lang.String)
@@ -200,9 +214,31 @@ public class KontakteProjectProperty implements INtProjectProperty
 	}
 
 	@Override
-	public boolean importProperty(Object importData)
+	public void importProperty()
 	{		
-		return false;
+		EObject kontaktProjectData = ExpImpUtils.importNtPropertyData(EXPIMP_NTPROJECTKONTAKTDATA_FILE, ntProjectID);
+		if (kontaktProjectData instanceof NtProjektKontakte)
+		{
+			NtProjektKontakte projectKontakt = (NtProjektKontakte) kontaktProjectData;
+			
+			// nochmal pruefen, ob die IDs uebereinstimmen
+			if(StringUtils.equals(ntProjectID, projectKontakt.getNtProjektID()))
+			{
+				ECPProject ecpProject = OfficeUtils.getOfficeProject();
+				ecpProject.getContents().add(kontaktProjectData);				
+			}
+		}
+	}
+
+	@Override
+	public void exportProperty()
+	{
+		// sind Propertydaten vorhanden @see setNtProjectID(String ntProjectID)
+		if(ntProjektKontakte != null)
+		{			
+			if(StringUtils.equals(ntProjectID, ntProjektKontakte.getNtProjektID()))
+				ExpImpUtils.exportNtPropertyData(ntProjectID, ntProjektKontakte, EXPIMP_NTPROJECTKONTAKTDATA_FILE);
+		}		
 	}
 	
 

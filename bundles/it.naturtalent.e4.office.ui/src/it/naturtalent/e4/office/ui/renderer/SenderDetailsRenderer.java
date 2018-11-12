@@ -5,6 +5,8 @@ import java.util.Set;
 
 import javax.inject.Inject;
 
+import org.apache.commons.lang3.StringUtils;
+import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.ui.di.UIEventTopic;
@@ -38,6 +40,8 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TableViewer;
+import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
@@ -60,6 +64,32 @@ public class SenderDetailsRenderer extends MultiReferenceSWTRenderer
 	private Button btnAddNew;
 	
 	private EditingDomain domain;
+	
+	// filtert nach dem Office - Context
+	private class ContextFilter extends ViewerFilter
+	{
+		String officeContext;
+		
+		public ContextFilter(String officeContext)
+		{
+			super();
+			this.officeContext = officeContext;
+		}
+
+		@Override
+		public boolean select(Viewer viewer, Object parentElement, Object element)
+		{					
+			if (element instanceof Absender)
+			{	
+				System.out.println("Filter: "+(officeContext+"   "+((Absender)element).getContext()));
+				String elementContext = ((Absender)element).getContext();
+					return(StringUtils.equals(elementContext, officeContext));															
+			}
+			
+			return true;
+		}
+	}
+
 	
 	@Inject
 	public SenderDetailsRenderer(VControl vElement,
@@ -100,6 +130,11 @@ public class SenderDetailsRenderer extends MultiReferenceSWTRenderer
 			}
 		});
 		
+		// Filter in TableViewer auf 'officeContext' setzen
+		IEclipseContext context = E4Workbench.getServiceContext();
+		String officeContext = (String) context.get(OfficeUtils.OFFICE_CONTEXT);
+		tableViewer.setFilters(new ViewerFilter []{new ContextFilter(officeContext)});
+		
 		return control;
 	}
 	
@@ -134,6 +169,7 @@ public class SenderDetailsRenderer extends MultiReferenceSWTRenderer
 		for(Kontakt kontact : allKontacts)
 			elements.add(kontact);
 		
+		// Kontakt mit dem Dialog auswaehlen
 		final Set<EObject> selectedElements = SelectModelElementWizardFactory
 				.openModelElementSelectionDialog(elements, true);
 		

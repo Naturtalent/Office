@@ -3,28 +3,22 @@ package it.naturtalent.e4.office.ui.wizards;
 import java.io.File;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.inject.Inject;
 
-import org.apache.commons.lang3.StringUtils;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.ui.di.UIEventTopic;
+import org.eclipse.e4.ui.internal.workbench.E4Workbench;
 import org.eclipse.emf.ecp.spi.ui.util.ECPHandlerHelper;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.Wizard;
 import org.odftoolkit.simple.TextDocument;
-import org.odftoolkit.simple.table.CellRange;
-import org.odftoolkit.simple.table.Table;
 
 import it.naturtalent.e4.office.ui.IODFWriteAdapter;
-import it.naturtalent.e4.office.ui.ODFDocumentUtils;
 import it.naturtalent.e4.office.ui.OfficeUtils;
-import it.naturtalent.office.model.address.Absender;
-import it.naturtalent.office.model.address.Adresse;
-import it.naturtalent.office.model.address.Empfaenger;
-import it.naturtalent.office.model.address.Referenz;
 
 /**
  * Mit diesem DefaultWizard fragt der DefaultWriteAdapter die erforderlichen Daten ab und schreibt sie in das Dokument.
@@ -36,55 +30,76 @@ import it.naturtalent.office.model.address.Referenz;
  */
 public class ODFDefaultWriteAdapterWizard extends Wizard
 {
-	// Selectionevents im MasterTree (@see ODFReceiverRenderer())
-	//public final static String SENDER_MASTERSELECTION_EVENT = "sendermasterselectinevent";
-	public final static String RECEIVER_MASTERSELECTION_EVENT = "receivermasterselectinevent";
 	
 	public final static String RECEIVER_PAGE_NAME = "ODF_RECEIVER";
 	public final static String SENDER_PAGE_NAME = "ODF_SENDER";
 	
-	
+	// erforderlich fuer das Erstellen der Pages via ContextInjectionFactory
 	protected IEclipseContext context;
-	private Empfaenger empfaenger;
-	private Absender absender;
 	
-	private ODFSenderWizardPage senderWizardPage;
-	
-	// Flag zeigt an, ob der Wizard im New- (create) oder im OpenModus laeuft 	
-	public final static String CONTEXTWIZARDMODE = "ContextWizardMode"; //$NON-NLS-N$
+	// OfficeKontext indem der Wizard arbeitet
+	private static final String DEFAULT_OFFUCECONTEXT = "officecontext";
+	protected String officeContext = DEFAULT_OFFUCECONTEXT;
+
+	// Modus-Flag zeigt an, ob der Wizard im New- (create) oder im OpenModus laeuft 		
 	public final static boolean WIZARDCREATEMODE = false;
 	public final static boolean WIZARDOPENMODE = true;
-	protected boolean wizardModus = WIZARDCREATEMODE;	
+	protected boolean wizardModus = WIZARDCREATEMODE;
+	
+	// Name mit dem Modus-Flag im IEclipseContext kolportiert wird
+	public final static String CONTEXTWIZARDMODE = "ContextWizardMode"; //$NON-NLS-N$
 		
-	// ODF-Dokument als File
+	// Write-Dokument als File
 	protected File odfDocumentFile;
 	
+	// Writefile als ODF-Textdokument (Grundlage fuer den Zugriff mit dem Toolkit)
 	protected TextDocument odfDocument;
-	//private TextDocument odfDocument;
 	
-	//private ODFReceiverWizardPage receiverWizardPage;
-	//private ODFSenderWizardPage senderWizardPage;
-	
+	public ODFDefaultWriteAdapterWizard()
+	{
+		super();
+		setOfficeContext(DEFAULT_OFFUCECONTEXT);
+	}
+
 	@PostConstruct
 	private void postConstuct(IEclipseContext context)
 	{
 		this.context = context;
 		
-		// Modusflag wird vom Handler (NewTextHandle / OpenTextHandler) ueber den Context uebergeben
+		//context.set(OfficeUtils.OFFICE_CONTEXT, officeContext);
+		
+		// Modus-Flag wird vom Handler (NewTextHandle / OpenTextHandler) ueber den Context uebergeben
 		if(context.containsKey(CONTEXTWIZARDMODE));
 		{
-			// Flag wird aus dem 'context' entfernt
+			// Modus-Flag wird aus dem IEclipseContext 'context' entfernt
 			wizardModus = (Boolean) context.get(CONTEXTWIZARDMODE);
 			context.remove(CONTEXTWIZARDMODE);
 		}
 	}
 	
+	@PreDestroy
+	private void preDestroy()
+	{
+		E4Workbench.getServiceContext().remove(OfficeUtils.OFFICE_CONTEXT);
+	}
+	
+	public void setOfficeContext(String officeContext)
+	{
+		this.officeContext = officeContext;	
+		E4Workbench.getServiceContext().set(OfficeUtils.OFFICE_CONTEXT, officeContext);
+	}
+	
+	public String getOfficeContext()
+	{
+		return officeContext;
+	}
+
 	@Override
 	public void addPages()
 	{
 		// WizardPages (ODFReceiverWizardPage,ODFSenderWizardPage) erzeugen
 		ODFReceiverWizardPage receiverWizardPage = ContextInjectionFactory.make(ODFReceiverWizardPage.class, context);
-		senderWizardPage = ContextInjectionFactory.make(ODFSenderWizardPage.class, context);
+		ODFSenderWizardPage senderWizardPage = ContextInjectionFactory.make(ODFSenderWizardPage.class, context);
 		
 		// WizardPages hinzufuegen
 		addPage(receiverWizardPage);
@@ -120,6 +135,10 @@ public class ODFDefaultWriteAdapterWizard extends Wizard
 		return true;
 	}
 	
+	/**
+	 * Die Funktion ruft alle assoziierten Pages auf und executiert die jeweiligen 'writeToDocument(odfDocument)' 
+	 * Funktionen der Pages. Es werden nur die Pages betrachtet, die das Interface 'IWriteWizardPage' implementieren.
+	 */
 	protected void doPerformFinish()
 	{
 		try
@@ -147,6 +166,11 @@ public class ODFDefaultWriteAdapterWizard extends Wizard
 		}
 	}
 
+	/**
+	 * Die Funktion ruft alle assoziierten Pages auf und executiert die jeweiligen 'cancelPage(odfDocument)' 
+	 * Funktionen der Pages. Es werden nur die Pages betrachtet, die das Interface 'IWriteWizardPage' implementieren.
+	 */
+
 	@Override
 	public boolean performCancel()
 	{
@@ -173,67 +197,6 @@ public class ODFDefaultWriteAdapterWizard extends Wizard
 
 		return super.performCancel();
 	}
-	
-	
-	
-	/**
-	 * Ein Absender wurde selektiert
-	 * @param selObject
-	 */
-	/*
-	@Inject
-	@Optional
-	public void handleSenderSelectionEvent(@UIEventTopic(SENDER_MASTERSELECTION_EVENT) Object selObject)
-	{
-		if (selObject instanceof Absender)	
-		{
-			absender = (Absender) selObject;
-			return;
-		}
-		else 
-			if (selObject instanceof Adresse)
-			{
-				Adresse adr = (Adresse) selObject;
-				absender = (Absender) adr.eContainer();
-				return;
-			}
-			else
-				if (selObject instanceof Referenz)
-				{
-					Referenz ref = (Referenz) selObject;
-					absender = (Absender) ref.eContainer();
-					return;
-				}
-		
-		absender = null;
-	}
-	*/
-
-	/**
-	 * Ein Empfaenger wurde selektiert
-	 * @param selObject
-	 */
-	/*
-	@Inject
-	@Optional
-	public void handleReceiverSelectionEvent(@UIEventTopic(RECEIVER_MASTERSELECTION_EVENT) Object selObject)
-	{
-		if (selObject instanceof Empfaenger)
-		{
-			empfaenger = (Empfaenger) selObject;
-			return;
-		}
-		else
-			if (selObject instanceof Adresse)
-			{
-				Adresse adr = (Adresse) selObject;
-				empfaenger = (Empfaenger) adr.eContainer();
-				return;
-			}
-		
-		empfaenger = null;
-	}
-	*/
 	
 	/**
 	 * Der OpenTextHandler/NewTextHandler meldet die im ResourceNavigator selektierte Datei (LibreOffice Text-Datei)
@@ -273,88 +236,10 @@ public class ODFDefaultWriteAdapterWizard extends Wizard
 
 	}	
 	
-	/*
-	 * das eingentliche Einlesen der Daten, wird von Erweiterungen spezifiziert
+	/**
+	 * den Modus-Flag abfragen
+	 * @return
 	 */
-	protected void readDocumentContent()
-	{
-	}
-	
-	/*
-	 * Die Empfaengerdaten werden in das Dokument geschrieben
-	 */
-	/*
-	protected void writeReceiverData(TextDocument odfDocument)
-	{
-		if((empfaenger != null) || (odfDocument != null))
-		{
-			// Adresstabelle lesen
-			Table table = odfDocument.getTableByName(IODFWriteAdapter.ODF_WRITEADRESSE);
-			if (table != null)
-			{
-				// Tabelle loeschen
-				CellRange cellRange = ODFDocumentUtils.markTable(table); 
-				ODFDocumentUtils.clearCellRange(cellRange);
-				
-				Adresse adr = empfaenger.getAdresse();
-				int row = 0;
-				
-				String adrText = adr.getName();
-				if(StringUtils.isNotEmpty(adrText))
-					ODFDocumentUtils.writeTableText(table, row++, 0, adrText);
-				
-				adrText = adr.getName2();
-				if(StringUtils.isNotEmpty(adrText))
-					ODFDocumentUtils.writeTableText(table, row++, 0, adrText);
-				
-				adrText = adr.getName3();
-				if(StringUtils.isNotEmpty(adrText))
-					ODFDocumentUtils.writeTableText(table, row++, 0, adrText);
-
-				adrText = adr.getStrasse();
-				if(StringUtils.isNotEmpty(adrText))
-					ODFDocumentUtils.writeTableText(table, row++, 0, adrText);
-
-				adrText = adr.getOrt();
-				if(StringUtils.isNotEmpty(adrText))
-					ODFDocumentUtils.writeTableText(table, row++, 0, adrText);
-			}
-		}
-	}
-	*/
-	
-	/*
-	 * Die Senderdaten werden in das Dokument geschrieben
-	 */
-	/*
-	protected void writeTransmitterData(TextDocument odfDocument)
-	{
-		if((absender != null) || (odfDocument != null))
-		{
-			// Absender lesen
-			Table table = odfDocument.getTableByName(IODFWriteAdapter.ODF_WRITESENDER);
-			if (table != null)
-			{
-				// Tabelle loeschen
-				CellRange cellRange = ODFDocumentUtils.markTable(table); 
-				ODFDocumentUtils.clearCellRange(cellRange);
-				
-				Adresse adresse = absender.getAdresse();
-				StringBuilder builder = new StringBuilder();
-				builder.append(adresse.getName());
-				builder.append(adresse.getName2());
-				ODFDocumentUtils.writeTableText(table, 0, 0, builder.toString());
-
-				builder = new StringBuilder();
-				builder.append(adresse.getStrasse());
-				builder.append(adresse.getOrt());
-				ODFDocumentUtils.writeTableText(table, 1, 0, builder.toString());
-
-			}
-		}
-	}
-	*/
-
 	public boolean isWizardModus()
 	{
 		return wizardModus;

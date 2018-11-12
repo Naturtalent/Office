@@ -173,8 +173,7 @@ public class AbsenderItemProvider
 	{
 		String label = ((Absender)object).getName();
 		return label == null || label.length() == 0 ?
-			getString("_UI_Absender_type") :
-			getString("_UI_Absender_type") + " " + label;
+			getString("_UI_Absender_type") : label;
 	}
 	
 
