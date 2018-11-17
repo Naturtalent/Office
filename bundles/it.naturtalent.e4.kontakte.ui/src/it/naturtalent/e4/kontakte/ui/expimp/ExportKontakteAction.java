@@ -16,7 +16,7 @@ import it.naturtalent.e4.kontakte.ui.Activator;
 import it.naturtalent.e4.kontakte.ui.Messages;
 import it.naturtalent.e4.project.expimp.ExpImportData;
 import it.naturtalent.e4.project.expimp.dialogs.DefaultExportDialog;
-import it.naturtalent.e4.project.expimp.dialogs.ProjectExportDialog;
+import it.naturtalent.e4.project.expimp.dialogs.ExportNtProjektDialog;
 
 import javax.inject.Inject;
 import javax.xml.bind.JAXB;
@@ -87,7 +87,7 @@ public class ExportKontakteAction extends Action
 			switch (dialog.getExportOption())
 			{
 				// XML Format
-				case ProjectExportDialog.EXPORTOPTION_XMLFORMAT:
+				case ExportNtProjektDialog.EXPORTOPTION_XMLFORMAT:
 					
 					exportFile = new File(FilenameUtils.removeExtension(exportPath)+".xml");
 					if(exportFile.exists())
