@@ -51,12 +51,14 @@ import it.naturtalent.icons.core.Icon;
 import it.naturtalent.icons.core.IconSize;
 import it.naturtalent.office.model.address.Absender;
 import it.naturtalent.office.model.address.AddressPackage;
+import it.naturtalent.office.model.address.Empfaenger;
 import it.naturtalent.office.model.address.Kontakt;
+import it.naturtalent.office.model.address.Receivers;
 import it.naturtalent.office.model.address.Referenz;
 import it.naturtalent.office.model.address.Sender;
 
 
-public class SenderDetailsRenderer extends MultiReferenceSWTRenderer
+public class ReceiverDetailsRenderer extends MultiReferenceSWTRenderer
 {
 
 	private IEventBroker eventBroker;
@@ -92,7 +94,7 @@ public class SenderDetailsRenderer extends MultiReferenceSWTRenderer
 
 	
 	@Inject
-	public SenderDetailsRenderer(VControl vElement,
+	public ReceiverDetailsRenderer(VControl vElement,
 			ViewModelContext viewContext, ReportService reportService,
 			EMFFormsDatabinding emfFormsDatabinding,
 			EMFFormsLabelProvider emfFormsLabelProvider,
@@ -114,7 +116,10 @@ public class SenderDetailsRenderer extends MultiReferenceSWTRenderer
 	{
 		Control control = super.renderMultiReferenceControl(cell, parent);
 
+		
 		TableViewer tableViewer = getTableViewer();
+		
+		/*
 		tableViewer.addSelectionChangedListener(new ISelectionChangedListener()
 		{			
 			@Override
@@ -124,12 +129,13 @@ public class SenderDetailsRenderer extends MultiReferenceSWTRenderer
 				Object selObj = selection.getFirstElement();
 				if (selObj != null)
 				{
-					// den im Detail selektierten Absender melden damit z.B. der Wizard nachziehen kann
+					// den im Detail selektierten Kontakt melden damit z.B. der Wizard nachziehen kann 
 					if (eventBroker != null)
-						eventBroker.send(OfficeUtils.ABSENDER_DETAIL_SELECTED_EVENT, selObj);					
+						eventBroker.send(OfficeUtils.REQUEST_RECEIVER_MASTER_SELECTED_EVENT, selObj);					
 				}
 			}
 		});
+		*/
 		
 		// Filter in TableViewer auf 'officeContext' setzen
 		IEclipseContext context = E4Workbench.getServiceContext();
@@ -180,27 +186,27 @@ public class SenderDetailsRenderer extends MultiReferenceSWTRenderer
 			{
 				// der selektierte Kontakt (incl. Adresse) wird kopiert
 				Kontakt kontakt = (Kontakt) EcoreUtil.copy(selectedElement);
-				EClass absenderClass = AddressPackage.eINSTANCE.getAbsender();
-				Absender absender = (Absender) EcoreUtil.create(absenderClass);
-				absender.setName(kontakt.getName());
-				absender.setAdresse(kontakt.getAdresse());	
 				
-				// Sender ist Container der Absender
-				Sender sender = (Sender) eObject;
-				//EObject container = ((Sender) eObject).getSenders();
-				//EObject container = OfficeUtils.getReferenzClass(senders);				
-				domain = AdapterFactoryEditingDomain.getEditingDomainFor(sender);			
+				// Empaengerobjekt erzeugen
+				EClass receiverClass = AddressPackage.eINSTANCE.getEmpfaenger();
+				Empfaenger empfaenger = (Empfaenger) EcoreUtil.create(receiverClass);
+				empfaenger.setName(kontakt.getName());
+				empfaenger.setAdresse(kontakt.getAdresse());	
 				
-				EReference eReference = AddressPackage.eINSTANCE.getSender_Senders();
-				Command addCommand = AddCommand.create(domain, sender , eReference, absender);
+				// Receivers ist Container aller Adressaten
+				Receivers receivers = (Receivers) eObject;						
+				domain = AdapterFactoryEditingDomain.getEditingDomainFor(receivers);			
+				
+				EReference eReference = AddressPackage.eINSTANCE.getReceivers_Receivers();
+				Command addCommand = AddCommand.create(domain, receivers , eReference, empfaenger);
 				if(addCommand.canExecute())
 					domain.getCommandStack().execute(addCommand);
 				
 				
 				
 				//((Sender) eObject).getSenders().add(absender);
-				// @see SendersRenderer - selektiert den Absender im MasterView
-				eventBroker.post(OfficeUtils.SET_ABSENDERMASTER_SELECTION_EVENT , absender);
+				
+				//eventBroker.post(OfficeUtils.SET_ABSENDERMASTER_SELECTION_EVENT , absender);
 				
 				//tableViewer.setSelection(new StructuredSelection(absender));
 			}

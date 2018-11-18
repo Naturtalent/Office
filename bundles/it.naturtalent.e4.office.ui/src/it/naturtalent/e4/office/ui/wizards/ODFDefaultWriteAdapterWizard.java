@@ -22,7 +22,10 @@ import it.naturtalent.e4.office.ui.OfficeUtils;
 
 /**
  * Mit diesem DefaultWizard fragt der DefaultWriteAdapter die erforderlichen Daten ab und schreibt sie in das Dokument.
+ * 
+ * Adapter fuer das Handling mit dem TextDokument
  * @see it.naturtalent.e4.office.ui.ODFDefaultWriteAdapter
+ * 
  * Dient als Grundlage fuer spezifische Erweiterungen.
  * 
  * @author dieter

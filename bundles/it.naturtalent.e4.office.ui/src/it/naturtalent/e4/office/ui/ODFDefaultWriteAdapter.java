@@ -21,8 +21,9 @@ import org.osgi.framework.FrameworkUtil;
 import it.naturtalent.e4.office.ui.wizards.ODFDefaultWriteAdapterWizard;
 
 /**
- * Diese Klasse implementiert einen Adapter der standardmaessig zur Verfuegung steht.
- * Der Wizard dieses Adapters ermoeglicht die Eingabe von Empfaenger und Absender.
+ * Diese Klasse implementiert einen Adapter der obligatorisch zur Verfuegung steht.
+ * 
+ * Der mit diesem Adapter erzeugte Wizard ermoeglicht das Handling mit dem ODFTextDokument
  * 
  * @author dieter
  *
@@ -44,7 +45,10 @@ public class ODFDefaultWriteAdapter implements IODFWriteAdapter
 		return ContextInjectionFactory.make(ODFDefaultWriteAdapterWizard.class, context);
 	}
 
-	/* Eine neue Datei wird 'erzeugt' durch kopieren einer Vorlage in das Zielverzichnis.
+	/* 
+	 * Ein TextDokument erstellen.
+	 * 
+	 * Eine neue Datei wird 'erzeugt' durch kopieren einer Vorlage in das Zielverzichnis.
 	 * Mit 'getAutoFileName()' wird verhndert, dass ein bereits besthender Dateiname verwendet wird.
 	 * 
 	 */
@@ -104,6 +108,10 @@ public class ODFDefaultWriteAdapter implements IODFWriteAdapter
 		}
 	}
 
+	/*
+	 * ein bereits existierendes TextDokument oeffnen
+	 * @see it.naturtalent.e4.office.ui.IODFWriteAdapter#openODF(java.io.File)
+	 */
 	@Override
 	public void openODF(File odfFile)
 	{

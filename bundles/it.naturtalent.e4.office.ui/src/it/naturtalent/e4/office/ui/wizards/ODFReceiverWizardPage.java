@@ -13,7 +13,10 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.ui.di.UIEventTopic;
+import org.eclipse.e4.ui.internal.workbench.E4Workbench;
+import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.services.internal.events.EventBroker;
+import org.eclipse.e4.ui.workbench.IWorkbench;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -45,7 +48,12 @@ import it.naturtalent.office.model.address.Referenz;
 
 
 /**
- * Wizardseite zur Bearbeitung der Empfaenger 
+ * 
+ * Wizardseite zur Bearbeitung der projektspezifischen Kontakte. Mit dem Kontakt kann auch eine Adresse definiert werden.
+ * Im Zusammenhang mit Anschreiben ist diese Adresse von Interesse und kann als Adressat in das Dokument geschrieben
+ * werden. Die selektierte Adresse wird in das Dokument geschrieben.
+ * 
+ *  ODFDefaultWriteAdapterWizard
  * 
  * @author dieter
  *
@@ -54,6 +62,8 @@ public class ODFReceiverWizardPage extends WizardPage implements IWriteWizardPag
 {
 	private Receivers receivers;
 	private Empfaenger selectedEmpfaenger;
+	
+	private IEventBroker eventBroker;
 
 	/**
 	 * Create the wizard.
@@ -61,11 +71,14 @@ public class ODFReceiverWizardPage extends WizardPage implements IWriteWizardPag
 	public ODFReceiverWizardPage()
 	{
 		super(ODFDefaultWriteAdapterWizard.RECEIVER_PAGE_NAME);
-		setMessage("einen Empfaenger auswählen");
+		setMessage("Kontakte definieren, die ausgewählte Adresse wird in das Dokument übernommen");
 		setTitle("Empfänger");
 		setDescription("Angaben zum Empfänger");
 		
-		// Eine Receiverklasse (Container der Empfaengerdaten) anlegen
+		MApplication currentApplication = E4Workbench.getServiceContext().get(IWorkbench.class).getApplication();
+		eventBroker = currentApplication.getContext().get(IEventBroker.class);
+		
+		// Receivers (Container aller Empfaenger) anlegen
 		EClass receiversClass = AddressPackage.eINSTANCE.getReceivers();
 		receivers = (Receivers) EcoreUtil.create(receiversClass);
 				
@@ -94,9 +107,12 @@ public class ODFReceiverWizardPage extends WizardPage implements IWriteWizardPag
 		}
 	}
 	
+	/*
+	 * Der im MasterView selektierte Empaenger wird in diese WizardPage uebernommen.
+	 */
 	@Inject
 	@Optional
-	public void handleModelChangedEvent(@UIEventTopic(OfficeUtils.RECEIVER_SELECTED_EVENT) Empfaenger empfaenger)
+	public void handleModelChangedEvent(@UIEventTopic(OfficeUtils.RECEIVER_MASTER_SELECTED_EVENT) Empfaenger empfaenger)
 	{
 		selectedEmpfaenger = empfaenger;
 	}
@@ -122,6 +138,10 @@ public class ODFReceiverWizardPage extends WizardPage implements IWriteWizardPag
 		}	
 	}
 
+	/*
+	 * Die Adresse des Empfaengers in das Dokument schreiben 
+	 * @see it.naturtalent.e4.office.ui.wizards.IWriteWizardPage#writeToDocument(org.odftoolkit.simple.TextDocument)
+	 */
 	@Override
 	public void writeToDocument(TextDocument odfDocument)
 	{
@@ -190,6 +210,7 @@ public class ODFReceiverWizardPage extends WizardPage implements IWriteWizardPag
 			empfaenger.setAdresse(address);
 			receivers.getReceivers().add(empfaenger);
 			
+			// 
 			//eventBroker.post(OfficeUtils.SET_RECEIVER_SELECTED_EVENT , empfaenger);
 		}		
 	}

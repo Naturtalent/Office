@@ -16,6 +16,7 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
+import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.widgets.Composite;
 
 import it.naturtalent.e4.office.ui.OfficeUtils;
@@ -25,7 +26,8 @@ import it.naturtalent.office.model.address.Adresse;
 import it.naturtalent.office.model.address.Empfaenger;
 
 /**
- * Angepasster Renderer zur Darstellung 
+ * Angepasster Renderer 
+ * SelektionListener meldet den ausgeaehlten Empfaenger 
  * @author dieter
  *
  */
@@ -52,9 +54,9 @@ public class ODFReceiverRenderer extends TreeMasterDetailSWTRenderer
 					empfaenger = (Empfaenger) ((Adresse) selObject).eContainer();				
 			}
 			
-			// Broker informiert ueber die Selektion 
+			// Broker informiert ueber die Selektion eines Empfaengers im Master
 			// @see it.naturtalent.e4.office.ui.wizards.ODFReceiverWizardPage
-			eventBroker.post(OfficeUtils.RECEIVER_SELECTED_EVENT , empfaenger);
+			eventBroker.post(OfficeUtils.RECEIVER_MASTER_SELECTED_EVENT , empfaenger);
 		}
 	};
 
@@ -65,7 +67,7 @@ public class ODFReceiverRenderer extends TreeMasterDetailSWTRenderer
 	{
 		super(vElement, viewContext, reportService);		
 	}
-
+	
 	/* 
 	 * Methodenueberschreibung um Zugriff auf den TreeViewer zu bekommen
 	 */
@@ -77,13 +79,19 @@ public class ODFReceiverRenderer extends TreeMasterDetailSWTRenderer
 		return treeViewer;
 	}
 	
+	/*
+	 * Eine Selektion im MasterView erzwingen.
+	 */
+	/*
 	@Inject
 	@Optional
-	public void handleModelChangedEvent(@UIEventTopic(OfficeUtils.SET_RECEIVER_SELECTED_EVENT) Empfaenger empfaenger)
+	public void handleModelChangedEvent(@UIEventTopic(OfficeUtils.REQUEST_RECEIVER_MASTER_SELECTED_EVENT) Empfaenger empfaenger)
 	{
 		treeViewer.removeSelectionChangedListener(selectionListener);
 		treeViewer.setSelection(new StructuredSelection(empfaenger));
 		treeViewer.addSelectionChangedListener(selectionListener);
 	}
+	*/
+	
 
 }

@@ -51,11 +51,11 @@ public class OfficeUtils
 	public static final String REFERENZGROUP_REQUESTSELECTREFERENCEEVENT = "requestselectgroupreferenceselectionevent"; //$NON-NLS-N$
 
 	// EventBroker Definitions
-	public static final String RECEIVER_SELECTED_EVENT = "receiverselected"; //$NON-NLS-N$
-	public static final String SET_RECEIVER_SELECTED_EVENT = "setreceiverselected"; //$NON-NLS-N$
+	public static final String RECEIVER_MASTER_SELECTED_EVENT = "receiverselected"; //$NON-NLS-N$
+	//public static final String REQUEST_RECEIVER_MASTER_SELECTED_EVENT = "requestreceiverselected"; //$NON-NLS-N$
 	public static final String ABSENDERMASTER_SELECTED_EVENT = "absenderselected"; //$NON-NLS-N$
 	public static final String SET_ABSENDERMASTER_SELECTION_EVENT = "setabsendermasterselection"; //$NON-NLS-N$
-	public static final String ABSENDER_DETAIL_SELECTED_EVENT = "absenderdetailselected"; //$NON-NLS-N$
+	public static final String ABSENDER_DETAIL_SELECTED_EVENT = "absenderdetailselected"; //$NON-NLS-N$	
 	public static final String OFFICE_CONTEXT = "officecontect";
 	
 	private static Log log = LogFactory.getLog(OfficeUtils.class);
