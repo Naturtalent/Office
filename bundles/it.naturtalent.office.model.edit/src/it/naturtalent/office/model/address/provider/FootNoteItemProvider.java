@@ -3,6 +3,7 @@
 package it.naturtalent.office.model.address.provider;
 
 
+import it.naturtalent.office.model.address.AddressFactory;
 import it.naturtalent.office.model.address.AddressPackage;
 import it.naturtalent.office.model.address.FootNote;
 
@@ -14,6 +15,7 @@ import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.common.util.ResourceLocator;
 
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -64,27 +66,27 @@ public class FootNoteItemProvider
 		{
 			super.getPropertyDescriptors(object);
 
-			addKeyPropertyDescriptor(object);
-			addValuePropertyDescriptor(object);
+			addNamePropertyDescriptor(object);
+			addContextPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Key feature.
+	 * This adds a property descriptor for the Name feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addKeyPropertyDescriptor(Object object)
+	protected void addNamePropertyDescriptor(Object object)
 	{
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_FootNote_key_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_FootNote_key_feature", "_UI_FootNote_type"),
-				 AddressPackage.Literals.FOOT_NOTE__KEY,
+				 getString("_UI_FootNote_name_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_FootNote_name_feature", "_UI_FootNote_type"),
+				 AddressPackage.Literals.FOOT_NOTE__NAME,
 				 true,
 				 false,
 				 false,
@@ -94,26 +96,59 @@ public class FootNoteItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Value feature.
+	 * This adds a property descriptor for the Context feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addValuePropertyDescriptor(Object object)
+	protected void addContextPropertyDescriptor(Object object)
 	{
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_FootNote_value_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_FootNote_value_feature", "_UI_FootNote_type"),
-				 AddressPackage.Literals.FOOT_NOTE__VALUE,
+				 getString("_UI_FootNote_context_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_FootNote_context_feature", "_UI_FootNote_type"),
+				 AddressPackage.Literals.FOOT_NOTE__CONTEXT,
 				 true,
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
+	}
+
+	/**
+	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
+	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
+	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object)
+	{
+		if (childrenFeatures == null)
+		{
+			super.getChildrenFeatures(object);
+			childrenFeatures.add(AddressPackage.Literals.FOOT_NOTE__FOOTNOTEITEMS);
+		}
+		return childrenFeatures;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	protected EStructuralFeature getChildFeature(Object object, Object child)
+	{
+		// Check the type of the specified child object and return the proper feature to use for
+		// adding (see {@link AddCommand}) it as a child.
+
+		return super.getChildFeature(object, child);
 	}
 
 	/**
@@ -132,15 +167,15 @@ public class FootNoteItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object)
 	{
-		String label = ((FootNote)object).getKey();
+		String label = ((FootNote)object).getName();
 		return label == null || label.length() == 0 ?
-			getString("_UI_FootNote_type") :
-			getString("_UI_FootNote_type") + " " + label;
+			getString("_UI_FootNote_type") : label;
+			//getString("_UI_FootNote_type") + " " + label;
 	}
 	
 
@@ -158,9 +193,12 @@ public class FootNoteItemProvider
 
 		switch (notification.getFeatureID(FootNote.class))
 		{
-			case AddressPackage.FOOT_NOTE__KEY:
-			case AddressPackage.FOOT_NOTE__VALUE:
+			case AddressPackage.FOOT_NOTE__NAME:
+			case AddressPackage.FOOT_NOTE__CONTEXT:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+				return;
+			case AddressPackage.FOOT_NOTE__FOOTNOTEITEMS:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
 		super.notifyChanged(notification);
@@ -177,6 +215,11 @@ public class FootNoteItemProvider
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object)
 	{
 		super.collectNewChildDescriptors(newChildDescriptors, object);
+
+		newChildDescriptors.add
+			(createChildParameter
+				(AddressPackage.Literals.FOOT_NOTE__FOOTNOTEITEMS,
+				 AddressFactory.eINSTANCE.createFootNoteItem()));
 	}
 
 	/**

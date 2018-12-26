@@ -2,6 +2,7 @@
  */
 package it.naturtalent.office.model.address;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -13,8 +14,9 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link it.naturtalent.office.model.address.FootNote#getKey <em>Key</em>}</li>
- *   <li>{@link it.naturtalent.office.model.address.FootNote#getValue <em>Value</em>}</li>
+ *   <li>{@link it.naturtalent.office.model.address.FootNote#getName <em>Name</em>}</li>
+ *   <li>{@link it.naturtalent.office.model.address.FootNote#getContext <em>Context</em>}</li>
+ *   <li>{@link it.naturtalent.office.model.address.FootNote#getFootnoteitems <em>Footnoteitems</em>}</li>
  * </ul>
  *
  * @see it.naturtalent.office.model.address.AddressPackage#getFootNote()
@@ -24,55 +26,71 @@ import org.eclipse.emf.ecore.EObject;
 public interface FootNote extends EObject
 {
 	/**
-	 * Returns the value of the '<em><b>Key</b></em>' attribute.
+	 * Returns the value of the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Key</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Name</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Key</em>' attribute.
-	 * @see #setKey(String)
-	 * @see it.naturtalent.office.model.address.AddressPackage#getFootNote_Key()
+	 * @return the value of the '<em>Name</em>' attribute.
+	 * @see #setName(String)
+	 * @see it.naturtalent.office.model.address.AddressPackage#getFootNote_Name()
 	 * @model
 	 * @generated
 	 */
-	String getKey();
+	String getName();
 
 	/**
-	 * Sets the value of the '{@link it.naturtalent.office.model.address.FootNote#getKey <em>Key</em>}' attribute.
+	 * Sets the value of the '{@link it.naturtalent.office.model.address.FootNote#getName <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Key</em>' attribute.
-	 * @see #getKey()
+	 * @param value the new value of the '<em>Name</em>' attribute.
+	 * @see #getName()
 	 * @generated
 	 */
-	void setKey(String value);
+	void setName(String value);
 
 	/**
-	 * Returns the value of the '<em><b>Value</b></em>' attribute.
+	 * Returns the value of the '<em><b>Context</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Value</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Context</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Value</em>' attribute.
-	 * @see #setValue(String)
-	 * @see it.naturtalent.office.model.address.AddressPackage#getFootNote_Value()
+	 * @return the value of the '<em>Context</em>' attribute.
+	 * @see #setContext(String)
+	 * @see it.naturtalent.office.model.address.AddressPackage#getFootNote_Context()
 	 * @model
 	 * @generated
 	 */
-	String getValue();
+	String getContext();
 
 	/**
-	 * Sets the value of the '{@link it.naturtalent.office.model.address.FootNote#getValue <em>Value</em>}' attribute.
+	 * Sets the value of the '{@link it.naturtalent.office.model.address.FootNote#getContext <em>Context</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Value</em>' attribute.
-	 * @see #getValue()
+	 * @param value the new value of the '<em>Context</em>' attribute.
+	 * @see #getContext()
 	 * @generated
 	 */
-	void setValue(String value);
+	void setContext(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Footnoteitems</b></em>' containment reference list.
+	 * The list contents are of type {@link it.naturtalent.office.model.address.FootNoteItem}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Footnoteitems</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Footnoteitems</em>' containment reference list.
+	 * @see it.naturtalent.office.model.address.AddressPackage#getFootNote_Footnoteitems()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EList<FootNoteItem> getFootnoteitems();
 
 } // FootNote

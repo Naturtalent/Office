@@ -5,7 +5,7 @@ package it.naturtalent.office.model.address.provider;
 
 import it.naturtalent.office.model.address.AddressFactory;
 import it.naturtalent.office.model.address.AddressPackage;
-import it.naturtalent.office.model.address.FooterClass;
+import it.naturtalent.office.model.address.SignatureSet;
 
 import java.util.Collection;
 import java.util.List;
@@ -17,24 +17,22 @@ import org.eclipse.emf.common.util.ResourceLocator;
 
 import org.eclipse.emf.ecore.EStructuralFeature;
 
-import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
-import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
- * This is the item provider adapter for a {@link it.naturtalent.office.model.address.FooterClass} object.
+ * This is the item provider adapter for a {@link it.naturtalent.office.model.address.SignatureSet} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class FooterClassItemProvider 
+public class SignatureSetItemProvider 
 	extends ItemProviderAdapter
 	implements
 		IEditingDomainItemProvider,
@@ -49,7 +47,7 @@ public class FooterClassItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public FooterClassItemProvider(AdapterFactory adapterFactory)
+	public SignatureSetItemProvider(AdapterFactory adapterFactory)
 	{
 		super(adapterFactory);
 	}
@@ -67,32 +65,8 @@ public class FooterClassItemProvider
 		{
 			super.getPropertyDescriptors(object);
 
-			addFooterClassNamePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
-	}
-
-	/**
-	 * This adds a property descriptor for the Footer Class Name feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addFooterClassNamePropertyDescriptor(Object object)
-	{
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_FooterClass_footerClassName_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_FooterClass_footerClassName_feature", "_UI_FooterClass_type"),
-				 AddressPackage.Literals.FOOTER_CLASS__FOOTER_CLASS_NAME,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
 	}
 
 	/**
@@ -109,7 +83,7 @@ public class FooterClassItemProvider
 		if (childrenFeatures == null)
 		{
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(AddressPackage.Literals.FOOTER_CLASS__FOOTER_CLASS_FOOT_NOTES);
+			childrenFeatures.add(AddressPackage.Literals.SIGNATURE_SET__SIGNATURES);
 		}
 		return childrenFeatures;
 	}
@@ -129,7 +103,7 @@ public class FooterClassItemProvider
 	}
 
 	/**
-	 * This returns FooterClass.gif.
+	 * This returns SignatureSet.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -137,7 +111,7 @@ public class FooterClassItemProvider
 	@Override
 	public Object getImage(Object object)
 	{
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/FooterClass"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/SignatureSet"));
 	}
 
 	/**
@@ -149,12 +123,9 @@ public class FooterClassItemProvider
 	@Override
 	public String getText(Object object)
 	{
-		String label = ((FooterClass)object).getFooterClassName();
-		return label == null || label.length() == 0 ?
-			getString("_UI_FooterClass_type") :
-			getString("_UI_FooterClass_type") + " " + label;
+		return getString("_UI_SignatureSet_type");
 	}
-	
+
 
 	/**
 	 * This handles model notifications by calling {@link #updateChildren} to update any cached
@@ -168,12 +139,9 @@ public class FooterClassItemProvider
 	{
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(FooterClass.class))
+		switch (notification.getFeatureID(SignatureSet.class))
 		{
-			case AddressPackage.FOOTER_CLASS__FOOTER_CLASS_NAME:
-				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
-				return;
-			case AddressPackage.FOOTER_CLASS__FOOTER_CLASS_FOOT_NOTES:
+			case AddressPackage.SIGNATURE_SET__SIGNATURES:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -194,8 +162,8 @@ public class FooterClassItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(AddressPackage.Literals.FOOTER_CLASS__FOOTER_CLASS_FOOT_NOTES,
-				 AddressFactory.eINSTANCE.createFootNotes()));
+				(AddressPackage.Literals.SIGNATURE_SET__SIGNATURES,
+				 AddressFactory.eINSTANCE.createSignature()));
 	}
 
 	/**

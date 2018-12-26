@@ -18,6 +18,12 @@ import it.naturtalent.office.model.address.AddressPackage;
 
 
 
+/**
+ * Service, der den Tabellenrenderer der FootNoteItems zur Verfuegung stellt.
+ * 
+ * @author dieter
+ *
+ */
 public class FootNotesTableControlRendererService implements EMFFormsDIRendererService<VTableControl>
 {
 	
@@ -55,12 +61,11 @@ public class FootNotesTableControlRendererService implements EMFFormsDIRendererS
 		final EStructuralFeature eStructuralFeature = EStructuralFeature.class
 				.cast(valueProperty.getValueType());
 				
-		//if (ArchivPackage.eINSTANCE.getOrdner_Registers().equals(eStructuralFeature))
-		if (AddressPackage.eINSTANCE.getFootNotes_Footnotes().equals(eStructuralFeature))
+		// die Items einer Fussnote werden in einer Tabelle dargestellt 
+		if (AddressPackage.eINSTANCE.getFootNote_Footnoteitems().equals(eStructuralFeature))
 		{
 			// Prioritylevel 
-			return 12;
-			//return NOT_APPLICABLE;
+			return 12;			
 		}
 		
 		return NOT_APPLICABLE;

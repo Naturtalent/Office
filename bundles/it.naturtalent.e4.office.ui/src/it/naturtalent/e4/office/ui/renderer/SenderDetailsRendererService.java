@@ -87,7 +87,7 @@ public class SenderDetailsRendererService extends MultiReferenceSWTRendererServi
 		//if (AddressPackage.eINSTANCE.getReferenzGruppe_Referenz().equals(feature))
 		if (AddressPackage.eINSTANCE.getSender_Senders().equals(feature))
 		{
-			return 12.0;			
+			return 12.0;					
 		}
 
 		return NOT_APPLICABLE;

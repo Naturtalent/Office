@@ -445,14 +445,14 @@ public interface AddressPackage extends EPackage
 	int NT_PROJEKT_KONTAKTE_OPERATION_COUNT = 0;
 
 	/**
-	 * The meta object id for the '{@link it.naturtalent.office.model.address.impl.FootNoteImpl <em>Foot Note</em>}' class.
+	 * The meta object id for the '{@link it.naturtalent.office.model.address.impl.FootNoteItemImpl <em>Foot Note Item</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see it.naturtalent.office.model.address.impl.FootNoteImpl
-	 * @see it.naturtalent.office.model.address.impl.AddressPackageImpl#getFootNote()
+	 * @see it.naturtalent.office.model.address.impl.FootNoteItemImpl
+	 * @see it.naturtalent.office.model.address.impl.AddressPackageImpl#getFootNoteItem()
 	 * @generated
 	 */
-	int FOOT_NOTE = 7;
+	int FOOT_NOTE_ITEM = 7;
 
 	/**
 	 * The feature id for the '<em><b>Key</b></em>' attribute.
@@ -461,7 +461,7 @@ public interface AddressPackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-	int FOOT_NOTE__KEY = 0;
+	int FOOT_NOTE_ITEM__KEY = 0;
 
 	/**
 	 * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -470,7 +470,62 @@ public interface AddressPackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-	int FOOT_NOTE__VALUE = 1;
+	int FOOT_NOTE_ITEM__VALUE = 1;
+
+	/**
+	 * The number of structural features of the '<em>Foot Note Item</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FOOT_NOTE_ITEM_FEATURE_COUNT = 2;
+
+	/**
+	 * The number of operations of the '<em>Foot Note Item</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FOOT_NOTE_ITEM_OPERATION_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link it.naturtalent.office.model.address.impl.FootNoteImpl <em>Foot Note</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.naturtalent.office.model.address.impl.FootNoteImpl
+	 * @see it.naturtalent.office.model.address.impl.AddressPackageImpl#getFootNote()
+	 * @generated
+	 */
+	int FOOT_NOTE = 8;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FOOT_NOTE__NAME = 0;
+
+	/**
+	 * The feature id for the '<em><b>Context</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FOOT_NOTE__CONTEXT = 1;
+
+	/**
+	 * The feature id for the '<em><b>Footnoteitems</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FOOT_NOTE__FOOTNOTEITEMS = 2;
 
 	/**
 	 * The number of structural features of the '<em>Foot Note</em>' class.
@@ -479,7 +534,7 @@ public interface AddressPackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-	int FOOT_NOTE_FEATURE_COUNT = 2;
+	int FOOT_NOTE_FEATURE_COUNT = 3;
 
 	/**
 	 * The number of operations of the '<em>Foot Note</em>' class.
@@ -491,14 +546,14 @@ public interface AddressPackage extends EPackage
 	int FOOT_NOTE_OPERATION_COUNT = 0;
 
 	/**
-	 * The meta object id for the '{@link it.naturtalent.office.model.address.impl.FootNotesImpl <em>Foot Notes</em>}' class.
+	 * The meta object id for the '{@link it.naturtalent.office.model.address.impl.FooteNoteSetImpl <em>Foote Note Set</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see it.naturtalent.office.model.address.impl.FootNotesImpl
-	 * @see it.naturtalent.office.model.address.impl.AddressPackageImpl#getFootNotes()
+	 * @see it.naturtalent.office.model.address.impl.FooteNoteSetImpl
+	 * @see it.naturtalent.office.model.address.impl.AddressPackageImpl#getFooteNoteSet()
 	 * @generated
 	 */
-	int FOOT_NOTES = 8;
+	int FOOTE_NOTE_SET = 9;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -507,80 +562,34 @@ public interface AddressPackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-	int FOOT_NOTES__NAME = 0;
+	int FOOTE_NOTE_SET__NAME = 0;
 
 	/**
-	 * The feature id for the '<em><b>Footnotes</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Foote Notes</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FOOT_NOTES__FOOTNOTES = 1;
+	int FOOTE_NOTE_SET__FOOTE_NOTES = 1;
 
 	/**
-	 * The number of structural features of the '<em>Foot Notes</em>' class.
+	 * The number of structural features of the '<em>Foote Note Set</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FOOT_NOTES_FEATURE_COUNT = 2;
+	int FOOTE_NOTE_SET_FEATURE_COUNT = 2;
 
 	/**
-	 * The number of operations of the '<em>Foot Notes</em>' class.
+	 * The number of operations of the '<em>Foote Note Set</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FOOT_NOTES_OPERATION_COUNT = 0;
-
-	/**
-	 * The meta object id for the '{@link it.naturtalent.office.model.address.impl.FooterClassImpl <em>Footer Class</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see it.naturtalent.office.model.address.impl.FooterClassImpl
-	 * @see it.naturtalent.office.model.address.impl.AddressPackageImpl#getFooterClass()
-	 * @generated
-	 */
-	int FOOTER_CLASS = 9;
-
-	/**
-	 * The feature id for the '<em><b>Footer Class Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FOOTER_CLASS__FOOTER_CLASS_NAME = 0;
-
-	/**
-	 * The feature id for the '<em><b>Footer Class Foot Notes</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FOOTER_CLASS__FOOTER_CLASS_FOOT_NOTES = 1;
-
-	/**
-	 * The number of structural features of the '<em>Footer Class</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FOOTER_CLASS_FEATURE_COUNT = 2;
-
-	/**
-	 * The number of operations of the '<em>Footer Class</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FOOTER_CLASS_OPERATION_COUNT = 0;
+	int FOOTE_NOTE_SET_OPERATION_COUNT = 0;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -592,13 +601,22 @@ public interface AddressPackage extends EPackage
 	int REFERENZ__NAME = 0;
 
 	/**
+	 * The feature id for the '<em><b>Context</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REFERENZ__CONTEXT = 1;
+
+	/**
 	 * The feature id for the '<em><b>Referenz</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int REFERENZ__REFERENZ = 1;
+	int REFERENZ__REFERENZ = 2;
 
 	/**
 	 * The feature id for the '<em><b>Referenz2</b></em>' attribute.
@@ -607,7 +625,7 @@ public interface AddressPackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-	int REFERENZ__REFERENZ2 = 2;
+	int REFERENZ__REFERENZ2 = 3;
 
 	/**
 	 * The feature id for the '<em><b>Referenz3</b></em>' attribute.
@@ -616,7 +634,7 @@ public interface AddressPackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-	int REFERENZ__REFERENZ3 = 3;
+	int REFERENZ__REFERENZ3 = 4;
 
 	/**
 	 * The number of structural features of the '<em>Referenz</em>' class.
@@ -625,7 +643,7 @@ public interface AddressPackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-	int REFERENZ_FEATURE_COUNT = 4;
+	int REFERENZ_FEATURE_COUNT = 5;
 
 	/**
 	 * The number of operations of the '<em>Referenz</em>' class.
@@ -812,6 +830,116 @@ public interface AddressPackage extends EPackage
 	int SENDER_OPERATION_COUNT = 0;
 
 	/**
+	 * The meta object id for the '{@link it.naturtalent.office.model.address.impl.SignatureImpl <em>Signature</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.naturtalent.office.model.address.impl.SignatureImpl
+	 * @see it.naturtalent.office.model.address.impl.AddressPackageImpl#getSignature()
+	 * @generated
+	 */
+	int SIGNATURE = 15;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SIGNATURE__NAME = 0;
+
+	/**
+	 * The feature id for the '<em><b>Greeting</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SIGNATURE__GREETING = 1;
+
+	/**
+	 * The feature id for the '<em><b>Signer</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SIGNATURE__SIGNER = 2;
+
+	/**
+	 * The feature id for the '<em><b>Cosigner</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SIGNATURE__COSIGNER = 3;
+
+	/**
+	 * The feature id for the '<em><b>Context</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SIGNATURE__CONTEXT = 4;
+
+	/**
+	 * The number of structural features of the '<em>Signature</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SIGNATURE_FEATURE_COUNT = 5;
+
+	/**
+	 * The number of operations of the '<em>Signature</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SIGNATURE_OPERATION_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link it.naturtalent.office.model.address.impl.SignatureSetImpl <em>Signature Set</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.naturtalent.office.model.address.impl.SignatureSetImpl
+	 * @see it.naturtalent.office.model.address.impl.AddressPackageImpl#getSignatureSet()
+	 * @generated
+	 */
+	int SIGNATURE_SET = 16;
+
+	/**
+	 * The feature id for the '<em><b>Signatures</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SIGNATURE_SET__SIGNATURES = 0;
+
+	/**
+	 * The number of structural features of the '<em>Signature Set</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SIGNATURE_SET_FEATURE_COUNT = 1;
+
+	/**
+	 * The number of operations of the '<em>Signature Set</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SIGNATURE_SET_OPERATION_COUNT = 0;
+
+	/**
 	 * The meta object id for the '{@link it.naturtalent.office.model.address.AddressType <em>Type</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -819,7 +947,7 @@ public interface AddressPackage extends EPackage
 	 * @see it.naturtalent.office.model.address.impl.AddressPackageImpl#getAddressType()
 	 * @generated
 	 */
-	int ADDRESS_TYPE = 15;
+	int ADDRESS_TYPE = 17;
 
 
 	/**
@@ -929,6 +1057,17 @@ public interface AddressPackage extends EPackage
 	 * @generated
 	 */
 	EAttribute getReferenz_Name();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.naturtalent.office.model.address.Referenz#getContext <em>Context</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Context</em>'.
+	 * @see it.naturtalent.office.model.address.Referenz#getContext()
+	 * @see #getReferenz()
+	 * @generated
+	 */
+	EAttribute getReferenz_Context();
 
 	/**
 	 * Returns the meta object for the attribute '{@link it.naturtalent.office.model.address.Referenz#getReferenz <em>Referenz</em>}'.
@@ -1124,6 +1263,38 @@ public interface AddressPackage extends EPackage
 	EReference getNtProjektKontakte_Kontakte();
 
 	/**
+	 * Returns the meta object for class '{@link it.naturtalent.office.model.address.FootNoteItem <em>Foot Note Item</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Foot Note Item</em>'.
+	 * @see it.naturtalent.office.model.address.FootNoteItem
+	 * @generated
+	 */
+	EClass getFootNoteItem();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.naturtalent.office.model.address.FootNoteItem#getKey <em>Key</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Key</em>'.
+	 * @see it.naturtalent.office.model.address.FootNoteItem#getKey()
+	 * @see #getFootNoteItem()
+	 * @generated
+	 */
+	EAttribute getFootNoteItem_Key();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.naturtalent.office.model.address.FootNoteItem#getValue <em>Value</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Value</em>'.
+	 * @see it.naturtalent.office.model.address.FootNoteItem#getValue()
+	 * @see #getFootNoteItem()
+	 * @generated
+	 */
+	EAttribute getFootNoteItem_Value();
+
+	/**
 	 * Returns the meta object for class '{@link it.naturtalent.office.model.address.FootNote <em>Foot Note</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1134,90 +1305,69 @@ public interface AddressPackage extends EPackage
 	EClass getFootNote();
 
 	/**
-	 * Returns the meta object for the attribute '{@link it.naturtalent.office.model.address.FootNote#getKey <em>Key</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Key</em>'.
-	 * @see it.naturtalent.office.model.address.FootNote#getKey()
-	 * @see #getFootNote()
-	 * @generated
-	 */
-	EAttribute getFootNote_Key();
-
-	/**
-	 * Returns the meta object for the attribute '{@link it.naturtalent.office.model.address.FootNote#getValue <em>Value</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Value</em>'.
-	 * @see it.naturtalent.office.model.address.FootNote#getValue()
-	 * @see #getFootNote()
-	 * @generated
-	 */
-	EAttribute getFootNote_Value();
-
-	/**
-	 * Returns the meta object for class '{@link it.naturtalent.office.model.address.FootNotes <em>Foot Notes</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Foot Notes</em>'.
-	 * @see it.naturtalent.office.model.address.FootNotes
-	 * @generated
-	 */
-	EClass getFootNotes();
-
-	/**
-	 * Returns the meta object for the attribute '{@link it.naturtalent.office.model.address.FootNotes#getName <em>Name</em>}'.
+	 * Returns the meta object for the attribute '{@link it.naturtalent.office.model.address.FootNote#getName <em>Name</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Name</em>'.
-	 * @see it.naturtalent.office.model.address.FootNotes#getName()
-	 * @see #getFootNotes()
+	 * @see it.naturtalent.office.model.address.FootNote#getName()
+	 * @see #getFootNote()
 	 * @generated
 	 */
-	EAttribute getFootNotes_Name();
+	EAttribute getFootNote_Name();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link it.naturtalent.office.model.address.FootNotes#getFootnotes <em>Footnotes</em>}'.
+	 * Returns the meta object for the attribute '{@link it.naturtalent.office.model.address.FootNote#getContext <em>Context</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Footnotes</em>'.
-	 * @see it.naturtalent.office.model.address.FootNotes#getFootnotes()
-	 * @see #getFootNotes()
+	 * @return the meta object for the attribute '<em>Context</em>'.
+	 * @see it.naturtalent.office.model.address.FootNote#getContext()
+	 * @see #getFootNote()
 	 * @generated
 	 */
-	EReference getFootNotes_Footnotes();
+	EAttribute getFootNote_Context();
 
 	/**
-	 * Returns the meta object for class '{@link it.naturtalent.office.model.address.FooterClass <em>Footer Class</em>}'.
+	 * Returns the meta object for the containment reference list '{@link it.naturtalent.office.model.address.FootNote#getFootnoteitems <em>Footnoteitems</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Footer Class</em>'.
-	 * @see it.naturtalent.office.model.address.FooterClass
+	 * @return the meta object for the containment reference list '<em>Footnoteitems</em>'.
+	 * @see it.naturtalent.office.model.address.FootNote#getFootnoteitems()
+	 * @see #getFootNote()
 	 * @generated
 	 */
-	EClass getFooterClass();
+	EReference getFootNote_Footnoteitems();
 
 	/**
-	 * Returns the meta object for the attribute '{@link it.naturtalent.office.model.address.FooterClass#getFooterClassName <em>Footer Class Name</em>}'.
+	 * Returns the meta object for class '{@link it.naturtalent.office.model.address.FooteNoteSet <em>Foote Note Set</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Footer Class Name</em>'.
-	 * @see it.naturtalent.office.model.address.FooterClass#getFooterClassName()
-	 * @see #getFooterClass()
+	 * @return the meta object for class '<em>Foote Note Set</em>'.
+	 * @see it.naturtalent.office.model.address.FooteNoteSet
 	 * @generated
 	 */
-	EAttribute getFooterClass_FooterClassName();
+	EClass getFooteNoteSet();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link it.naturtalent.office.model.address.FooterClass#getFooterClassFootNotes <em>Footer Class Foot Notes</em>}'.
+	 * Returns the meta object for the attribute '{@link it.naturtalent.office.model.address.FooteNoteSet#getName <em>Name</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Footer Class Foot Notes</em>'.
-	 * @see it.naturtalent.office.model.address.FooterClass#getFooterClassFootNotes()
-	 * @see #getFooterClass()
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see it.naturtalent.office.model.address.FooteNoteSet#getName()
+	 * @see #getFooteNoteSet()
 	 * @generated
 	 */
-	EReference getFooterClass_FooterClassFootNotes();
+	EAttribute getFooteNoteSet_Name();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link it.naturtalent.office.model.address.FooteNoteSet#getFooteNotes <em>Foote Notes</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Foote Notes</em>'.
+	 * @see it.naturtalent.office.model.address.FooteNoteSet#getFooteNotes()
+	 * @see #getFooteNoteSet()
+	 * @generated
+	 */
+	EReference getFooteNoteSet_FooteNotes();
 
 	/**
 	 * Returns the meta object for class '{@link it.naturtalent.office.model.address.ReferenzSet <em>Referenz Set</em>}'.
@@ -1335,6 +1485,92 @@ public interface AddressPackage extends EPackage
 	 * @generated
 	 */
 	EReference getSender_Senders();
+
+	/**
+	 * Returns the meta object for class '{@link it.naturtalent.office.model.address.Signature <em>Signature</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Signature</em>'.
+	 * @see it.naturtalent.office.model.address.Signature
+	 * @generated
+	 */
+	EClass getSignature();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.naturtalent.office.model.address.Signature#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see it.naturtalent.office.model.address.Signature#getName()
+	 * @see #getSignature()
+	 * @generated
+	 */
+	EAttribute getSignature_Name();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.naturtalent.office.model.address.Signature#getGreeting <em>Greeting</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Greeting</em>'.
+	 * @see it.naturtalent.office.model.address.Signature#getGreeting()
+	 * @see #getSignature()
+	 * @generated
+	 */
+	EAttribute getSignature_Greeting();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.naturtalent.office.model.address.Signature#getSigner <em>Signer</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Signer</em>'.
+	 * @see it.naturtalent.office.model.address.Signature#getSigner()
+	 * @see #getSignature()
+	 * @generated
+	 */
+	EAttribute getSignature_Signer();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.naturtalent.office.model.address.Signature#getCosigner <em>Cosigner</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Cosigner</em>'.
+	 * @see it.naturtalent.office.model.address.Signature#getCosigner()
+	 * @see #getSignature()
+	 * @generated
+	 */
+	EAttribute getSignature_Cosigner();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.naturtalent.office.model.address.Signature#getContext <em>Context</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Context</em>'.
+	 * @see it.naturtalent.office.model.address.Signature#getContext()
+	 * @see #getSignature()
+	 * @generated
+	 */
+	EAttribute getSignature_Context();
+
+	/**
+	 * Returns the meta object for class '{@link it.naturtalent.office.model.address.SignatureSet <em>Signature Set</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Signature Set</em>'.
+	 * @see it.naturtalent.office.model.address.SignatureSet
+	 * @generated
+	 */
+	EClass getSignatureSet();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link it.naturtalent.office.model.address.SignatureSet#getSignatures <em>Signatures</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Signatures</em>'.
+	 * @see it.naturtalent.office.model.address.SignatureSet#getSignatures()
+	 * @see #getSignatureSet()
+	 * @generated
+	 */
+	EReference getSignatureSet_Signatures();
 
 	/**
 	 * Returns the meta object for class '{@link it.naturtalent.office.model.address.Absender <em>Absender</em>}'.
@@ -1488,6 +1724,13 @@ public interface AddressPackage extends EPackage
 		 */
 		EAttribute REFERENZ__NAME = eINSTANCE.getReferenz_Name();
 		/**
+		 * The meta object literal for the '<em><b>Context</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute REFERENZ__CONTEXT = eINSTANCE.getReferenz_Context();
+		/**
 		 * The meta object literal for the '<em><b>Referenz</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1624,6 +1867,29 @@ public interface AddressPackage extends EPackage
 		 */
 		EReference NT_PROJEKT_KONTAKTE__KONTAKTE = eINSTANCE.getNtProjektKontakte_Kontakte();
 		/**
+		 * The meta object literal for the '{@link it.naturtalent.office.model.address.impl.FootNoteItemImpl <em>Foot Note Item</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.naturtalent.office.model.address.impl.FootNoteItemImpl
+		 * @see it.naturtalent.office.model.address.impl.AddressPackageImpl#getFootNoteItem()
+		 * @generated
+		 */
+		EClass FOOT_NOTE_ITEM = eINSTANCE.getFootNoteItem();
+		/**
+		 * The meta object literal for the '<em><b>Key</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute FOOT_NOTE_ITEM__KEY = eINSTANCE.getFootNoteItem_Key();
+		/**
+		 * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute FOOT_NOTE_ITEM__VALUE = eINSTANCE.getFootNoteItem_Value();
+		/**
 		 * The meta object literal for the '{@link it.naturtalent.office.model.address.impl.FootNoteImpl <em>Foot Note</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1633,65 +1899,49 @@ public interface AddressPackage extends EPackage
 		 */
 		EClass FOOT_NOTE = eINSTANCE.getFootNote();
 		/**
-		 * The meta object literal for the '<em><b>Key</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute FOOT_NOTE__KEY = eINSTANCE.getFootNote_Key();
+		EAttribute FOOT_NOTE__NAME = eINSTANCE.getFootNote_Name();
 		/**
-		 * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Context</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute FOOT_NOTE__VALUE = eINSTANCE.getFootNote_Value();
+		EAttribute FOOT_NOTE__CONTEXT = eINSTANCE.getFootNote_Context();
 		/**
-		 * The meta object literal for the '{@link it.naturtalent.office.model.address.impl.FootNotesImpl <em>Foot Notes</em>}' class.
+		 * The meta object literal for the '<em><b>Footnoteitems</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see it.naturtalent.office.model.address.impl.FootNotesImpl
-		 * @see it.naturtalent.office.model.address.impl.AddressPackageImpl#getFootNotes()
 		 * @generated
 		 */
-		EClass FOOT_NOTES = eINSTANCE.getFootNotes();
+		EReference FOOT_NOTE__FOOTNOTEITEMS = eINSTANCE.getFootNote_Footnoteitems();
+		/**
+		 * The meta object literal for the '{@link it.naturtalent.office.model.address.impl.FooteNoteSetImpl <em>Foote Note Set</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.naturtalent.office.model.address.impl.FooteNoteSetImpl
+		 * @see it.naturtalent.office.model.address.impl.AddressPackageImpl#getFooteNoteSet()
+		 * @generated
+		 */
+		EClass FOOTE_NOTE_SET = eINSTANCE.getFooteNoteSet();
 		/**
 		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute FOOT_NOTES__NAME = eINSTANCE.getFootNotes_Name();
+		EAttribute FOOTE_NOTE_SET__NAME = eINSTANCE.getFooteNoteSet_Name();
 		/**
-		 * The meta object literal for the '<em><b>Footnotes</b></em>' containment reference list feature.
+		 * The meta object literal for the '<em><b>Foote Notes</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference FOOT_NOTES__FOOTNOTES = eINSTANCE.getFootNotes_Footnotes();
-		/**
-		 * The meta object literal for the '{@link it.naturtalent.office.model.address.impl.FooterClassImpl <em>Footer Class</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see it.naturtalent.office.model.address.impl.FooterClassImpl
-		 * @see it.naturtalent.office.model.address.impl.AddressPackageImpl#getFooterClass()
-		 * @generated
-		 */
-		EClass FOOTER_CLASS = eINSTANCE.getFooterClass();
-		/**
-		 * The meta object literal for the '<em><b>Footer Class Name</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute FOOTER_CLASS__FOOTER_CLASS_NAME = eINSTANCE.getFooterClass_FooterClassName();
-		/**
-		 * The meta object literal for the '<em><b>Footer Class Foot Notes</b></em>' containment reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference FOOTER_CLASS__FOOTER_CLASS_FOOT_NOTES = eINSTANCE.getFooterClass_FooterClassFootNotes();
+		EReference FOOTE_NOTE_SET__FOOTE_NOTES = eINSTANCE.getFooteNoteSet_FooteNotes();
 		/**
 		 * The meta object literal for the '{@link it.naturtalent.office.model.address.impl.ReferenzSetImpl <em>Referenz Set</em>}' class.
 		 * <!-- begin-user-doc -->
@@ -1777,6 +2027,66 @@ public interface AddressPackage extends EPackage
 		 * @generated
 		 */
 		EReference SENDER__SENDERS = eINSTANCE.getSender_Senders();
+		/**
+		 * The meta object literal for the '{@link it.naturtalent.office.model.address.impl.SignatureImpl <em>Signature</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.naturtalent.office.model.address.impl.SignatureImpl
+		 * @see it.naturtalent.office.model.address.impl.AddressPackageImpl#getSignature()
+		 * @generated
+		 */
+		EClass SIGNATURE = eINSTANCE.getSignature();
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SIGNATURE__NAME = eINSTANCE.getSignature_Name();
+		/**
+		 * The meta object literal for the '<em><b>Greeting</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SIGNATURE__GREETING = eINSTANCE.getSignature_Greeting();
+		/**
+		 * The meta object literal for the '<em><b>Signer</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SIGNATURE__SIGNER = eINSTANCE.getSignature_Signer();
+		/**
+		 * The meta object literal for the '<em><b>Cosigner</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SIGNATURE__COSIGNER = eINSTANCE.getSignature_Cosigner();
+		/**
+		 * The meta object literal for the '<em><b>Context</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SIGNATURE__CONTEXT = eINSTANCE.getSignature_Context();
+		/**
+		 * The meta object literal for the '{@link it.naturtalent.office.model.address.impl.SignatureSetImpl <em>Signature Set</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.naturtalent.office.model.address.impl.SignatureSetImpl
+		 * @see it.naturtalent.office.model.address.impl.AddressPackageImpl#getSignatureSet()
+		 * @generated
+		 */
+		EClass SIGNATURE_SET = eINSTANCE.getSignatureSet();
+		/**
+		 * The meta object literal for the '<em><b>Signatures</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SIGNATURE_SET__SIGNATURES = eINSTANCE.getSignatureSet_Signatures();
 		/**
 		 * The meta object literal for the '{@link it.naturtalent.office.model.address.impl.AbsenderImpl <em>Absender</em>}' class.
 		 * <!-- begin-user-doc -->

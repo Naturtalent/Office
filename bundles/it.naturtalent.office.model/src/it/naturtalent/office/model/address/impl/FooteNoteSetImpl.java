@@ -4,7 +4,7 @@ package it.naturtalent.office.model.address.impl;
 
 import it.naturtalent.office.model.address.AddressPackage;
 import it.naturtalent.office.model.address.FootNote;
-import it.naturtalent.office.model.address.FootNotes;
+import it.naturtalent.office.model.address.FooteNoteSet;
 
 import java.util.Collection;
 
@@ -24,19 +24,19 @@ import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Foot Notes</b></em>'.
+ * An implementation of the model object '<em><b>Foote Note Set</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link it.naturtalent.office.model.address.impl.FootNotesImpl#getName <em>Name</em>}</li>
- *   <li>{@link it.naturtalent.office.model.address.impl.FootNotesImpl#getFootnotes <em>Footnotes</em>}</li>
+ *   <li>{@link it.naturtalent.office.model.address.impl.FooteNoteSetImpl#getName <em>Name</em>}</li>
+ *   <li>{@link it.naturtalent.office.model.address.impl.FooteNoteSetImpl#getFooteNotes <em>Foote Notes</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class FootNotesImpl extends MinimalEObjectImpl.Container implements FootNotes
+public class FooteNoteSetImpl extends MinimalEObjectImpl.Container implements FooteNoteSet
 {
 	/**
 	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
@@ -59,21 +59,21 @@ public class FootNotesImpl extends MinimalEObjectImpl.Container implements FootN
 	protected String name = NAME_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getFootnotes() <em>Footnotes</em>}' containment reference list.
+	 * The cached value of the '{@link #getFooteNotes() <em>Foote Notes</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getFootnotes()
+	 * @see #getFooteNotes()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<FootNote> footnotes;
+	protected EList<FootNote> footeNotes;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected FootNotesImpl()
+	protected FooteNoteSetImpl()
 	{
 		super();
 	}
@@ -86,7 +86,7 @@ public class FootNotesImpl extends MinimalEObjectImpl.Container implements FootN
 	@Override
 	protected EClass eStaticClass()
 	{
-		return AddressPackage.Literals.FOOT_NOTES;
+		return AddressPackage.Literals.FOOTE_NOTE_SET;
 	}
 
 	/**
@@ -109,7 +109,7 @@ public class FootNotesImpl extends MinimalEObjectImpl.Container implements FootN
 		String oldName = name;
 		name = newName;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, AddressPackage.FOOT_NOTES__NAME, oldName, name));
+			eNotify(new ENotificationImpl(this, Notification.SET, AddressPackage.FOOTE_NOTE_SET__NAME, oldName, name));
 	}
 
 	/**
@@ -117,13 +117,13 @@ public class FootNotesImpl extends MinimalEObjectImpl.Container implements FootN
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<FootNote> getFootnotes()
+	public EList<FootNote> getFooteNotes()
 	{
-		if (footnotes == null)
+		if (footeNotes == null)
 		{
-			footnotes = new EObjectContainmentEList<FootNote>(FootNote.class, this, AddressPackage.FOOT_NOTES__FOOTNOTES);
+			footeNotes = new EObjectContainmentEList<FootNote>(FootNote.class, this, AddressPackage.FOOTE_NOTE_SET__FOOTE_NOTES);
 		}
-		return footnotes;
+		return footeNotes;
 	}
 
 	/**
@@ -136,8 +136,8 @@ public class FootNotesImpl extends MinimalEObjectImpl.Container implements FootN
 	{
 		switch (featureID)
 		{
-			case AddressPackage.FOOT_NOTES__FOOTNOTES:
-				return ((InternalEList<?>)getFootnotes()).basicRemove(otherEnd, msgs);
+			case AddressPackage.FOOTE_NOTE_SET__FOOTE_NOTES:
+				return ((InternalEList<?>)getFooteNotes()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -152,10 +152,10 @@ public class FootNotesImpl extends MinimalEObjectImpl.Container implements FootN
 	{
 		switch (featureID)
 		{
-			case AddressPackage.FOOT_NOTES__NAME:
+			case AddressPackage.FOOTE_NOTE_SET__NAME:
 				return getName();
-			case AddressPackage.FOOT_NOTES__FOOTNOTES:
-				return getFootnotes();
+			case AddressPackage.FOOTE_NOTE_SET__FOOTE_NOTES:
+				return getFooteNotes();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -171,12 +171,12 @@ public class FootNotesImpl extends MinimalEObjectImpl.Container implements FootN
 	{
 		switch (featureID)
 		{
-			case AddressPackage.FOOT_NOTES__NAME:
+			case AddressPackage.FOOTE_NOTE_SET__NAME:
 				setName((String)newValue);
 				return;
-			case AddressPackage.FOOT_NOTES__FOOTNOTES:
-				getFootnotes().clear();
-				getFootnotes().addAll((Collection<? extends FootNote>)newValue);
+			case AddressPackage.FOOTE_NOTE_SET__FOOTE_NOTES:
+				getFooteNotes().clear();
+				getFooteNotes().addAll((Collection<? extends FootNote>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -192,11 +192,11 @@ public class FootNotesImpl extends MinimalEObjectImpl.Container implements FootN
 	{
 		switch (featureID)
 		{
-			case AddressPackage.FOOT_NOTES__NAME:
+			case AddressPackage.FOOTE_NOTE_SET__NAME:
 				setName(NAME_EDEFAULT);
 				return;
-			case AddressPackage.FOOT_NOTES__FOOTNOTES:
-				getFootnotes().clear();
+			case AddressPackage.FOOTE_NOTE_SET__FOOTE_NOTES:
+				getFooteNotes().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -212,10 +212,10 @@ public class FootNotesImpl extends MinimalEObjectImpl.Container implements FootN
 	{
 		switch (featureID)
 		{
-			case AddressPackage.FOOT_NOTES__NAME:
+			case AddressPackage.FOOTE_NOTE_SET__NAME:
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-			case AddressPackage.FOOT_NOTES__FOOTNOTES:
-				return footnotes != null && !footnotes.isEmpty();
+			case AddressPackage.FOOTE_NOTE_SET__FOOTE_NOTES:
+				return footeNotes != null && !footeNotes.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -237,4 +237,4 @@ public class FootNotesImpl extends MinimalEObjectImpl.Container implements FootN
 		return result.toString();
 	}
 
-} //FootNotesImpl
+} //FooteNoteSetImpl

@@ -65,6 +65,7 @@ public class ReferenzItemProvider
 			super.getPropertyDescriptors(object);
 
 			addNamePropertyDescriptor(object);
+			addContextPropertyDescriptor(object);
 			addReferenzPropertyDescriptor(object);
 			addReferenz2PropertyDescriptor(object);
 			addReferenz3PropertyDescriptor(object);
@@ -87,6 +88,29 @@ public class ReferenzItemProvider
 				 getString("_UI_Referenz_name_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_Referenz_name_feature", "_UI_Referenz_type"),
 				 AddressPackage.Literals.REFERENZ__NAME,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Context feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addContextPropertyDescriptor(Object object)
+	{
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Referenz_context_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Referenz_context_feature", "_UI_Referenz_type"),
+				 AddressPackage.Literals.REFERENZ__CONTEXT,
 				 true,
 				 false,
 				 false,
@@ -206,6 +230,7 @@ public class ReferenzItemProvider
 		switch (notification.getFeatureID(Referenz.class))
 		{
 			case AddressPackage.REFERENZ__NAME:
+			case AddressPackage.REFERENZ__CONTEXT:
 			case AddressPackage.REFERENZ__REFERENZ:
 			case AddressPackage.REFERENZ__REFERENZ2:
 			case AddressPackage.REFERENZ__REFERENZ3:

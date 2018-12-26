@@ -16,11 +16,13 @@ public class ODFReceiverRendererService extends TreeMasterDetailSWTRendererServi
 	@Override
 	public double isApplicable(VElement vElement,ViewModelContext viewModelContext)
 	{
+	
 		if (VTreeMasterDetail.class.isInstance(vElement))
 		{
 			if(viewModelContext.getDomainModel() instanceof Receivers)
 				return 30d;
 		}
+	
 		return NOT_APPLICABLE;
 	}
 

@@ -8,6 +8,7 @@ import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.ui.di.UIEventTopic;
 import org.eclipse.e4.ui.internal.workbench.E4Workbench;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecp.view.spi.context.ViewModelContext;
 import org.eclipse.emf.ecp.view.spi.treemasterdetail.ui.swt.TreeMasterDetailSWTRenderer;
 import org.eclipse.emf.ecp.view.treemasterdetail.model.VTreeMasterDetail;
@@ -22,14 +23,17 @@ import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.swt.widgets.Composite;
 
 import it.naturtalent.e4.office.ui.OfficeUtils;
+import it.naturtalent.e4.office.ui.wizards.ODFDefaultWriteAdapterWizard;
 import it.naturtalent.office.model.address.Absender;
 import it.naturtalent.office.model.address.Adresse;
 
 
 
 /**
- * MasterViewRenderer des Absender Objekts.
- *  
+ * Den Absender Master-Renderer anpassen.
+ * 
+ * - filtern nach OfficeContext-Flag, das im Eclipse4 Context unter dem Namen 'OfficeUtils.OFFICE_CONTEXT' hinterlegt sein muss.
+ * - meldet die Selektion eines Absenders mit einem 'OfficeUtils.SET_ABSENDERMASTER_SELECTION_EVENT' Event  
  * 
  * @author dieter
  *
@@ -41,7 +45,10 @@ public class SendersRenderer extends TreeMasterDetailSWTRenderer
 	
 	private TreeViewer treeViewer;
 	
-	// filtert nach dem TelekomOffice - Context
+	/*
+	 *  filtert Absender nach dem in 'officeContext' hinterlegten Referenzwert
+	 *   
+	 */
 	private class ContextFilter extends ViewerFilter
 	{
 		String officeContext;
@@ -58,14 +65,18 @@ public class SendersRenderer extends TreeMasterDetailSWTRenderer
 			if (element instanceof Absender)
 			{					
 				String elementContext = ((Absender)element).getContext();
-					return(StringUtils.equals(elementContext, officeContext));															
+					return(StringUtils.equals(elementContext, officeContext));				
 			}
 			
+			// nicht fuer diesen Filter bestimmt
 			return true;
 		}
 	}
 	
-	// Listener informiert ueber den selektierten Absender im MasterTree
+	/*
+	 * Listener informiert ueber den selektierten Absender im MasterTree
+	 * 
+	 */
 	private ISelectionChangedListener selectionListener = new ISelectionChangedListener()
 	{		
 		@Override
@@ -102,15 +113,14 @@ public class SendersRenderer extends TreeMasterDetailSWTRenderer
 		super(vElement, viewContext, reportService);	
 	}
 	
-	/* 
-	 * Methodenueberschreibung um Zugriff auf den TreeViewer zu bekommen
-	 * @see org.eclipse.emf.ecp.view.spi.treemasterdetail.ui.swt.TreeMasterDetailSWTRenderer#createMasterTree(org.eclipse.swt.widgets.Composite)
+	/** 
+	 *  Erweiterung 'createMasterTree()' zur Realisiereung der o.g. Features
 	 */
 	@Override
 	protected TreeViewer createMasterTree(Composite masterPanel)
 	{
 		IEclipseContext context = E4Workbench.getServiceContext();
-		String officeContext = (String) context.get(OfficeUtils.OFFICE_CONTEXT);		
+		String officeContext = (String) context.get(ODFDefaultWriteAdapterWizard.DEFAULT_OFFICECONTEXT);		
 		
 		treeViewer = super.createMasterTree(masterPanel);
 		treeViewer.addSelectionChangedListener(selectionListener);	
@@ -120,66 +130,11 @@ public class SendersRenderer extends TreeMasterDetailSWTRenderer
 	
 	@Inject
 	@Optional
-	public void handleModelChangedEvent(@UIEventTopic(OfficeUtils.SET_ABSENDERMASTER_SELECTION_EVENT) Absender absender)
-	{
-		//treeViewer.removeSelectionChangedListener(selectionListener);
-		treeViewer.setSelection(new StructuredSelection(absender));
-		//treeViewer.addSelectionChangedListener(selectionListener);
+	public void handleModelChangedEvent(@UIEventTopic(OfficeUtils.SET_ABSENDERMASTER_SELECTION_EVENT) EObject eObject)
+	{		
+		if(eObject != null)
+			treeViewer.setSelection(new StructuredSelection(eObject));	
 	}
 
-/*
-	@Override
-	protected Button createAddExistingButton(Composite parent,
-			EStructuralFeature structuralFeature)
-	{
-		Button btn = super.createAddExistingButton(parent, structuralFeature);
-		btn.setImage(Icon.ICON_DATABASE_GET.getImage(IconSize._16x16_DefaultIconSize));
-		btn.setToolTipText("aus Datenbank kopieren");
-		return btn;
-	}
-*/
-
-/*
-	@Override
-	protected void handleAddExisting(TableViewer tableViewer, EObject eObject,
-			EStructuralFeature structuralFeature)
-	{
-		EList<Kontakt>allKontacts = OfficeUtils.getKontakte().getKontakte();
-		
-		Set<EObject> elements = new LinkedHashSet<EObject>();
-		for(Kontakt kontact : allKontacts)
-			elements.add(kontact);
-		
-		final Set<EObject> selectedElements = SelectModelElementWizardFactory
-				.openModelElementSelectionDialog(elements, true);
-		
-		if ((selectedElements != null) && (!selectedElements.isEmpty()))
-		{
-			for (EObject selectedElement : selectedElements)
-			{
-				// der selektierte Kontakt
-				Kontakt kontakt = (Kontakt) EcoreUtil.copy(selectedElement);
-				
-				// Absender erzeugen
-				EClass absenderClass = AddressPackage.eINSTANCE.getAbsender();
-				Absender absender = (Absender) EcoreUtil.create(absenderClass);
-				absender.setName(kontakt.getName());
-				absender.setAdresse(kontakt.getAdresse());				
-				((Sender) eObject).getSenders().add(absender);
-			}
-		}
-	}
-
-
-	@Override
-	protected Button createAddNewButton(Composite parent,
-			EStructuralFeature structuralFeature)
-	{
-		Button btn = super.createAddNewButton(parent, structuralFeature);
-		//btn.setImage(Icon.ICON_DATABASE_GET.getImage(IconSize._16x16_DefaultIconSize));
-		btn.setToolTipText("einen neuen Absender hinzufuegen");
-		return btn;
-	}
-*/
 	
 }

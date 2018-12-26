@@ -121,6 +121,13 @@ public class AddressSwitch<T> extends Switch<T>
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case AddressPackage.FOOT_NOTE_ITEM:
+			{
+				FootNoteItem footNoteItem = (FootNoteItem)theEObject;
+				T result = caseFootNoteItem(footNoteItem);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case AddressPackage.FOOT_NOTE:
 			{
 				FootNote footNote = (FootNote)theEObject;
@@ -128,17 +135,10 @@ public class AddressSwitch<T> extends Switch<T>
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case AddressPackage.FOOT_NOTES:
+			case AddressPackage.FOOTE_NOTE_SET:
 			{
-				FootNotes footNotes = (FootNotes)theEObject;
-				T result = caseFootNotes(footNotes);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case AddressPackage.FOOTER_CLASS:
-			{
-				FooterClass footerClass = (FooterClass)theEObject;
-				T result = caseFooterClass(footerClass);
+				FooteNoteSet footeNoteSet = (FooteNoteSet)theEObject;
+				T result = caseFooteNoteSet(footeNoteSet);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -174,6 +174,20 @@ public class AddressSwitch<T> extends Switch<T>
 			{
 				Sender sender = (Sender)theEObject;
 				T result = caseSender(sender);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case AddressPackage.SIGNATURE:
+			{
+				Signature signature = (Signature)theEObject;
+				T result = caseSignature(signature);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case AddressPackage.SIGNATURE_SET:
+			{
+				SignatureSet signatureSet = (SignatureSet)theEObject;
+				T result = caseSignatureSet(signatureSet);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -294,6 +308,22 @@ public class AddressSwitch<T> extends Switch<T>
 	}
 
 	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Foot Note Item</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Foot Note Item</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseFootNoteItem(FootNoteItem object)
+	{
+		return null;
+	}
+
+	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Foot Note</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -310,33 +340,17 @@ public class AddressSwitch<T> extends Switch<T>
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Foot Notes</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Foote Note Set</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Foot Notes</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Foote Note Set</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseFootNotes(FootNotes object)
-	{
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Footer Class</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Footer Class</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseFooterClass(FooterClass object)
+	public T caseFooteNoteSet(FooteNoteSet object)
 	{
 		return null;
 	}
@@ -401,6 +415,38 @@ public class AddressSwitch<T> extends Switch<T>
 	 * @generated
 	 */
 	public T caseSender(Sender object)
+	{
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Signature</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Signature</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseSignature(Signature object)
+	{
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Signature Set</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Signature Set</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseSignatureSet(SignatureSet object)
 	{
 		return null;
 	}

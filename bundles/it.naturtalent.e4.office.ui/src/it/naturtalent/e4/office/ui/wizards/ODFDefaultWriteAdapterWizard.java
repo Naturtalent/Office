@@ -26,7 +26,8 @@ import it.naturtalent.e4.office.ui.OfficeUtils;
  * Adapter fuer das Handling mit dem TextDokument
  * @see it.naturtalent.e4.office.ui.ODFDefaultWriteAdapter
  * 
- * Dient als Grundlage fuer spezifische Erweiterungen.
+ * Dient als Grundlage fuer spezifische Erweiterungen. 
+ * Mit 'addPages()' koennen die gewuenschten Pages eingefuegt werden
  * 
  * @author dieter
  *
@@ -41,15 +42,15 @@ public class ODFDefaultWriteAdapterWizard extends Wizard
 	protected IEclipseContext context;
 	
 	// OfficeKontext indem der Wizard arbeitet
-	private static final String DEFAULT_OFFUCECONTEXT = "officecontext";
-	protected String officeContext = DEFAULT_OFFUCECONTEXT;
+	public static final String DEFAULT_OFFICECONTEXT = "officecontext";
+	protected String officeContext = DEFAULT_OFFICECONTEXT;
 
 	// Modus-Flag zeigt an, ob der Wizard im New- (create) oder im OpenModus laeuft 		
 	public final static boolean WIZARDCREATEMODE = false;
 	public final static boolean WIZARDOPENMODE = true;
 	protected boolean wizardModus = WIZARDCREATEMODE;
 	
-	// Name mit dem Modus-Flag im IEclipseContext kolportiert wird
+	// Name mit dem Modus-Flag in den Eclipse4-Context kolportiert wird
 	public final static String CONTEXTWIZARDMODE = "ContextWizardMode"; //$NON-NLS-N$
 		
 	// Write-Dokument als File
@@ -58,10 +59,19 @@ public class ODFDefaultWriteAdapterWizard extends Wizard
 	// Writefile als ODF-Textdokument (Grundlage fuer den Zugriff mit dem Toolkit)
 	protected TextDocument odfDocument;
 	
+	// Label des aus dem Dokument gelesenen Absenders
+	static final String LOADED_EMPFAENGER = "Empfänge aus der Datei";
+	static final String LOADED_ABSENDER = "Absender aus der Datei";
+	
+	/**
+	 * Konstruktion
+	 */
 	public ODFDefaultWriteAdapterWizard()
 	{
 		super();
-		setOfficeContext(DEFAULT_OFFUCECONTEXT);
+		
+		// den DefaultOffice-Context in den Eclipse4-Context einbringen (steuert die Filterung im Rederer)
+		setOfficeContext(DEFAULT_OFFICECONTEXT);
 	}
 
 	@PostConstruct
@@ -69,13 +79,12 @@ public class ODFDefaultWriteAdapterWizard extends Wizard
 	{
 		this.context = context;
 		
-		//context.set(OfficeUtils.OFFICE_CONTEXT, officeContext);
-		
-		// Modus-Flag wird vom Handler (NewTextHandle / OpenTextHandler) ueber den Context uebergeben
+		// Modus-Flag wird vom Handler (NewTextHandle / OpenTextHandler) ueber den Ecpipse4-Context uebergeben
 		if(context.containsKey(CONTEXTWIZARDMODE));
 		{
-			// Modus-Flag wird aus dem IEclipseContext 'context' entfernt
 			wizardModus = (Boolean) context.get(CONTEXTWIZARDMODE);
+			
+			// nach dem Sichern des WizardModus-Flags wird dieser aus dem IEclipse4-Context entfernt			
 			context.remove(CONTEXTWIZARDMODE);
 		}
 	}
@@ -83,13 +92,17 @@ public class ODFDefaultWriteAdapterWizard extends Wizard
 	@PreDestroy
 	private void preDestroy()
 	{
-		E4Workbench.getServiceContext().remove(OfficeUtils.OFFICE_CONTEXT);
+		E4Workbench.getServiceContext().remove(DEFAULT_OFFICECONTEXT);
 	}
 	
+	/*
+	 * Im Eclipse4 Context wird ein weiterer benutzerdefinierter Context eingebracht.
+	 * Dieser Context hat den Namen 'OfficeUtils.OFFICE_CONTEXT' und den Wert 'officeContexct'
+	 */
 	public void setOfficeContext(String officeContext)
 	{
 		this.officeContext = officeContext;	
-		E4Workbench.getServiceContext().set(OfficeUtils.OFFICE_CONTEXT, officeContext);
+		E4Workbench.getServiceContext().set(DEFAULT_OFFICECONTEXT, officeContext);
 	}
 	
 	public String getOfficeContext()
@@ -101,12 +114,12 @@ public class ODFDefaultWriteAdapterWizard extends Wizard
 	public void addPages()
 	{
 		// WizardPages (ODFReceiverWizardPage,ODFSenderWizardPage) erzeugen
-		ODFReceiverWizardPage receiverWizardPage = ContextInjectionFactory.make(ODFReceiverWizardPage.class, context);
-		ODFSenderWizardPage senderWizardPage = ContextInjectionFactory.make(ODFSenderWizardPage.class, context);
+		ODFEmpfaengerWizardPage receiverWizardPage = ContextInjectionFactory.make(ODFEmpfaengerWizardPage.class, context);
+		ODFAbsenderWizardPage absenderWizardPage = ContextInjectionFactory.make(ODFAbsenderWizardPage.class, context);
 		
 		// WizardPages hinzufuegen
 		addPage(receiverWizardPage);
-		addPage(senderWizardPage);
+		addPage(absenderWizardPage);
 	}
 	
 	// die WizardPages lesen 'ihre' Daten von der zuoeffnenden Datei		

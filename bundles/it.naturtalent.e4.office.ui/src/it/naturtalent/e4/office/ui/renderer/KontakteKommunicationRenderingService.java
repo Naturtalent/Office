@@ -81,7 +81,7 @@ public class KontakteKommunicationRenderingService
 				
 		if (AddressPackage.eINSTANCE.getKontakt_Kommunikation().equals(eStructuralFeature))
 		{
-			return 20.0;			
+			return 20.0;					
 		}
 		
 		return NOT_APPLICABLE;

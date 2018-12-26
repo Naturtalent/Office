@@ -86,7 +86,7 @@ public class NtKontactRendererService extends MultiReferenceSWTRendererService
 		//if (ArchivPackage.eINSTANCE.getRegister_NumericData().equals(eStructuralFeature))
 		if (AddressPackage.eINSTANCE.getNtProjektKontakte_Kontakte().equals(feature))
 		{
-			return 12.0;			
+			return 12.0;					
 		}
 
 		return NOT_APPLICABLE;

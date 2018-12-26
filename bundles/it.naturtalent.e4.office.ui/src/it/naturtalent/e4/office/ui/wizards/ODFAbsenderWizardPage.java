@@ -8,7 +8,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.apache.commons.lang3.StringUtils;
-import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.ui.di.UIEventTopic;
@@ -35,78 +34,29 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.odftoolkit.simple.TextDocument;
-import org.odftoolkit.simple.table.CellRange;
-import org.odftoolkit.simple.table.Table;
 
-import it.naturtalent.e4.office.ui.IODFWriteAdapter;
-import it.naturtalent.e4.office.ui.ODFDocumentUtils;
 import it.naturtalent.e4.office.ui.OfficeUtils;
 import it.naturtalent.office.model.address.Absender;
 import it.naturtalent.office.model.address.AddressPackage;
 import it.naturtalent.office.model.address.Adresse;
+import it.naturtalent.office.model.address.Empfaenger;
 import it.naturtalent.office.model.address.Kontakt;
 import it.naturtalent.office.model.address.Sender;
 
 
 
 /**
- * Wizardseite zur Definition der Absenderangaben. 
+ * Wizardseite zur Definition der Absenderangaben im Standardmodus.
+ * Im Defaultmodus gibt es keine praeferenzierten Absender, 
  * 
  * @author dieter
  *
  */
-public class ODFSenderWizardPage extends WizardPage implements IWriteWizardPage
+public class ODFAbsenderWizardPage extends WizardPage implements IWriteWizardPage
 {
 	
-	private class SenderCommandListener implements CommandStackListener
-	{
-		@Override
-		public void commandStackChanged(EventObject event)
-		{
-			EMFStoreBasicCommandStack commandStack = (EMFStoreBasicCommandStack) event.getSource();
-			Command command = commandStack.getMostRecentCommand();	
-			
-			if (command instanceof CreateChildCommand)
-			{
-				// selektiert das neue Kontakt im Mastertree
-				CreateChildCommand addCommand = (CreateChildCommand) command;
-				Collection<?>createResults = addCommand.getResult();
-				Object createdObj = createResults.iterator().next();
-				if(createdObj instanceof Absender)
-				{
-					Absender absender = (Absender) createdObj; 					
-					ODFDefaultWriteAdapterWizard wizard = (ODFDefaultWriteAdapterWizard) getWizard();
-					String officeContext = wizard.getOfficeContext();				
-					absender.setContext(officeContext);
-					System.out.println("CreateChild: "+absender.getName());
-				}
-			}
-			
-			if (command instanceof AddCommand)
-			{
-				Collection<?>addResults = command.getResult();
-				Object addedObj = addResults.iterator().next();
-				if(addedObj instanceof Absender)
-				{
-					Absender absender = (Absender) addedObj;
-					ODFDefaultWriteAdapterWizard wizard = (ODFDefaultWriteAdapterWizard) getWizard();
-					String officeContext = wizard.getOfficeContext();				
-					absender.setContext(officeContext);
-					System.out.println("ADD: "+absender.getName());
-				}
-			}
-		
-			
-		}
-	}
-	private SenderCommandListener senderCommandListener = new SenderCommandListener();
-
-
 	// Key des DialogSetting Absenders
 	private static final String SETTINGABSENDER = "settingabsender";
-	
-	// Label des aus dem Dokument gelesenen Absenders
-	private static final String LOADED_ABSENDER = "Absender aus der Datei";
 	
 	private IDialogSettings dialogSettings = WorkbenchSWTActivator.getDefault().getDialogSettings();
 	
@@ -115,12 +65,80 @@ public class ODFSenderWizardPage extends WizardPage implements IWriteWizardPage
 	
 	private IEventBroker eventBroker;
 	
+	private EditingDomain domain;
 	
-	
+	/*
+	 * Auf bestimmte Aenderungen im EMF-CommandStack reagieren
+	 * 
+	 * Beim Hinzuefegen eines Absenders muss der DefaultOfficeContext gesetzt werden, sonst wird
+	 * er nicht durch den Renderer angezeigt.
+	 * 
+	 */
+	private class SenderCommandListener implements CommandStackListener
+	{
+		@Override
+		public void commandStackChanged(EventObject event)
+		{
+			EMFStoreBasicCommandStack commandStack = (EMFStoreBasicCommandStack) event.getSource();
+			Command command = commandStack.getMostRecentCommand();	
+			
+			// ADD-Aktion ausgeloest durch Kontextmenue des Masters
+			if (command instanceof CreateChildCommand)
+			{
+				// ADD-Aktion, ausgeloest durch Kontextmenue im Master
+				// - selektiert den neue Kontakt im Mastertree
+				CreateChildCommand addCommand = (CreateChildCommand) command;
+				Collection<?>createResults = addCommand.getResult();
+				Object createdObj = createResults.iterator().next();
+				if(createdObj instanceof Absender)
+				{
+					postAdded(createdObj);					 
+				}
+			}
+				
+			// ADD-Aktion ausgeloest durch Toolbaxmenue des Details
+			if (command instanceof AddCommand)
+			{				
+				Collection<?>addResults = command.getResult();
+				Object addedObj = addResults.iterator().next();
+				if(addedObj instanceof Absender)
+				{					
+					Absender absender = (Absender) addedObj;					
+					if(!StringUtils.equals(absender.getName(), OfficeUtils.LOADED_ABSENDER))
+					{	
+						postAdded(addedObj);
+					}
+				}
+			}			
+		}
+		
+		// Nachbearbeitung des neuhinzugefuegten Absenders
+		private void postAdded(Object addedObj)
+		{
+			if (addedObj instanceof Absender)
+			{
+				Absender absender = (Absender) addedObj;
+				
+				// Absender einem OfficeContext zuordnen
+				ODFDefaultWriteAdapterWizard wizard = (ODFDefaultWriteAdapterWizard) getWizard();				
+				absender.setContext(wizard.getOfficeContext());
+				
+				// Absenderadresse erzeugen	und hinzufuegen				
+				EClass adresseClass = AddressPackage.eINSTANCE.getAdresse();
+				Adresse adresse = (Adresse) EcoreUtil.create(adresseClass);
+				absender.setAdresse(adresse);
+			}
+		}
+		
+		
+	}
+	private SenderCommandListener senderCommandListener = new SenderCommandListener();
+
+		
 	/**
 	 * Create the wizard.
 	 */
-	public ODFSenderWizardPage()
+	public ODFAbsenderWizardPage()
 	{
 		super(ODFDefaultWriteAdapterWizard.SENDER_PAGE_NAME);
 		setMessage("einen Absender auswählen");
@@ -144,33 +162,36 @@ public class ODFSenderWizardPage extends WizardPage implements IWriteWizardPage
 		
 		try
 		{							
-			// Sender mit den auf 'context' gefilterten Absender im MasterDetailView zeigen  
+			// Renderer filtert die Absender auf 'officecontext' im MasterDetailView 
 			senders = OfficeUtils.getSender();
 			ECPSWTViewRenderer.INSTANCE.render(container, (EObject) senders);	
-			
-			// den im Dialogsetting gespeicherte Absender im MasterView selektieren
-			String settingAbsenderName = dialogSettings.get(SETTINGABSENDER);
-			if(StringUtils.isNotEmpty(settingAbsenderName))
-			{
-				List<Absender>absenders = senders.getSenders();
-				for(Absender absender : absenders)
-					if(StringUtils.equals(absender.getName(), settingAbsenderName))
-					{
-						eventBroker.post(OfficeUtils.SET_ABSENDERMASTER_SELECTION_EVENT, absender);
-						break;
-					}							
-			}
-			
-			EditingDomain domain = AdapterFactoryEditingDomain.getEditingDomainFor(senders);
-			EMFStoreBasicCommandStack commandStack = (EMFStoreBasicCommandStack) domain.getCommandStack();
-			domain.getCommandStack().addCommandStackListener(senderCommandListener);
-			
 			
 		} catch (ECPRendererException e1)
 		{
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+		
+		// Einen CommandStackListener installieren
+		domain = AdapterFactoryEditingDomain.getEditingDomainFor(senders);
+		EMFStoreBasicCommandStack commandStack = (EMFStoreBasicCommandStack) domain.getCommandStack();
+		domain.getCommandStack().addCommandStackListener(senderCommandListener);
+		
+		// im CreateModus wird der Absdender aus dem DialogSetting selektiert
+		ODFDefaultWriteAdapterWizard defaultWizard = (ODFDefaultWriteAdapterWizard) getWizard();
+		if(defaultWizard.isWizardModus() == ODFDefaultWriteAdapterWizard.WIZARDCREATEMODE)
+		{	
+			// den im Dialogsetting gespeicherte Absender im MasterView selektieren
+			String settingAbsenderName = dialogSettings.get(SETTINGABSENDER);
+			if(StringUtils.isNotEmpty(settingAbsenderName))
+			{
+				Absender absender = OfficeUtils.findAbsenderByName(
+						settingAbsenderName,
+						ODFDefaultWriteAdapterWizard.DEFAULT_OFFICECONTEXT);
+				eventBroker.post(OfficeUtils.SET_ABSENDERMASTER_SELECTION_EVENT, absender);
+			}
+		}			
+
 	}
 
 	/**
@@ -195,87 +216,56 @@ public class ODFSenderWizardPage extends WizardPage implements IWriteWizardPage
 		this.selectedAbsender = absender;
 	}
 	
+	/*
+	 * Der 'AddExistingButton' soll die Uebernahme einer Adresse aus der Kontaktdatenbank triggern.
+	 * 
+	 */
+	@Inject
+	@Optional
+	public void handleAddExisting(@UIEventTopic(OfficeUtils.ADD_EXISTING_SENDER) Object object)
+	{	
+		Kontakt dbKontakt = OfficeUtils.readKontaktFromDatabase();
+		if(dbKontakt != null)
+		{
+			EClass absenderClass = AddressPackage.eINSTANCE.getAbsender();
+			Absender absender = (Absender) EcoreUtil.create(absenderClass);
+			absender.setName(dbKontakt.getName());
+			absender.setAdresse(dbKontakt.getAdresse());
+			absender.setContext(((ODFDefaultWriteAdapterWizard) getWizard()).getOfficeContext());
+
+			// den Absender mit der Adresse aus der Datenbank hinzufuegen
+			senders.getSenders().add(absender);
+			
+			// den neuen Absender selektieren
+			eventBroker.post(OfficeUtils.SET_ABSENDERMASTER_SELECTION_EVENT , absender);
+		}
+	}
+	
+	/*
+	 * Schreibt den selektierten Absender, bzw. dessen Adresse in das Dokument.
+	 * 
+	 */
 	@Override
 	public void writeToDocument (TextDocument odfDocument)
 	{
-		if((selectedAbsender != null) && (odfDocument != null))
+		if(OfficeUtils.writeToDocument(odfDocument, selectedAbsender))
 		{
-			// Adresstabelle im Dokument addressieren
-			Table table = odfDocument.getTableByName(IODFWriteAdapter.ODF_WRITESENDER);
-			
-			// Tabelle loeschen			
-			CellRange cellRange = ODFDocumentUtils.markTable(table); 		
-			ODFDocumentUtils.clearCellRange(cellRange);
-							
-			// Modelldaten (Adresse) in das Dokument schreiben 
-			Adresse adresse = selectedAbsender.getAdresse();
-			if (adresse != null)
-			{
-				String value = adresse.getName();
-				if (StringUtils.isNotEmpty(value))
-					ODFDocumentUtils.writeTableText(table, 1, 0, value);
-
-				value = adresse.getStrasse() + ",";
-				value = value + adresse.getOrt();
-				ODFDocumentUtils.writeTableText(table, 2, 0, value);
-				
-				// Name des Absenders in DialogSetting speichern
-				dialogSettings.put(SETTINGABSENDER, selectedAbsender.getName());				
-			}		
-			
-			// temporaere Absender loeschen
-			//cancelPage(odfDocument);
-			
+			// Name des Absenders im DialogSetting speichern
+			dialogSettings.put(SETTINGABSENDER, selectedAbsender.getName());
 		}
 		
-		// temporaere Absender loeschen
+		// temporaere Absender (wird beim Laden des Dokuments erzeugt) loeschen
 		removeTemporaereAbsender();
 	}
-
+	
 	/* 
 	 * Absenderdaten aus dem Dokument lesen und temporaer in einem EMF-Objekt speichern
 	 * 
 	 */
-	@Override
+	@Override	
 	public void readFromDocument(TextDocument odfDocument)
-	{	
-		Table table = odfDocument.getTableByName(IODFWriteAdapter.ODF_WRITESENDER);
-		if (table != null)
-		{
-			// temporaes AbsenderModell erstellen und hinzufuegen
-			EClass absenderClass = AddressPackage.eINSTANCE.getAbsender();
-			Absender tempAbsender = (Absender) EcoreUtil.create(absenderClass);
-			tempAbsender.setName(LOADED_ABSENDER);
-			tempAbsender.setContext(((ODFDefaultWriteAdapterWizard) getWizard()).getOfficeContext());
-			
-			EClass adresseClass = AddressPackage.eINSTANCE.getAdresse();
-			Adresse adresse = (Adresse) EcoreUtil.create(adresseClass);
-			tempAbsender.setAdresse(adresse);
-			
-			EditingDomain domain = AdapterFactoryEditingDomain.getEditingDomainFor(senders);
-			EReference eReference = AddressPackage.eINSTANCE.getSender_Senders();
-			Command addCommand = AddCommand.create(domain, senders , eReference, tempAbsender);
-			if(addCommand.canExecute())
-				domain.getCommandStack().execute(addCommand);
-			
-			int rowCount = table.getRowCount();
-			for (int i = rowCount - 1; i >= 0; i--)
-			{
-				String rowValue = ODFDocumentUtils.readTableText(table, i, 0);
-				if (StringUtils.isNotEmpty(rowValue))
-				{
-					// in der untersten Zeile der Tabelle wird (Strasse,Ort) erwartet
-					String[] strOrt = StringUtils.split(rowValue, ",");
-					adresse.setStrasse(strOrt[0]);
-					adresse.setOrt(strOrt[1]);
-					
-					if(--i >= 0)						
-						adresse.setName(ODFDocumentUtils.readTableText(table, i, 0));
-					
-					break;
-				}
-			}
-		}
+	{
+		OfficeUtils.readFromDocument(odfDocument);
 	}
 	
 	/*
@@ -289,7 +279,7 @@ public class ODFSenderWizardPage extends WizardPage implements IWriteWizardPage
 		List<Absender>allAbsender = senders.getSenders();
 		for(Absender absender : allAbsender)
 		{
-			if(StringUtils.equals(absender.getName(), LOADED_ABSENDER))
+			if(StringUtils.equals(absender.getName(), ODFDefaultWriteAdapterWizard.LOADED_ABSENDER))
 				removeList.add(absender);
 		}
 		senders.getSenders().removeAll(removeList);

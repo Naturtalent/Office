@@ -249,6 +249,31 @@ public class AddressItemProviderAdapterFactory extends AddressAdapterFactory imp
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link it.naturtalent.office.model.address.FootNoteItem} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected FootNoteItemItemProvider footNoteItemItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.naturtalent.office.model.address.FootNoteItem}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createFootNoteItemAdapter()
+	{
+		if (footNoteItemItemProvider == null)
+		{
+			footNoteItemItemProvider = new FootNoteItemItemProvider(this);
+		}
+
+		return footNoteItemItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link it.naturtalent.office.model.address.FootNote} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -274,53 +299,28 @@ public class AddressItemProviderAdapterFactory extends AddressAdapterFactory imp
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link it.naturtalent.office.model.address.FootNotes} instances.
+	 * This keeps track of the one adapter used for all {@link it.naturtalent.office.model.address.FooteNoteSet} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected FootNotesItemProvider footNotesItemProvider;
+	protected FooteNoteSetItemProvider footeNoteSetItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link it.naturtalent.office.model.address.FootNotes}.
+	 * This creates an adapter for a {@link it.naturtalent.office.model.address.FooteNoteSet}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createFootNotesAdapter()
+	public Adapter createFooteNoteSetAdapter()
 	{
-		if (footNotesItemProvider == null)
+		if (footeNoteSetItemProvider == null)
 		{
-			footNotesItemProvider = new FootNotesItemProvider(this);
+			footeNoteSetItemProvider = new FooteNoteSetItemProvider(this);
 		}
 
-		return footNotesItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link it.naturtalent.office.model.address.FooterClass} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected FooterClassItemProvider footerClassItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link it.naturtalent.office.model.address.FooterClass}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createFooterClassAdapter()
-	{
-		if (footerClassItemProvider == null)
-		{
-			footerClassItemProvider = new FooterClassItemProvider(this);
-		}
-
-		return footerClassItemProvider;
+		return footeNoteSetItemProvider;
 	}
 
 	/**
@@ -421,6 +421,56 @@ public class AddressItemProviderAdapterFactory extends AddressAdapterFactory imp
 		}
 
 		return senderItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.naturtalent.office.model.address.Signature} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected SignatureItemProvider signatureItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.naturtalent.office.model.address.Signature}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createSignatureAdapter()
+	{
+		if (signatureItemProvider == null)
+		{
+			signatureItemProvider = new SignatureItemProvider(this);
+		}
+
+		return signatureItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.naturtalent.office.model.address.SignatureSet} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected SignatureSetItemProvider signatureSetItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.naturtalent.office.model.address.SignatureSet}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createSignatureSetAdapter()
+	{
+		if (signatureSetItemProvider == null)
+		{
+			signatureSetItemProvider = new SignatureSetItemProvider(this);
+		}
+
+		return signatureSetItemProvider;
 	}
 
 	/**
@@ -566,14 +616,16 @@ public class AddressItemProviderAdapterFactory extends AddressAdapterFactory imp
 		if (kontaktItemProvider != null) kontaktItemProvider.dispose();
 		if (kontakteItemProvider != null) kontakteItemProvider.dispose();
 		if (ntProjektKontakteItemProvider != null) ntProjektKontakteItemProvider.dispose();
+		if (footNoteItemItemProvider != null) footNoteItemItemProvider.dispose();
 		if (footNoteItemProvider != null) footNoteItemProvider.dispose();
-		if (footNotesItemProvider != null) footNotesItemProvider.dispose();
-		if (footerClassItemProvider != null) footerClassItemProvider.dispose();
+		if (footeNoteSetItemProvider != null) footeNoteSetItemProvider.dispose();
 		if (referenzItemProvider != null) referenzItemProvider.dispose();
 		if (referenzSetItemProvider != null) referenzSetItemProvider.dispose();
 		if (referenzenClassItemProvider != null) referenzenClassItemProvider.dispose();
 		if (referenzGruppeItemProvider != null) referenzGruppeItemProvider.dispose();
 		if (senderItemProvider != null) senderItemProvider.dispose();
+		if (signatureItemProvider != null) signatureItemProvider.dispose();
+		if (signatureSetItemProvider != null) signatureSetItemProvider.dispose();
 	}
 
 }

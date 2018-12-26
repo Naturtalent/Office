@@ -110,19 +110,19 @@ public class AddressAdapterFactory extends AdapterFactoryImpl
 				return createNtProjektKontakteAdapter();
 			}
 			@Override
+			public Adapter caseFootNoteItem(FootNoteItem object)
+			{
+				return createFootNoteItemAdapter();
+			}
+			@Override
 			public Adapter caseFootNote(FootNote object)
 			{
 				return createFootNoteAdapter();
 			}
 			@Override
-			public Adapter caseFootNotes(FootNotes object)
+			public Adapter caseFooteNoteSet(FooteNoteSet object)
 			{
-				return createFootNotesAdapter();
-			}
-			@Override
-			public Adapter caseFooterClass(FooterClass object)
-			{
-				return createFooterClassAdapter();
+				return createFooteNoteSetAdapter();
 			}
 			@Override
 			public Adapter caseReferenz(Referenz object)
@@ -148,6 +148,16 @@ public class AddressAdapterFactory extends AdapterFactoryImpl
 			public Adapter caseSender(Sender object)
 			{
 				return createSenderAdapter();
+			}
+			@Override
+			public Adapter caseSignature(Signature object)
+			{
+				return createSignatureAdapter();
+			}
+			@Override
+			public Adapter caseSignatureSet(SignatureSet object)
+			{
+				return createSignatureSetAdapter();
 			}
 			@Override
 			public Adapter defaultCase(EObject object)
@@ -277,6 +287,21 @@ public class AddressAdapterFactory extends AdapterFactoryImpl
 	}
 
 	/**
+	 * Creates a new adapter for an object of class '{@link it.naturtalent.office.model.address.FootNoteItem <em>Foot Note Item</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.naturtalent.office.model.address.FootNoteItem
+	 * @generated
+	 */
+	public Adapter createFootNoteItemAdapter()
+	{
+		return null;
+	}
+
+	/**
 	 * Creates a new adapter for an object of class '{@link it.naturtalent.office.model.address.FootNote <em>Foot Note</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -292,31 +317,16 @@ public class AddressAdapterFactory extends AdapterFactoryImpl
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link it.naturtalent.office.model.address.FootNotes <em>Foot Notes</em>}'.
+	 * Creates a new adapter for an object of class '{@link it.naturtalent.office.model.address.FooteNoteSet <em>Foote Note Set</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see it.naturtalent.office.model.address.FootNotes
+	 * @see it.naturtalent.office.model.address.FooteNoteSet
 	 * @generated
 	 */
-	public Adapter createFootNotesAdapter()
-	{
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link it.naturtalent.office.model.address.FooterClass <em>Footer Class</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see it.naturtalent.office.model.address.FooterClass
-	 * @generated
-	 */
-	public Adapter createFooterClassAdapter()
+	public Adapter createFooteNoteSetAdapter()
 	{
 		return null;
 	}
@@ -377,6 +387,36 @@ public class AddressAdapterFactory extends AdapterFactoryImpl
 	 * @generated
 	 */
 	public Adapter createSenderAdapter()
+	{
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.naturtalent.office.model.address.Signature <em>Signature</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.naturtalent.office.model.address.Signature
+	 * @generated
+	 */
+	public Adapter createSignatureAdapter()
+	{
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.naturtalent.office.model.address.SignatureSet <em>Signature Set</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.naturtalent.office.model.address.SignatureSet
+	 * @generated
+	 */
+	public Adapter createSignatureSetAdapter()
 	{
 		return null;
 	}

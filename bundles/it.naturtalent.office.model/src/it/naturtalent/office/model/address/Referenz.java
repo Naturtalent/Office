@@ -14,6 +14,7 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  * <ul>
  *   <li>{@link it.naturtalent.office.model.address.Referenz#getName <em>Name</em>}</li>
+ *   <li>{@link it.naturtalent.office.model.address.Referenz#getContext <em>Context</em>}</li>
  *   <li>{@link it.naturtalent.office.model.address.Referenz#getReferenz <em>Referenz</em>}</li>
  *   <li>{@link it.naturtalent.office.model.address.Referenz#getReferenz2 <em>Referenz2</em>}</li>
  *   <li>{@link it.naturtalent.office.model.address.Referenz#getReferenz3 <em>Referenz3</em>}</li>
@@ -50,6 +51,32 @@ public interface Referenz extends EObject
 	 * @generated
 	 */
 	void setName(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Context</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Context</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Context</em>' attribute.
+	 * @see #setContext(String)
+	 * @see it.naturtalent.office.model.address.AddressPackage#getReferenz_Context()
+	 * @model
+	 * @generated
+	 */
+	String getContext();
+
+	/**
+	 * Sets the value of the '{@link it.naturtalent.office.model.address.Referenz#getContext <em>Context</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Context</em>' attribute.
+	 * @see #getContext()
+	 * @generated
+	 */
+	void setContext(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Referenz</b></em>' attribute.

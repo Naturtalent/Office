@@ -5,12 +5,19 @@ package it.naturtalent.office.model.address.impl;
 import it.naturtalent.office.model.address.AddressPackage;
 import it.naturtalent.office.model.address.FootNote;
 
+import it.naturtalent.office.model.address.FootNoteItem;
+import java.util.Collection;
 import org.eclipse.emf.common.notify.Notification;
 
+import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 
+import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -20,8 +27,9 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link it.naturtalent.office.model.address.impl.FootNoteImpl#getKey <em>Key</em>}</li>
- *   <li>{@link it.naturtalent.office.model.address.impl.FootNoteImpl#getValue <em>Value</em>}</li>
+ *   <li>{@link it.naturtalent.office.model.address.impl.FootNoteImpl#getName <em>Name</em>}</li>
+ *   <li>{@link it.naturtalent.office.model.address.impl.FootNoteImpl#getContext <em>Context</em>}</li>
+ *   <li>{@link it.naturtalent.office.model.address.impl.FootNoteImpl#getFootnoteitems <em>Footnoteitems</em>}</li>
  * </ul>
  *
  * @generated
@@ -29,44 +37,54 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 public class FootNoteImpl extends MinimalEObjectImpl.Container implements FootNote
 {
 	/**
-	 * The default value of the '{@link #getKey() <em>Key</em>}' attribute.
+	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getKey()
+	 * @see #getName()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String KEY_EDEFAULT = null;
+	protected static final String NAME_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getKey() <em>Key</em>}' attribute.
+	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getKey()
+	 * @see #getName()
 	 * @generated
 	 * @ordered
 	 */
-	protected String key = KEY_EDEFAULT;
+	protected String name = NAME_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getValue() <em>Value</em>}' attribute.
+	 * The default value of the '{@link #getContext() <em>Context</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getValue()
+	 * @see #getContext()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String VALUE_EDEFAULT = null;
+	protected static final String CONTEXT_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getValue() <em>Value</em>}' attribute.
+	 * The cached value of the '{@link #getContext() <em>Context</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getValue()
+	 * @see #getContext()
 	 * @generated
 	 * @ordered
 	 */
-	protected String value = VALUE_EDEFAULT;
+	protected String context = CONTEXT_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getFootnoteitems() <em>Footnoteitems</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getFootnoteitems()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<FootNoteItem> footnoteitems;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -94,9 +112,9 @@ public class FootNoteImpl extends MinimalEObjectImpl.Container implements FootNo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getKey()
+	public String getName()
 	{
-		return key;
+		return name;
 	}
 
 	/**
@@ -104,12 +122,12 @@ public class FootNoteImpl extends MinimalEObjectImpl.Container implements FootNo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setKey(String newKey)
+	public void setName(String newName)
 	{
-		String oldKey = key;
-		key = newKey;
+		String oldName = name;
+		name = newName;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, AddressPackage.FOOT_NOTE__KEY, oldKey, key));
+			eNotify(new ENotificationImpl(this, Notification.SET, AddressPackage.FOOT_NOTE__NAME, oldName, name));
 	}
 
 	/**
@@ -117,9 +135,9 @@ public class FootNoteImpl extends MinimalEObjectImpl.Container implements FootNo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getValue()
+	public String getContext()
 	{
-		return value;
+		return context;
 	}
 
 	/**
@@ -127,12 +145,42 @@ public class FootNoteImpl extends MinimalEObjectImpl.Container implements FootNo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setValue(String newValue)
+	public void setContext(String newContext)
 	{
-		String oldValue = value;
-		value = newValue;
+		String oldContext = context;
+		context = newContext;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, AddressPackage.FOOT_NOTE__VALUE, oldValue, value));
+			eNotify(new ENotificationImpl(this, Notification.SET, AddressPackage.FOOT_NOTE__CONTEXT, oldContext, context));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<FootNoteItem> getFootnoteitems()
+	{
+		if (footnoteitems == null)
+		{
+			footnoteitems = new EObjectContainmentEList<FootNoteItem>(FootNoteItem.class, this, AddressPackage.FOOT_NOTE__FOOTNOTEITEMS);
+		}
+		return footnoteitems;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
+	{
+		switch (featureID)
+		{
+			case AddressPackage.FOOT_NOTE__FOOTNOTEITEMS:
+				return ((InternalEList<?>)getFootnoteitems()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -145,10 +193,12 @@ public class FootNoteImpl extends MinimalEObjectImpl.Container implements FootNo
 	{
 		switch (featureID)
 		{
-			case AddressPackage.FOOT_NOTE__KEY:
-				return getKey();
-			case AddressPackage.FOOT_NOTE__VALUE:
-				return getValue();
+			case AddressPackage.FOOT_NOTE__NAME:
+				return getName();
+			case AddressPackage.FOOT_NOTE__CONTEXT:
+				return getContext();
+			case AddressPackage.FOOT_NOTE__FOOTNOTEITEMS:
+				return getFootnoteitems();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -158,16 +208,21 @@ public class FootNoteImpl extends MinimalEObjectImpl.Container implements FootNo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue)
 	{
 		switch (featureID)
 		{
-			case AddressPackage.FOOT_NOTE__KEY:
-				setKey((String)newValue);
+			case AddressPackage.FOOT_NOTE__NAME:
+				setName((String)newValue);
 				return;
-			case AddressPackage.FOOT_NOTE__VALUE:
-				setValue((String)newValue);
+			case AddressPackage.FOOT_NOTE__CONTEXT:
+				setContext((String)newValue);
+				return;
+			case AddressPackage.FOOT_NOTE__FOOTNOTEITEMS:
+				getFootnoteitems().clear();
+				getFootnoteitems().addAll((Collection<? extends FootNoteItem>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -183,11 +238,14 @@ public class FootNoteImpl extends MinimalEObjectImpl.Container implements FootNo
 	{
 		switch (featureID)
 		{
-			case AddressPackage.FOOT_NOTE__KEY:
-				setKey(KEY_EDEFAULT);
+			case AddressPackage.FOOT_NOTE__NAME:
+				setName(NAME_EDEFAULT);
 				return;
-			case AddressPackage.FOOT_NOTE__VALUE:
-				setValue(VALUE_EDEFAULT);
+			case AddressPackage.FOOT_NOTE__CONTEXT:
+				setContext(CONTEXT_EDEFAULT);
+				return;
+			case AddressPackage.FOOT_NOTE__FOOTNOTEITEMS:
+				getFootnoteitems().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -203,10 +261,12 @@ public class FootNoteImpl extends MinimalEObjectImpl.Container implements FootNo
 	{
 		switch (featureID)
 		{
-			case AddressPackage.FOOT_NOTE__KEY:
-				return KEY_EDEFAULT == null ? key != null : !KEY_EDEFAULT.equals(key);
-			case AddressPackage.FOOT_NOTE__VALUE:
-				return VALUE_EDEFAULT == null ? value != null : !VALUE_EDEFAULT.equals(value);
+			case AddressPackage.FOOT_NOTE__NAME:
+				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+			case AddressPackage.FOOT_NOTE__CONTEXT:
+				return CONTEXT_EDEFAULT == null ? context != null : !CONTEXT_EDEFAULT.equals(context);
+			case AddressPackage.FOOT_NOTE__FOOTNOTEITEMS:
+				return footnoteitems != null && !footnoteitems.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -222,10 +282,10 @@ public class FootNoteImpl extends MinimalEObjectImpl.Container implements FootNo
 		if (eIsProxy()) return super.toString();
 
 		StringBuilder result = new StringBuilder(super.toString());
-		result.append(" (key: ");
-		result.append(key);
-		result.append(", value: ");
-		result.append(value);
+		result.append(" (name: ");
+		result.append(name);
+		result.append(", context: ");
+		result.append(context);
 		result.append(')');
 		return result.toString();
 	}

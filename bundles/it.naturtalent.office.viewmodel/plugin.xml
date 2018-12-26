@@ -3,11 +3,23 @@
 <plugin>
    <extension
          point="org.eclipse.emf.ecp.view.model.provider.xmi.file">
+<file filePath="viewmodels/SignatureSet.view"/>
+
+<file filePath="viewmodels/FooteNoteSet.view"/>
+
+<file filePath="viewmodels/FootNote.view"/>
+
+<file
+      filePath="viewmodels/Absender.view">
+   <filter
+         key="absender.filter1"
+         value="absenderValue.filter1">
+   </filter>
+</file>
+
 <file filePath="viewmodels/Empfaenger.view"/>
 
-<file filePath="viewmodels/Absender.view"/>
 
-<file filePath="viewmodels/Sender.view"/>
 
 
 <file filePath="viewmodels/Sender.view"/>
@@ -30,7 +42,6 @@
 
 
 
-<file filePath="viewmodels/FootNote.view"/>
 
 
 
@@ -42,7 +53,6 @@
 
 <file filePath="viewmodels/ReferenzSet.view"/>
 
-<file filePath="viewmodels/FootNotes.view"/>
 
 <file filePath="viewmodels/Adresse.view"/>
 

@@ -1,12 +1,13 @@
 package it.naturtalent.e4.office.ui.renderer;
 
-import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
+import org.apache.commons.lang3.StringUtils;
+import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.ui.di.UIEventTopic;
-import org.eclipse.e4.ui.services.internal.events.EventBroker;
+import org.eclipse.e4.ui.internal.workbench.E4Workbench;
 import org.eclipse.emf.ecp.view.spi.context.ViewModelContext;
 import org.eclipse.emf.ecp.view.spi.treemasterdetail.ui.swt.TreeMasterDetailSWTRenderer;
 import org.eclipse.emf.ecp.view.treemasterdetail.model.VTreeMasterDetail;
@@ -16,7 +17,8 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
-import org.eclipse.swt.custom.SashForm;
+import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.swt.widgets.Composite;
 
 import it.naturtalent.e4.office.ui.OfficeUtils;
@@ -38,6 +40,9 @@ public class ODFReceiverRenderer extends TreeMasterDetailSWTRenderer
 	
 	private TreeViewer treeViewer;
 	
+	/*
+	 * Listener meldet die Selektion eines Empfaegers im MasterView. 
+	 */
 	private ISelectionChangedListener selectionListener = new ISelectionChangedListener()
 	{		
 		@Override
@@ -60,7 +65,6 @@ public class ODFReceiverRenderer extends TreeMasterDetailSWTRenderer
 		}
 	};
 
-
 	@Inject
 	public ODFReceiverRenderer(VTreeMasterDetail vElement,
 			ViewModelContext viewContext, ReportService reportService)
@@ -75,23 +79,33 @@ public class ODFReceiverRenderer extends TreeMasterDetailSWTRenderer
 	protected TreeViewer createMasterTree(Composite masterPanel)
 	{
 		treeViewer = super.createMasterTree(masterPanel);
-		treeViewer.addSelectionChangedListener(selectionListener);
+		treeViewer.addSelectionChangedListener(selectionListener);		
 		return treeViewer;
 	}
-	
+
 	/*
-	 * Eine Selektion im MasterView erzwingen.
+	 * Ein Empfaenger wurde hinzugefuegt
 	 */
 	/*
 	@Inject
 	@Optional
-	public void handleModelChangedEvent(@UIEventTopic(OfficeUtils.REQUEST_RECEIVER_MASTER_SELECTED_EVENT) Empfaenger empfaenger)
+	public void handleAddEmpfaeger(@UIEventTopic(OfficeUtils.ADD_EXISTING_RECEIVER) Object object)
 	{
-		treeViewer.removeSelectionChangedListener(selectionListener);
-		treeViewer.setSelection(new StructuredSelection(empfaenger));
-		treeViewer.addSelectionChangedListener(selectionListener);
+		if (object instanceof Empfaenger)
+			treeViewer.add(treeViewer.getInput(), object);
 	}
 	*/
+
+	/*
+	 * Eine Selektion im MasterView erzwingen.
+	 */
+	@Inject
+	@Optional
+	public void handleModelChangedEvent(@UIEventTopic(OfficeUtils.SET_RECEIVERMASTER_SELECTION_EVENT) Empfaenger empfaenger)
+	{
+		treeViewer.setSelection(new StructuredSelection(empfaenger));
+	}
+
 	
 
 }

@@ -3,9 +3,8 @@
 package it.naturtalent.office.model.address.provider;
 
 
-import it.naturtalent.office.model.address.AddressFactory;
 import it.naturtalent.office.model.address.AddressPackage;
-import it.naturtalent.office.model.address.FootNotes;
+import it.naturtalent.office.model.address.FootNoteItem;
 
 import java.util.Collection;
 import java.util.List;
@@ -14,8 +13,6 @@ import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.common.util.ResourceLocator;
-
-import org.eclipse.emf.ecore.EStructuralFeature;
 
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
@@ -29,12 +26,12 @@ import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
- * This is the item provider adapter for a {@link it.naturtalent.office.model.address.FootNotes} object.
+ * This is the item provider adapter for a {@link it.naturtalent.office.model.address.FootNoteItem} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class FootNotesItemProvider 
+public class FootNoteItemItemProvider 
 	extends ItemProviderAdapter
 	implements
 		IEditingDomainItemProvider,
@@ -49,7 +46,7 @@ public class FootNotesItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public FootNotesItemProvider(AdapterFactory adapterFactory)
+	public FootNoteItemItemProvider(AdapterFactory adapterFactory)
 	{
 		super(adapterFactory);
 	}
@@ -67,26 +64,27 @@ public class FootNotesItemProvider
 		{
 			super.getPropertyDescriptors(object);
 
-			addNamePropertyDescriptor(object);
+			addKeyPropertyDescriptor(object);
+			addValuePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Name feature.
+	 * This adds a property descriptor for the Key feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addNamePropertyDescriptor(Object object)
+	protected void addKeyPropertyDescriptor(Object object)
 	{
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_FootNotes_name_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_FootNotes_name_feature", "_UI_FootNotes_type"),
-				 AddressPackage.Literals.FOOT_NOTES__NAME,
+				 getString("_UI_FootNoteItem_key_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_FootNoteItem_key_feature", "_UI_FootNoteItem_type"),
+				 AddressPackage.Literals.FOOT_NOTE_ITEM__KEY,
 				 true,
 				 false,
 				 false,
@@ -96,40 +94,30 @@ public class FootNotesItemProvider
 	}
 
 	/**
-	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
-	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
-	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
+	 * This adds a property descriptor for the Value feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
-	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object)
+	protected void addValuePropertyDescriptor(Object object)
 	{
-		if (childrenFeatures == null)
-		{
-			super.getChildrenFeatures(object);
-			childrenFeatures.add(AddressPackage.Literals.FOOT_NOTES__FOOTNOTES);
-		}
-		return childrenFeatures;
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_FootNoteItem_value_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_FootNoteItem_value_feature", "_UI_FootNoteItem_type"),
+				 AddressPackage.Literals.FOOT_NOTE_ITEM__VALUE,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	protected EStructuralFeature getChildFeature(Object object, Object child)
-	{
-		// Check the type of the specified child object and return the proper feature to use for
-		// adding (see {@link AddCommand}) it as a child.
-
-		return super.getChildFeature(object, child);
-	}
-
-	/**
-	 * This returns FootNotes.gif.
+	 * This returns FootNoteItem.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -137,7 +125,7 @@ public class FootNotesItemProvider
 	@Override
 	public Object getImage(Object object)
 	{
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/FootNotes"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/FootNoteItem"));
 	}
 
 	/**
@@ -149,12 +137,12 @@ public class FootNotesItemProvider
 	@Override
 	public String getText(Object object)
 	{
-		String label = ((FootNotes)object).getName();
+		String label = ((FootNoteItem)object).getKey();
 		return label == null || label.length() == 0 ?
-			getString("_UI_FootNotes_type") :
-			getString("_UI_FootNotes_type") + " " + label;
+			getString("_UI_FootNoteItem_type") :
+			getString("_UI_FootNoteItem_type") + " " + label;
 	}
-	
+
 
 	/**
 	 * This handles model notifications by calling {@link #updateChildren} to update any cached
@@ -168,13 +156,11 @@ public class FootNotesItemProvider
 	{
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(FootNotes.class))
+		switch (notification.getFeatureID(FootNoteItem.class))
 		{
-			case AddressPackage.FOOT_NOTES__NAME:
+			case AddressPackage.FOOT_NOTE_ITEM__KEY:
+			case AddressPackage.FOOT_NOTE_ITEM__VALUE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
-				return;
-			case AddressPackage.FOOT_NOTES__FOOTNOTES:
-				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
 		super.notifyChanged(notification);
@@ -191,11 +177,6 @@ public class FootNotesItemProvider
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object)
 	{
 		super.collectNewChildDescriptors(newChildDescriptors, object);
-
-		newChildDescriptors.add
-			(createChildParameter
-				(AddressPackage.Literals.FOOT_NOTES__FOOTNOTES,
-				 AddressFactory.eINSTANCE.createFootNote()));
 	}
 
 	/**

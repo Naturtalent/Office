@@ -86,6 +86,15 @@ public interface AddressFactory extends EFactory
 	NtProjektKontakte createNtProjektKontakte();
 
 	/**
+	 * Returns a new object of class '<em>Foot Note Item</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Foot Note Item</em>'.
+	 * @generated
+	 */
+	FootNoteItem createFootNoteItem();
+
+	/**
 	 * Returns a new object of class '<em>Foot Note</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -95,22 +104,13 @@ public interface AddressFactory extends EFactory
 	FootNote createFootNote();
 
 	/**
-	 * Returns a new object of class '<em>Foot Notes</em>'.
+	 * Returns a new object of class '<em>Foote Note Set</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Foot Notes</em>'.
+	 * @return a new object of class '<em>Foote Note Set</em>'.
 	 * @generated
 	 */
-	FootNotes createFootNotes();
-
-	/**
-	 * Returns a new object of class '<em>Footer Class</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Footer Class</em>'.
-	 * @generated
-	 */
-	FooterClass createFooterClass();
+	FooteNoteSet createFooteNoteSet();
 
 	/**
 	 * Returns a new object of class '<em>Referenz Set</em>'.
@@ -147,6 +147,24 @@ public interface AddressFactory extends EFactory
 	 * @generated
 	 */
 	Sender createSender();
+
+	/**
+	 * Returns a new object of class '<em>Signature</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Signature</em>'.
+	 * @generated
+	 */
+	Signature createSignature();
+
+	/**
+	 * Returns a new object of class '<em>Signature Set</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Signature Set</em>'.
+	 * @generated
+	 */
+	SignatureSet createSignatureSet();
 
 	/**
 	 * Returns a new object of class '<em>Absender</em>'.

@@ -1,26 +1,19 @@
 package it.naturtalent.e4.office.ui.renderer;
 
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.List;
 
 import javax.inject.Inject;
 
 import org.apache.commons.lang3.StringUtils;
 import org.eclipse.e4.core.contexts.IEclipseContext;
-import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.core.services.events.IEventBroker;
-import org.eclipse.e4.ui.di.UIEventTopic;
 import org.eclipse.e4.ui.internal.workbench.E4Workbench;
 import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.workbench.IWorkbench;
-import org.eclipse.emf.common.command.Command;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.emf.ecp.spi.common.ui.SelectModelElementWizardFactory;
 import org.eclipse.emf.ecp.view.internal.control.multireference.MultiReferenceSWTRenderer;
 import org.eclipse.emf.ecp.view.spi.context.ViewModelContext;
 import org.eclipse.emf.ecp.view.spi.model.VControl;
@@ -28,8 +21,6 @@ import org.eclipse.emf.ecp.view.spi.renderer.NoPropertyDescriptorFoundExeption;
 import org.eclipse.emf.ecp.view.spi.renderer.NoRendererFoundException;
 import org.eclipse.emf.ecp.view.spi.util.swt.ImageRegistryService;
 import org.eclipse.emf.ecp.view.template.model.VTViewTemplateProvider;
-import org.eclipse.emf.edit.command.AddCommand;
-import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
 import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.emfforms.spi.common.report.ReportService;
 import org.eclipse.emfforms.spi.core.services.databinding.EMFFormsDatabinding;
@@ -38,7 +29,6 @@ import org.eclipse.emfforms.spi.swt.core.layout.SWTGridCell;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
-import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerFilter;
@@ -47,29 +37,44 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 
 import it.naturtalent.e4.office.ui.OfficeUtils;
+import it.naturtalent.e4.office.ui.wizards.ODFDefaultWriteAdapterWizard;
 import it.naturtalent.icons.core.Icon;
 import it.naturtalent.icons.core.IconSize;
 import it.naturtalent.office.model.address.Absender;
 import it.naturtalent.office.model.address.AddressPackage;
+import it.naturtalent.office.model.address.FootNote;
 import it.naturtalent.office.model.address.Kontakt;
 import it.naturtalent.office.model.address.Referenz;
-import it.naturtalent.office.model.address.Sender;
 
 
+/**
+ *  Den Absender-Detail-Renderer anpassen.
+ *  
+ *  - filtern nach OfficeContext-Flag, das im Eclipse4 Context unter dem Namen 'OfficeUtils.OFFICE_CONTEXT' hinterlegt sein muss.
+ *  - Absender (genauer die Adresse) kann aus der Kontaktdatenbank uebernommen werden. 
+ *  - DELETE-Button dauerhaft disablen TpDo: komplett entfernen
+ *  
+ * @author dieter
+ *
+ */
 public class SenderDetailsRenderer extends MultiReferenceSWTRenderer
 {
 
 	private IEventBroker eventBroker;
 	
-	private Button btnAddNew;
+	private Button delButton;
 	
-	private EditingDomain domain;
+	//private EditingDomain domain;
+	
+	// Liste mit den statischen Absendern (steuert delButton-Status)
+	private List<Absender>unremoveableAbsender;
+
 	
 	// filtert nach dem Office - Context
 	private class ContextFilter extends ViewerFilter
 	{
 		String officeContext;
-		
+	
 		public ContextFilter(String officeContext)
 		{
 			super();
@@ -81,7 +86,7 @@ public class SenderDetailsRenderer extends MultiReferenceSWTRenderer
 		{					
 			if (element instanceof Absender)
 			{	
-				System.out.println("Filter: "+(officeContext+"   "+((Absender)element).getContext()));
+				Absender absender = (Absender)element;				
 				String elementContext = ((Absender)element).getContext();
 					return(StringUtils.equals(elementContext, officeContext));															
 			}
@@ -113,7 +118,7 @@ public class SenderDetailsRenderer extends MultiReferenceSWTRenderer
 			throws NoRendererFoundException, NoPropertyDescriptorFoundExeption
 	{
 		Control control = super.renderMultiReferenceControl(cell, parent);
-
+		
 		TableViewer tableViewer = getTableViewer();
 		tableViewer.addSelectionChangedListener(new ISelectionChangedListener()
 		{			
@@ -122,91 +127,67 @@ public class SenderDetailsRenderer extends MultiReferenceSWTRenderer
 			{
 				IStructuredSelection selection = ((IStructuredSelection) event.getSelection());
 				Object selObj = selection.getFirstElement();
+				if (selObj instanceof Absender)
+				{
+					// nur nichtstatische Absender duerfen geloescht werdxen
+					if ((unremoveableAbsender != null) && (!unremoveableAbsender.isEmpty()))					
+						delButton.setEnabled(!unremoveableAbsender.contains((Absender) selObj));						
+				}				
+				
 				if (selObj != null)
 				{
 					// den im Detail selektierten Absender melden damit z.B. der Wizard nachziehen kann
 					if (eventBroker != null)
 						eventBroker.send(OfficeUtils.ABSENDER_DETAIL_SELECTED_EVENT, selObj);					
 				}
+				
+				
+				
 			}
 		});
 		
 		// Filter in TableViewer auf 'officeContext' setzen
 		IEclipseContext context = E4Workbench.getServiceContext();
-		String officeContext = (String) context.get(OfficeUtils.OFFICE_CONTEXT);
+		String officeContext = (String) context.get(ODFDefaultWriteAdapterWizard.DEFAULT_OFFICECONTEXT);
 		tableViewer.setFilters(new ViewerFilter []{new ContextFilter(officeContext)});
+		
+		// Liste der Nichtloeschbaren aus dem Eclipse4Context holen
+		unremoveableAbsender = (List<Absender>) context.get(OfficeUtils.ABSENDER_UNREMOVABLES);
 		
 		return control;
 	}
 	
-	@Inject 
-	@Optional
-	public void handleReferenceSelection(@UIEventTopic(OfficeUtils.REFERENZGROUP_REQUESTSELECTREFERENCEEVENT) Object reference )
+	@Override
+	protected Button createDeleteButton(Composite parent,EStructuralFeature structuralFeature)
 	{
-		if (reference instanceof Referenz)		
-			getTableViewer().setSelection(new StructuredSelection(reference));
+		delButton = super.createDeleteButton(parent, structuralFeature);		
+		return delButton;
 	}
-
+	
+	/*
+	 * ADD-Button auf Datenbankselektion umdekorieren
+	 * 
+	 */
 	@Override
 	protected Button createAddExistingButton(Composite parent, EStructuralFeature structuralFeature)
 	{
 		Button btn = super.createAddExistingButton(parent, structuralFeature);
-		btn.setImage(Icon.ICON_DATABASE_GET.getImage(IconSize._16x16_DefaultIconSize));
+		btn.setImage(Icon.ICON_DATABASE.getImage(IconSize._16x16_DefaultIconSize));
 		btn.setToolTipText("aus Datenbank kopieren");
 		return btn;
 	}
 	
 
 	/* 
-	 * Aktion "aus Datenbank kopieren" ausfuehren
-	 */
+	 * Aktion "aus Datenbank kopieren" ausfuehren.
+	 * Ein neues Absenderobjekt erzeugen, mit dem DefaultOfficekontext versehen, die Kontaktadresse hinzufuegen und
+	 * diesen Absender ueber den Broker melden.
+	 */ 
 	@Override
-	protected void handleAddExisting(TableViewer tableViewer, EObject eObject,
-			EStructuralFeature structuralFeature)
-	{
-		EList<Kontakt>allKontacts = OfficeUtils.getKontakte().getKontakte();
-		
-		Set<EObject> elements = new LinkedHashSet<EObject>();
-		for(Kontakt kontact : allKontacts)
-			elements.add(kontact);
-		
-		// Kontakt mit dem Dialog auswaehlen
-		final Set<EObject> selectedElements = SelectModelElementWizardFactory
-				.openModelElementSelectionDialog(elements, true);
-		
-		if ((selectedElements != null) && (!selectedElements.isEmpty()))
-		{
-			for (EObject selectedElement : selectedElements)
-			{
-				// der selektierte Kontakt (incl. Adresse) wird kopiert
-				Kontakt kontakt = (Kontakt) EcoreUtil.copy(selectedElement);
-				EClass absenderClass = AddressPackage.eINSTANCE.getAbsender();
-				Absender absender = (Absender) EcoreUtil.create(absenderClass);
-				absender.setName(kontakt.getName());
-				absender.setAdresse(kontakt.getAdresse());	
-				
-				// Sender ist Container der Absender
-				Sender sender = (Sender) eObject;
-				//EObject container = ((Sender) eObject).getSenders();
-				//EObject container = OfficeUtils.getReferenzClass(senders);				
-				domain = AdapterFactoryEditingDomain.getEditingDomainFor(sender);			
-				
-				EReference eReference = AddressPackage.eINSTANCE.getSender_Senders();
-				Command addCommand = AddCommand.create(domain, sender , eReference, absender);
-				if(addCommand.canExecute())
-					domain.getCommandStack().execute(addCommand);
-				
-				
-				
-				//((Sender) eObject).getSenders().add(absender);
-				// @see SendersRenderer - selektiert den Absender im MasterView
-				eventBroker.post(OfficeUtils.SET_ABSENDERMASTER_SELECTION_EVENT , absender);
-				
-				//tableViewer.setSelection(new StructuredSelection(absender));
-			}
-		}
+	protected void handleAddExisting(TableViewer tableViewer, EObject eObject, EStructuralFeature structuralFeature)
+	{				
+		eventBroker.post(OfficeUtils.ADD_EXISTING_SENDER , eObject);
 	}
 
 
-	
 }

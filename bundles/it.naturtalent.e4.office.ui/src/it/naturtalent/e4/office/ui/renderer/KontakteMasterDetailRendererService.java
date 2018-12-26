@@ -18,12 +18,13 @@ public class KontakteMasterDetailRendererService extends TreeMasterDetailSWTRend
 	 */
 	@Override
 	public double isApplicable(VElement vElement,ViewModelContext viewModelContext)
-	{
+	{		
 		if (VTreeMasterDetail.class.isInstance(vElement))
 		{	
 			if(viewModelContext.getDomainModel() instanceof Kontakte)
 				return 30d;
 		}
+	
 		return NOT_APPLICABLE;
 	}
 	

@@ -14,7 +14,7 @@ import org.eclipse.emfforms.spi.swt.core.AbstractSWTRenderer;
 
 import it.naturtalent.office.model.address.AddressPackage;
 
-public class ReferenzGruppeRendererService extends MultiReferenceSWTRendererService
+public class FootNoteSetRendererService extends MultiReferenceSWTRendererService
 {
 
 	private EMFFormsDatabinding databindingService;
@@ -83,11 +83,10 @@ public class ReferenzGruppeRendererService extends MultiReferenceSWTRendererServ
 		}
 		*/
 		
-		//if (ArchivPackage.eINSTANCE.getRegister_NumericData().equals(eStructuralFeature))
-		//if (AddressPackage.eINSTANCE.getReferenzGruppe_Referenz().equals(feature))
-		if (AddressPackage.eINSTANCE.getReferenzGruppe_Referenz().equals(feature))
+	
+		if (AddressPackage.eINSTANCE.getFooteNoteSet_FooteNotes().equals(feature))
 		{
-			return 12.0;			
+			return 12.0;					
 		}
 
 		return NOT_APPLICABLE;
@@ -102,6 +101,6 @@ public class ReferenzGruppeRendererService extends MultiReferenceSWTRendererServ
 	 */
 	@Override
 	public Class<? extends AbstractSWTRenderer<VControl>> getRendererClass() {
-		return ReferenzGruppeRenderer.class;
+		return FootNoteSetRenderer.class;
 	}
 }

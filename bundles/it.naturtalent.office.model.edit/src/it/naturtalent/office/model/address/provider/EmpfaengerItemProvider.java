@@ -168,7 +168,7 @@ public class EmpfaengerItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object)
@@ -176,7 +176,6 @@ public class EmpfaengerItemProvider
 		String label = ((Empfaenger)object).getName();
 		return label == null || label.length() == 0 ?
 			getString("_UI_Empfaenger_type") : label;
-			//getString("_UI_Empfaenger_type") + " " + label;
 	}
 	
 

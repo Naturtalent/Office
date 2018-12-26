@@ -21,6 +21,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * </p>
  * <ul>
  *   <li>{@link it.naturtalent.office.model.address.impl.ReferenzImpl#getName <em>Name</em>}</li>
+ *   <li>{@link it.naturtalent.office.model.address.impl.ReferenzImpl#getContext <em>Context</em>}</li>
  *   <li>{@link it.naturtalent.office.model.address.impl.ReferenzImpl#getReferenz <em>Referenz</em>}</li>
  *   <li>{@link it.naturtalent.office.model.address.impl.ReferenzImpl#getReferenz2 <em>Referenz2</em>}</li>
  *   <li>{@link it.naturtalent.office.model.address.impl.ReferenzImpl#getReferenz3 <em>Referenz3</em>}</li>
@@ -49,6 +50,26 @@ public class ReferenzImpl extends MinimalEObjectImpl.Container implements Refere
 	 * @ordered
 	 */
 	protected String name = NAME_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getContext() <em>Context</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getContext()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String CONTEXT_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getContext() <em>Context</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getContext()
+	 * @generated
+	 * @ordered
+	 */
+	protected String context = CONTEXT_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getReferenz() <em>Referenz</em>}' attribute.
@@ -159,6 +180,29 @@ public class ReferenzImpl extends MinimalEObjectImpl.Container implements Refere
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getContext()
+	{
+		return context;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setContext(String newContext)
+	{
+		String oldContext = context;
+		context = newContext;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, AddressPackage.REFERENZ__CONTEXT, oldContext, context));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public String getReferenz()
 	{
 		return referenz;
@@ -235,6 +279,8 @@ public class ReferenzImpl extends MinimalEObjectImpl.Container implements Refere
 		{
 			case AddressPackage.REFERENZ__NAME:
 				return getName();
+			case AddressPackage.REFERENZ__CONTEXT:
+				return getContext();
 			case AddressPackage.REFERENZ__REFERENZ:
 				return getReferenz();
 			case AddressPackage.REFERENZ__REFERENZ2:
@@ -257,6 +303,9 @@ public class ReferenzImpl extends MinimalEObjectImpl.Container implements Refere
 		{
 			case AddressPackage.REFERENZ__NAME:
 				setName((String)newValue);
+				return;
+			case AddressPackage.REFERENZ__CONTEXT:
+				setContext((String)newValue);
 				return;
 			case AddressPackage.REFERENZ__REFERENZ:
 				setReferenz((String)newValue);
@@ -284,6 +333,9 @@ public class ReferenzImpl extends MinimalEObjectImpl.Container implements Refere
 			case AddressPackage.REFERENZ__NAME:
 				setName(NAME_EDEFAULT);
 				return;
+			case AddressPackage.REFERENZ__CONTEXT:
+				setContext(CONTEXT_EDEFAULT);
+				return;
 			case AddressPackage.REFERENZ__REFERENZ:
 				setReferenz(REFERENZ_EDEFAULT);
 				return;
@@ -309,6 +361,8 @@ public class ReferenzImpl extends MinimalEObjectImpl.Container implements Refere
 		{
 			case AddressPackage.REFERENZ__NAME:
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+			case AddressPackage.REFERENZ__CONTEXT:
+				return CONTEXT_EDEFAULT == null ? context != null : !CONTEXT_EDEFAULT.equals(context);
 			case AddressPackage.REFERENZ__REFERENZ:
 				return REFERENZ_EDEFAULT == null ? referenz != null : !REFERENZ_EDEFAULT.equals(referenz);
 			case AddressPackage.REFERENZ__REFERENZ2:
@@ -332,6 +386,8 @@ public class ReferenzImpl extends MinimalEObjectImpl.Container implements Refere
 		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (name: ");
 		result.append(name);
+		result.append(", context: ");
+		result.append(context);
 		result.append(", referenz: ");
 		result.append(referenz);
 		result.append(", referenz2: ");

@@ -72,14 +72,16 @@ public class AddressFactoryImpl extends EFactoryImpl implements AddressFactory
 			case AddressPackage.KONTAKT: return createKontakt();
 			case AddressPackage.KONTAKTE: return createKontakte();
 			case AddressPackage.NT_PROJEKT_KONTAKTE: return createNtProjektKontakte();
+			case AddressPackage.FOOT_NOTE_ITEM: return createFootNoteItem();
 			case AddressPackage.FOOT_NOTE: return createFootNote();
-			case AddressPackage.FOOT_NOTES: return createFootNotes();
-			case AddressPackage.FOOTER_CLASS: return createFooterClass();
+			case AddressPackage.FOOTE_NOTE_SET: return createFooteNoteSet();
 			case AddressPackage.REFERENZ: return createReferenz();
 			case AddressPackage.REFERENZ_SET: return createReferenzSet();
 			case AddressPackage.REFERENZEN_CLASS: return createReferenzenClass();
 			case AddressPackage.REFERENZ_GRUPPE: return createReferenzGruppe();
 			case AddressPackage.SENDER: return createSender();
+			case AddressPackage.SIGNATURE: return createSignature();
+			case AddressPackage.SIGNATURE_SET: return createSignatureSet();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -201,6 +203,17 @@ public class AddressFactoryImpl extends EFactoryImpl implements AddressFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public FootNoteItem createFootNoteItem()
+	{
+		FootNoteItemImpl footNoteItem = new FootNoteItemImpl();
+		return footNoteItem;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public FootNote createFootNote()
 	{
 		FootNoteImpl footNote = new FootNoteImpl();
@@ -212,21 +225,10 @@ public class AddressFactoryImpl extends EFactoryImpl implements AddressFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public FootNotes createFootNotes()
+	public FooteNoteSet createFooteNoteSet()
 	{
-		FootNotesImpl footNotes = new FootNotesImpl();
-		return footNotes;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public FooterClass createFooterClass()
-	{
-		FooterClassImpl footerClass = new FooterClassImpl();
-		return footerClass;
+		FooteNoteSetImpl footeNoteSet = new FooteNoteSetImpl();
+		return footeNoteSet;
 	}
 
 	/**
@@ -271,6 +273,28 @@ public class AddressFactoryImpl extends EFactoryImpl implements AddressFactory
 	{
 		SenderImpl sender = new SenderImpl();
 		return sender;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Signature createSignature()
+	{
+		SignatureImpl signature = new SignatureImpl();
+		return signature;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public SignatureSet createSignatureSet()
+	{
+		SignatureSetImpl signatureSet = new SignatureSetImpl();
+		return signatureSet;
 	}
 
 	/**
