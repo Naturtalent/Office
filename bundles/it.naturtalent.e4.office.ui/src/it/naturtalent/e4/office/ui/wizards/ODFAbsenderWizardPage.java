@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.EventObject;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
 import org.apache.commons.lang3.StringUtils;
@@ -17,6 +18,7 @@ import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.workbench.IWorkbench;
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.command.CommandStackListener;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
@@ -47,106 +49,49 @@ import it.naturtalent.office.model.address.Sender;
 
 /**
  * Wizardseite zur Definition der Absenderangaben im Standardmodus.
- * Im Defaultmodus gibt es keine praeferenzierten Absender, 
+ * Im Defaultmodus gibt es keine praeferenzierten Absender,
+ * Der zuletzt in das Dokument geschriebene Absender (Name) wird im DialogSetting gespeichert 
  * 
  * @author dieter
  *
  */
 public class ODFAbsenderWizardPage extends WizardPage implements IWriteWizardPage
 {
+	// Name dieser WizardPage	
+	private final static String SENDER_PAGE_NAME = "ODF_ABSENDER";
 	
-	// Key des DialogSetting Absenders
-	private static final String SETTINGABSENDER = "settingabsender";
+	private static final String DEFAULT_ABSENDERNAME = "DefaultAbsender"; //$NON-NLS-1$
+	
+	private String officeContext;
 	
 	private IDialogSettings dialogSettings = WorkbenchSWTActivator.getDefault().getDialogSettings();
 	
-	private Sender senders;
-	private Absender selectedAbsender;
+	// Key des DialogSetting Absenders
+	private static final String SETTINGABSENDER = "settingabsender";
+	protected String dialogSettingName = SETTINGABSENDER;
+	
+	private Sender absenderSet;
+	protected Absender selectedAbsender;
 	
 	private IEventBroker eventBroker;
 	
-	private EditingDomain domain;
-	
-	/*
-	 * Auf bestimmte Aenderungen im EMF-CommandStack reagieren
-	 * 
-	 * Beim Hinzuefegen eines Absenders muss der DefaultOfficeContext gesetzt werden, sonst wird
-	 * er nicht durch den Renderer angezeigt.
-	 * 
-	 */
-	private class SenderCommandListener implements CommandStackListener
-	{
-		@Override
-		public void commandStackChanged(EventObject event)
-		{
-			EMFStoreBasicCommandStack commandStack = (EMFStoreBasicCommandStack) event.getSource();
-			Command command = commandStack.getMostRecentCommand();	
-			
-			// ADD-Aktion ausgeloest durch Kontextmenue des Masters
-			if (command instanceof CreateChildCommand)
-			{
-				// ADD-Aktion, ausgeloest durch Kontextmenue im Master
-				// - selektiert den neue Kontakt im Mastertree
-				CreateChildCommand addCommand = (CreateChildCommand) command;
-				Collection<?>createResults = addCommand.getResult();
-				Object createdObj = createResults.iterator().next();
-				if(createdObj instanceof Absender)
-				{
-					postAdded(createdObj);					 
-				}
-			}
-				
-			// ADD-Aktion ausgeloest durch Toolbaxmenue des Details
-			if (command instanceof AddCommand)
-			{				
-				Collection<?>addResults = command.getResult();
-				Object addedObj = addResults.iterator().next();
-				if(addedObj instanceof Absender)
-				{					
-					Absender absender = (Absender) addedObj;					
-					if(!StringUtils.equals(absender.getName(), OfficeUtils.LOADED_ABSENDER))
-					{	
-						postAdded(addedObj);
-					}
-				}
-			}			
-		}
-		
-		// Nachbearbeitung des neuhinzugefuegten Absenders
-		private void postAdded(Object addedObj)
-		{
-			if (addedObj instanceof Absender)
-			{
-				Absender absender = (Absender) addedObj;
-				
-				// Absender einem OfficeContext zuordnen
-				ODFDefaultWriteAdapterWizard wizard = (ODFDefaultWriteAdapterWizard) getWizard();				
-				absender.setContext(wizard.getOfficeContext());
-				
-				// Absenderadresse erzeugen	und hinzufuegen				
-				EClass adresseClass = AddressPackage.eINSTANCE.getAdresse();
-				Adresse adresse = (Adresse) EcoreUtil.create(adresseClass);
-				absender.setAdresse(adresse);
-			}
-		}
-		
-		
-	}
-	private SenderCommandListener senderCommandListener = new SenderCommandListener();
+	//private EditingDomain domain;
 
-		
 	/**
 	 * Create the wizard.
 	 */
 	public ODFAbsenderWizardPage()
 	{
-		super(ODFDefaultWriteAdapterWizard.SENDER_PAGE_NAME);
+		super(SENDER_PAGE_NAME);
 		setMessage("einen Absender auswählen");
 		setTitle("Absender");
-		setDescription("Angaben zum Absender");
-		
-		MApplication currentApplication = E4Workbench.getServiceContext().get(IWorkbench.class).getApplication();
-		eventBroker = currentApplication.getContext().get(IEventBroker.class);
+		setDescription("Angaben zum Absender");		
+	}
+	
+	@PostConstruct
+	private void postConstruct(@Optional IEventBroker eventBroker)
+	{
+		this.eventBroker = eventBroker;
 	}
 	
 	/**
@@ -155,43 +100,72 @@ public class ODFAbsenderWizardPage extends WizardPage implements IWriteWizardPag
 	 */
 	public void createControl(Composite parent)
 	{
-		Composite container = new Composite(parent, SWT.NULL);
-	
+		Composite container = new Composite(parent, SWT.NULL);	
 		setControl(container);
 		container.setLayout(new GridLayout(2, false));
 		
+		officeContext = ((ODFDefaultWriteAdapterWizard)getWizard()).getOfficeContext();
+		
 		try
-		{							
-			// Renderer filtert die Absender auf 'officecontext' im MasterDetailView 
-			senders = OfficeUtils.getSender();
-			ECPSWTViewRenderer.INSTANCE.render(container, (EObject) senders);	
+		{
+			absenderSet = OfficeUtils.getSender();	
 			
-		} catch (ECPRendererException e1)
+			// gibt es schon Absender oder muss initialisiert werden
+			EList<Absender>allAbsenders = absenderSet.getSenders();
+
+			Absender existAbsender = null;
+			if((allAbsenders != null) && !allAbsenders.isEmpty())
+			{				
+				for (Absender absender : allAbsenders)
+					if (StringUtils.equals(absender.getContext(), officeContext))
+					{
+						existAbsender = absender;
+						break;
+					}											
+			}
+			
+			// noch keine Absender vorhanden oder keine im OfficeContext
+			if((allAbsenders == null) || allAbsenders.isEmpty() || existAbsender == null)
+			{	
+				//Initialisierung
+				Absender defaultAbsender = createAbsender(DEFAULT_ABSENDERNAME, officeContext);
+				
+				// Absenderadresse erzeugen	und zum Absender hinzufuegen			
+				EClass adresseClass = AddressPackage.eINSTANCE.getAdresse();
+				Adresse defaultAdresse = (Adresse) EcoreUtil.create(adresseClass);
+				defaultAdresse.setName(DEFAULT_ABSENDERNAME);
+				defaultAbsender.setAdresse(defaultAdresse);
+
+				absenderSet.getSenders().add(defaultAbsender);
+			}
+			
+			// Liste der nichtloeschbaren Absender in Eclipse4Context einbringen
+			List<Absender>unRemovables = new ArrayList<Absender>();			
+			Absender staticAbsender = OfficeUtils.findAbsenderByName(DEFAULT_ABSENDERNAME, officeContext);			
+			unRemovables.add(staticAbsender);
+			E4Workbench.getServiceContext().set(OfficeUtils.ABSENDER_UNREMOVABLES, unRemovables);
+
+			// Renderer zeigt die Absender  (filtert die Absender auf 'officecontext' im MasterDetailView) 
+			ECPSWTViewRenderer.INSTANCE.render(container, (EObject) absenderSet);	
+			
+		} catch (ECPRendererException e)
 		{
 			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			e.printStackTrace();
 		}
-		
-		// Einen CommandStackListener installieren
-		domain = AdapterFactoryEditingDomain.getEditingDomainFor(senders);
-		EMFStoreBasicCommandStack commandStack = (EMFStoreBasicCommandStack) domain.getCommandStack();
-		domain.getCommandStack().addCommandStackListener(senderCommandListener);
 		
 		// im CreateModus wird der Absdender aus dem DialogSetting selektiert
 		ODFDefaultWriteAdapterWizard defaultWizard = (ODFDefaultWriteAdapterWizard) getWizard();
 		if(defaultWizard.isWizardModus() == ODFDefaultWriteAdapterWizard.WIZARDCREATEMODE)
 		{	
 			// den im Dialogsetting gespeicherte Absender im MasterView selektieren
-			String settingAbsenderName = dialogSettings.get(SETTINGABSENDER);
+			String settingAbsenderName = dialogSettings.get(dialogSettingName);
 			if(StringUtils.isNotEmpty(settingAbsenderName))
 			{
-				Absender absender = OfficeUtils.findAbsenderByName(
-						settingAbsenderName,
-						ODFDefaultWriteAdapterWizard.DEFAULT_OFFICECONTEXT);
+				Absender absender = OfficeUtils.findAbsenderByName(settingAbsenderName,officeContext);
 				eventBroker.post(OfficeUtils.SET_ABSENDERMASTER_SELECTION_EVENT, absender);
 			}
 		}			
-
 	}
 
 	/**
@@ -204,20 +178,44 @@ public class ODFAbsenderWizardPage extends WizardPage implements IWriteWizardPag
 	{
 		this.selectedAbsender = absender;
 	}
+		
+	@Inject
+	@Optional
+	public void handleAbsenderSelection(@UIEventTopic(OfficeUtils.ABSENDERMASTER_SELECTED_EVENT) Object object)
+	{
+		if (object instanceof Absender)		
+			selectedAbsender = (Absender) object;
+	}
 	
 	/**
-	 * Absender im MasterView selektiert
-	 * @param absender
+	 * DetailRenderer meldet das ein neuer Absender hinzugefuegt wurde
+	 * 
+	 * @param object
 	 */
 	@Inject
 	@Optional
-	public void handleMasterModelChangedEvent(@UIEventTopic(OfficeUtils.ABSENDERMASTER_SELECTED_EVENT) Absender absender)
+	public void handleAddAbsender(@UIEventTopic(OfficeUtils.ADD_NEWSENDER_EVENT) Object object)
 	{
-		this.selectedAbsender = absender;
+		if (object instanceof Sender)
+		{
+			Sender senderSet = (Sender) object;
+			EList<Absender>absenderList = senderSet.getSenders();
+			Absender addedAbsender = absenderList.get(absenderList.size()-1);										
+			addedAbsender.setContext(officeContext);	
+			
+			// Absenderadresse erzeugen	und zum Absender hinzufuegen			
+			EClass adresseClass = AddressPackage.eINSTANCE.getAdresse();
+			Adresse adresse = (Adresse) EcoreUtil.create(adresseClass);
+			adresse.setName(addedAbsender.getName());
+			addedAbsender.setAdresse(adresse);
+			
+			// die Adresse des neuen Absenders selektieren
+			eventBroker.post(OfficeUtils.SET_ABSENDERMASTER_SELECTION_EVENT , adresse);
+		}
 	}
 	
 	/*
-	 * Der 'AddExistingButton' soll die Uebernahme einer Adresse aus der Kontaktdatenbank triggern.
+	 * Aktion 'aus Datenbank kopieren' wurde vom 'SenderDetailsRenderer' ausgeloest.
 	 * 
 	 */
 	@Inject
@@ -227,75 +225,88 @@ public class ODFAbsenderWizardPage extends WizardPage implements IWriteWizardPag
 		Kontakt dbKontakt = OfficeUtils.readKontaktFromDatabase();
 		if(dbKontakt != null)
 		{
-			EClass absenderClass = AddressPackage.eINSTANCE.getAbsender();
-			Absender absender = (Absender) EcoreUtil.create(absenderClass);
-			absender.setName(dbKontakt.getName());
-			absender.setAdresse(dbKontakt.getAdresse());
-			absender.setContext(((ODFDefaultWriteAdapterWizard) getWizard()).getOfficeContext());
+			Absender absender = createAbsender(dbKontakt.getName(), officeContext);
+			Adresse adresse = dbKontakt.getAdresse();
+			absender.setAdresse(adresse);
 
 			// den Absender mit der Adresse aus der Datenbank hinzufuegen
-			senders.getSenders().add(absender);
+			absenderSet.getSenders().add(absender);
 			
 			// den neuen Absender selektieren
 			eventBroker.post(OfficeUtils.SET_ABSENDERMASTER_SELECTION_EVENT , absender);
 		}
 	}
 	
-	/*
-	 * Schreibt den selektierten Absender, bzw. dessen Adresse in das Dokument.
+	/* 
+	 * Dieser Aufruf erfolgt im Zuge einer 'doPerformFinish()' Action des Wizards.
+	 * Die Adresse des selektierten Absenders wird in das TextDokument geschrieben.
+	 * Der Name des Absenders wird im DialogSetting gespeichert.
 	 * 
-	 */
+	 * Der richtige Zeitpunkt temporaer erzeugte Absender (beim Oeffnen eines Dokuments) wieder 
+	 * aus dem EFM-Modell zu entfernen.
+	 * 
+	 */	
 	@Override
 	public void writeToDocument (TextDocument odfDocument)
 	{
-		if(OfficeUtils.writeToDocument(odfDocument, selectedAbsender))
+		// temporaere Absender aus dem Modell entfernen
+		removeTemporaereAbsender();
+		
+		if(OfficeUtils.writeAbsenderToDocument(odfDocument, selectedAbsender))
 		{
 			// Name des Absenders im DialogSetting speichern
-			dialogSettings.put(SETTINGABSENDER, selectedAbsender.getName());
+			if(dialogSettings != null)
+				dialogSettings.put(dialogSettingName, selectedAbsender.getName());
 		}
-		
-		// temporaere Absender (wird beim Laden des Dokuments erzeugt) loeschen
-		removeTemporaereAbsender();
 	}
 	
 	/* 
-	 * Absenderdaten aus dem Dokument lesen und temporaer in einem EMF-Objekt speichern
+	 * Absenderdaten aus dem Dokument lesen und temporaer in einem EMF-Objekt speichern.
+	 * Der temp. Absender wird dem ODFDefaultWriteAdapterWizard.DEFAULT_OFFICECONTEXT zugeordnet.
 	 * 
 	 */
 	@Override	
 	public void readFromDocument(TextDocument odfDocument)
 	{
-		OfficeUtils.readFromDocument(odfDocument);
+		Absender tempAbsender = OfficeUtils.readAbsenderFromDocument(odfDocument);
+		tempAbsender.setContext(officeContext);	
 	}
-	
-	/*
-	 * die temporaer erzeugten Objekte (beim Einlesen aus dem Dokument) wieder loeschen
-	 */
-	private void removeTemporaereAbsender()
-	{
-		List<Absender>removeList = new ArrayList<Absender>();
-		
-		Sender senders = OfficeUtils.getSender();
-		List<Absender>allAbsender = senders.getSenders();
-		for(Absender absender : allAbsender)
-		{
-			if(StringUtils.equals(absender.getName(), ODFDefaultWriteAdapterWizard.LOADED_ABSENDER))
-				removeList.add(absender);
-		}
-		senders.getSenders().removeAll(removeList);
-	}
-	
 	
 	@Override
 	public void cancelPage(TextDocument odfDocument)
 	{
-		EditingDomain domain = AdapterFactoryEditingDomain.getEditingDomainFor(senders);			
-		while(domain.getCommandStack().canUndo())
-			domain.getCommandStack().undo();
 		removeTemporaereAbsender();
 	}
+
+	/*
+	 * die temporaer erzeugten Absender-Objekte (beim Einlesen aus dem Dokument erzeugt) wieder loeschen
+	 */
+	protected void removeTemporaereAbsender()
+	{
+		List<Absender>removeList = new ArrayList<Absender>();
+		
+		List<Absender>absenderList = absenderSet.getSenders();		
+		for(Absender absender : absenderList)
+		{
+			if(StringUtils.equals(absender.getName(), OfficeUtils.LOADED_ABSENDER))
+				removeList.add(absender);
+		}
+		
+		absenderSet.getSenders().removeAll(removeList);
+	}
 	
-	
+	/*
+	 * Neuen Absender erzeugen mit Namen und OfficeContext
+	 */
+	private Absender createAbsender(String absenderName, String officeContext)
+	{
+		EClass absenderClass = AddressPackage.eINSTANCE.getAbsender();
+		Absender absender = (Absender) EcoreUtil.create(absenderClass);
+		absender.setName(absenderName);
+		absender.setContext(officeContext);
+		return absender;
+	}
+
 	
 
 }

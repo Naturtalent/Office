@@ -66,6 +66,8 @@ import it.naturtalent.office.model.address.Sender;
  */
 public class ODFEmpfaengerWizardPage extends WizardPage implements IWriteWizardPage
 {
+	public final static String SENDER_PAGE_NAME = "ODF_SENDER";
+	
 	private Receivers receivers;
 	private Empfaenger selectedEmpfaenger;
 	private IEventBroker eventBroker;
@@ -78,7 +80,7 @@ public class ODFEmpfaengerWizardPage extends WizardPage implements IWriteWizardP
 	 */
 	public ODFEmpfaengerWizardPage()
 	{
-		super(ODFDefaultWriteAdapterWizard.RECEIVER_PAGE_NAME);
+		super(SENDER_PAGE_NAME);
 		setMessage("Einen Empfänger definieren, dessen Adresse in das Dokument übernommen wird");
 		setTitle("Empfänger");
 		setDescription("einen Empfänger festlegen");

@@ -776,6 +776,26 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getSignature_Status1()
+	{
+		return (EAttribute)signatureEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getSignature_Status2()
+	{
+		return (EAttribute)signatureEClass.getEStructuralFeatures().get(6);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getSignatureSet()
 	{
 		return signatureSetEClass;
@@ -946,6 +966,8 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 		createEAttribute(signatureEClass, SIGNATURE__SIGNER);
 		createEAttribute(signatureEClass, SIGNATURE__COSIGNER);
 		createEAttribute(signatureEClass, SIGNATURE__CONTEXT);
+		createEAttribute(signatureEClass, SIGNATURE__STATUS1);
+		createEAttribute(signatureEClass, SIGNATURE__STATUS2);
 
 		signatureSetEClass = createEClass(SIGNATURE_SET);
 		createEReference(signatureSetEClass, SIGNATURE_SET__SIGNATURES);
@@ -1060,6 +1082,8 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 		initEAttribute(getSignature_Signer(), ecorePackage.getEString(), "signer", null, 0, 1, Signature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getSignature_Cosigner(), ecorePackage.getEString(), "cosigner", null, 0, 1, Signature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getSignature_Context(), ecorePackage.getEString(), "context", null, 0, 1, Signature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSignature_Status1(), ecorePackage.getEString(), "status1", null, 0, 1, Signature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSignature_Status2(), ecorePackage.getEString(), "status2", null, 0, 1, Signature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(signatureSetEClass, SignatureSet.class, "SignatureSet", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getSignatureSet_Signatures(), this.getSignature(), null, "signatures", null, 0, -1, SignatureSet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

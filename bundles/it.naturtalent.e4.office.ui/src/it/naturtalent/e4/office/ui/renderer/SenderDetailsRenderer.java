@@ -189,5 +189,17 @@ public class SenderDetailsRenderer extends MultiReferenceSWTRenderer
 		eventBroker.post(OfficeUtils.ADD_EXISTING_SENDER , eObject);
 	}
 
+	
+	@Override
+	protected void handleAddNew(TableViewer tableViewer, EObject eObject,
+			EStructuralFeature structuralFeature)
+	{
+		// TODO Auto-generated method stub
+		super.handleAddNew(tableViewer, eObject, structuralFeature);
+		eventBroker.post(OfficeUtils.ADD_NEWSENDER_EVENT , eObject);
+	}
+
+	
+
 
 }

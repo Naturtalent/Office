@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="ASCII"?>
+<org.eclipse.emf.ecp.view.model:View xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:org.eclipse.emf.ecp.view.model="http://org/eclipse/emf/ecp/view/model/1170" xmi:id="_1M_3IAn0EemPo_3_9PnyAA" name="Signature">
+  <rootEClass href="http://it.naturtalent/address#//Signature"/>
+  <children xsi:type="org.eclipse.emf.ecp.view.model:Control" xmi:id="_1OUs0An0EemPo_3_9PnyAA" name="Control name">
+    <domainModelReference xsi:type="org.eclipse.emf.ecp.view.model:FeaturePathDomainModelReference" xmi:id="_1OUs0Qn0EemPo_3_9PnyAA">
+      <domainModelEFeature xsi:type="ecore:EAttribute" href="http://it.naturtalent/address#//Signature/name"/>
+    </domainModelReference>
+  </children>
+  <children xsi:type="org.eclipse.emf.ecp.view.model:Control" xmi:id="_1OUs0gn0EemPo_3_9PnyAA" name="Control greeting">
+    <domainModelReference xsi:type="org.eclipse.emf.ecp.view.model:FeaturePathDomainModelReference" xmi:id="_1OUs0wn0EemPo_3_9PnyAA">
+      <domainModelEFeature xsi:type="ecore:EAttribute" href="http://it.naturtalent/address#//Signature/greeting"/>
+    </domainModelReference>
+  </children>
+  <children xsi:type="org.eclipse.emf.ecp.view.model:Control" xmi:id="_AxmUkBQuEemUZ6O27AXLoA" name="Contril status1">
+    <domainModelReference xsi:type="org.eclipse.emf.ecp.view.model:FeaturePathDomainModelReference" xmi:id="_D-jYwBQuEemUZ6O27AXLoA">
+      <domainModelEFeature xsi:type="ecore:EAttribute" href="http://it.naturtalent/address#//Signature/status1"/>
+    </domainModelReference>
+  </children>
+  <children xsi:type="org.eclipse.emf.ecp.view.model:Control" xmi:id="_1OUs1An0EemPo_3_9PnyAA" name="Control signer">
+    <domainModelReference xsi:type="org.eclipse.emf.ecp.view.model:FeaturePathDomainModelReference" xmi:id="_1OUs1Qn0EemPo_3_9PnyAA">
+      <domainModelEFeature xsi:type="ecore:EAttribute" href="http://it.naturtalent/address#//Signature/signer"/>
+    </domainModelReference>
+  </children>
+  <children xsi:type="org.eclipse.emf.ecp.view.model:Control" xmi:id="_KDGVIBQuEemUZ6O27AXLoA" name="Control status2">
+    <domainModelReference xsi:type="org.eclipse.emf.ecp.view.model:FeaturePathDomainModelReference" xmi:id="_NALKQBQuEemUZ6O27AXLoA">
+      <domainModelEFeature xsi:type="ecore:EAttribute" href="http://it.naturtalent/address#//Signature/status2"/>
+    </domainModelReference>
+  </children>
+  <children xsi:type="org.eclipse.emf.ecp.view.model:Control" xmi:id="_1OUs1gn0EemPo_3_9PnyAA" name="Control cosigner">
+    <domainModelReference xsi:type="org.eclipse.emf.ecp.view.model:FeaturePathDomainModelReference" xmi:id="_1OUs1wn0EemPo_3_9PnyAA">
+      <domainModelEFeature xsi:type="ecore:EAttribute" href="http://it.naturtalent/address#//Signature/cosigner"/>
+    </domainModelReference>
+  </children>
+  <ecorePaths>/it.naturtalent.office.model/model/address.ecore</ecorePaths>
+</org.eclipse.emf.ecp.view.model:View>

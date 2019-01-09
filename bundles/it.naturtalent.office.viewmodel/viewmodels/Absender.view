@@ -11,10 +11,5 @@
       <domainModelEFeature xsi:type="ecore:EReference" href="http://it.naturtalent/address#//Absender/adresse"/>
     </domainModelReference>
   </children>
-  <children xsi:type="org.eclipse.emf.ecp.view.model:Control" xmi:id="_Y-gvZPCeEeipr4UGnnokfA" name="Control context">
-    <domainModelReference xsi:type="org.eclipse.emf.ecp.view.model:FeaturePathDomainModelReference" xmi:id="_Y-gvZfCeEeipr4UGnnokfA">
-      <domainModelEFeature xsi:type="ecore:EAttribute" href="http://it.naturtalent/address#//Absender/context"/>
-    </domainModelReference>
-  </children>
   <ecorePaths>/it.naturtalent.office.model/model/address.ecore</ecorePaths>
 </org.eclipse.emf.ecp.view.model:View>

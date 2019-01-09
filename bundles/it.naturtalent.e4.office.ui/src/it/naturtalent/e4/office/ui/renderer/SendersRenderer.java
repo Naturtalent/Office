@@ -128,12 +128,26 @@ public class SendersRenderer extends TreeMasterDetailSWTRenderer
 		return treeViewer;
 	}
 	
+	
+	/*
+	 * Kontextmenue im Master abschalten, bringt Probleme beim Hinzufuegen neuer Absender.
+	 * 
+	 */
+	@Override
+	protected boolean hasContextMenu()
+	{
+		return false;
+	}
+
 	@Inject
 	@Optional
 	public void handleModelChangedEvent(@UIEventTopic(OfficeUtils.SET_ABSENDERMASTER_SELECTION_EVENT) EObject eObject)
 	{		
 		if(eObject != null)
-			treeViewer.setSelection(new StructuredSelection(eObject));	
+		{
+			treeViewer.refresh();
+			treeViewer.setSelection(new StructuredSelection(eObject));
+		}
 	}
 
 	

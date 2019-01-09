@@ -25,6 +25,8 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  *   <li>{@link it.naturtalent.office.model.address.impl.SignatureImpl#getSigner <em>Signer</em>}</li>
  *   <li>{@link it.naturtalent.office.model.address.impl.SignatureImpl#getCosigner <em>Cosigner</em>}</li>
  *   <li>{@link it.naturtalent.office.model.address.impl.SignatureImpl#getContext <em>Context</em>}</li>
+ *   <li>{@link it.naturtalent.office.model.address.impl.SignatureImpl#getStatus1 <em>Status1</em>}</li>
+ *   <li>{@link it.naturtalent.office.model.address.impl.SignatureImpl#getStatus2 <em>Status2</em>}</li>
  * </ul>
  *
  * @generated
@@ -130,6 +132,46 @@ public class SignatureImpl extends MinimalEObjectImpl.Container implements Signa
 	 * @ordered
 	 */
 	protected String context = CONTEXT_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getStatus1() <em>Status1</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getStatus1()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String STATUS1_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getStatus1() <em>Status1</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getStatus1()
+	 * @generated
+	 * @ordered
+	 */
+	protected String status1 = STATUS1_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getStatus2() <em>Status2</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getStatus2()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String STATUS2_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getStatus2() <em>Status2</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getStatus2()
+	 * @generated
+	 * @ordered
+	 */
+	protected String status2 = STATUS2_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -272,6 +314,52 @@ public class SignatureImpl extends MinimalEObjectImpl.Container implements Signa
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getStatus1()
+	{
+		return status1;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setStatus1(String newStatus1)
+	{
+		String oldStatus1 = status1;
+		status1 = newStatus1;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, AddressPackage.SIGNATURE__STATUS1, oldStatus1, status1));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getStatus2()
+	{
+		return status2;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setStatus2(String newStatus2)
+	{
+		String oldStatus2 = status2;
+		status2 = newStatus2;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, AddressPackage.SIGNATURE__STATUS2, oldStatus2, status2));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType)
 	{
@@ -287,6 +375,10 @@ public class SignatureImpl extends MinimalEObjectImpl.Container implements Signa
 				return getCosigner();
 			case AddressPackage.SIGNATURE__CONTEXT:
 				return getContext();
+			case AddressPackage.SIGNATURE__STATUS1:
+				return getStatus1();
+			case AddressPackage.SIGNATURE__STATUS2:
+				return getStatus2();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -315,6 +407,12 @@ public class SignatureImpl extends MinimalEObjectImpl.Container implements Signa
 				return;
 			case AddressPackage.SIGNATURE__CONTEXT:
 				setContext((String)newValue);
+				return;
+			case AddressPackage.SIGNATURE__STATUS1:
+				setStatus1((String)newValue);
+				return;
+			case AddressPackage.SIGNATURE__STATUS2:
+				setStatus2((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -345,6 +443,12 @@ public class SignatureImpl extends MinimalEObjectImpl.Container implements Signa
 			case AddressPackage.SIGNATURE__CONTEXT:
 				setContext(CONTEXT_EDEFAULT);
 				return;
+			case AddressPackage.SIGNATURE__STATUS1:
+				setStatus1(STATUS1_EDEFAULT);
+				return;
+			case AddressPackage.SIGNATURE__STATUS2:
+				setStatus2(STATUS2_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -369,6 +473,10 @@ public class SignatureImpl extends MinimalEObjectImpl.Container implements Signa
 				return COSIGNER_EDEFAULT == null ? cosigner != null : !COSIGNER_EDEFAULT.equals(cosigner);
 			case AddressPackage.SIGNATURE__CONTEXT:
 				return CONTEXT_EDEFAULT == null ? context != null : !CONTEXT_EDEFAULT.equals(context);
+			case AddressPackage.SIGNATURE__STATUS1:
+				return STATUS1_EDEFAULT == null ? status1 != null : !STATUS1_EDEFAULT.equals(status1);
+			case AddressPackage.SIGNATURE__STATUS2:
+				return STATUS2_EDEFAULT == null ? status2 != null : !STATUS2_EDEFAULT.equals(status2);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -394,6 +502,10 @@ public class SignatureImpl extends MinimalEObjectImpl.Container implements Signa
 		result.append(cosigner);
 		result.append(", context: ");
 		result.append(context);
+		result.append(", status1: ");
+		result.append(status1);
+		result.append(", status2: ");
+		result.append(status2);
 		result.append(')');
 		return result.toString();
 	}

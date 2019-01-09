@@ -15,6 +15,8 @@ import org.eclipse.e4.ui.internal.workbench.E4Workbench;
 import org.eclipse.emf.ecp.spi.ui.util.ECPHandlerHelper;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.Wizard;
+import org.eclipse.swt.custom.BusyIndicator;
+import org.eclipse.swt.widgets.Display;
 import org.odftoolkit.simple.TextDocument;
 
 import it.naturtalent.e4.office.ui.IODFWriteAdapter;
@@ -35,8 +37,8 @@ import it.naturtalent.e4.office.ui.OfficeUtils;
 public class ODFDefaultWriteAdapterWizard extends Wizard
 {
 	
-	public final static String RECEIVER_PAGE_NAME = "ODF_RECEIVER";
-	public final static String SENDER_PAGE_NAME = "ODF_SENDER";
+	//public final static String RECEIVER_PAGE_NAME = "ODF_RECEIVER";
+	//public final static String SENDER_PAGE_NAME = "ODF_SENDER";
 	
 	// erforderlich fuer das Erstellen der Pages via ContextInjectionFactory
 	protected IEclipseContext context;
@@ -120,6 +122,7 @@ public class ODFDefaultWriteAdapterWizard extends Wizard
 		// WizardPages hinzufuegen
 		addPage(receiverWizardPage);
 		addPage(absenderWizardPage);
+		addPage(ContextInjectionFactory.make(ODFSignatureWizardPage.class, context));
 	}
 	
 	// die WizardPages lesen 'ihre' Daten von der zuoeffnenden Datei		
@@ -127,6 +130,7 @@ public class ODFDefaultWriteAdapterWizard extends Wizard
 	{		
 		if (odfDocument != null)
 		{
+			
 			IWizardPage[] allPages = getPages();
 			for (IWizardPage page : allPages)
 			{
@@ -136,6 +140,10 @@ public class ODFDefaultWriteAdapterWizard extends Wizard
 					writeWizardPage.readFromDocument(odfDocument);
 				}
 			}
+			
+			
+			
+			
 		}
 	}
 
@@ -152,8 +160,10 @@ public class ODFDefaultWriteAdapterWizard extends Wizard
 	}
 	
 	/**
-	 * Die Funktion ruft alle assoziierten Pages auf und executiert die jeweiligen 'writeToDocument(odfDocument)' 
-	 * Funktionen der Pages. Es werden nur die Pages betrachtet, die das Interface 'IWriteWizardPage' implementieren.
+	 * Mit dieser Funktion ruft der Wizard alle seine Seiten auf und executiert die jeweiligen 
+	 * 'writeToDocument(odfDocument)' Funktionen der Pages. 
+	 * 
+	 * Es werden nur die Pages betrachtet, die das Interface 'IWriteWizardPage' implementieren.
 	 */
 	protected void doPerformFinish()
 	{
@@ -240,7 +250,18 @@ public class ODFDefaultWriteAdapterWizard extends Wizard
 
 					// im OpenModus wird der Dateiinhalt eingelesen
 					if (wizardModus == WIZARDOPENMODE)
-						readDocumentData();
+						
+						BusyIndicator.showWhile(Display.getDefault(), new Runnable()
+						{
+							@Override
+							public void run()
+							{
+								// projectExportDialog.createDialogArea(Composite parent) via Busyindicator aufrufen
+								readDocumentData();
+							}
+						});
+						
+						
 
 				} catch (Exception e)
 				{

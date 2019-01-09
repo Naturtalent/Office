@@ -18,6 +18,8 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link it.naturtalent.office.model.address.Signature#getSigner <em>Signer</em>}</li>
  *   <li>{@link it.naturtalent.office.model.address.Signature#getCosigner <em>Cosigner</em>}</li>
  *   <li>{@link it.naturtalent.office.model.address.Signature#getContext <em>Context</em>}</li>
+ *   <li>{@link it.naturtalent.office.model.address.Signature#getStatus1 <em>Status1</em>}</li>
+ *   <li>{@link it.naturtalent.office.model.address.Signature#getStatus2 <em>Status2</em>}</li>
  * </ul>
  *
  * @see it.naturtalent.office.model.address.AddressPackage#getSignature()
@@ -155,5 +157,57 @@ public interface Signature extends EObject
 	 * @generated
 	 */
 	void setContext(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Status1</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Status1</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Status1</em>' attribute.
+	 * @see #setStatus1(String)
+	 * @see it.naturtalent.office.model.address.AddressPackage#getSignature_Status1()
+	 * @model
+	 * @generated
+	 */
+	String getStatus1();
+
+	/**
+	 * Sets the value of the '{@link it.naturtalent.office.model.address.Signature#getStatus1 <em>Status1</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Status1</em>' attribute.
+	 * @see #getStatus1()
+	 * @generated
+	 */
+	void setStatus1(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Status2</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Status2</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Status2</em>' attribute.
+	 * @see #setStatus2(String)
+	 * @see it.naturtalent.office.model.address.AddressPackage#getSignature_Status2()
+	 * @model
+	 * @generated
+	 */
+	String getStatus2();
+
+	/**
+	 * Sets the value of the '{@link it.naturtalent.office.model.address.Signature#getStatus2 <em>Status2</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Status2</em>' attribute.
+	 * @see #getStatus2()
+	 * @generated
+	 */
+	void setStatus2(String value);
 
 } // Signature

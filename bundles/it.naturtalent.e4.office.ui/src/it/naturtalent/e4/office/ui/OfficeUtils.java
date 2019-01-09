@@ -86,6 +86,7 @@ public class OfficeUtils
 	public static final String ADD_NEWREFERENZ_EVENT = "addnewreferenzevent"; // $NON-NLS-N$
 	public static final String ADD_NEWFOOTNOTE_EVENT = "addnewfootnoteevent"; // $NON-NLS-N$
 	public static final String ADD_EXISTING_RECEIVER = "addexistingreceiver"; // $NON-NLS-N$
+	public static final String ADD_NEWSENDER_EVENT = "addnewsenderevent"; // $NON-NLS-N$
 	
 	// SignatureSetRenderer meldet das Signatur Events
 	public static final String ADD_SIGNATURE_EVENT = "addsignatureevent"; // $NON-NLS-N$
@@ -311,11 +312,15 @@ public class OfficeUtils
 	// Label des aus dem Dokument gelesenen Absenders
 	public static final String LOADED_ABSENDER = "Absender aus der Datei";
 
-	public static Absender readFromDocument(TextDocument odfDocument)
+	/**
+	 * Absender aus dem Dokument lesen
+	 * @param odfDocument
+	 * @return
+	 */
+	public static Absender readAbsenderFromDocument(TextDocument odfDocument)
 	{
 		Absender tempAbsender = null;
-		Table table = odfDocument
-				.getTableByName(IODFWriteAdapter.ODF_WRITESENDER);
+		Table table = odfDocument.getTableByName(IODFWriteAdapter.ODF_WRITESENDER);
 		if (table != null)
 		{
 			// einen Absender erstellen (repraesentiert die Adresse des
@@ -376,7 +381,7 @@ public class OfficeUtils
 	 * Rueckgabe: true ohne erkannbaren Fehler erfolgt
 	 * 
 	 */
-	public static boolean writeToDocument(TextDocument odfDocument,
+	public static boolean writeAbsenderToDocument(TextDocument odfDocument,
 			Absender absender)
 	{
 		if ((absender != null) && (odfDocument != null))

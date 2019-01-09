@@ -46,7 +46,7 @@ import it.naturtalent.office.model.address.SignatureSet;
 
 public class SignatureSetRenderer extends MultiReferenceSWTRenderer
 {
-	private AbstractTableViewer tableViewer;
+	//private AbstractTableViewer tableViewer;
 	
 	// Liste mit den statischen Signaturen (z.B. temp. erzeugte, steuert delButton-Status)
 	private List<Signature>unremoveableSignatures;
@@ -72,9 +72,9 @@ public class SignatureSetRenderer extends MultiReferenceSWTRenderer
 		@Override
 		public boolean select(Viewer viewer, Object parentElement, Object element)
 		{					
-			if (element instanceof FootNote)
+			if (element instanceof Signature)
 			{					
-				String elementContext = ((FootNote)element).getContext();
+				String elementContext = ((Signature)element).getContext();
 					return(StringUtils.equals(elementContext, officeContext));				
 			}
 			
@@ -108,7 +108,7 @@ public class SignatureSetRenderer extends MultiReferenceSWTRenderer
 	{
 		Control control = super.renderMultiReferenceControl(cell, parent);
 		
-		tableViewer = getTableViewer();
+		AbstractTableViewer tableViewer = getTableViewer();
 				
 		// OfficeContext fuer den Filter aus dem Eclipse4-Context abrufen
 		IEclipseContext context = E4Workbench.getServiceContext();
@@ -187,7 +187,7 @@ public class SignatureSetRenderer extends MultiReferenceSWTRenderer
 	protected void handleAddNew(TableViewer tableViewer, EObject eObject,
 			EStructuralFeature structuralFeature)
 	{		
-		super.handleAddNew(tableViewer, eObject, structuralFeature);
+		super.handleAddNew(tableViewer, eObject, structuralFeature);		
 		eventBroker.post(OfficeUtils.ADD_SIGNATURE_EVENT, eObject);	
 	}
 
@@ -195,8 +195,11 @@ public class SignatureSetRenderer extends MultiReferenceSWTRenderer
 	@Optional
 	public void handleSignatureSelectionRequest(@UIEventTopic(OfficeUtils.SIGNATURE_REQUESTSELECTIONEVENT) Object event)
 	{
-		if (event instanceof Signature)		
+		if (event instanceof Signature)	
+		{
+			getTableViewer().refresh();
 			getTableViewer().setSelection(new StructuredSelection(event));
+		}
 	}
 
 	

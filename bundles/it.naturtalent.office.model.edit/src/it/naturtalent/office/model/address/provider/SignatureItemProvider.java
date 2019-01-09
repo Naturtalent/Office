@@ -69,6 +69,8 @@ public class SignatureItemProvider
 			addSignerPropertyDescriptor(object);
 			addCosignerPropertyDescriptor(object);
 			addContextPropertyDescriptor(object);
+			addStatus1PropertyDescriptor(object);
+			addStatus2PropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -189,6 +191,52 @@ public class SignatureItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Status1 feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addStatus1PropertyDescriptor(Object object)
+	{
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Signature_status1_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Signature_status1_feature", "_UI_Signature_type"),
+				 AddressPackage.Literals.SIGNATURE__STATUS1,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Status2 feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addStatus2PropertyDescriptor(Object object)
+	{
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Signature_status2_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Signature_status2_feature", "_UI_Signature_type"),
+				 AddressPackage.Literals.SIGNATURE__STATUS2,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This returns Signature.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -234,6 +282,8 @@ public class SignatureItemProvider
 			case AddressPackage.SIGNATURE__SIGNER:
 			case AddressPackage.SIGNATURE__COSIGNER:
 			case AddressPackage.SIGNATURE__CONTEXT:
+			case AddressPackage.SIGNATURE__STATUS1:
+			case AddressPackage.SIGNATURE__STATUS2:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

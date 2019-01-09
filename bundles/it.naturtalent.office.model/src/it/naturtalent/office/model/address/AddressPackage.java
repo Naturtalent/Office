@@ -885,13 +885,31 @@ public interface AddressPackage extends EPackage
 	int SIGNATURE__CONTEXT = 4;
 
 	/**
+	 * The feature id for the '<em><b>Status1</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SIGNATURE__STATUS1 = 5;
+
+	/**
+	 * The feature id for the '<em><b>Status2</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SIGNATURE__STATUS2 = 6;
+
+	/**
 	 * The number of structural features of the '<em>Signature</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SIGNATURE_FEATURE_COUNT = 5;
+	int SIGNATURE_FEATURE_COUNT = 7;
 
 	/**
 	 * The number of operations of the '<em>Signature</em>' class.
@@ -1552,6 +1570,28 @@ public interface AddressPackage extends EPackage
 	EAttribute getSignature_Context();
 
 	/**
+	 * Returns the meta object for the attribute '{@link it.naturtalent.office.model.address.Signature#getStatus1 <em>Status1</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Status1</em>'.
+	 * @see it.naturtalent.office.model.address.Signature#getStatus1()
+	 * @see #getSignature()
+	 * @generated
+	 */
+	EAttribute getSignature_Status1();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.naturtalent.office.model.address.Signature#getStatus2 <em>Status2</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Status2</em>'.
+	 * @see it.naturtalent.office.model.address.Signature#getStatus2()
+	 * @see #getSignature()
+	 * @generated
+	 */
+	EAttribute getSignature_Status2();
+
+	/**
 	 * Returns the meta object for class '{@link it.naturtalent.office.model.address.SignatureSet <em>Signature Set</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2071,6 +2111,20 @@ public interface AddressPackage extends EPackage
 		 * @generated
 		 */
 		EAttribute SIGNATURE__CONTEXT = eINSTANCE.getSignature_Context();
+		/**
+		 * The meta object literal for the '<em><b>Status1</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SIGNATURE__STATUS1 = eINSTANCE.getSignature_Status1();
+		/**
+		 * The meta object literal for the '<em><b>Status2</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SIGNATURE__STATUS2 = eINSTANCE.getSignature_Status2();
 		/**
 		 * The meta object literal for the '{@link it.naturtalent.office.model.address.impl.SignatureSetImpl <em>Signature Set</em>}' class.
 		 * <!-- begin-user-doc -->
