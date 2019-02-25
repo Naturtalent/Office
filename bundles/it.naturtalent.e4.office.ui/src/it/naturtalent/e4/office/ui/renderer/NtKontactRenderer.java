@@ -79,7 +79,7 @@ public class NtKontactRenderer extends MultiReferenceSWTRenderer
 			EStructuralFeature structuralFeature)
 	{
 		btnMoveUp = super.createMoveUpButton(parent, structuralFeature);
-		btnMoveUp.setImage(Icon.ICON_DATABASE_GET.getImage(IconSize._16x16_DefaultIconSize));
+		btnMoveUp.setImage(Icon.ICON_DATABASE.getImage(IconSize._16x16_DefaultIconSize));
 		btnMoveUp.setToolTipText("Kontakt aus der Datenbank kopieren");
 		return btnMoveUp;
 	}

@@ -112,8 +112,8 @@ public class ODFDocumentUtils
 				for (int c = 0; c < nCols; c++)
 				{
 					{
-						Cell cell = cellRange.getCellByPosition(c, r);
-						Paragraph para = cell.getParagraphByIndex(c, false);
+						Cell cell = cellRange.getCellByPosition(c, r);					
+						Paragraph para = cell.getParagraphByIndex(0, false);
 						if (para != null)
 							para.setTextContent("");
 					}
