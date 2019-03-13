@@ -129,21 +129,22 @@ public class ODFDefaultWriteAdapterWizard extends Wizard
 	protected void readDocumentData()
 	{		
 		if (odfDocument != null)
-		{
-			
+		{			
 			IWizardPage[] allPages = getPages();
 			for (IWizardPage page : allPages)
 			{
 				if (page instanceof IWriteWizardPage)
 				{
 					IWriteWizardPage writeWizardPage = (IWriteWizardPage) page;
-					writeWizardPage.readFromDocument(odfDocument);
+					try
+					{
+						writeWizardPage.readFromDocument(odfDocument);
+					} catch (Exception e)
+					{
+						// von der WizardPage kann nicht gelesen werden (existiert moeglicherweise nicht)
+					}
 				}
 			}
-			
-			
-			
-			
 		}
 	}
 

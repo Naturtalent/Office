@@ -26,6 +26,7 @@ import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.ui.di.UIEventTopic;
 import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.wizard.IWizard;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.widgets.Shell;
@@ -110,11 +111,17 @@ public class OpenTextHandler
 					it.naturtalent.libreoffice.text.TextDocument writeDocument = new it.naturtalent.libreoffice.text.TextDocument();
 					
 					// den Wizard oeffnen und Dokument editieren
-					if(wizardDialog.open() == WizardDialog.OK)
-					{					
-						// Dokument in LibreOffice oeffnen
-						File file = ifile.getLocation().toFile();
-						writeDocument.loadPage(file.toString());																
+					try
+					{
+						if(wizardDialog.open() == WizardDialog.OK)
+						{					
+							// Dokument in LibreOffice oeffnen
+							File file = ifile.getLocation().toFile();
+							writeDocument.loadPage(file.toString());																
+						}
+					} catch (Exception e)
+					{
+						MessageDialog.openError(shell, "WriteWizard", "kein Wizard verfügbar");
 					}
 				}
 			}
