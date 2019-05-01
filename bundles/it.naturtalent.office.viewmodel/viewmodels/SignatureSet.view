@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="ASCII"?>
-<org.eclipse.emf.ecp.view.model:View xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:org.eclipse.emf.ecp.view.model="http://org/eclipse/emf/ecp/view/model/1170" xmi:id="_QLZ1gAC5EemVaf8_KVb6Zg" name="SignatureSet">
+<org.eclipse.emf.ecp.view.model:View xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:org.eclipse.emf.ecp.view.model="http://org/eclipse/emf/ecp/view/model/1180" xmi:id="_QLZ1gAC5EemVaf8_KVb6Zg" name="SignatureSet">
   <rootEClass href="http://it.naturtalent/address#//SignatureSet"/>
+  <ecorePaths>/it.naturtalent.e4.project.office.model/model/address.ecore</ecorePaths>
   <children xsi:type="org.eclipse.emf.ecp.view.model:Control" xmi:id="_QMJcYAC5EemVaf8_KVb6Zg" name="Control signatures">
     <domainModelReference xsi:type="org.eclipse.emf.ecp.view.model:FeaturePathDomainModelReference" xmi:id="_QMJcYQC5EemVaf8_KVb6Zg">
       <domainModelEFeature xsi:type="ecore:EReference" href="http://it.naturtalent/address#//SignatureSet/signatures"/>
     </domainModelReference>
   </children>
-  <ecorePaths>/it.naturtalent.office.model/model/address.ecore</ecorePaths>
 </org.eclipse.emf.ecp.view.model:View>
