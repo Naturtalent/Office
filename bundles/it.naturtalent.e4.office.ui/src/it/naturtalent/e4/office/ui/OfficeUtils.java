@@ -27,7 +27,6 @@ import org.odftoolkit.simple.table.CellRange;
 import org.odftoolkit.simple.table.Table;
 
 import it.naturtalent.e4.office.ui.wizards.ODFDefaultWriteAdapterWizard;
-import it.naturtalent.emf.model.EMFModelUtils;
 import it.naturtalent.office.model.address.Absender;
 import it.naturtalent.office.model.address.AddressPackage;
 import it.naturtalent.office.model.address.Adresse;
@@ -125,7 +124,8 @@ public class OfficeUtils
 				.getProject(OFFICEPROJECTNAME);
 		if (officeProject == null)
 		{
-			officeProject = EMFModelUtils.createProject(OFFICEPROJECTNAME);
+			//officeProject = EMFModelUtils.createProject(OFFICEPROJECTNAME);
+			officeProject = it.naturtalent.e4.project.ui.Activator.createProject(OFFICEPROJECTNAME);
 			if (officeProject == null)
 				log.error("es konnte kein Office-ECPProject erzeugt werden");
 		}
