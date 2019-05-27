@@ -98,7 +98,8 @@ public class NtKontactRenderer extends MultiReferenceSWTRenderer
 	protected void updateButtonEnabling()
 	{		
 		super.updateButtonEnabling();
-		btnMoveUp.setEnabled(true);
+		if(btnMoveUp != null)
+			btnMoveUp.setEnabled(true);
 	}
 
 

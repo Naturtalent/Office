@@ -36,6 +36,10 @@ public class FootNotesTableControlRendererService implements EMFFormsDIRendererS
 	{
 		this.databindingService = databindingService;
 	}
+	protected void setReportService(ReportService reportService)
+	{
+		this.reportService = reportService;
+	}
 	
 	@Override
 	public double isApplicable(VElement vElement,

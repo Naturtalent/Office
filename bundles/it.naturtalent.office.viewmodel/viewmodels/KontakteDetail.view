@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ASCII"?>
 <org.eclipse.emf.ecp.view.model:View xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:org.eclipse.emf.ecp.view.model="http://org/eclipse/emf/ecp/view/model/1180" xmi:id="_Vm_CUGRWEeies55qWhkJRA" name="Kontakte">
   <rootEClass href="http://it.naturtalent/address#//Kontakte"/>
-  <ecorePaths>/it.naturtalent.e4.project.office.model/model/address.ecore</ecorePaths>
+  <ecorePaths>/it.naturtalent.office.model/model/address.ecore</ecorePaths>
   <children xsi:type="org.eclipse.emf.ecp.view.model:Control" xmi:id="_VnA3gGRWEeies55qWhkJRA" name="Control kontakte">
     <domainModelReference xsi:type="org.eclipse.emf.ecp.view.model:FeaturePathDomainModelReference" xmi:id="_VnA3gWRWEeies55qWhkJRA">
       <domainModelEFeature xsi:type="ecore:EReference" href="http://it.naturtalent/address#//Kontakte/kontakte"/>
