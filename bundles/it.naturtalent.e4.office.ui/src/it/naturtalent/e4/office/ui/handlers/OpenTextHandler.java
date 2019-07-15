@@ -125,6 +125,12 @@ public class OpenTextHandler
 					}
 				}
 			}
+			else
+			{			
+				// der erforderliche Adapter ist nicht im Repository gespeichert
+				MessageDialog.openError(shell, "WriteWizard",
+						"der Wizard '" + factoryName + "' ist nicht verfügbar");
+			}
 		}
 		
 		if (selObject instanceof IResource)
