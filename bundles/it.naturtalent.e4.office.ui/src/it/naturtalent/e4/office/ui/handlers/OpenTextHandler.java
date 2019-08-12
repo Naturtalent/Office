@@ -195,7 +195,8 @@ public class OpenTextHandler
 	*/
 
 	/**
-	 * true, wenn in dem selektierte WriteDocument ein Adapterklassenname gespeichert ist.
+	 * true, wenn in dem selektierte WriteDocument ein Adapterklassenname gespeichert ist und der Adapter auch im
+	 * Registry gespeichert ist.
 	 * (moeglicherweise zu zeitaufwaendig) 
 	 * 
 	 * @return
@@ -205,7 +206,8 @@ public class OpenTextHandler
 	{
 		Object selObject = selectionService.getSelection(ResourceNavigator.RESOURCE_NAVIGATOR_ID);
 		String factoryName = getAdapterFactoryName(selObject);
-		return StringUtils.isNotEmpty(factoryName);
+		IODFWriteAdapterFactory writeAdapterFactory = writeAdapterFactoryRepository.getWriteAdapter(factoryName);
+		return (writeAdapterFactory != null);
 	}
 	
 	/*
