@@ -126,6 +126,7 @@ public class AddressFactoryImpl extends EFactoryImpl implements AddressFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adresse createAdresse()
 	{
 		AdresseImpl adresse = new AdresseImpl();
@@ -137,6 +138,7 @@ public class AddressFactoryImpl extends EFactoryImpl implements AddressFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Referenz createReferenz()
 	{
 		ReferenzImpl referenz = new ReferenzImpl();
@@ -148,6 +150,7 @@ public class AddressFactoryImpl extends EFactoryImpl implements AddressFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Empfaenger createEmpfaenger()
 	{
 		EmpfaengerImpl empfaenger = new EmpfaengerImpl();
@@ -159,6 +162,7 @@ public class AddressFactoryImpl extends EFactoryImpl implements AddressFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Receivers createReceivers()
 	{
 		ReceiversImpl receivers = new ReceiversImpl();
@@ -170,6 +174,7 @@ public class AddressFactoryImpl extends EFactoryImpl implements AddressFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Kontakt createKontakt()
 	{
 		KontaktImpl kontakt = new KontaktImpl();
@@ -181,6 +186,7 @@ public class AddressFactoryImpl extends EFactoryImpl implements AddressFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Kontakte createKontakte()
 	{
 		KontakteImpl kontakte = new KontakteImpl();
@@ -192,6 +198,7 @@ public class AddressFactoryImpl extends EFactoryImpl implements AddressFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NtProjektKontakte createNtProjektKontakte()
 	{
 		NtProjektKontakteImpl ntProjektKontakte = new NtProjektKontakteImpl();
@@ -203,6 +210,7 @@ public class AddressFactoryImpl extends EFactoryImpl implements AddressFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FootNoteItem createFootNoteItem()
 	{
 		FootNoteItemImpl footNoteItem = new FootNoteItemImpl();
@@ -214,6 +222,7 @@ public class AddressFactoryImpl extends EFactoryImpl implements AddressFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FootNote createFootNote()
 	{
 		FootNoteImpl footNote = new FootNoteImpl();
@@ -225,6 +234,7 @@ public class AddressFactoryImpl extends EFactoryImpl implements AddressFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FooteNoteSet createFooteNoteSet()
 	{
 		FooteNoteSetImpl footeNoteSet = new FooteNoteSetImpl();
@@ -236,6 +246,7 @@ public class AddressFactoryImpl extends EFactoryImpl implements AddressFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ReferenzSet createReferenzSet()
 	{
 		ReferenzSetImpl referenzSet = new ReferenzSetImpl();
@@ -247,6 +258,7 @@ public class AddressFactoryImpl extends EFactoryImpl implements AddressFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ReferenzenClass createReferenzenClass()
 	{
 		ReferenzenClassImpl referenzenClass = new ReferenzenClassImpl();
@@ -258,6 +270,7 @@ public class AddressFactoryImpl extends EFactoryImpl implements AddressFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ReferenzGruppe createReferenzGruppe()
 	{
 		ReferenzGruppeImpl referenzGruppe = new ReferenzGruppeImpl();
@@ -269,6 +282,7 @@ public class AddressFactoryImpl extends EFactoryImpl implements AddressFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Sender createSender()
 	{
 		SenderImpl sender = new SenderImpl();
@@ -280,6 +294,7 @@ public class AddressFactoryImpl extends EFactoryImpl implements AddressFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Signature createSignature()
 	{
 		SignatureImpl signature = new SignatureImpl();
@@ -291,6 +306,7 @@ public class AddressFactoryImpl extends EFactoryImpl implements AddressFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public SignatureSet createSignatureSet()
 	{
 		SignatureSetImpl signatureSet = new SignatureSetImpl();
@@ -302,6 +318,7 @@ public class AddressFactoryImpl extends EFactoryImpl implements AddressFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Absender createAbsender()
 	{
 		AbsenderImpl absender = new AbsenderImpl();
@@ -335,6 +352,7 @@ public class AddressFactoryImpl extends EFactoryImpl implements AddressFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public AddressPackage getAddressPackage()
 	{
 		return (AddressPackage)getEPackage();

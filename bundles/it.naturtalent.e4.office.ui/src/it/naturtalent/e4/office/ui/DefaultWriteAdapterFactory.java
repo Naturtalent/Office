@@ -1,5 +1,11 @@
 package it.naturtalent.e4.office.ui;
 
+/**
+ * Ueber diese Factory wird der DefaultWriteAdapter erzeugt.
+ *  
+ * @author dieter
+ *
+ */
 public class DefaultWriteAdapterFactory implements IODFWriteAdapterFactory
 {
 

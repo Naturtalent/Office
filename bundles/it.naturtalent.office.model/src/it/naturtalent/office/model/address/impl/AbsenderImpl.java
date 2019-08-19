@@ -105,6 +105,7 @@ public class AbsenderImpl extends MinimalEObjectImpl.Container implements Absend
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getName()
 	{
 		return name;
@@ -115,6 +116,7 @@ public class AbsenderImpl extends MinimalEObjectImpl.Container implements Absend
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setName(String newName)
 	{
 		String oldName = name;
@@ -128,6 +130,7 @@ public class AbsenderImpl extends MinimalEObjectImpl.Container implements Absend
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adresse getAdresse()
 	{
 		return adresse;
@@ -155,6 +158,7 @@ public class AbsenderImpl extends MinimalEObjectImpl.Container implements Absend
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setAdresse(Adresse newAdresse)
 	{
 		if (newAdresse != adresse)
@@ -176,6 +180,7 @@ public class AbsenderImpl extends MinimalEObjectImpl.Container implements Absend
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getContext()
 	{
 		return context;
@@ -186,6 +191,7 @@ public class AbsenderImpl extends MinimalEObjectImpl.Container implements Absend
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setContext(String newContext)
 	{
 		String oldContext = context;

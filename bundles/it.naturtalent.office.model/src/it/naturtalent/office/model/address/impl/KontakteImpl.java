@@ -70,6 +70,7 @@ public class KontakteImpl extends MinimalEObjectImpl.Container implements Kontak
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Kontakt> getKontakte()
 	{
 		if (kontakte == null)

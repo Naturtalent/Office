@@ -94,6 +94,7 @@ public class ReferenzSetImpl extends MinimalEObjectImpl.Container implements Ref
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getName()
 	{
 		return name;
@@ -104,6 +105,7 @@ public class ReferenzSetImpl extends MinimalEObjectImpl.Container implements Ref
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setName(String newName)
 	{
 		String oldName = name;
@@ -117,6 +119,7 @@ public class ReferenzSetImpl extends MinimalEObjectImpl.Container implements Ref
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Referenz> getReferenzen()
 	{
 		if (referenzen == null)

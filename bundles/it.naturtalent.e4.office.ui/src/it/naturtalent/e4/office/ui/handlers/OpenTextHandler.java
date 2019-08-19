@@ -44,6 +44,7 @@ import it.naturtalent.e4.office.ui.IODFWriteAdapterFactory;
 import it.naturtalent.e4.office.ui.IODFWriteAdapterFactoryRepository;
 import it.naturtalent.e4.office.ui.wizards.ODFDefaultWriteAdapterWizard;
 import it.naturtalent.e4.project.ui.navigator.ResourceNavigator;
+import it.naturtalent.libreoffice.OpenLoDocument;
 
 
 /**
@@ -102,14 +103,6 @@ public class OpenTextHandler
 					IFile ifile = workspace.getRoot().getFileForLocation(iResource.getLocation());
 					eventBroker.post(IODFWriteAdapter.ODFWRITE_FILEDEFINITIONEVENT,ifile);
 
-					/*
-					it.naturtalent.libreoffice.text.TextDocument writeDocument = new it.naturtalent.libreoffice.text.TextDocument();						
-					File file = ifile.getLocation().toFile();
-					writeDocument.loadPage(file.toString());
-					*/
-
-					it.naturtalent.libreoffice.text.TextDocument writeDocument = new it.naturtalent.libreoffice.text.TextDocument();
-					
 					// den Wizard oeffnen und Dokument editieren
 					try
 					{
@@ -117,7 +110,7 @@ public class OpenTextHandler
 						{					
 							// Dokument in LibreOffice oeffnen
 							File file = ifile.getLocation().toFile();
-							writeDocument.loadPage(file.toString());																
+							OpenLoDocument.loadLoDocument(file.toString());							
 						}
 					} catch (Exception e)
 					{

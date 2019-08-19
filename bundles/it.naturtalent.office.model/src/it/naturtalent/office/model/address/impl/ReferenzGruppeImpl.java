@@ -94,6 +94,7 @@ public class ReferenzGruppeImpl extends MinimalEObjectImpl.Container implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getGroupname()
 	{
 		return groupname;
@@ -104,6 +105,7 @@ public class ReferenzGruppeImpl extends MinimalEObjectImpl.Container implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setGroupname(String newGroupname)
 	{
 		String oldGroupname = groupname;
@@ -117,6 +119,7 @@ public class ReferenzGruppeImpl extends MinimalEObjectImpl.Container implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Referenz> getReferenz()
 	{
 		if (referenz == null)

@@ -157,6 +157,7 @@ public class ReferenzImpl extends MinimalEObjectImpl.Container implements Refere
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getName()
 	{
 		return name;
@@ -167,6 +168,7 @@ public class ReferenzImpl extends MinimalEObjectImpl.Container implements Refere
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setName(String newName)
 	{
 		String oldName = name;
@@ -180,6 +182,7 @@ public class ReferenzImpl extends MinimalEObjectImpl.Container implements Refere
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getContext()
 	{
 		return context;
@@ -190,6 +193,7 @@ public class ReferenzImpl extends MinimalEObjectImpl.Container implements Refere
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setContext(String newContext)
 	{
 		String oldContext = context;
@@ -203,6 +207,7 @@ public class ReferenzImpl extends MinimalEObjectImpl.Container implements Refere
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getReferenz()
 	{
 		return referenz;
@@ -213,6 +218,7 @@ public class ReferenzImpl extends MinimalEObjectImpl.Container implements Refere
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setReferenz(String newReferenz)
 	{
 		String oldReferenz = referenz;
@@ -226,6 +232,7 @@ public class ReferenzImpl extends MinimalEObjectImpl.Container implements Refere
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getReferenz2()
 	{
 		return referenz2;
@@ -236,6 +243,7 @@ public class ReferenzImpl extends MinimalEObjectImpl.Container implements Refere
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setReferenz2(String newReferenz2)
 	{
 		String oldReferenz2 = referenz2;
@@ -249,6 +257,7 @@ public class ReferenzImpl extends MinimalEObjectImpl.Container implements Refere
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getReferenz3()
 	{
 		return referenz3;
@@ -259,6 +268,7 @@ public class ReferenzImpl extends MinimalEObjectImpl.Container implements Refere
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setReferenz3(String newReferenz3)
 	{
 		String oldReferenz3 = referenz3;

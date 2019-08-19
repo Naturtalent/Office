@@ -112,6 +112,7 @@ public class FootNoteImpl extends MinimalEObjectImpl.Container implements FootNo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getName()
 	{
 		return name;
@@ -122,6 +123,7 @@ public class FootNoteImpl extends MinimalEObjectImpl.Container implements FootNo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setName(String newName)
 	{
 		String oldName = name;
@@ -135,6 +137,7 @@ public class FootNoteImpl extends MinimalEObjectImpl.Container implements FootNo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getContext()
 	{
 		return context;
@@ -145,6 +148,7 @@ public class FootNoteImpl extends MinimalEObjectImpl.Container implements FootNo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setContext(String newContext)
 	{
 		String oldContext = context;
@@ -158,6 +162,7 @@ public class FootNoteImpl extends MinimalEObjectImpl.Container implements FootNo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<FootNoteItem> getFootnoteitems()
 	{
 		if (footnoteitems == null)

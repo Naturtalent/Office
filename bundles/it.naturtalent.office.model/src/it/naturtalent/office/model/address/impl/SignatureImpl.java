@@ -199,6 +199,7 @@ public class SignatureImpl extends MinimalEObjectImpl.Container implements Signa
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getName()
 	{
 		return name;
@@ -209,6 +210,7 @@ public class SignatureImpl extends MinimalEObjectImpl.Container implements Signa
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setName(String newName)
 	{
 		String oldName = name;
@@ -222,6 +224,7 @@ public class SignatureImpl extends MinimalEObjectImpl.Container implements Signa
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getGreeting()
 	{
 		return greeting;
@@ -232,6 +235,7 @@ public class SignatureImpl extends MinimalEObjectImpl.Container implements Signa
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setGreeting(String newGreeting)
 	{
 		String oldGreeting = greeting;
@@ -245,6 +249,7 @@ public class SignatureImpl extends MinimalEObjectImpl.Container implements Signa
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getSigner()
 	{
 		return signer;
@@ -255,6 +260,7 @@ public class SignatureImpl extends MinimalEObjectImpl.Container implements Signa
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setSigner(String newSigner)
 	{
 		String oldSigner = signer;
@@ -268,6 +274,7 @@ public class SignatureImpl extends MinimalEObjectImpl.Container implements Signa
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getCosigner()
 	{
 		return cosigner;
@@ -278,6 +285,7 @@ public class SignatureImpl extends MinimalEObjectImpl.Container implements Signa
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setCosigner(String newCosigner)
 	{
 		String oldCosigner = cosigner;
@@ -291,6 +299,7 @@ public class SignatureImpl extends MinimalEObjectImpl.Container implements Signa
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getContext()
 	{
 		return context;
@@ -301,6 +310,7 @@ public class SignatureImpl extends MinimalEObjectImpl.Container implements Signa
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setContext(String newContext)
 	{
 		String oldContext = context;
@@ -314,6 +324,7 @@ public class SignatureImpl extends MinimalEObjectImpl.Container implements Signa
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getStatus1()
 	{
 		return status1;
@@ -324,6 +335,7 @@ public class SignatureImpl extends MinimalEObjectImpl.Container implements Signa
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setStatus1(String newStatus1)
 	{
 		String oldStatus1 = status1;
@@ -337,6 +349,7 @@ public class SignatureImpl extends MinimalEObjectImpl.Container implements Signa
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getStatus2()
 	{
 		return status2;
@@ -347,6 +360,7 @@ public class SignatureImpl extends MinimalEObjectImpl.Container implements Signa
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setStatus2(String newStatus2)
 	{
 		String oldStatus2 = status2;

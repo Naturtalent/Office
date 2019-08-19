@@ -94,6 +94,7 @@ public class FooteNoteSetImpl extends MinimalEObjectImpl.Container implements Fo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getName()
 	{
 		return name;
@@ -104,6 +105,7 @@ public class FooteNoteSetImpl extends MinimalEObjectImpl.Container implements Fo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setName(String newName)
 	{
 		String oldName = name;
@@ -117,6 +119,7 @@ public class FooteNoteSetImpl extends MinimalEObjectImpl.Container implements Fo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<FootNote> getFooteNotes()
 	{
 		if (footeNotes == null)

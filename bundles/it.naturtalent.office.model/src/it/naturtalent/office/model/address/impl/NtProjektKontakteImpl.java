@@ -94,6 +94,7 @@ public class NtProjektKontakteImpl extends MinimalEObjectImpl.Container implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getNtProjektID()
 	{
 		return ntProjektID;
@@ -104,6 +105,7 @@ public class NtProjektKontakteImpl extends MinimalEObjectImpl.Container implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setNtProjektID(String newNtProjektID)
 	{
 		String oldNtProjektID = ntProjektID;
@@ -117,6 +119,7 @@ public class NtProjektKontakteImpl extends MinimalEObjectImpl.Container implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Kontakt> getKontakte()
 	{
 		if (kontakte == null)

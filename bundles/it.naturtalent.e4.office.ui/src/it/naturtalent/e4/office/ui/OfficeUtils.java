@@ -588,32 +588,33 @@ public class OfficeUtils
 	*/
 
 	/*
-	 * Object ueber die Klasse suchen
+	 * Mit Eingabe der Objectklasse wird im OfficeProjekt gesucht.
+	 * Wird die Klasse nicht gefunden, wird das instanziierte Objekt hinzugefuegt.
+	 * 
 	 */
 	public static EObject findObject(EClass objectClass)
 	{
 		ECPProject ecpProject = getOfficeProject();
-		EList<Object>projectContents = ecpProject.getContents();
-		if (!projectContents.isEmpty())
+		EList<Object> projectContents = ecpProject.getContents();
+
+		// die Klasse wird instanziiert
+		EObject checkObject = EcoreUtil.create(objectClass);
+		String checkName = checkObject.eClass().getName();
+
+		// ueber den Objektnamen suchen
+		for (Object projectContent : projectContents)
 		{
-			EObject checkObject = EcoreUtil.create(objectClass);
-			String checkName = checkObject.eClass().getName();
+			EObject projectContentObj = (EObject) projectContent;
+			String contentName = projectContentObj.eClass().getName();
 
-			for (Object projectContent : projectContents)
-			{
-				EObject projectContentObj = (EObject) projectContent;
-				String contentName = projectContentObj.eClass().getName();
-
-				if (StringUtils.equals(checkName, contentName))
-					return projectContentObj;
-			}
-			
-			projectContents.add(checkObject);
-			ECPHandlerHelper.saveProject(OfficeUtils.getOfficeProject());		
-			return checkObject;
+			if (StringUtils.equals(checkName, contentName))
+				return projectContentObj;
 		}
 
-		return null;
+		// noch nicht vorhanden, Objekt wird hinzugefuegt
+		projectContents.add(checkObject);
+		ECPHandlerHelper.saveProject(OfficeUtils.getOfficeProject());
+		return checkObject;
 	}
 
 }

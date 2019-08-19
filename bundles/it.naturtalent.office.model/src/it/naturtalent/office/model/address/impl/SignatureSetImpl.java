@@ -71,6 +71,7 @@ public class SignatureSetImpl extends MinimalEObjectImpl.Container implements Si
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Signature> getSignatures()
 	{
 		if (signatures == null)

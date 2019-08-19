@@ -200,6 +200,7 @@ public class AdresseImpl extends MinimalEObjectImpl.Container implements Adresse
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getName()
 	{
 		return name;
@@ -210,6 +211,7 @@ public class AdresseImpl extends MinimalEObjectImpl.Container implements Adresse
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setName(String newName)
 	{
 		String oldName = name;
@@ -223,6 +225,7 @@ public class AdresseImpl extends MinimalEObjectImpl.Container implements Adresse
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getName2()
 	{
 		return name2;
@@ -233,6 +236,7 @@ public class AdresseImpl extends MinimalEObjectImpl.Container implements Adresse
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setName2(String newName2)
 	{
 		String oldName2 = name2;
@@ -246,6 +250,7 @@ public class AdresseImpl extends MinimalEObjectImpl.Container implements Adresse
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getName3()
 	{
 		return name3;
@@ -256,6 +261,7 @@ public class AdresseImpl extends MinimalEObjectImpl.Container implements Adresse
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setName3(String newName3)
 	{
 		String oldName3 = name3;
@@ -269,6 +275,7 @@ public class AdresseImpl extends MinimalEObjectImpl.Container implements Adresse
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getStrasse()
 	{
 		return strasse;
@@ -279,6 +286,7 @@ public class AdresseImpl extends MinimalEObjectImpl.Container implements Adresse
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setStrasse(String newStrasse)
 	{
 		String oldStrasse = strasse;
@@ -292,6 +300,7 @@ public class AdresseImpl extends MinimalEObjectImpl.Container implements Adresse
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getPlz()
 	{
 		return plz;
@@ -302,6 +311,7 @@ public class AdresseImpl extends MinimalEObjectImpl.Container implements Adresse
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setPlz(String newPlz)
 	{
 		String oldPlz = plz;
@@ -315,6 +325,7 @@ public class AdresseImpl extends MinimalEObjectImpl.Container implements Adresse
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getOrt()
 	{
 		return ort;
@@ -325,6 +336,7 @@ public class AdresseImpl extends MinimalEObjectImpl.Container implements Adresse
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setOrt(String newOrt)
 	{
 		String oldOrt = ort;
@@ -338,6 +350,7 @@ public class AdresseImpl extends MinimalEObjectImpl.Container implements Adresse
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public AddressType getType()
 	{
 		return type;
@@ -348,6 +361,7 @@ public class AdresseImpl extends MinimalEObjectImpl.Container implements Adresse
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setType(AddressType newType)
 	{
 		AddressType oldType = type;

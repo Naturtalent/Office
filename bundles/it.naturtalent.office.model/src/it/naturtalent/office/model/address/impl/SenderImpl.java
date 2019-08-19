@@ -69,6 +69,7 @@ public class SenderImpl extends MinimalEObjectImpl.Container implements Sender
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Absender> getSenders()
 	{
 		if (senders == null)

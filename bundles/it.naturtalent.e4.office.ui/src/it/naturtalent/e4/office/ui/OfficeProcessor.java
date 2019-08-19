@@ -104,7 +104,7 @@ public class OfficeProcessor
 		List<INtProjectPropertyFactory>ntPropertyFactories = ntProjektDataFactoryRepository.getAllProjektDataFactories();
 		ntPropertyFactories.add(new KontakteProjectPropertyFactory());
 
-		// 'Open With' Menue 
+		// 'Open With' Menue einer Textdatei
 		openwithAdapterRepository.getOpenWithAdapters().add(new ODFWriteOpenWithAdapter());
 		
 		DynamicNewMenu newMenu = new DynamicNewMenu();
@@ -170,71 +170,6 @@ public class OfficeProcessor
 		}
 		*/
 		
-		/* 
-		 * Defaultpreferences LibreOffice
-		 * 
-		 */
-		IEclipsePreferences defaultPreferences = DefaultScope.INSTANCE.getNode(OfficeConstants.ROOT_OFFICE_PREFERENCES_NODE);
-	
-		if (SystemUtils.IS_OS_LINUX)
-		{
-			// Linux speichert Libreoffice in einem definierten Speicher (OfficeConstants.LINUX_UNO_PATH)
-			defaultPreferences.put(OfficeConstants.OFFICE_APPLICATION_PREF,OfficeConstants.LINUX_UNO_PATH);
-			
-			// Default JPIPE-Verzeichnis
-			String check = OfficeApplicationPreferenceAdapter.findJPIPELibDirectory(OfficeConstants.LINUX_UNO_PATH);
-			if(StringUtils.isNotEmpty(check))
-				defaultPreferences.put(OfficeConstants.OFFICE_JPIPE_PREF,check);
-			
-			// Default UNO-Verzeichnis (wird exemplarisch mit der Komponente "jurt" gesucht)
-			check = OfficeApplicationPreferenceAdapter.findUNOLibraryPath("jurt");
-			if(StringUtils.isNotEmpty(check))
-				defaultPreferences.put(OfficeConstants.OFFICE_UNO_PREF,check);
-		}
-		else
-		{
-			// in Windows gibt es kein definiertes Verzeicnis für Libreoffice, somit auch kein Defaultverzeicnis 
-		}
-		
-		
-		
-		/*
-		String officApplicationPath = defaultPreferences.get(ODFOfficeDocumentHandler.OFFICE_APPLICATION_PREF, null);
-		if(StringUtils.isEmpty(officApplicationPath))
-		{			
-			String lib = getOfficeLibraryDefinition();
-			if(StringUtils.isNotEmpty(lib))
-			{
-				defaultPreferences.put(ODFOfficeDocumentHandler.OFFICE_APPLICATION_PREF,lib);
-			}
-			else
-			{
-				if (SystemUtils.IS_OS_LINUX)
-					defaultPreferences.put(
-							ODFOfficeDocumentHandler.OFFICE_APPLICATION_PREF,
-							OfficeConstants.LINUX_UNO_PATH);
-				else
-				{
-					// Nt-Systemverzeichnis der Programme
-					String key = it.naturtalent.application.Activator.NT_PROGRAM_HOME;
-					String extProgsDir = System.getProperty(key);
-					String unoPath = extProgsDir + OfficeConstants.WINDOWS_UNO_PATH;
-
-					// existiert die Officeapplication im Systemverzeichnis
-					File check = new File(unoPath);
-					if (check.exists())
-						defaultPreferences.put(ODFOfficeDocumentHandler.OFFICE_APPLICATION_PREF,unoPath);
-				}
-			}
-		}
-		*/
-		
-		/*
-		if(preferenceRegistry != null)
-		{			
-			preferenceRegistry.getPreferenceAdapters().add(new OfficeApplicationPreferenceAdapter());
-		}
-		*/
 		
 		/*
 		 *  Templates registrieren

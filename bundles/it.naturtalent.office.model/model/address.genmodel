@@ -80,5 +80,17 @@
     <genClasses ecoreClass="address.ecore#//Sender">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference address.ecore#//Sender/senders"/>
     </genClasses>
+    <genClasses ecoreClass="address.ecore#//Signature">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute address.ecore#//Signature/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute address.ecore#//Signature/greeting"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute address.ecore#//Signature/signer"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute address.ecore#//Signature/cosigner"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute address.ecore#//Signature/context"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute address.ecore#//Signature/status1"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute address.ecore#//Signature/status2"/>
+    </genClasses>
+    <genClasses ecoreClass="address.ecore#//SignatureSet">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference address.ecore#//SignatureSet/signatures"/>
+    </genClasses>
   </genPackages>
 </genmodel:GenModel>

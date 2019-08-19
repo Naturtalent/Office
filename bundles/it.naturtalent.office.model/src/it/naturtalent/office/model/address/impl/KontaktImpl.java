@@ -108,6 +108,7 @@ public class KontaktImpl extends MinimalEObjectImpl.Container implements Kontakt
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getName()
 	{
 		return name;
@@ -118,6 +119,7 @@ public class KontaktImpl extends MinimalEObjectImpl.Container implements Kontakt
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setName(String newName)
 	{
 		String oldName = name;
@@ -131,6 +133,7 @@ public class KontaktImpl extends MinimalEObjectImpl.Container implements Kontakt
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Adresse getAdresse()
 	{
 		return adresse;
@@ -158,6 +161,7 @@ public class KontaktImpl extends MinimalEObjectImpl.Container implements Kontakt
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setAdresse(Adresse newAdresse)
 	{
 		if (newAdresse != adresse)
@@ -179,6 +183,7 @@ public class KontaktImpl extends MinimalEObjectImpl.Container implements Kontakt
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getKommunikation()
 	{
 		return kommunikation;
@@ -189,6 +194,7 @@ public class KontaktImpl extends MinimalEObjectImpl.Container implements Kontakt
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setKommunikation(String newKommunikation)
 	{
 		String oldKommunikation = kommunikation;

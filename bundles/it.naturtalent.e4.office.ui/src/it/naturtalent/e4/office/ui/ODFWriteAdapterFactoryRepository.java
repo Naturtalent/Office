@@ -6,6 +6,9 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 
 /**
+ * Dies Repository speichert alle WriteAdapterFactories und wird ueber den OSGI-Service verfuegbar gemacht.
+ * @see writeadapterfactoryrepository.xml in OSGI-INF
+ * 
  * @author dieter
  *
  */

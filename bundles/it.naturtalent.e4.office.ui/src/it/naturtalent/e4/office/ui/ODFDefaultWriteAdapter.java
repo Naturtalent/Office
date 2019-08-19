@@ -21,7 +21,7 @@ import org.osgi.framework.FrameworkUtil;
 import it.naturtalent.e4.office.ui.wizards.ODFDefaultWriteAdapterWizard;
 
 /**
- * Diese Klasse implementiert einen Adapter der obligatorisch zur Verfuegung steht.
+ * Diese Klasse implementiert einen Anschreiben-Adapter der obligatorisch zur Verfuegung steht.
  * 
  * Der mit diesem Adapter erzeugte Wizard ermoeglicht das Handling mit dem ODFTextDokument
  * 
@@ -37,8 +37,13 @@ public class ODFDefaultWriteAdapter implements IODFWriteAdapter
 	// Template der mit diesem Adapter verwendete ODF-Datei  
 	private static final String ODFTEXT_TEMPLATE = "/templates/ODFText.odt"; //$NON-NLS-1$
 
+	// ODF - Dokument
 	private TextDocument odfDocument;
 	 
+	/*
+	 * Wizard, mit dem Eintragungen (Adresse, Absender etc.) 'von aussen' im Anschreiben  vorgenommen werden koennen.
+	 *  
+	 */
 	@Override
 	public IWizard createWizard(IEclipseContext context)
 	{				
@@ -46,9 +51,9 @@ public class ODFDefaultWriteAdapter implements IODFWriteAdapter
 	}
 
 	/* 
-	 * Ein TextDokument erstellen.
+	 * Ein Anschreiben (TextDokument) erstellen.
 	 * 
-	 * Eine neue Datei wird 'erzeugt' durch kopieren einer Vorlage in das Zielverzichnis.
+	 * Eine neue Datei wird 'erzeugt' durch kopieren einer Anschreiben - Vorlage in das Zielverzichnis.
 	 * Mit 'getAutoFileName()' wird verhndert, dass ein bereits besthender Dateiname verwendet wird.
 	 * 
 	 */

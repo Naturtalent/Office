@@ -216,6 +216,7 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getAdresse()
 	{
 		return adresseEClass;
@@ -226,6 +227,7 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getAdresse_Name()
 	{
 		return (EAttribute)adresseEClass.getEStructuralFeatures().get(0);
@@ -236,6 +238,7 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getAdresse_Name2()
 	{
 		return (EAttribute)adresseEClass.getEStructuralFeatures().get(1);
@@ -246,6 +249,7 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getAdresse_Name3()
 	{
 		return (EAttribute)adresseEClass.getEStructuralFeatures().get(2);
@@ -256,6 +260,7 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getAdresse_Strasse()
 	{
 		return (EAttribute)adresseEClass.getEStructuralFeatures().get(3);
@@ -266,6 +271,7 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getAdresse_Plz()
 	{
 		return (EAttribute)adresseEClass.getEStructuralFeatures().get(4);
@@ -276,6 +282,7 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getAdresse_Ort()
 	{
 		return (EAttribute)adresseEClass.getEStructuralFeatures().get(5);
@@ -286,6 +293,7 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getAdresse_Type()
 	{
 		return (EAttribute)adresseEClass.getEStructuralFeatures().get(6);
@@ -296,6 +304,7 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getReferenz()
 	{
 		return referenzEClass;
@@ -306,6 +315,7 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getReferenz_Name()
 	{
 		return (EAttribute)referenzEClass.getEStructuralFeatures().get(0);
@@ -316,6 +326,7 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getReferenz_Context()
 	{
 		return (EAttribute)referenzEClass.getEStructuralFeatures().get(1);
@@ -326,6 +337,7 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getReferenz_Referenz()
 	{
 		return (EAttribute)referenzEClass.getEStructuralFeatures().get(2);
@@ -336,6 +348,7 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getReferenz_Referenz2()
 	{
 		return (EAttribute)referenzEClass.getEStructuralFeatures().get(3);
@@ -346,6 +359,7 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getReferenz_Referenz3()
 	{
 		return (EAttribute)referenzEClass.getEStructuralFeatures().get(4);
@@ -356,6 +370,7 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getEmpfaenger()
 	{
 		return empfaengerEClass;
@@ -366,6 +381,7 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getEmpfaenger_Name()
 	{
 		return (EAttribute)empfaengerEClass.getEStructuralFeatures().get(0);
@@ -376,6 +392,7 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getEmpfaenger_Adresse()
 	{
 		return (EReference)empfaengerEClass.getEStructuralFeatures().get(1);
@@ -386,6 +403,7 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getEmpfaenger_Context()
 	{
 		return (EAttribute)empfaengerEClass.getEStructuralFeatures().get(2);
@@ -396,6 +414,7 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getReceivers()
 	{
 		return receiversEClass;
@@ -406,6 +425,7 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getReceivers_Receivers()
 	{
 		return (EReference)receiversEClass.getEStructuralFeatures().get(0);
@@ -416,6 +436,7 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getKontakt()
 	{
 		return kontaktEClass;
@@ -426,6 +447,7 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getKontakt_Name()
 	{
 		return (EAttribute)kontaktEClass.getEStructuralFeatures().get(0);
@@ -436,6 +458,7 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getKontakt_Adresse()
 	{
 		return (EReference)kontaktEClass.getEStructuralFeatures().get(1);
@@ -446,6 +469,7 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getKontakt_Kommunikation()
 	{
 		return (EAttribute)kontaktEClass.getEStructuralFeatures().get(2);
@@ -456,6 +480,7 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getKontakte()
 	{
 		return kontakteEClass;
@@ -466,6 +491,7 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getKontakte_Kontakte()
 	{
 		return (EReference)kontakteEClass.getEStructuralFeatures().get(0);
@@ -476,6 +502,7 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getNtProjektKontakte()
 	{
 		return ntProjektKontakteEClass;
@@ -486,6 +513,7 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getNtProjektKontakte_NtProjektID()
 	{
 		return (EAttribute)ntProjektKontakteEClass.getEStructuralFeatures().get(0);
@@ -496,6 +524,7 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getNtProjektKontakte_Kontakte()
 	{
 		return (EReference)ntProjektKontakteEClass.getEStructuralFeatures().get(1);
@@ -506,6 +535,7 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getFootNoteItem()
 	{
 		return footNoteItemEClass;
@@ -516,6 +546,7 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getFootNoteItem_Key()
 	{
 		return (EAttribute)footNoteItemEClass.getEStructuralFeatures().get(0);
@@ -526,6 +557,7 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getFootNoteItem_Value()
 	{
 		return (EAttribute)footNoteItemEClass.getEStructuralFeatures().get(1);
@@ -536,6 +568,7 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getFootNote()
 	{
 		return footNoteEClass;
@@ -546,6 +579,7 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getFootNote_Name()
 	{
 		return (EAttribute)footNoteEClass.getEStructuralFeatures().get(0);
@@ -556,6 +590,7 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getFootNote_Context()
 	{
 		return (EAttribute)footNoteEClass.getEStructuralFeatures().get(1);
@@ -566,6 +601,7 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getFootNote_Footnoteitems()
 	{
 		return (EReference)footNoteEClass.getEStructuralFeatures().get(2);
@@ -576,6 +612,7 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getFooteNoteSet()
 	{
 		return footeNoteSetEClass;
@@ -586,6 +623,7 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getFooteNoteSet_Name()
 	{
 		return (EAttribute)footeNoteSetEClass.getEStructuralFeatures().get(0);
@@ -596,6 +634,7 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getFooteNoteSet_FooteNotes()
 	{
 		return (EReference)footeNoteSetEClass.getEStructuralFeatures().get(1);
@@ -606,6 +645,7 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getReferenzSet()
 	{
 		return referenzSetEClass;
@@ -616,6 +656,7 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getReferenzSet_Name()
 	{
 		return (EAttribute)referenzSetEClass.getEStructuralFeatures().get(0);
@@ -626,6 +667,7 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getReferenzSet_Referenzen()
 	{
 		return (EReference)referenzSetEClass.getEStructuralFeatures().get(1);
@@ -636,6 +678,7 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getReferenzenClass()
 	{
 		return referenzenClassEClass;
@@ -646,6 +689,7 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getReferenzenClass_ReferenzenClassName()
 	{
 		return (EAttribute)referenzenClassEClass.getEStructuralFeatures().get(0);
@@ -656,6 +700,7 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getReferenzenClass_ReferenzClassReferenzen()
 	{
 		return (EReference)referenzenClassEClass.getEStructuralFeatures().get(1);
@@ -666,6 +711,7 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getReferenzGruppe()
 	{
 		return referenzGruppeEClass;
@@ -676,6 +722,7 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getReferenzGruppe_Groupname()
 	{
 		return (EAttribute)referenzGruppeEClass.getEStructuralFeatures().get(0);
@@ -686,6 +733,7 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getReferenzGruppe_Referenz()
 	{
 		return (EReference)referenzGruppeEClass.getEStructuralFeatures().get(1);
@@ -696,6 +744,7 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getSender()
 	{
 		return senderEClass;
@@ -706,6 +755,7 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getSender_Senders()
 	{
 		return (EReference)senderEClass.getEStructuralFeatures().get(0);
@@ -716,6 +766,7 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getSignature()
 	{
 		return signatureEClass;
@@ -726,6 +777,7 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getSignature_Name()
 	{
 		return (EAttribute)signatureEClass.getEStructuralFeatures().get(0);
@@ -736,6 +788,7 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getSignature_Greeting()
 	{
 		return (EAttribute)signatureEClass.getEStructuralFeatures().get(1);
@@ -746,6 +799,7 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getSignature_Signer()
 	{
 		return (EAttribute)signatureEClass.getEStructuralFeatures().get(2);
@@ -756,6 +810,7 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getSignature_Cosigner()
 	{
 		return (EAttribute)signatureEClass.getEStructuralFeatures().get(3);
@@ -766,6 +821,7 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getSignature_Context()
 	{
 		return (EAttribute)signatureEClass.getEStructuralFeatures().get(4);
@@ -776,6 +832,7 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getSignature_Status1()
 	{
 		return (EAttribute)signatureEClass.getEStructuralFeatures().get(5);
@@ -786,6 +843,7 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getSignature_Status2()
 	{
 		return (EAttribute)signatureEClass.getEStructuralFeatures().get(6);
@@ -796,6 +854,7 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getSignatureSet()
 	{
 		return signatureSetEClass;
@@ -806,6 +865,7 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getSignatureSet_Signatures()
 	{
 		return (EReference)signatureSetEClass.getEStructuralFeatures().get(0);
@@ -816,6 +876,7 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getAbsender()
 	{
 		return absenderEClass;
@@ -826,6 +887,7 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getAbsender_Name()
 	{
 		return (EAttribute)absenderEClass.getEStructuralFeatures().get(0);
@@ -836,6 +898,7 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getAbsender_Adresse()
 	{
 		return (EReference)absenderEClass.getEStructuralFeatures().get(1);
@@ -846,6 +909,7 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getAbsender_Context()
 	{
 		return (EAttribute)absenderEClass.getEStructuralFeatures().get(2);
@@ -856,6 +920,7 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EEnum getAddressType()
 	{
 		return addressTypeEEnum;
@@ -866,6 +931,7 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public AddressFactory getAddressFactory()
 	{
 		return (AddressFactory)getEFactoryInstance();

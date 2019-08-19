@@ -1,27 +1,6 @@
  
 package it.naturtalent.e4.office.ui.handlers;
 
-import org.eclipse.e4.core.di.annotations.Execute;
-import org.eclipse.e4.core.di.annotations.Optional;
-import org.eclipse.e4.core.services.events.IEventBroker;
-import org.eclipse.e4.ui.services.IServiceConstants;
-import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
-import org.eclipse.jface.wizard.WizardDialog;
-import org.eclipse.swt.widgets.Shell;
-import org.osgi.framework.Bundle;
-import org.osgi.framework.BundleContext;
-import org.osgi.framework.FrameworkUtil;
-
-import it.naturtalent.e4.office.ui.Activator;
-import it.naturtalent.e4.office.ui.IODFWriteAdapter;
-import it.naturtalent.e4.office.ui.IODFWriteAdapterFactoryRepository;
-import it.naturtalent.e4.office.ui.dialogs.SelectWriteAdapterDialog;
-import it.naturtalent.e4.office.ui.wizards.ODFDefaultWriteAdapterWizard;
-import it.naturtalent.e4.project.IResourceNavigator;
-import it.naturtalent.e4.project.ui.navigator.ResourceNavigator;
-import it.naturtalent.e4.project.ui.utils.RefreshResource;
-import it.naturtalent.libreoffice.odf.text.ODFTextHandler;
-
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -41,6 +20,26 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.CanExecute;
+import org.eclipse.e4.core.di.annotations.Execute;
+import org.eclipse.e4.core.di.annotations.Optional;
+import org.eclipse.e4.core.services.events.IEventBroker;
+import org.eclipse.e4.ui.services.IServiceConstants;
+import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
+import org.eclipse.jface.wizard.WizardDialog;
+import org.eclipse.swt.widgets.Shell;
+import org.osgi.framework.Bundle;
+import org.osgi.framework.BundleContext;
+import org.osgi.framework.FrameworkUtil;
+
+import it.naturtalent.e4.office.ui.Activator;
+import it.naturtalent.e4.office.ui.IODFWriteAdapter;
+import it.naturtalent.e4.office.ui.IODFWriteAdapterFactoryRepository;
+import it.naturtalent.e4.office.ui.dialogs.SelectWriteAdapterDialog;
+import it.naturtalent.e4.office.ui.wizards.ODFDefaultWriteAdapterWizard;
+import it.naturtalent.e4.project.IResourceNavigator;
+import it.naturtalent.e4.project.ui.navigator.ResourceNavigator;
+import it.naturtalent.e4.project.ui.utils.RefreshResource;
+import it.naturtalent.libreoffice.OpenLoDocument;
 
 /**
  * Ein neues Anschreiben mit einem auszuwaehlenden Adapter erstellen.
@@ -102,10 +101,16 @@ public class NewTextHandle
 					if(wizardDialog.open() == WizardDialog.OK)
 					{
 						// Dokument in LibreOffice oeffnen
-						it.naturtalent.libreoffice.text.TextDocument writeDocument = new it.naturtalent.libreoffice.text.TextDocument();
-						//File file = ifile.getFullPath().toFile();
-						File file = ifile.getLocation().toFile();
-						writeDocument.loadPage(file.toString());
+						String filePath;
+						try
+						{
+							filePath = FileUtils.toFile(ifile.getLocationURI().toURL()).getPath();
+							OpenLoDocument.loadLoDocument(filePath);
+						} catch (Exception e)
+						{
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}					
 					}
 				}
 			}

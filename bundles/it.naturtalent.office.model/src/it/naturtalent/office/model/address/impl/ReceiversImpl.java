@@ -69,6 +69,7 @@ public class ReceiversImpl extends MinimalEObjectImpl.Container implements Recei
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Empfaenger> getReceivers()
 	{
 		if (receivers == null)
