@@ -77,7 +77,8 @@ public class AbsenderImpl extends MinimalEObjectImpl.Container implements Absend
 	 * @generated
 	 * @ordered
 	 */
-	protected String context = CONTEXT_EDEFAULT;
+	protected String context =
+		CONTEXT_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->

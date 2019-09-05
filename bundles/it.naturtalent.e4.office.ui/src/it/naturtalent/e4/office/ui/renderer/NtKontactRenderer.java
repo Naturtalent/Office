@@ -112,12 +112,13 @@ public class NtKontactRenderer extends MultiReferenceSWTRenderer
 
 	private void addExistingModelElements(EObject eObject, EReference eReference)
 	{		
-		EList<Kontakt>allKontacts = OfficeUtils.getKontakte().getKontakte();
-		
+		// Kontakte fuer den SelectWizard in einem Set vorbereiten
+		EList<Kontakt>allKontacts = OfficeUtils.getKontakte().getKontakte();		
 		Set<EObject> elements = new LinkedHashSet<EObject>();
 		for(Kontakt kontact : allKontacts)
 			elements.add(kontact);
 		
+		// Kantakt mit Wizard auswaehlen
 		final Set<EObject> selectedElements = SelectModelElementWizardFactory
 				.openModelElementSelectionDialog(elements, eReference.isMany());
 			

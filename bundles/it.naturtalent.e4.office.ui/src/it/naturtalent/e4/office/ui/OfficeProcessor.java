@@ -35,6 +35,7 @@ import it.naturtalent.e4.office.ui.expimp.OfficeProfileExportAdapter;
 import it.naturtalent.e4.office.ui.expimp.OfficeProfileImportAdapter;
 import it.naturtalent.e4.office.ui.expimp.TextmoduleExportAdapter;
 import it.naturtalent.e4.office.ui.expimp.TextmoduleImportAdapter;
+import it.naturtalent.e4.office.ui.preferences.OfficeAbsenderPreferenceAdapter;
 import it.naturtalent.e4.preferences.IPreferenceRegistry;
 import it.naturtalent.e4.project.IExportAdapterRepository;
 import it.naturtalent.e4.project.IImportAdapterRepository;
@@ -42,6 +43,7 @@ import it.naturtalent.e4.project.INewActionAdapterRepository;
 import it.naturtalent.e4.project.INtProjectPropertyFactory;
 import it.naturtalent.e4.project.INtProjectPropertyFactoryRepository;
 import it.naturtalent.e4.project.ui.DynamicNewMenu;
+
 
 public class OfficeProcessor
 {
@@ -58,7 +60,7 @@ public class OfficeProcessor
 	private @Inject @Optional IShowViewAdapterRepository showViewAdapterRepository;
 	private @Optional @Inject INewActionAdapterRepository newWizardRepository;
 	private @Inject @Optional IOfficeService officeService;
-	//private @Inject @Optional IPreferenceRegistry preferenceRegistry;
+	private @Inject @Optional IPreferenceRegistry preferenceRegistry;
 	
 	private @Inject @Optional EPartService partService;
 	private @Inject @Optional EModelService modelService;			
@@ -99,6 +101,12 @@ public class OfficeProcessor
 		if(writeAdapterFactoryRepository != null)
 			writeAdapterFactoryRepository.getWriteAdapterFactories()
 					.add(new DefaultWriteAdapterFactory());
+		
+		// Praeferenceadapter in das Repository eintragen
+		if(preferenceRegistry != null)	
+		{
+			preferenceRegistry.getPreferenceAdapters().add(new OfficeAbsenderPreferenceAdapter());
+		}
 		
 		// Kontakte Projectproperties
 		List<INtProjectPropertyFactory>ntPropertyFactories = ntProjektDataFactoryRepository.getAllProjektDataFactories();

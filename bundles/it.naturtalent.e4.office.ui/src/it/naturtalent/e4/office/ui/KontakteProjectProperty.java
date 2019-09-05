@@ -41,7 +41,7 @@ import it.naturtalent.office.model.address.NtProjektKontakte;
  */
 public class KontakteProjectProperty implements INtProjectProperty
 {
-	
+	// beim Export wird diese Datei erzeugt und beinhaltet die projektspezifischen Kontaktdaten
 	private String EXPIMP_NTPROJECTKONTAKTDATA_FILE = ".kontaktData.xmi";
 	
 	// ID des Projekts, auf das sich die Eigenschaft bezieht

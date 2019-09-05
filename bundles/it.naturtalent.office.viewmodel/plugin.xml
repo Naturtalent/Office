@@ -3,7 +3,14 @@
 <plugin>
    <extension
          point="org.eclipse.emf.ecp.view.model.provider.xmi.file">
+
+
+
 <file filePath="viewmodels/Absender.view"/>
+
+
+
+
 
 <file filePath="viewmodels/Signature.view"/>
 

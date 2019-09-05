@@ -59,6 +59,16 @@ public class OfficeUtils
 
 	// Das Kopieren eines Absenders aus der Kontaktdatenbank anfordern
 	public static final String ADD_EXISTING_SENDER = "addexistingsender"; // $NON-NLS-N$
+	
+	// Modify-Event einer Texteingabe 
+	public static final String MODIFY_EDITOR_EVENT = "modifyeditorevent"; // $NON-NLS-N$
+	
+	
+	// E4Context DefaultName 
+	//public static final String E4CONTEXT_DEFAULTNAME = "defaultName";
+	
+	// E4Context Name fuer die Hinterlegungn eines WidgetStyle 
+	//public static final String E4CONTEXT_WIDGETSTYLE = "officewidgetstyle";
 
 	// Selektanforderungen an den Rederer
 	public static final String SET_ABSENDERMASTER_SELECTION_EVENT = "setabsendermasterselection"; // $NON-NLS-N$

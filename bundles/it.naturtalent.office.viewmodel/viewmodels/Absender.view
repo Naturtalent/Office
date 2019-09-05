@@ -1,10 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<org.eclipse.emf.ecp.view.model:View xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:org.eclipse.emf.ecp.view.model="http://org/eclipse/emf/ecp/view/model/1180" xmi:id="_yr2RIMGgEemrbb-7lKERWg" name="Absender" readonly="true">
+<org.eclipse.emf.ecp.view.model:View xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:org.eclipse.emf.ecp.view.group.model="http://org/eclipse/emf/ecp/view/group/model" xmlns:org.eclipse.emf.ecp.view.model="http://org/eclipse/emf/ecp/view/model/1180" xmi:id="_-Nm60MhIEemc6sC1_TlwPg" name="Absender">
   <rootEClass href="http://it.naturtalent/address#//Absender"/>
-  <children xsi:type="org.eclipse.emf.ecp.view.model:Control" xmi:id="_yr8-0MGgEemrbb-7lKERWg" name="Control name">
-    <domainModelReference xsi:type="org.eclipse.emf.ecp.view.model:FeaturePathDomainModelReference" xmi:id="_yr8-0cGgEemrbb-7lKERWg">
+  <children xsi:type="org.eclipse.emf.ecp.view.model:Control" xmi:id="_-NxS4MhIEemc6sC1_TlwPg" name="Control name">
+    <domainModelReference xsi:type="org.eclipse.emf.ecp.view.model:FeaturePathDomainModelReference" xmi:id="_-NxS4chIEemc6sC1_TlwPg">
       <domainModelEFeature xsi:type="ecore:EAttribute" href="http://it.naturtalent/address#//Absender/name"/>
     </domainModelReference>
+  </children>
+  <children xsi:type="org.eclipse.emf.ecp.view.group.model:Group" xmi:id="_sqad0MndEemEbMpTUWdqYA" name="Adresse" tooltip="Adresse definieren">
+    <children xsi:type="org.eclipse.emf.ecp.view.model:Control" xmi:id="_t-IIcMndEemEbMpTUWdqYA" name="adrName">
+      <domainModelReference xsi:type="org.eclipse.emf.ecp.view.model:FeaturePathDomainModelReference" xmi:id="_0UvFMMndEemEbMpTUWdqYA">
+        <domainModelEFeature xsi:type="ecore:EAttribute" href="http://it.naturtalent/address#//Adresse/name"/>
+        <domainModelEReferencePath href="http://it.naturtalent/address#//Absender/adresse"/>
+      </domainModelReference>
+    </children>
+    <children xsi:type="org.eclipse.emf.ecp.view.model:Control" xmi:id="_xgJLwMnfEemEbMpTUWdqYA" name="adrStrasse">
+      <domainModelReference xsi:type="org.eclipse.emf.ecp.view.model:FeaturePathDomainModelReference" xmi:id="_2PYiEMnfEemEbMpTUWdqYA">
+        <domainModelEFeature xsi:type="ecore:EAttribute" href="http://it.naturtalent/address#//Adresse/strasse"/>
+        <domainModelEReferencePath href="http://it.naturtalent/address#//Absender/adresse"/>
+      </domainModelReference>
+    </children>
+    <children xsi:type="org.eclipse.emf.ecp.view.model:Control" xmi:id="_-kBjsMndEemEbMpTUWdqYA" name="adrOrt">
+      <domainModelReference xsi:type="org.eclipse.emf.ecp.view.model:FeaturePathDomainModelReference" xmi:id="_GeECEMneEemEbMpTUWdqYA">
+        <domainModelEFeature xsi:type="ecore:EAttribute" href="http://it.naturtalent/address#//Adresse/ort"/>
+        <domainModelEReferencePath href="http://it.naturtalent/address#//Absender/adresse"/>
+      </domainModelReference>
+    </children>
   </children>
   <ecorePaths>/it.naturtalent.office.model/model/address.ecore</ecorePaths>
 </org.eclipse.emf.ecp.view.model:View>
