@@ -67,19 +67,8 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="referenz2" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="referenz3" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ReferenzSet">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Referenzen">
     <eStructuralFeatures xsi:type="ecore:EReference" name="referenzen" upperBound="-1"
-        eType="#//Referenz" containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ReferenzenClass">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="referenzenClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="referenzClassReferenzen"
-        upperBound="-1" eType="#//ReferenzGruppe" containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ReferenzGruppe">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="groupname" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="referenz" upperBound="-1"
         eType="#//Referenz" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Sender">

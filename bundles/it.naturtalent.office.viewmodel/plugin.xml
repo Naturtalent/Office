@@ -51,11 +51,9 @@
 
 
 
-<file filePath="viewmodels/ReferenzGruppe.view"/>
 
 <file filePath="viewmodels/Referenz.view"/>
 
-<file filePath="viewmodels/ReferenzSet.view"/>
 
 
 <file filePath="viewmodels/Adresse.view"/>

@@ -37,6 +37,7 @@ import it.naturtalent.office.model.address.Kontakte;
 import it.naturtalent.office.model.address.NtProjektKontakte;
 import it.naturtalent.office.model.address.Referenz;
 import it.naturtalent.office.model.address.ReferenzSet;
+import it.naturtalent.office.model.address.Referenzen;
 import it.naturtalent.office.model.address.Sender;
 import it.naturtalent.office.model.address.Signature;
 import it.naturtalent.office.model.address.SignatureSet;
@@ -273,15 +274,15 @@ public class OfficeUtils
 	 * sucht die Referenz ueber ihren Namen
 	 * !!! Name und OfficeContext muessen uebereinstimmen
 	 */
-	public static Referenz findReferenzByName(String referenzName, String officeContext)
+	public static Referenz findReferenz(String referenzName, String officeContext)
 	{
 		// ReferenzSet ist der Container aller Referenzen
-		ReferenzSet referenzSet =  (ReferenzSet) OfficeUtils.findObject(AddressPackage.eINSTANCE.getReferenzSet());
+		Referenzen referenzen =  (Referenzen) OfficeUtils.findObject(AddressPackage.eINSTANCE.getReferenzen());
 				
-		EList<Referenz> referenzen = referenzSet.getReferenzen();
+		EList<Referenz> allReferenzen = referenzen.getReferenzen();
 		if (referenzen != null)
 		{
-			for (Referenz referenz : referenzen)
+			for (Referenz referenz : allReferenzen)
 			{
 				if (StringUtils.equals(referenz.getName(), referenzName)
 						&& StringUtils.equals(referenz.getContext(),officeContext))
@@ -290,6 +291,7 @@ public class OfficeUtils
 		}
 		return null;
 	}
+
 	
 	/*
 	 * sucht die Referenz ueber ihren Namen

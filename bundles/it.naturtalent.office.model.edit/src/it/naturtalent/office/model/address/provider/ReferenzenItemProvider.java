@@ -5,7 +5,7 @@ package it.naturtalent.office.model.address.provider;
 
 import it.naturtalent.office.model.address.AddressFactory;
 import it.naturtalent.office.model.address.AddressPackage;
-import it.naturtalent.office.model.address.ReferenzGruppe;
+import it.naturtalent.office.model.address.Referenzen;
 
 import java.util.Collection;
 import java.util.List;
@@ -17,24 +17,22 @@ import org.eclipse.emf.common.util.ResourceLocator;
 
 import org.eclipse.emf.ecore.EStructuralFeature;
 
-import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
-import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
- * This is the item provider adapter for a {@link it.naturtalent.office.model.address.ReferenzGruppe} object.
+ * This is the item provider adapter for a {@link it.naturtalent.office.model.address.Referenzen} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class ReferenzGruppeItemProvider 
+public class ReferenzenItemProvider 
 	extends ItemProviderAdapter
 	implements
 		IEditingDomainItemProvider,
@@ -49,7 +47,7 @@ public class ReferenzGruppeItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ReferenzGruppeItemProvider(AdapterFactory adapterFactory)
+	public ReferenzenItemProvider(AdapterFactory adapterFactory)
 	{
 		super(adapterFactory);
 	}
@@ -67,32 +65,8 @@ public class ReferenzGruppeItemProvider
 		{
 			super.getPropertyDescriptors(object);
 
-			addGroupnamePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
-	}
-
-	/**
-	 * This adds a property descriptor for the Groupname feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addGroupnamePropertyDescriptor(Object object)
-	{
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_ReferenzGruppe_groupname_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ReferenzGruppe_groupname_feature", "_UI_ReferenzGruppe_type"),
-				 AddressPackage.Literals.REFERENZ_GRUPPE__GROUPNAME,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
 	}
 
 	/**
@@ -109,7 +83,7 @@ public class ReferenzGruppeItemProvider
 		if (childrenFeatures == null)
 		{
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(AddressPackage.Literals.REFERENZ_GRUPPE__REFERENZ);
+			childrenFeatures.add(AddressPackage.Literals.REFERENZEN__REFERENZEN);
 		}
 		return childrenFeatures;
 	}
@@ -129,7 +103,7 @@ public class ReferenzGruppeItemProvider
 	}
 
 	/**
-	 * This returns ReferenzGruppe.gif.
+	 * This returns Referenzen.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -137,7 +111,7 @@ public class ReferenzGruppeItemProvider
 	@Override
 	public Object getImage(Object object)
 	{
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/ReferenzGruppe"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/Referenzen"));
 	}
 
 	/**
@@ -149,12 +123,9 @@ public class ReferenzGruppeItemProvider
 	@Override
 	public String getText(Object object)
 	{
-		String label = ((ReferenzGruppe)object).getGroupname();
-		return label == null || label.length() == 0 ?
-			getString("_UI_ReferenzGruppe_type") :
-			getString("_UI_ReferenzGruppe_type") + " " + label;
+		return getString("_UI_Referenzen_type");
 	}
-	
+
 
 	/**
 	 * This handles model notifications by calling {@link #updateChildren} to update any cached
@@ -168,12 +139,9 @@ public class ReferenzGruppeItemProvider
 	{
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(ReferenzGruppe.class))
+		switch (notification.getFeatureID(Referenzen.class))
 		{
-			case AddressPackage.REFERENZ_GRUPPE__GROUPNAME:
-				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
-				return;
-			case AddressPackage.REFERENZ_GRUPPE__REFERENZ:
+			case AddressPackage.REFERENZEN__REFERENZEN:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -194,7 +162,7 @@ public class ReferenzGruppeItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(AddressPackage.Literals.REFERENZ_GRUPPE__REFERENZ,
+				(AddressPackage.Literals.REFERENZEN__REFERENZEN,
 				 AddressFactory.eINSTANCE.createReferenz()));
 	}
 

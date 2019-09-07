@@ -18,15 +18,12 @@ import it.naturtalent.office.model.address.AddressPackage;
 
 
 /**
- * @author A682055
+ * @author dieter.apel
  *
  * Implementiert das Interface EMFFormsDIRendererService und wird als OSGI-Service
- * zur Verfuegung gestellt (@see taskreferenceservice.aml)
+ * zur Verfuegung gestellt (@see absenderrenderer.aml)
  * 
- * Fuer das Rendering der Reference Tasks im Element Schedule soll der 
- * 'it.naturtalent.emf.model.DefaultReferenceRenderer' verwendet werden. 
- * Dieser Service priorisiert diesen Renderer ueber die Funktion 'isApplicable(VElement vElement'
- * und gibt die gewuenschte Rendererklasse ueber 'getRendererClass()' zurueck.
+ * Fuer das Rendering der soll 'AbsenderRendering' verwendet werden. 
  * 
  */
 public class AbsenderRenderingService implements EMFFormsDIRendererService<VControl>
@@ -50,7 +47,8 @@ public class AbsenderRenderingService implements EMFFormsDIRendererService<VCont
 	 *
 	 * @param reportService The ReportService
 	 */
-	protected void setReportService(ReportService reportService) {
+	protected void setReportService(ReportService reportService) 
+	{
 		this.reportService = reportService;
 	}
 
@@ -75,12 +73,15 @@ public class AbsenderRenderingService implements EMFFormsDIRendererService<VCont
 			reportService.report(new DatabindingFailedReport(ex));
 			return NOT_APPLICABLE;
 		}
+		
+		// Feature des Elements
 		final EStructuralFeature eStructuralFeature = EStructuralFeature.class
 				.cast(valueProperty.getValueType());
 				
 	
 		if (AddressPackage.eINSTANCE.getAbsender_Name().equals(eStructuralFeature))
 		{
+			// Feature 'Name' stimmt ueberein - gesuchtes Element gefunden
 			return 20.0;					
 		}
 		

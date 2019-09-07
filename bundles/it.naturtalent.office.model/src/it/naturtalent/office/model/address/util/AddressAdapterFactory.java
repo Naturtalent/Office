@@ -130,19 +130,9 @@ public class AddressAdapterFactory extends AdapterFactoryImpl
 				return createReferenzAdapter();
 			}
 			@Override
-			public Adapter caseReferenzSet(ReferenzSet object)
+			public Adapter caseReferenzen(Referenzen object)
 			{
-				return createReferenzSetAdapter();
-			}
-			@Override
-			public Adapter caseReferenzenClass(ReferenzenClass object)
-			{
-				return createReferenzenClassAdapter();
-			}
-			@Override
-			public Adapter caseReferenzGruppe(ReferenzGruppe object)
-			{
-				return createReferenzGruppeAdapter();
+				return createReferenzenAdapter();
 			}
 			@Override
 			public Adapter caseSender(Sender object)
@@ -207,6 +197,21 @@ public class AddressAdapterFactory extends AdapterFactoryImpl
 	 * @generated
 	 */
 	public Adapter createReferenzAdapter()
+	{
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.naturtalent.office.model.address.Referenzen <em>Referenzen</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.naturtalent.office.model.address.Referenzen
+	 * @generated
+	 */
+	public Adapter createReferenzenAdapter()
 	{
 		return null;
 	}
@@ -327,51 +332,6 @@ public class AddressAdapterFactory extends AdapterFactoryImpl
 	 * @generated
 	 */
 	public Adapter createFooteNoteSetAdapter()
-	{
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link it.naturtalent.office.model.address.ReferenzSet <em>Referenz Set</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see it.naturtalent.office.model.address.ReferenzSet
-	 * @generated
-	 */
-	public Adapter createReferenzSetAdapter()
-	{
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link it.naturtalent.office.model.address.ReferenzenClass <em>Referenzen Class</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see it.naturtalent.office.model.address.ReferenzenClass
-	 * @generated
-	 */
-	public Adapter createReferenzenClassAdapter()
-	{
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link it.naturtalent.office.model.address.ReferenzGruppe <em>Referenz Gruppe</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see it.naturtalent.office.model.address.ReferenzGruppe
-	 * @generated
-	 */
-	public Adapter createReferenzGruppeAdapter()
 	{
 		return null;
 	}

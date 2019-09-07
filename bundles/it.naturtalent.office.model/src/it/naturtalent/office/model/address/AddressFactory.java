@@ -41,6 +41,15 @@ public interface AddressFactory extends EFactory
 	Referenz createReferenz();
 
 	/**
+	 * Returns a new object of class '<em>Referenzen</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Referenzen</em>'.
+	 * @generated
+	 */
+	Referenzen createReferenzen();
+
+	/**
 	 * Returns a new object of class '<em>Empfaenger</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -111,33 +120,6 @@ public interface AddressFactory extends EFactory
 	 * @generated
 	 */
 	FooteNoteSet createFooteNoteSet();
-
-	/**
-	 * Returns a new object of class '<em>Referenz Set</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Referenz Set</em>'.
-	 * @generated
-	 */
-	ReferenzSet createReferenzSet();
-
-	/**
-	 * Returns a new object of class '<em>Referenzen Class</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Referenzen Class</em>'.
-	 * @generated
-	 */
-	ReferenzenClass createReferenzenClass();
-
-	/**
-	 * Returns a new object of class '<em>Referenz Gruppe</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Referenz Gruppe</em>'.
-	 * @generated
-	 */
-	ReferenzGruppe createReferenzGruppe();
 
 	/**
 	 * Returns a new object of class '<em>Sender</em>'.

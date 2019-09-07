@@ -30,36 +30,35 @@ import org.eclipse.swt.widgets.Composite;
 import org.osgi.service.prefs.BackingStoreException;
 
 import it.naturtalent.e4.office.ui.OfficeUtils;
-import it.naturtalent.e4.office.ui.dialogs.AbsenderDialog;
+import it.naturtalent.e4.office.ui.dialogs.ReferenzDialog;
 import it.naturtalent.e4.preferences.CheckListEditorComposite;
-import it.naturtalent.office.model.address.Absender;
 import it.naturtalent.office.model.address.AddressPackage;
-import it.naturtalent.office.model.address.Adresse;
-import it.naturtalent.office.model.address.Sender;
+import it.naturtalent.office.model.address.Referenz;
+import it.naturtalent.office.model.address.Referenzen;
 
 
 
 
 /**
- * Eine Praeferenzliste (Checkliste) mit den Namen der Absenderpraeferenznamen,
+ * Eine Praeferenzliste (Checkliste) mit den Namen der Referenz - Praeferenznamen,
  * 
  * @author dieter
  *
  */
-public class OfficeAbsenderPreferenceComposite extends CheckListEditorComposite
+public class OfficeReferenzPreferenceComposite extends CheckListEditorComposite
 {
-	
+	// Knoten der Office-Praeferenzen
 	protected IEclipsePreferences instancePreferenceNode = InstanceScope.INSTANCE
 			.getNode(OfficeDefaultPreferenceUtils.ROOT_DEFAULTOFFICE_PREFERENCES_NODE);
 	
-	// Liste aller Absender in diesem Context
-	protected List<Absender>contextAbsender = new ArrayList<Absender>();
+	// Liste aller Referenzen in diesem Context
+	protected List<Referenz>contextReferenzen = new ArrayList<Referenz>();
 
-	// Kontext 
+	// Default Office-Kontext 
 	protected String officeContext = OfficeDefaultPreferenceUtils.DEFAULT_OFFICE_CONTEXT;
 
-	// Default Praeferenzname des Absenders 
-	protected String defaultName = OfficeDefaultPreferenceUtils.DEFAULT_ABSENDERNAME;
+	// Default Praeferenzname der Referenz 
+	protected String defaultName = OfficeDefaultPreferenceUtils.DEFAULT_REFERENZNAME;
 	
 	// erfoerderlich fuer EMF-Commandos
 	private EObject container;
@@ -75,7 +74,7 @@ public class OfficeAbsenderPreferenceComposite extends CheckListEditorComposite
 	 * @param parent
 	 * @param style
 	 */	
-	public OfficeAbsenderPreferenceComposite(Composite parent, int style)
+	public OfficeReferenzPreferenceComposite(Composite parent, int style)
 	{
 		super(parent, style);
 		
@@ -96,26 +95,26 @@ public class OfficeAbsenderPreferenceComposite extends CheckListEditorComposite
 	
 	protected void init()
 	{
-		// Absender(Adresse) via EMF-Commands handeln
-		container = OfficeUtils.findObject(AddressPackage.eINSTANCE.getSender());
+		// Referenzmodellaenderungen via EMF-Commands realisieren
+		container = OfficeUtils.findObject(AddressPackage.eINSTANCE.getReferenzen());
 		domain = AdapterFactoryEditingDomain.getEditingDomainFor(container);	
-		eReference = AddressPackage.eINSTANCE.getSender_Senders();
+		eReference = AddressPackage.eINSTANCE.getReferenzen_Referenzen();
 	
-		// die Kontextabsender laden
-		loadContextAbsender();
+		// die Kontextreferenzen laden
+		loadContextReferenzen();
 		
-		// Praeferenznamen der Absender in Praeferenzliste anzeigen
+		// Praeferenznamen der Refenenzen in Praeferenzliste anzeigen
 		setPreferenceList();
 		
-		// Name der aktuelle Absenderpraeferenz in der Praeferenzliste checken
-		String absenderPreferenz = instancePreferenceNode.get(
-				OfficeDefaultPreferenceUtils.ABSENDER_PREFERENCE,
-				OfficeDefaultPreferenceUtils.DEFAULT_ABSENDERNAME);		
+		// Name der aktuelle Referenzpraeferenz
+		String referenzPreferenz = instancePreferenceNode.get(
+				OfficeDefaultPreferenceUtils.REFERENZ_PREFERENCE,
+				OfficeDefaultPreferenceUtils.DEFAULT_REFERENZNAME);		
 		
-		// existiert der Absender noch im Modell
-		if(findAbsender(absenderPreferenz) == null)
-			absenderPreferenz = OfficeDefaultPreferenceUtils.DEFAULT_ABSENDERNAME;			
-		setCheckedElements(new String [] {absenderPreferenz});
+		// existiert die Referenz noch im Modell
+		if(findReferenz(referenzPreferenz) == null)
+			referenzPreferenz = OfficeDefaultPreferenceUtils.DEFAULT_REFERENZNAME;			
+		setCheckedElements(new String [] {referenzPreferenz});
 		
 		updateWidgets();
 
@@ -132,13 +131,13 @@ public class OfficeAbsenderPreferenceComposite extends CheckListEditorComposite
 		Object selObj = selection.getFirstElement();
 		if (selObj instanceof String)
 		{
-			// den selektierten Absender suchen
+			// die selektierte Referenz suchen
 			String prefName = (String) selObj;
-			Absender absender = findAbsender(prefName);
-			if(absender != null)
+			Referenz referenz = findReferenz(prefName);
+			if(referenz != null)
 			{		
 				// DefaultAbsender wird nicht geloescht
-				btnRemove.setEnabled(!StringUtils.equals(absender.getName(), defaultName));
+				btnRemove.setEnabled(!StringUtils.equals(referenz.getName(), defaultName));
 				
 				btnCopy.setEnabled(true);
 			}
@@ -146,43 +145,43 @@ public class OfficeAbsenderPreferenceComposite extends CheckListEditorComposite
 	}
 
 	/*
-	 * die Absendernamen in die Praeferenzliste eintragen 
+	 * die Referenznamen in die Praeferenzliste eintragen 
 	 */
 	private void setPreferenceList()
 	{
-		List<String>preferenceNames = new ArrayList<String>();
-		for(Absender absender : contextAbsender)
-			preferenceNames.add(absender.getName());		
-		checkboxTableViewer.setInput(preferenceNames);
+		List<String>referenzNames = new ArrayList<String>();
+		for(Referenz referenz : contextReferenzen)
+			referenzNames.add(referenz.getName());		
+		checkboxTableViewer.setInput(referenzNames);
 	}
 		
 	/*
-	 * einen neuen Absender hinzufuegen
+	 * eine neue Referenz hinzufuegen
 	 */
 	@Override
 	protected void doAdd()
 	{
 		// TODO Auto-generated method stub
-		Absender absender = generateContextAbsender();
+		Referenz referenz = generateContextReferenz();
 		
-		// neuen Absender mit Dialog bearbeiten
+		// neue Referenz mit Dialog bearbeiten
 		IEclipseContext context = E4Workbench.getServiceContext();
-		AbsenderDialog dialog = ContextInjectionFactory.make(AbsenderDialog.class, context);
-		dialog.setAbsender(absender);		
+		ReferenzDialog dialog = ContextInjectionFactory.make(ReferenzDialog.class, context);
+		dialog.setReferenz(referenz);
 		
 		// Default-Praeferenznamen via E4Context dem Renderer uebergeben
 		E4Workbench.getServiceContext().set(OfficeDefaultPreferenceUtils.E4CONTEXT_DEFAULTNAME, defaultName);
 		
-		if (dialog.open() == AbsenderDialog.OK)
+		if (dialog.open() == ReferenzDialog.OK)
 		{			
 			// DefaultAbsender zum Modell hinzufuegen und speichern
-			Command addCommand = AddCommand.create(domain, container , eReference, absender);
+			Command addCommand = AddCommand.create(domain, container , eReference, referenz);
 			if(addCommand.canExecute())	
 			{
 				domain.getCommandStack().execute(addCommand);	
 				
-				// den neuen Absender zur ContextAbsender-Liste hinzufuegen
-				contextAbsender.add(absender);
+				// die neue Referenz zur ContextReferenz-Liste hinzufuegen
+				contextReferenzen.add(referenz);
 				
 				// Praeferenzliste aktualisieren
 				setPreferenceList();
@@ -193,7 +192,7 @@ public class OfficeAbsenderPreferenceComposite extends CheckListEditorComposite
 	}
 
 	/* 
-	 * Den selektierten Absender bearbeiten
+	 * Die selektierte Referenz bearbeiten
 	 */
 	@Override
 	protected void doEdit()
@@ -204,42 +203,42 @@ public class OfficeAbsenderPreferenceComposite extends CheckListEditorComposite
 		{
 			// den selektierten Absender suchen
 			String prefName = (String) selObj;
-			Absender absender = findAbsender(prefName);
+			Referenz referenz = findReferenz(prefName);
 			
-			if(absender != null)
+			if(referenz != null)
 			{
-				Absender absenderCopy = EcoreUtil.copy(absender);
+				Referenz referenzCopy = EcoreUtil.copy(referenz);
 				
 				// Kopie mit dem Dialog bearbeiten
 				IEclipseContext context = E4Workbench.getServiceContext();
-				AbsenderDialog dialog = ContextInjectionFactory.make(AbsenderDialog.class, context);
-				dialog.setAbsender(absenderCopy);
+				ReferenzDialog dialog = ContextInjectionFactory.make(ReferenzDialog.class, context);
+				dialog.setReferenz(referenzCopy);
 				
 				// Default-Praeferenznamen via E4Context dem Renderer uebergeben
 				E4Workbench.getServiceContext().set(OfficeDefaultPreferenceUtils.E4CONTEXT_DEFAULTNAME, defaultName);
 				
-				if (dialog.open() == AbsenderDialog.OK)
+				if (dialog.open() == ReferenzDialog.OK)
 				{
-					// Original-Absender aus dem Modell entfernen
-					Command removeCommand = RemoveCommand.create(domain,container, eReference, absender);
+					// Original-Referenz aus dem Modell entfernen
+					Command removeCommand = RemoveCommand.create(domain,container, eReference, referenz);
 					if (removeCommand.canExecute())		
 					{
 						domain.getCommandStack().execute(removeCommand);
-						contextAbsender.remove(absender);
+						contextReferenzen.remove(referenz);
 					}
 					
-					Command addCommand = AddCommand.create(domain, container , eReference, absenderCopy);
+					Command addCommand = AddCommand.create(domain, container , eReference, referenzCopy);
 					if(addCommand.canExecute())	
 					{
 						domain.getCommandStack().execute(addCommand);	
-						contextAbsender.add(absenderCopy);
+						contextReferenzen.add(referenzCopy);
 					}
 					
 					// Praeferenzliste aktualisieren
 					setPreferenceList();
 					
 					// Defaultadresse checken						
-					setCheckedElements(new String[]{absenderCopy.getName()});
+					setCheckedElements(new String[]{referenzCopy.getName()});
 				}
 				
 				E4Workbench.getServiceContext().remove(OfficeDefaultPreferenceUtils.E4CONTEXT_DEFAULTNAME);
@@ -255,28 +254,28 @@ public class OfficeAbsenderPreferenceComposite extends CheckListEditorComposite
 		Object selObj = selection.getFirstElement();
 		if (selObj instanceof String)
 		{
-			// den selektierten Absender suchen
+			// die selektierte Referenz suchen
 			String prefName = (String) selObj;
-			Absender absender = findAbsender(prefName);
-			if(absender != null)
+			Referenz referenz = findReferenz(prefName);
+			if(referenz != null)
 			{
-				// DefaultAbsender wird nicht geloescht
-				if (!StringUtils.equals(absender.getName(), defaultName))
+				// DefaultReferenz wird nicht geloescht
+				if (!StringUtils.equals(referenz.getName(), defaultName))
 				{
-					// Absender aus dem Modell entfernen
+					// Referenz aus dem Modell entfernen
 					Command removeCommand = RemoveCommand.create(domain,
-							container, eReference, absender);
+							container, eReference, referenz);
 					if (removeCommand.canExecute())
 					{
 						domain.getCommandStack().execute(removeCommand);
 
-						// den alten Absender aus der ContextAbsender-Liste entfernen
-						contextAbsender.remove(absender);
+						// die alte Referenz aus der ContextReferenz-Liste entfernen
+						contextReferenzen.remove(referenz);
 						
 						// Praeferenzliste aktualisieren
 						setPreferenceList();
 						
-						// Defaultadresse checken						
+						// Defaultreferenz checken						
 						setCheckedElements(new String[]{defaultName});
 					}
 				}
@@ -292,11 +291,11 @@ public class OfficeAbsenderPreferenceComposite extends CheckListEditorComposite
 		// das Modell festschreiben
 		ECPHandlerHelper.saveProject(OfficeUtils.getOfficeProject());
 		
-		// das gecheckte Element wird als Absenderpraeferenz gespeichert
+		// das gecheckte Element wird als Praeferenz gespeichert
 		String [] checkedElements = getCheckedElements();
 		if(ArrayUtils.isNotEmpty(checkedElements))
 		{
-			instancePreferenceNode.put(OfficeDefaultPreferenceUtils.ABSENDER_PREFERENCE,checkedElements[0]);
+			instancePreferenceNode.put(OfficeDefaultPreferenceUtils.REFERENZ_PREFERENCE,checkedElements[0]);
 			try
 			{
 				instancePreferenceNode.flush();
@@ -328,21 +327,21 @@ public class OfficeAbsenderPreferenceComposite extends CheckListEditorComposite
 		{
 			// den selektierten Absender suchen
 			String prefName = (String) selObj;
-			Absender absender = findAbsender(prefName);
+			Referenz referenz = findReferenz(prefName);
 			
-			if(absender != null)
+			if(referenz != null)
 			{
-				Absender absenderCopy = EcoreUtil.copy(absender);
-				absenderCopy.setName(prefName+"copy");
+				Referenz referenzCopy = EcoreUtil.copy(referenz);
+				referenzCopy.setName(prefName+"copy");
 				
 				// die Kopie hinzufuegen
-				Command addCommand = AddCommand.create(domain, container , eReference, absenderCopy);
+				Command addCommand = AddCommand.create(domain, container , eReference, referenzCopy);
 				if(addCommand.canExecute())	
 				{
 					domain.getCommandStack().execute(addCommand);	
 					
-					// den neuen Absender zur ContextAbsender-Liste hinzufuegen
-					contextAbsender.add(absenderCopy);
+					// die neue Referenz zur ContextReferenz-Liste hinzufuegen
+					contextReferenzen.add(referenzCopy);
 					
 					// Praeferenzliste aktualisieren
 					setPreferenceList();
@@ -352,37 +351,37 @@ public class OfficeAbsenderPreferenceComposite extends CheckListEditorComposite
 	}
 	
 	/*
-	 * Alle Absenderdaten aus dem Modell einlesen und nach dem Kontext filtern
-	 * Einen Defaultabsender erzeugen und hinzufuegen
+	 * Alle Referenzen aus dem Modell einlesen und nach dem Kontext filtern
+	 * Eine Defaultreferenz erzeugen und hinzufuegen
 	 */
-	protected List<Absender> loadContextAbsender()
+	protected List<Referenz> loadContextReferenzen()
 	{
-		// alle gespeicherten Absender aus dem Modell einlesen
-		Sender sender = (Sender) OfficeUtils.findObject(AddressPackage.eINSTANCE.getSender());		
-		EList<Absender>allAbsender = sender.getSenders();
+		// alle gespeicherten Referenzen aus dem Modell einlesen
+		Referenzen referenzen = (Referenzen) OfficeUtils.findObject(AddressPackage.eINSTANCE.getReferenzen());		
+		EList<Referenz>allReferenzen = referenzen.getReferenzen();
 		
-		// Absender filtern
-		contextAbsender.clear();
-		if(allAbsender != null)
+		// Referenzen filtern
+		contextReferenzen.clear();
+		if(allReferenzen != null)
 		{
-			for (Absender absender : allAbsender)
+			for (Referenz referenz : allReferenzen)
 			{
-				if(StringUtils.equals(absender.getContext(),officeContext))
-					contextAbsender.add(absender);
+				if(StringUtils.equals(referenz.getContext(),officeContext))
+					contextReferenzen.add(referenz);
 			}
 		}
 				
-		// Defaultadresse erzeugen, wenn noch kein Absender mit diesem Kontext existiert 
-		//if(contextAbsender.isEmpty())
-		if(findAbsender(defaultName) == null)
+		// Defaultreferenz erzeugen, wenn noch kein Referenz mit diesem Kontext existiert 
+		//if(contextReferenzen.isEmpty())
+		if(findReferenz(defaultName) == null)
 		{
-			// Kontextabsender erzeugen mit Default-Praeferenznamen
-			Absender defAbsender = generateContextAbsender();		
-			defAbsender.setName(defaultName);			
-			contextAbsender.add(defAbsender);
+			// Kontextreferenz erzeugen mit Default-Praeferenznamen
+			Referenz defReferenz = generateContextReferenz();		
+			defReferenz.setName(defaultName);			
+			contextReferenzen.add(defReferenz);
 			
 			// DefaultAbsender zum Modell hinzufuegen und speichern
-			Command addCommand = AddCommand.create(domain, container , eReference, defAbsender);
+			Command addCommand = AddCommand.create(domain, container , eReference, defReferenz);
 			if(addCommand.canExecute())	
 			{
 				domain.getCommandStack().execute(addCommand);		
@@ -391,92 +390,66 @@ public class OfficeAbsenderPreferenceComposite extends CheckListEditorComposite
 		}
 		
 		// die gefilterten Daten zurueckgeben
-		return contextAbsender;
+		return contextReferenzen;
 	}
 	
-	// einen neuen Absender generieren
-	protected Absender generateContextAbsender()
+	// eine neue kontextbezogene Referenz generieren
+	protected Referenz generateContextReferenz()
 	{
-		// einen neuen Absender generieren mit 
-		EClass absenderClass = AddressPackage.eINSTANCE.getAbsender();
-		Absender defAbsender = (Absender) EcoreUtil.create(absenderClass);
-		defAbsender.setContext(officeContext);
-
-		// neue Adresse erzeugen und dem Absender hinzufuegen			
-		EClass addressClass = AddressPackage.eINSTANCE.getAdresse();
-		Adresse addresse = (Adresse)EcoreUtil.create(addressClass);		
-		defAbsender.setAdresse(addresse);
+		// eine neue Referenz generieren 
+		EClass referenzClass = AddressPackage.eINSTANCE.getReferenz();
+		Referenz defReferenz = (Referenz) EcoreUtil.create(referenzClass);
+		defReferenz.setContext(officeContext);
 		
-		return defAbsender;		
+		return defReferenz;		
 	}
 
-	private Absender findAbsender(String absenderName)
+	private Referenz findReferenz(String referenzName)
 	{
-		for (Absender absender : contextAbsender)
+		for (Referenz referenz : contextReferenzen)
 		{
-			if(StringUtils.equals(absender.getName(), absenderName))
-				return absender;
+			if(StringUtils.equals(referenz.getName(), referenzName))
+				return referenz;
 		}
 
 		return null;
 	}
 	
 	/**
-	 */
-	/*
-	public void copyAbsender()
-	{
-		IStructuredSelection selection = checkboxTableViewer.getStructuredSelection();
-		Object selObj = selection.getFirstElement();
-		if (selObj instanceof String)
-		{
-			// den selektierten Absender suchen
-			String prefName = (String) selObj;
-			Absender absender = findAbsender(prefName);
-			
-			if(absender != null)
-			{
-				System.out.println("kopieren");				
-			}
-		}
-	}
-	*/
-	
-	/**
-	 * Importierte Absender uebernehmen, filtert nach OfficeContext
+	 * Die importierten Referenzen uebernehmen, filtert nach OfficeContext
 	 * Bestehende (gleicher Name) werden durch die Importierten ersetzt - neue werden hinzugefuegt. 
 	 * 
 	 * @param importedReferences - Liste der importierten Absender
 	 */
-	public void importAbsender(List<Absender>importedAbsender)
+	public void importReferenzen(List<Referenz>importedReferenzen)
 	{
-		if((importedAbsender != null))
+		if((importedReferenzen != null))
 		{
-			for(Absender importAbsender : importedAbsender)
+			for(Referenz importReferenz : importedReferenzen)
 			{
-				String importedName = importAbsender.getName();
+				String importedName = importReferenz.getName();
 				if ((StringUtils.isNotEmpty(importedName)
-						&& StringUtils.equals(importAbsender.getContext(), officeContext)))
+						&& StringUtils.equals(importReferenz.getContext(), officeContext)))
 				{
-					// existiert bereits ein gleichnamiger Absender 
-					Absender existAbsender = findAbsender(importedName);
-					if(existAbsender != null)
+					// existiert bereits eine gleichnamige Referenz 
+					Referenz existReferenz = findReferenz(importedName);
+					if(existReferenz != null)
 					{
-						// existierender Absender wird geloescht
-						Command removeCommand = RemoveCommand.create(domain,container, eReference, existAbsender);
+						// existierende Referenz wird geloescht
+						Command removeCommand = RemoveCommand.create(domain,container, eReference, existReferenz);
 						if (removeCommand.canExecute())
 						{
 							domain.getCommandStack().execute(removeCommand);
-							contextAbsender.remove(existAbsender);
+							contextReferenzen.remove(existReferenz);
 						}
 					}
 										
 					// die importierte Referenz wird zum Modell hinzugefuegt
-					Command addCommand = AddCommand.create(domain,container, eReference, importAbsender);
+					Command addCommand = AddCommand.create(domain,container, eReference, importReferenz);
 					if (addCommand.canExecute())
 					{
 						domain.getCommandStack().execute(addCommand);
-						contextAbsender.add(importAbsender);
+						contextReferenzen.add(importReferenz);
 					}
 				}
 			}
@@ -485,6 +458,7 @@ public class OfficeAbsenderPreferenceComposite extends CheckListEditorComposite
 			setPreferenceList();
 		}
 	}
+
 
 
 }

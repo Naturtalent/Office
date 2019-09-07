@@ -4,6 +4,9 @@ import javax.inject.Inject;
 
 import org.apache.commons.lang3.StringUtils;
 import org.eclipse.core.databinding.Binding;
+import org.eclipse.core.databinding.observable.ChangeEvent;
+import org.eclipse.core.databinding.observable.IChangeListener;
+import org.eclipse.core.databinding.observable.IObservable;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.ui.internal.workbench.E4Workbench;
@@ -26,13 +29,14 @@ import org.eclipse.swt.widgets.Text;
 import it.naturtalent.e4.office.ui.OfficeUtils;
 import it.naturtalent.e4.office.ui.preferences.OfficeDefaultPreferenceUtils;
 import it.naturtalent.office.model.address.Absender;
+import it.naturtalent.office.model.address.Referenz;
 
 
 
 /**
- * Eingabefeld des Absendernamens anpassen.
+ * Renderer fuers Eingabefeld 'Name' dee Referenz anpassen.
  * 
- * Verhindert, dass im DefaultAbsender der 'defaultName' editiert werden kann.
+ * Verhindert, dass im DefaultReferenz der 'defaultName' editiert werden kann.
  * Modifiziert WidgetStyle so, dass das Eingabefeld deaktiviert ist.
  * 
  * Der 'defaultName' muss im E4Context unter dem Namen 'E4CONTEXT_DEFAULTNAME' hinterlegt sein.
@@ -42,17 +46,17 @@ import it.naturtalent.office.model.address.Absender;
  * @author dieter
  *
  */
-public class AbsenderRendering extends TextControlSWTRenderer
+public class ReferenzRendering extends TextControlSWTRenderer
 {
 	private String defaultName;
 	
-	private Absender absender;
+	private Referenz referenz;
 	
 	private IEventBroker eventBroker;
 
 	
 	@Inject
-	public AbsenderRendering(VControl vElement,
+	public ReferenzRendering(VControl vElement,
 			ViewModelContext viewContext, ReportService reportService,
 			EMFFormsDatabinding emfFormsDatabinding,
 			EMFFormsLabelProvider emfFormsLabelProvider,
@@ -62,14 +66,16 @@ public class AbsenderRendering extends TextControlSWTRenderer
 		super(vElement, viewContext, reportService, emfFormsDatabinding,
 				emfFormsLabelProvider, vtViewTemplateProvider, emfFormsEditSupport);
 		
-		// dieser Absender wird editiert
-		absender = (Absender) viewContext.getDomainModel();
+		// dieser Referenz wird editiert
+		referenz = (Referenz) viewContext.getDomainModel();
 		
 		eventBroker = E4Workbench.getServiceContext().get(IEventBroker.class);
 		
 		// Textstyle-Wert aus dem E$-Context uebernehmen, wenn einer uebergeben wurde 				
 		IEclipseContext context = E4Workbench.getServiceContext();
 		defaultName = (String) context.get(OfficeDefaultPreferenceUtils.E4CONTEXT_DEFAULTNAME);	
+		
+		
 	}
 
 	/*
@@ -80,7 +86,7 @@ public class AbsenderRendering extends TextControlSWTRenderer
 			throws DatabindingFailedException
 	{
 		Binding[] bindings = super.createBindings(control);
-
+		
 		Object obj = Composite.class.cast(control).getChildren()[0];
 		if (obj instanceof Text)
 		{
@@ -108,7 +114,7 @@ public class AbsenderRendering extends TextControlSWTRenderer
 	{
 		int style = super.getTextWidgetStyle();
 		
-		String name = absender.getName();
+		String name = referenz.getName();
 		if(StringUtils.equals(name, defaultName))		
 			style = style | SWT.Deactivate;
 						

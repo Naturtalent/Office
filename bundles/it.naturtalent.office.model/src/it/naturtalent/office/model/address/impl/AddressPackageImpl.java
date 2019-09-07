@@ -17,9 +17,7 @@ import it.naturtalent.office.model.address.Kontakte;
 import it.naturtalent.office.model.address.NtProjektKontakte;
 import it.naturtalent.office.model.address.Receivers;
 import it.naturtalent.office.model.address.Referenz;
-import it.naturtalent.office.model.address.ReferenzGruppe;
-import it.naturtalent.office.model.address.ReferenzSet;
-import it.naturtalent.office.model.address.ReferenzenClass;
+import it.naturtalent.office.model.address.Referenzen;
 import it.naturtalent.office.model.address.Sender;
 import it.naturtalent.office.model.address.Signature;
 import it.naturtalent.office.model.address.SignatureSet;
@@ -51,6 +49,12 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 	 * @generated
 	 */
 	private EClass referenzEClass = null;
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass referenzenEClass = null;
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -99,24 +103,6 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 	 * @generated
 	 */
 	private EClass footeNoteSetEClass = null;
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass referenzSetEClass = null;
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass referenzenClassEClass = null;
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass referenzGruppeEClass = null;
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -363,6 +349,28 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 	public EAttribute getReferenz_Referenz3()
 	{
 		return (EAttribute)referenzEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getReferenzen()
+	{
+		return referenzenEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getReferenzen_Referenzen()
+	{
+		return (EReference)referenzenEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -646,105 +654,6 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 	 * @generated
 	 */
 	@Override
-	public EClass getReferenzSet()
-	{
-		return referenzSetEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EAttribute getReferenzSet_Name()
-	{
-		return (EAttribute)referenzSetEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EReference getReferenzSet_Referenzen()
-	{
-		return (EReference)referenzSetEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EClass getReferenzenClass()
-	{
-		return referenzenClassEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EAttribute getReferenzenClass_ReferenzenClassName()
-	{
-		return (EAttribute)referenzenClassEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EReference getReferenzenClass_ReferenzClassReferenzen()
-	{
-		return (EReference)referenzenClassEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EClass getReferenzGruppe()
-	{
-		return referenzGruppeEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EAttribute getReferenzGruppe_Groupname()
-	{
-		return (EAttribute)referenzGruppeEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EReference getReferenzGruppe_Referenz()
-	{
-		return (EReference)referenzGruppeEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
 	public EClass getSender()
 	{
 		return senderEClass;
@@ -1011,17 +920,8 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 		createEAttribute(referenzEClass, REFERENZ__REFERENZ2);
 		createEAttribute(referenzEClass, REFERENZ__REFERENZ3);
 
-		referenzSetEClass = createEClass(REFERENZ_SET);
-		createEAttribute(referenzSetEClass, REFERENZ_SET__NAME);
-		createEReference(referenzSetEClass, REFERENZ_SET__REFERENZEN);
-
-		referenzenClassEClass = createEClass(REFERENZEN_CLASS);
-		createEAttribute(referenzenClassEClass, REFERENZEN_CLASS__REFERENZEN_CLASS_NAME);
-		createEReference(referenzenClassEClass, REFERENZEN_CLASS__REFERENZ_CLASS_REFERENZEN);
-
-		referenzGruppeEClass = createEClass(REFERENZ_GRUPPE);
-		createEAttribute(referenzGruppeEClass, REFERENZ_GRUPPE__GROUPNAME);
-		createEReference(referenzGruppeEClass, REFERENZ_GRUPPE__REFERENZ);
+		referenzenEClass = createEClass(REFERENZEN);
+		createEReference(referenzenEClass, REFERENZEN__REFERENZEN);
 
 		senderEClass = createEClass(SENDER);
 		createEReference(senderEClass, SENDER__SENDERS);
@@ -1127,17 +1027,8 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 		initEAttribute(getReferenz_Referenz2(), ecorePackage.getEString(), "referenz2", null, 0, 1, Referenz.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getReferenz_Referenz3(), ecorePackage.getEString(), "referenz3", null, 0, 1, Referenz.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(referenzSetEClass, ReferenzSet.class, "ReferenzSet", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getReferenzSet_Name(), ecorePackage.getEString(), "name", null, 0, 1, ReferenzSet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getReferenzSet_Referenzen(), this.getReferenz(), null, "referenzen", null, 0, -1, ReferenzSet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(referenzenClassEClass, ReferenzenClass.class, "ReferenzenClass", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getReferenzenClass_ReferenzenClassName(), ecorePackage.getEString(), "referenzenClassName", null, 0, 1, ReferenzenClass.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getReferenzenClass_ReferenzClassReferenzen(), this.getReferenzGruppe(), null, "referenzClassReferenzen", null, 0, -1, ReferenzenClass.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(referenzGruppeEClass, ReferenzGruppe.class, "ReferenzGruppe", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getReferenzGruppe_Groupname(), ecorePackage.getEString(), "groupname", null, 0, 1, ReferenzGruppe.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getReferenzGruppe_Referenz(), this.getReferenz(), null, "referenz", null, 0, -1, ReferenzGruppe.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(referenzenEClass, Referenzen.class, "Referenzen", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getReferenzen_Referenzen(), this.getReferenz(), null, "referenzen", null, 0, -1, Referenzen.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(senderEClass, Sender.class, "Sender", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getSender_Senders(), this.getAbsender(), null, "senders", null, 0, -1, Sender.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

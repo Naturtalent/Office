@@ -76,9 +76,7 @@ public class AddressFactoryImpl extends EFactoryImpl implements AddressFactory
 			case AddressPackage.FOOT_NOTE: return createFootNote();
 			case AddressPackage.FOOTE_NOTE_SET: return createFooteNoteSet();
 			case AddressPackage.REFERENZ: return createReferenz();
-			case AddressPackage.REFERENZ_SET: return createReferenzSet();
-			case AddressPackage.REFERENZEN_CLASS: return createReferenzenClass();
-			case AddressPackage.REFERENZ_GRUPPE: return createReferenzGruppe();
+			case AddressPackage.REFERENZEN: return createReferenzen();
 			case AddressPackage.SENDER: return createSender();
 			case AddressPackage.SIGNATURE: return createSignature();
 			case AddressPackage.SIGNATURE_SET: return createSignatureSet();
@@ -143,6 +141,18 @@ public class AddressFactoryImpl extends EFactoryImpl implements AddressFactory
 	{
 		ReferenzImpl referenz = new ReferenzImpl();
 		return referenz;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Referenzen createReferenzen()
+	{
+		ReferenzenImpl referenzen = new ReferenzenImpl();
+		return referenzen;
 	}
 
 	/**
@@ -239,42 +249,6 @@ public class AddressFactoryImpl extends EFactoryImpl implements AddressFactory
 	{
 		FooteNoteSetImpl footeNoteSet = new FooteNoteSetImpl();
 		return footeNoteSet;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public ReferenzSet createReferenzSet()
-	{
-		ReferenzSetImpl referenzSet = new ReferenzSetImpl();
-		return referenzSet;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public ReferenzenClass createReferenzenClass()
-	{
-		ReferenzenClassImpl referenzenClass = new ReferenzenClassImpl();
-		return referenzenClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public ReferenzGruppe createReferenzGruppe()
-	{
-		ReferenzGruppeImpl referenzGruppe = new ReferenzGruppeImpl();
-		return referenzGruppe;
 	}
 
 	/**

@@ -149,24 +149,10 @@ public class AddressSwitch<T> extends Switch<T>
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case AddressPackage.REFERENZ_SET:
+			case AddressPackage.REFERENZEN:
 			{
-				ReferenzSet referenzSet = (ReferenzSet)theEObject;
-				T result = caseReferenzSet(referenzSet);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case AddressPackage.REFERENZEN_CLASS:
-			{
-				ReferenzenClass referenzenClass = (ReferenzenClass)theEObject;
-				T result = caseReferenzenClass(referenzenClass);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case AddressPackage.REFERENZ_GRUPPE:
-			{
-				ReferenzGruppe referenzGruppe = (ReferenzGruppe)theEObject;
-				T result = caseReferenzGruppe(referenzGruppe);
+				Referenzen referenzen = (Referenzen)theEObject;
+				T result = caseReferenzen(referenzen);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -223,6 +209,22 @@ public class AddressSwitch<T> extends Switch<T>
 	 * @generated
 	 */
 	public T caseReferenz(Referenz object)
+	{
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Referenzen</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Referenzen</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseReferenzen(Referenzen object)
 	{
 		return null;
 	}
@@ -351,54 +353,6 @@ public class AddressSwitch<T> extends Switch<T>
 	 * @generated
 	 */
 	public T caseFooteNoteSet(FooteNoteSet object)
-	{
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Referenz Set</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Referenz Set</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseReferenzSet(ReferenzSet object)
-	{
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Referenzen Class</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Referenzen Class</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseReferenzenClass(ReferenzenClass object)
-	{
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Referenz Gruppe</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Referenz Gruppe</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseReferenzGruppe(ReferenzGruppe object)
 	{
 		return null;
 	}

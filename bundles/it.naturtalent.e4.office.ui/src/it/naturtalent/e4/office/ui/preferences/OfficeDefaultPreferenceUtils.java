@@ -20,8 +20,16 @@ public class OfficeDefaultPreferenceUtils
 	// Preferenzname des Absenders
 	public static final String ABSENDER_PREFERENCE= "absenderpreference"; //$NON-NLS-1$
 	
+	// Preferenzname der Preferenz
+	public static final String REFERENZ_PREFERENCE= "referenzpreference"; //$NON-NLS-1$
+
+	
 	// unter diesem Namen wird der Defautabsender gespeichert
 	public static final String DEFAULT_ABSENDERNAME = "Defaultabsender"; //$NON-NLS-1$
+	
+	// unter diesem Namen wird die Defautreferenz gespeichert
+	public static final String DEFAULT_REFERENZNAME = "Defaultreferenz"; //$NON-NLS-1$
+	
 	
 	// E4Context DefaultName 
 	public static final String E4CONTEXT_DEFAULTNAME = "defaultName"; //$NON-NLS-1$
