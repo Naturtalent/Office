@@ -112,7 +112,7 @@ public class SignatureSetRenderer extends MultiReferenceSWTRenderer
 				
 		// OfficeContext fuer den Filter aus dem Eclipse4-Context abrufen
 		IEclipseContext context = E4Workbench.getServiceContext();
-		String officeContext = (String) context.get(ODFDefaultWriteAdapterWizard.DEFAULT_OFFICECONTEXT);		
+		String officeContext = (String) context.get(OfficeUtils.E4CONTEXTKEY_OFFICECONTEXT);		
 		tableViewer.setFilters(new ViewerFilter []{new ContextFilter(officeContext)});
 		
 		// Liste der Nichtloeschbaren aus dem Eclipse4Context holen

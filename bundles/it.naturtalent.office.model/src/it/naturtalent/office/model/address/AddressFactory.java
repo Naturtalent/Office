@@ -113,13 +113,13 @@ public interface AddressFactory extends EFactory
 	FootNote createFootNote();
 
 	/**
-	 * Returns a new object of class '<em>Foote Note Set</em>'.
+	 * Returns a new object of class '<em>Foot Notes</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Foote Note Set</em>'.
+	 * @return a new object of class '<em>Foot Notes</em>'.
 	 * @generated
 	 */
-	FooteNoteSet createFooteNoteSet();
+	FootNotes createFootNotes();
 
 	/**
 	 * Returns a new object of class '<em>Sender</em>'.

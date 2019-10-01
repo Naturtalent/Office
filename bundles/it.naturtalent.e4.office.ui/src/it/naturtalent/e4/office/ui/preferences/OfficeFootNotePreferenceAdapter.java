@@ -17,23 +17,23 @@ import it.naturtalent.e4.office.ui.OfficeUtils;
 import it.naturtalent.e4.preferences.AbstractPreferenceAdapter;
 import it.naturtalent.office.model.address.Absender;
 import it.naturtalent.office.model.address.AddressPackage;
+import it.naturtalent.office.model.address.FootNote;
+import it.naturtalent.office.model.address.FootNotes;
 import it.naturtalent.office.model.address.Referenz;
 import it.naturtalent.office.model.address.Referenzen;
 import it.naturtalent.office.model.address.Sender;
 
 
 /**
- * Adapter zur Anpassund der Office-Referenzen Praeferenz
+ * Adapter zur Anpassung der Office-FootNote Praeferenz
  * 
  * @author dieter
  *
  */
-public class OfficeReferenzPreferenceAdapter extends AbstractPreferenceAdapter
+public class OfficeFootNotePreferenceAdapter extends AbstractPreferenceAdapter
 {
-	// UI der Referenz-Praeferenzliste
-	private OfficeReferenzPreferenceComposite referenceComposite;
-	
-	//protected List<Referenz>importedReferenzenList;
+	// UI der FootNote-Praeferenzliste
+	private OfficeFootNotePreferenceComposite  footNoteComposite;
 	
 	
 	@Override
@@ -45,7 +45,7 @@ public class OfficeReferenzPreferenceAdapter extends AbstractPreferenceAdapter
 	@Override
 	public String getLabel()
 	{
-		return "Referenzen"; //$NON-NLS-N$
+		return "Fußnoten"; //$NON-NLS-N$
 	}
 
 	@Override
@@ -61,28 +61,28 @@ public class OfficeReferenzPreferenceAdapter extends AbstractPreferenceAdapter
 	@Override
 	public void appliedPressed()
 	{
-		referenceComposite.appliedPressed();		
+		footNoteComposite.appliedPressed();		
 	}
 
 	@Override
-	public Composite createNodeComposite(IPreferenceNode referenceNode)
+	public Composite createNodeComposite(IPreferenceNode preferenceNode)
 	{
 		// Composite beschriften
-		referenceNode.setTitle(getLabel());
+		preferenceNode.setTitle(getLabel());
 		
-		// Checkliste zur Anzeige der Referenznamen
-		referenceComposite = new OfficeReferenzPreferenceComposite(referenceNode.getParentNode(), SWT.NONE);
+		// Checkliste zur Anzeige der FootNotenamen
+		footNoteComposite = new OfficeFootNotePreferenceComposite (preferenceNode.getParentNode(), SWT.NONE);
 		
-		init(referenceComposite);
+		init(footNoteComposite);
 		
-		return referenceComposite;
+		return footNoteComposite;
 	}
 	
 	protected void init(Composite composite)
 	{
 		// einen Infotext hinzufuegen
 		Label label = new Label(composite, SWT.NONE);
-		label.setText("Referenzen definieren, einen präferenzierten selektieren"); //$NON-NLS-N$;
+		label.setText("Fußnoten definieren, einen präferenzierten selektieren"); //$NON-NLS-N$;
 		
 		new Label(composite, SWT.NONE);
 		new Label(composite, SWT.NONE);
@@ -90,14 +90,14 @@ public class OfficeReferenzPreferenceAdapter extends AbstractPreferenceAdapter
 		
 		Hyperlink hyperlinkExport = new Hyperlink(composite, SWT.NONE);
 		hyperlinkExport.setText("exportieren");
-		hyperlinkExport.setToolTipText("alle Referenzen exportieren");
+		hyperlinkExport.setToolTipText("alle Fußnoten exportieren");
 		hyperlinkExport.addListener(SWT.MouseDown, new Listener() {
 
             @Override
             public void handleEvent(Event event) 
             {
-            	Referenzen referenzen = (Referenzen) OfficeUtils.findObject(AddressPackage.eINSTANCE.getReferenzen());
-            	OfficeDefaultPreferenceUtils.exportPreference(referenzen);
+            	FootNotes footnotes = (FootNotes) OfficeUtils.findObject(AddressPackage.eINSTANCE.getFootNotes());
+            	OfficeDefaultPreferenceUtils.exportPreference(footnotes);
             }
         });
 		
@@ -105,7 +105,7 @@ public class OfficeReferenzPreferenceAdapter extends AbstractPreferenceAdapter
 				
 		Hyperlink hyperlinkImport = new Hyperlink(composite, SWT.NONE);
 		hyperlinkImport.setText("importieren");
-		hyperlinkImport.setToolTipText("Referenzen importieren");
+		hyperlinkImport.setToolTipText("Fußnoten importieren");
 		hyperlinkImport.addListener(SWT.MouseDown, new Listener() {
 
             @Override
@@ -114,28 +114,31 @@ public class OfficeReferenzPreferenceAdapter extends AbstractPreferenceAdapter
             	List<EObject>eObjects = OfficeDefaultPreferenceUtils.importPreference();
             	if((eObjects != null) && (!eObjects.isEmpty()))
             	{
-            		if(eObjects.get(0) instanceof Referenzen)
+            		if(eObjects.get(0) instanceof FootNotes)
             		{     
-            			Referenzen referenzen = (Referenzen) eObjects.get(0); 
-            			EList<Referenz>allReferenzen = referenzen.getReferenzen();            			
+            			FootNotes footNotes = (FootNotes) eObjects.get(0); 
+            			EList<FootNote>allFootnotes = footNotes.getFootNotes();            			
             			
-            			// importierte Referenzen in einer Liste sammeln
-            			if(allReferenzen != null)
+            			// importierte FootNotes in einer Liste sammeln
+            			if(allFootnotes != null)
             			{
-            				List<Referenz>importedReferenzenList = new ArrayList<Referenz>();            				
-            				for(Referenz importReferenz : allReferenzen)            				
-            					importedReferenzenList.add(importReferenz);
-            				postImport(importedReferenzenList);          				
+            				List<FootNote>importedFooNoteList = new ArrayList<FootNote>();            				
+            				for(FootNote importFootNote : allFootnotes)            				
+            					importedFooNoteList.add(importFootNote);
+            				
+            				postImport(importedFooNoteList);
             			}
             		}
             	}
             }
         });
+	
 	}
 	
-	protected void postImport(List<Referenz>importedReferenzenList)
+	// realisiert die zum Import anstehenden Absender
+	protected void postImport(List<FootNote>importedFooNoteList)
 	{
-		referenceComposite.importReferenzen(importedReferenzenList);
+		footNoteComposite.importFootNotes(importedFooNoteList);
 	}
 
 	/*
@@ -144,7 +147,7 @@ public class OfficeReferenzPreferenceAdapter extends AbstractPreferenceAdapter
 	@Override
 	public void cancelPressed()
 	{
-		referenceComposite.doCancel();
+		footNoteComposite.doCancel();
 	}
 	
 	

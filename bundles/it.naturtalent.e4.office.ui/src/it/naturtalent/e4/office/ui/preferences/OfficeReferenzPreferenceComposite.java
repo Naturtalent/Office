@@ -30,6 +30,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.osgi.service.prefs.BackingStoreException;
 
 import it.naturtalent.e4.office.ui.OfficeUtils;
+import it.naturtalent.e4.office.ui.dialogs.OfficePreferenzDialog;
 import it.naturtalent.e4.office.ui.dialogs.ReferenzDialog;
 import it.naturtalent.e4.preferences.CheckListEditorComposite;
 import it.naturtalent.office.model.address.AddressPackage;
@@ -69,7 +70,7 @@ public class OfficeReferenzPreferenceComposite extends CheckListEditorComposite
 	private Button btnCopy;
 		
 	/**
-	 * Konstruktuor
+	 * Konstruktion
 	 * 
 	 * @param parent
 	 * @param style
@@ -78,7 +79,7 @@ public class OfficeReferenzPreferenceComposite extends CheckListEditorComposite
 	{
 		super(parent, style);
 		
-		btnCopy = new Button(btnComposite, SWT.NONE);
+		btnCopy = new Button(btnComposite, SWT.NONE);		
 		btnCopy.setText("copy"); //$NON-NLS-N$
 		btnCopy.addSelectionListener(new SelectionAdapter()
 		{
@@ -166,13 +167,13 @@ public class OfficeReferenzPreferenceComposite extends CheckListEditorComposite
 		
 		// neue Referenz mit Dialog bearbeiten
 		IEclipseContext context = E4Workbench.getServiceContext();
-		ReferenzDialog dialog = ContextInjectionFactory.make(ReferenzDialog.class, context);
-		dialog.setReferenz(referenz);
+		OfficePreferenzDialog dialog = ContextInjectionFactory.make(OfficePreferenzDialog.class, context);
+		dialog.setPreferenz(referenz);
 		
 		// Default-Praeferenznamen via E4Context dem Renderer uebergeben
 		E4Workbench.getServiceContext().set(OfficeDefaultPreferenceUtils.E4CONTEXT_DEFAULTNAME, defaultName);
 		
-		if (dialog.open() == ReferenzDialog.OK)
+		if (dialog.open() == OfficePreferenzDialog.OK)
 		{			
 			// DefaultAbsender zum Modell hinzufuegen und speichern
 			Command addCommand = AddCommand.create(domain, container , eReference, referenz);
@@ -211,13 +212,13 @@ public class OfficeReferenzPreferenceComposite extends CheckListEditorComposite
 				
 				// Kopie mit dem Dialog bearbeiten
 				IEclipseContext context = E4Workbench.getServiceContext();
-				ReferenzDialog dialog = ContextInjectionFactory.make(ReferenzDialog.class, context);
-				dialog.setReferenz(referenzCopy);
+				OfficePreferenzDialog dialog = ContextInjectionFactory.make(OfficePreferenzDialog.class, context);
+				dialog.setPreferenz(referenzCopy);
 				
 				// Default-Praeferenznamen via E4Context dem Renderer uebergeben
 				E4Workbench.getServiceContext().set(OfficeDefaultPreferenceUtils.E4CONTEXT_DEFAULTNAME, defaultName);
 				
-				if (dialog.open() == ReferenzDialog.OK)
+				if (dialog.open() == OfficePreferenzDialog.OK)
 				{
 					// Original-Referenz aus dem Modell entfernen
 					Command removeCommand = RemoveCommand.create(domain,container, eReference, referenz);

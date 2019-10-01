@@ -74,7 +74,7 @@ public class AddressFactoryImpl extends EFactoryImpl implements AddressFactory
 			case AddressPackage.NT_PROJEKT_KONTAKTE: return createNtProjektKontakte();
 			case AddressPackage.FOOT_NOTE_ITEM: return createFootNoteItem();
 			case AddressPackage.FOOT_NOTE: return createFootNote();
-			case AddressPackage.FOOTE_NOTE_SET: return createFooteNoteSet();
+			case AddressPackage.FOOT_NOTES: return createFootNotes();
 			case AddressPackage.REFERENZ: return createReferenz();
 			case AddressPackage.REFERENZEN: return createReferenzen();
 			case AddressPackage.SENDER: return createSender();
@@ -245,10 +245,10 @@ public class AddressFactoryImpl extends EFactoryImpl implements AddressFactory
 	 * @generated
 	 */
 	@Override
-	public FooteNoteSet createFooteNoteSet()
+	public FootNotes createFootNotes()
 	{
-		FooteNoteSetImpl footeNoteSet = new FooteNoteSetImpl();
-		return footeNoteSet;
+		FootNotesImpl footNotes = new FootNotesImpl();
+		return footNotes;
 	}
 
 	/**

@@ -109,8 +109,6 @@ public class AddressValidator extends EObjectValidator
 				return validateFootNoteItem((FootNoteItem)value, diagnostics, context);
 			case AddressPackage.FOOT_NOTE:
 				return validateFootNote((FootNote)value, diagnostics, context);
-			case AddressPackage.FOOTE_NOTE_SET:
-				return validateFooteNoteSet((FooteNoteSet)value, diagnostics, context);
 			case AddressPackage.REFERENZ:
 				return validateReferenz((Referenz)value, diagnostics, context);
 			case AddressPackage.REFERENZEN:
@@ -216,16 +214,6 @@ public class AddressValidator extends EObjectValidator
 	public boolean validateFootNote(FootNote footNote, DiagnosticChain diagnostics, Map<Object, Object> context)
 	{
 		return validate_EveryDefaultConstraint(footNote, diagnostics, context);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public boolean validateFooteNoteSet(FooteNoteSet footeNoteSet, DiagnosticChain diagnostics, Map<Object, Object> context)
-	{
-		return validate_EveryDefaultConstraint(footeNoteSet, diagnostics, context);
 	}
 
 	/**

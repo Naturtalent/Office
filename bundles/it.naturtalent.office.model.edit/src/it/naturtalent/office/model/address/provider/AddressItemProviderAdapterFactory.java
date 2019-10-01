@@ -324,28 +324,28 @@ public class AddressItemProviderAdapterFactory extends AddressAdapterFactory imp
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link it.naturtalent.office.model.address.FooteNoteSet} instances.
+	 * This keeps track of the one adapter used for all {@link it.naturtalent.office.model.address.FootNotes} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected FooteNoteSetItemProvider footeNoteSetItemProvider;
+	protected FootNotesItemProvider footNotesItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link it.naturtalent.office.model.address.FooteNoteSet}.
+	 * This creates an adapter for a {@link it.naturtalent.office.model.address.FootNotes}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createFooteNoteSetAdapter()
+	public Adapter createFootNotesAdapter()
 	{
-		if (footeNoteSetItemProvider == null)
+		if (footNotesItemProvider == null)
 		{
-			footeNoteSetItemProvider = new FooteNoteSetItemProvider(this);
+			footNotesItemProvider = new FootNotesItemProvider(this);
 		}
 
-		return footeNoteSetItemProvider;
+		return footNotesItemProvider;
 	}
 
 	/**
@@ -574,7 +574,7 @@ public class AddressItemProviderAdapterFactory extends AddressAdapterFactory imp
 		if (ntProjektKontakteItemProvider != null) ntProjektKontakteItemProvider.dispose();
 		if (footNoteItemItemProvider != null) footNoteItemItemProvider.dispose();
 		if (footNoteItemProvider != null) footNoteItemProvider.dispose();
-		if (footeNoteSetItemProvider != null) footeNoteSetItemProvider.dispose();
+		if (footNotesItemProvider != null) footNotesItemProvider.dispose();
 		if (referenzItemProvider != null) referenzItemProvider.dispose();
 		if (referenzenItemProvider != null) referenzenItemProvider.dispose();
 		if (senderItemProvider != null) senderItemProvider.dispose();

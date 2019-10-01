@@ -82,15 +82,16 @@ public class OpenTextHandler
 		if(StringUtils.isNotEmpty(factoryName))
 		{
 			// Factory ueber den Namen aus dem Repository laden  
-			IODFWriteAdapterFactory writeAdapterFactory = writeAdapterFactoryRepository
-					.getWriteAdapter(factoryName);
+			IODFWriteAdapterFactory writeAdapterFactory = writeAdapterFactoryRepository.getWriteAdapter(factoryName);
 			if(writeAdapterFactory != null)
 			{
 				// den eigentlichen Adapter durch die Factory erzeugen
 				IODFWriteAdapter writeAdapter = writeAdapterFactory.createAdapter();
 				
+				// im E4Context wird der Modus 'WIZARDOPENMODE' hinterlegt
+				context.set(ODFDefaultWriteAdapterWizard.E4CONTEXT_WIZARDMODE, ODFDefaultWriteAdapterWizard.WIZARDOPENMODE);
+				
 				// der Adapter wiederum erzeugt den dokumentspezifischen Wizard
-				context.set(ODFDefaultWriteAdapterWizard.CONTEXTWIZARDMODE, ODFDefaultWriteAdapterWizard.WIZARDOPENMODE);
 				wizardDialog = new WizardDialog(shell,writeAdapter.createWizard(context));
 				
 				// die im ResourceNavigator selektierte Datei
@@ -114,7 +115,7 @@ public class OpenTextHandler
 						}
 					} catch (Exception e)
 					{
-						MessageDialog.openError(shell, "WriteWizard", "kein Wizard verfügbar");
+						MessageDialog.openError(shell, "WriteWizard", "kein Wizard verfügbar\n"+e.getMessage());
 					}
 				}
 			}

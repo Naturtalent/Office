@@ -36,6 +36,7 @@ import it.naturtalent.e4.office.ui.expimp.OfficeProfileImportAdapter;
 import it.naturtalent.e4.office.ui.expimp.TextmoduleExportAdapter;
 import it.naturtalent.e4.office.ui.expimp.TextmoduleImportAdapter;
 import it.naturtalent.e4.office.ui.preferences.OfficeAbsenderPreferenceAdapter;
+import it.naturtalent.e4.office.ui.preferences.OfficeFootNotePreferenceAdapter;
 import it.naturtalent.e4.office.ui.preferences.OfficeReferenzPreferenceAdapter;
 import it.naturtalent.e4.preferences.IPreferenceRegistry;
 import it.naturtalent.e4.project.IExportAdapterRepository;
@@ -108,6 +109,7 @@ public class OfficeProcessor
 		{
 			preferenceRegistry.getPreferenceAdapters().add(new OfficeAbsenderPreferenceAdapter());
 			preferenceRegistry.getPreferenceAdapters().add(new OfficeReferenzPreferenceAdapter());
+			preferenceRegistry.getPreferenceAdapters().add(new OfficeFootNotePreferenceAdapter());
 		}
 		
 		// Kontakte Projectproperties

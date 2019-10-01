@@ -27,6 +27,7 @@ import org.eclipse.swt.widgets.Composite;
 import it.naturtalent.e4.office.ui.OfficeUtils;
 import it.naturtalent.icons.core.Icon;
 import it.naturtalent.icons.core.IconSize;
+import it.naturtalent.office.model.address.Empfaenger;
 import it.naturtalent.office.model.address.Referenz;
 
 
@@ -54,14 +55,6 @@ public class ReceiverDetailsRenderer extends MultiReferenceSWTRenderer
 		eventBroker = currentApplication.getContext().get(IEventBroker.class);
 		
 	}
-	
-	@Inject 
-	@Optional
-	public void handleReferenceSelection(@UIEventTopic(OfficeUtils.REFERENZSET_REQUESTSELECTREFERENCEEVENT) Object reference )
-	{
-		if (reference instanceof Referenz)		
-			getTableViewer().setSelection(new StructuredSelection(reference));
-	}
 
 	/* 
 	 * Der 'AddExistingButton' soll die Uebernahme einer Adresse aus der Kontaktdatenbank triggern.
@@ -86,5 +79,6 @@ public class ReceiverDetailsRenderer extends MultiReferenceSWTRenderer
 	{ 
 		eventBroker.post(OfficeUtils.ADD_EXISTING_RECEIVER , eObject);
 	}
+	
 	
 }

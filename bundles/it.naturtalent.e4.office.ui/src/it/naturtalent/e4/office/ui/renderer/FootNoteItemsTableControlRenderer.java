@@ -11,6 +11,7 @@ import org.eclipse.e4.ui.internal.workbench.E4Workbench;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecp.view.spi.context.ViewModelContext;
 import org.eclipse.emf.ecp.view.spi.table.model.VTableControl;
+import org.eclipse.emf.ecp.view.spi.table.swt.TableControlDetailPanelRenderer;
 import org.eclipse.emf.ecp.view.spi.table.swt.TableControlSWTRenderer;
 import org.eclipse.emf.ecp.view.spi.util.swt.ImageRegistryService;
 import org.eclipse.emf.ecp.view.template.model.VTViewTemplateProvider;
@@ -34,13 +35,14 @@ import it.naturtalent.office.model.address.Absender;
 import it.naturtalent.office.model.address.FootNote;
 
 /**
- * Renderer der die FootNoteItems in einer Tabelle darstellt und somit die eigentliche Footnotes darstellt die in einem
- * Anschreiben dargestellt werden.
+ * Renderer erweitert den TableRenderer zur Darstellung der FootNoteItems.
+ * 
+ *  'Validation'-Spalte ausblenden
  * 
  * @author dieter
  *
  */
-public class FootNotesTableControlRenderer extends TableControlSWTRenderer
+public class FootNoteItemsTableControlRenderer extends TableControlDetailPanelRenderer 
 {
 	@Inject private IEventBroker eventBroker;
 	
@@ -76,24 +78,32 @@ public class FootNotesTableControlRenderer extends TableControlSWTRenderer
 
 	
 	@Inject
-	public FootNotesTableControlRenderer(VTableControl vElement,
-			ViewModelContext viewContext, ReportService reportService,
-			EMFFormsDatabinding emfFormsDatabinding,
-			EMFFormsLabelProvider emfFormsLabelProvider,
-			VTViewTemplateProvider vtViewTemplateProvider,
-			ImageRegistryService imageRegistryService,
-			EMFFormsEditSupport emfFormsEditSupport)
-	{
-		super(vElement, viewContext, reportService, (EMFFormsDatabindingEMF) emfFormsDatabinding,
-				emfFormsLabelProvider, vtViewTemplateProvider, imageRegistryService,
-				emfFormsEditSupport);
+	public FootNoteItemsTableControlRenderer(
+		VTableControl vElement,
+		ViewModelContext viewContext,
+		ReportService reportService,
+		EMFFormsDatabindingEMF emfFormsDatabinding,
+		EMFFormsLabelProvider emfFormsLabelProvider,
+		VTViewTemplateProvider vtViewTemplateProvider,
+		ImageRegistryService imageRegistryService,
+		EMFFormsEditSupport emfFormsEditSupport) {
+		// END COMPLEX CODE
+		super(
+			vElement,
+			viewContext,
+			reportService,
+			emfFormsDatabinding,
+			emfFormsLabelProvider,
+			vtViewTemplateProvider,
+			imageRegistryService,
+			emfFormsEditSupport);
 	}
 
 	/*
 	 * Validation Spalte unsichtbar machen
 	 * 
 	 * @see org.eclipse.emf.ecp.view.spi.table.swt.TableControlSWTRenderer#getTableValidationStyleProperty()
-	 */
+	 */	
 	@Override
 	protected VTTableValidationStyleProperty getTableValidationStyleProperty()
 	{
@@ -101,23 +111,22 @@ public class FootNotesTableControlRenderer extends TableControlSWTRenderer
 		styleProperty.setColumnWidth(1);		
 		return styleProperty;
 	}
-	
-	
+		
 	/*
 	 * geeignete Funktion um Filter einzuschalten 
-	 */
+	 */	
 	@Override
 	protected void setTableViewer(AbstractTableViewer tableViewer)
 	{
 		// OfficeContext fuer den Filter aus dem Eclipse4-Context abrufen
 		this.tableViewer = tableViewer;
-		IEclipseContext context = E4Workbench.getServiceContext();
-		String officeContext = (String) context.get(ODFDefaultWriteAdapterWizard.DEFAULT_OFFICECONTEXT);		
-		//tableViewer.setFilters(new ViewerFilter []{new ContextFilter(officeContext)});
+		String officeContext = (String) E4Workbench.getServiceContext().get(OfficeUtils.E4CONTEXTKEY_OFFICECONTEXT);		
+		tableViewer.setFilters(new ViewerFilter []{new ContextFilter(officeContext)});
 		
 		super.setTableViewer(tableViewer);
-	}
+	}	
 
+	/*
 	@Inject
 	@Optional
 	public void handleModelChangedEvent(@UIEventTopic(OfficeUtils.FOOTNOTESET_REQUESTSELECTREFERENCEEVENT) EObject eObject)
@@ -125,5 +134,6 @@ public class FootNotesTableControlRenderer extends TableControlSWTRenderer
 		if(eObject != null)
 			tableViewer.setSelection(new StructuredSelection(eObject));	
 	}
+	*/
 
 }

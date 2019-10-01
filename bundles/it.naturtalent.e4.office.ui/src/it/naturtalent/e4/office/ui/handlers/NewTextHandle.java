@@ -95,7 +95,7 @@ public class NewTextHandle
 					
 					// Wizard Daten zu dem Anschreibes abfragen 
 					// der Adapter wiederum erzeugt den dokumentspezifischen Wizard
-					context.set(ODFDefaultWriteAdapterWizard.CONTEXTWIZARDMODE, ODFDefaultWriteAdapterWizard.WIZARDCREATEMODE);
+					context.set(ODFDefaultWriteAdapterWizard.E4CONTEXT_WIZARDMODE, ODFDefaultWriteAdapterWizard.WIZARDCREATEMODE);
 					WizardDialog wizardDialog = new WizardDialog(shell,writeAdapter.createWizard(context));
 					eventBroker.post(IODFWriteAdapter.ODFWRITE_FILEDEFINITIONEVENT,ifile);
 					if(wizardDialog.open() == WizardDialog.OK)

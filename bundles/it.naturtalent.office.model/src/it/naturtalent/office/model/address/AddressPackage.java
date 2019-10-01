@@ -546,50 +546,41 @@ public interface AddressPackage extends EPackage
 	int FOOT_NOTE_OPERATION_COUNT = 0;
 
 	/**
-	 * The meta object id for the '{@link it.naturtalent.office.model.address.impl.FooteNoteSetImpl <em>Foote Note Set</em>}' class.
+	 * The meta object id for the '{@link it.naturtalent.office.model.address.impl.FootNotesImpl <em>Foot Notes</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see it.naturtalent.office.model.address.impl.FooteNoteSetImpl
-	 * @see it.naturtalent.office.model.address.impl.AddressPackageImpl#getFooteNoteSet()
+	 * @see it.naturtalent.office.model.address.impl.FootNotesImpl
+	 * @see it.naturtalent.office.model.address.impl.AddressPackageImpl#getFootNotes()
 	 * @generated
 	 */
-	int FOOTE_NOTE_SET = 9;
+	int FOOT_NOTES = 9;
 
 	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * The feature id for the '<em><b>Foot Notes</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FOOTE_NOTE_SET__NAME = 0;
+	int FOOT_NOTES__FOOT_NOTES = 0;
 
 	/**
-	 * The feature id for the '<em><b>Foote Notes</b></em>' containment reference list.
+	 * The number of structural features of the '<em>Foot Notes</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FOOTE_NOTE_SET__FOOTE_NOTES = 1;
+	int FOOT_NOTES_FEATURE_COUNT = 1;
 
 	/**
-	 * The number of structural features of the '<em>Foote Note Set</em>' class.
+	 * The number of operations of the '<em>Foot Notes</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FOOTE_NOTE_SET_FEATURE_COUNT = 2;
-
-	/**
-	 * The number of operations of the '<em>Foote Note Set</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FOOTE_NOTE_SET_OPERATION_COUNT = 0;
+	int FOOT_NOTES_OPERATION_COUNT = 0;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1276,36 +1267,25 @@ public interface AddressPackage extends EPackage
 	EReference getFootNote_Footnoteitems();
 
 	/**
-	 * Returns the meta object for class '{@link it.naturtalent.office.model.address.FooteNoteSet <em>Foote Note Set</em>}'.
+	 * Returns the meta object for class '{@link it.naturtalent.office.model.address.FootNotes <em>Foot Notes</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Foote Note Set</em>'.
-	 * @see it.naturtalent.office.model.address.FooteNoteSet
+	 * @return the meta object for class '<em>Foot Notes</em>'.
+	 * @see it.naturtalent.office.model.address.FootNotes
 	 * @generated
 	 */
-	EClass getFooteNoteSet();
+	EClass getFootNotes();
 
 	/**
-	 * Returns the meta object for the attribute '{@link it.naturtalent.office.model.address.FooteNoteSet#getName <em>Name</em>}'.
+	 * Returns the meta object for the containment reference list '{@link it.naturtalent.office.model.address.FootNotes#getFootNotes <em>Foot Notes</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Name</em>'.
-	 * @see it.naturtalent.office.model.address.FooteNoteSet#getName()
-	 * @see #getFooteNoteSet()
+	 * @return the meta object for the containment reference list '<em>Foot Notes</em>'.
+	 * @see it.naturtalent.office.model.address.FootNotes#getFootNotes()
+	 * @see #getFootNotes()
 	 * @generated
 	 */
-	EAttribute getFooteNoteSet_Name();
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link it.naturtalent.office.model.address.FooteNoteSet#getFooteNotes <em>Foote Notes</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Foote Notes</em>'.
-	 * @see it.naturtalent.office.model.address.FooteNoteSet#getFooteNotes()
-	 * @see #getFooteNoteSet()
-	 * @generated
-	 */
-	EReference getFooteNoteSet_FooteNotes();
+	EReference getFootNotes_FootNotes();
 
 	/**
 	 * Returns the meta object for class '{@link it.naturtalent.office.model.address.Sender <em>Sender</em>}'.
@@ -1800,28 +1780,21 @@ public interface AddressPackage extends EPackage
 		 */
 		EReference FOOT_NOTE__FOOTNOTEITEMS = eINSTANCE.getFootNote_Footnoteitems();
 		/**
-		 * The meta object literal for the '{@link it.naturtalent.office.model.address.impl.FooteNoteSetImpl <em>Foote Note Set</em>}' class.
+		 * The meta object literal for the '{@link it.naturtalent.office.model.address.impl.FootNotesImpl <em>Foot Notes</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see it.naturtalent.office.model.address.impl.FooteNoteSetImpl
-		 * @see it.naturtalent.office.model.address.impl.AddressPackageImpl#getFooteNoteSet()
+		 * @see it.naturtalent.office.model.address.impl.FootNotesImpl
+		 * @see it.naturtalent.office.model.address.impl.AddressPackageImpl#getFootNotes()
 		 * @generated
 		 */
-		EClass FOOTE_NOTE_SET = eINSTANCE.getFooteNoteSet();
+		EClass FOOT_NOTES = eINSTANCE.getFootNotes();
 		/**
-		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Foot Notes</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute FOOTE_NOTE_SET__NAME = eINSTANCE.getFooteNoteSet_Name();
-		/**
-		 * The meta object literal for the '<em><b>Foote Notes</b></em>' containment reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference FOOTE_NOTE_SET__FOOTE_NOTES = eINSTANCE.getFooteNoteSet_FooteNotes();
+		EReference FOOT_NOTES__FOOT_NOTES = eINSTANCE.getFootNotes_FootNotes();
 		/**
 		 * The meta object literal for the '{@link it.naturtalent.office.model.address.impl.SenderImpl <em>Sender</em>}' class.
 		 * <!-- begin-user-doc -->

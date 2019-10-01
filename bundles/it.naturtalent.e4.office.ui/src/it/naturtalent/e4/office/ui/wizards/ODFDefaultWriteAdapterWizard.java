@@ -7,12 +7,17 @@ import javax.annotation.PreDestroy;
 import javax.inject.Inject;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.runtime.preferences.IEclipsePreferences;
+import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.ui.di.UIEventTopic;
 import org.eclipse.e4.ui.internal.workbench.E4Workbench;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecp.spi.ui.util.ECPHandlerHelper;
+import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
+import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.swt.custom.BusyIndicator;
@@ -21,9 +26,12 @@ import org.odftoolkit.simple.TextDocument;
 
 import it.naturtalent.e4.office.ui.IODFWriteAdapter;
 import it.naturtalent.e4.office.ui.OfficeUtils;
+import it.naturtalent.e4.office.ui.preferences.OfficeDefaultPreferenceUtils;
+import it.naturtalent.office.model.address.AddressPackage;
 
 /**
- * Mit diesem DefaultWizard fragt der DefaultWriteAdapter die erforderlichen Daten ab und schreibt sie in das Dokument.
+ * Dieser Wizard wird vom Adapter 'ODFDefaultWriteAdapter' bereitgestellt und ermoeglicht die erforderlichen Abfragen
+ * mit dem von ihm wiederum erzeugten und hinzugefuegten WizardPages.
  * 
  * Adapter fuer das Handling mit dem TextDokument
  * @see it.naturtalent.e4.office.ui.ODFDefaultWriteAdapter
@@ -35,35 +43,30 @@ import it.naturtalent.e4.office.ui.OfficeUtils;
  *
  */
 public class ODFDefaultWriteAdapterWizard extends Wizard
-{
+{	
+	// in diesem Context arbeitet der Wizard, die WizardPages und die Renderer	
+	protected String officeContext;
 	
-	//public final static String RECEIVER_PAGE_NAME = "ODF_RECEIVER";
-	//public final static String SENDER_PAGE_NAME = "ODF_SENDER";
+	// Office-Praeferenzknoten
+	protected IEclipsePreferences instancePreferenceNode;
 	
 	// erforderlich fuer das Erstellen der Pages via ContextInjectionFactory
 	protected IEclipseContext context;
-	
-	// OfficeKontext indem der Wizard arbeitet
-	public static final String DEFAULT_OFFICECONTEXT = "officecontext";
-	protected String officeContext = DEFAULT_OFFICECONTEXT;
 
-	// Modus-Flag zeigt an, ob der Wizard im New- (create) oder im OpenModus laeuft 		
+	// Modus-Flag zeigt an, ob der Wizard im New- (create) oder im OpenModus laeuft 
+	// Flag wird vom jeweiligen Handler (OpenTextHandler/NewTextHandler) im E4Context abgelegt
 	public final static boolean WIZARDCREATEMODE = false;
 	public final static boolean WIZARDOPENMODE = true;
 	protected boolean wizardModus = WIZARDCREATEMODE;
 	
-	// Name mit dem Modus-Flag in den Eclipse4-Context kolportiert wird
-	public final static String CONTEXTWIZARDMODE = "ContextWizardMode"; //$NON-NLS-N$
-		
+	// unter diesem Namen wird das Modus-Flag im E4Context hinterlegt
+	public final static String E4CONTEXT_WIZARDMODE = "officewizardmode"; //$NON-NLS-N$
+	
 	// Write-Dokument als File
 	protected File odfDocumentFile;
 	
 	// Writefile als ODF-Textdokument (Grundlage fuer den Zugriff mit dem Toolkit)
 	protected TextDocument odfDocument;
-	
-	// Label des aus dem Dokument gelesenen Absenders
-	static final String LOADED_EMPFAENGER = "Empfänge aus der Datei";
-	static final String LOADED_ABSENDER = "Absender aus der Datei";
 	
 	/**
 	 * Konstruktion
@@ -72,8 +75,13 @@ public class ODFDefaultWriteAdapterWizard extends Wizard
 	{
 		super();
 		
+		officeContext = OfficeDefaultPreferenceUtils.DEFAULT_OFFICE_CONTEXT;
+		
+		instancePreferenceNode = InstanceScope.INSTANCE
+				.getNode(OfficeDefaultPreferenceUtils.ROOT_DEFAULTOFFICE_PREFERENCES_NODE);
+		
 		// den DefaultOffice-Context in den Eclipse4-Context einbringen (steuert die Filterung im Rederer)
-		setOfficeContext(DEFAULT_OFFICECONTEXT);
+		//setOfficeContext(DEFAULT_OFFICECONTEXT);
 	}
 
 	@PostConstruct
@@ -81,51 +89,56 @@ public class ODFDefaultWriteAdapterWizard extends Wizard
 	{
 		this.context = context;
 		
-		// Modus-Flag wird vom Handler (NewTextHandle / OpenTextHandler) ueber den Ecpipse4-Context uebergeben
-		if(context.containsKey(CONTEXTWIZARDMODE));
+		// der Wizard hinterlegt im E4Context den OfficeContext fuer die zugehoerigen Pages		
+		E4Workbench.getServiceContext().set(OfficeUtils.E4CONTEXTKEY_OFFICECONTEXT, officeContext);
+		
+		// der Wizard hinterlegt im E4Context den Praeferenzknoten fuer die zugehoerigen Pages		
+		E4Workbench.getServiceContext().set(OfficeUtils.E4CONTEXTKEY_OFFICEPRAEFERENZNODE, instancePreferenceNode);
+
+		
+		// Modus-Flag vom E4Context abfragen (wird vom Handler (NewTextHandle / OpenTextHandler) dort hinterlegtn
+		if(context.containsKey(E4CONTEXT_WIZARDMODE));
 		{
-			wizardModus = (Boolean) context.get(CONTEXTWIZARDMODE);
+			wizardModus = (Boolean) context.get(E4CONTEXT_WIZARDMODE);
 			
 			// nach dem Sichern des WizardModus-Flags wird dieser aus dem IEclipse4-Context entfernt			
-			context.remove(CONTEXTWIZARDMODE);
+			context.remove(E4CONTEXT_WIZARDMODE);
 		}
 	}
 	
 	@PreDestroy
 	private void preDestroy()
 	{
-		E4Workbench.getServiceContext().remove(DEFAULT_OFFICECONTEXT);
+		// E4Context wieder freigeben 
+		E4Workbench.getServiceContext().remove(OfficeUtils.E4CONTEXTKEY_OFFICECONTEXT);
+		
+		E4Workbench.getServiceContext().remove(E4CONTEXT_WIZARDMODE);
+		
+		performUnDo();
 	}
 	
-	/*
-	 * Im Eclipse4 Context wird ein weiterer benutzerdefinierter Context eingebracht.
-	 * Dieser Context hat den Namen 'OfficeUtils.OFFICE_CONTEXT' und den Wert 'officeContexct'
-	 */
-	public void setOfficeContext(String officeContext)
-	{
-		this.officeContext = officeContext;	
-		E4Workbench.getServiceContext().set(DEFAULT_OFFICECONTEXT, officeContext);
-	}
-	
-	public String getOfficeContext()
-	{
-		return officeContext;
-	}
-
 	@Override
 	public void addPages()
 	{
 		// WizardPages (ODFReceiverWizardPage,ODFSenderWizardPage) erzeugen
-		ODFEmpfaengerWizardPage receiverWizardPage = ContextInjectionFactory.make(ODFEmpfaengerWizardPage.class, context);
+		ODFEmpfaengerWizardPage receiverWizardPage = ContextInjectionFactory.make(ODFEmpfaengerWizardPage.class, context);		
 		ODFAbsenderWizardPage absenderWizardPage = ContextInjectionFactory.make(ODFAbsenderWizardPage.class, context);
+		ODFReferenzWizardPage referenzWizardPage = ContextInjectionFactory.make(ODFReferenzWizardPage.class, context);
+		ODFFootNoteWizardPage footNoteWizardPage = ContextInjectionFactory.make(ODFFootNoteWizardPage.class, context);
+		
 		
 		// WizardPages hinzufuegen
 		addPage(receiverWizardPage);
 		addPage(absenderWizardPage);
-		addPage(ContextInjectionFactory.make(ODFSignatureWizardPage.class, context));
+		addPage(referenzWizardPage);
+		//addPage(ContextInjectionFactory.make(ODFSignatureWizardPage.class, context));
+		addPage(footNoteWizardPage);
+		
+		
+		
 	}
 	
-	// die WizardPages lesen 'ihre' Daten von der zuoeffnenden Datei		
+	// im WIZARDOPENMODE lesen die WizardPages 'ihre' Daten von der zuoeffnenden Datei		
 	protected void readDocumentData()
 	{		
 		if (odfDocument != null)
@@ -141,6 +154,7 @@ public class ODFDefaultWriteAdapterWizard extends Wizard
 						writeWizardPage.readFromDocument(odfDocument);
 					} catch (Exception e)
 					{
+						e.printStackTrace();
 						// von der WizardPage kann nicht gelesen werden (existiert moeglicherweise nicht)
 					}
 				}
@@ -151,11 +165,11 @@ public class ODFDefaultWriteAdapterWizard extends Wizard
 	@Override
 	public boolean performFinish()
 	{
+		// alle implizierten Pages schreiben Iíhren part in das Dokument
 		doPerformFinish();
 		
-		// speicher die EMF-Modelle im OfficeProject
-		if(OfficeUtils.getOfficeProject().hasDirtyContents())
-			ECPHandlerHelper.saveProject(OfficeUtils.getOfficeProject());
+		// alle implizierten Pages fuehren ihre undo-Funktion aus
+		performUnDo();
 		
 		return true;
 	}
@@ -201,6 +215,15 @@ public class ODFDefaultWriteAdapterWizard extends Wizard
 	@Override
 	public boolean performCancel()
 	{
+		performUnDo();
+		return super.performCancel();
+	}
+	
+	/**
+	 * UnDo - Funktion in allen WizardPages aufrufen.
+	 */
+	private void performUnDo()
+	{
 		try
 		{
 			odfDocument = TextDocument.loadDocument(odfDocumentFile);
@@ -212,7 +235,7 @@ public class ODFDefaultWriteAdapterWizard extends Wizard
 				if (page instanceof IWriteWizardPage)
 				{
 					IWriteWizardPage writeWizardPage = (IWriteWizardPage) page;				
-					writeWizardPage.cancelPage(odfDocument);
+					writeWizardPage.unDo(odfDocument);
 				}
 			}
 			
@@ -220,16 +243,15 @@ public class ODFDefaultWriteAdapterWizard extends Wizard
 		{
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
-		}
-
-		return super.performCancel();
+		}	
+	
 	}
 	
 	/**
 	 * Der OpenTextHandler/NewTextHandler meldet die im ResourceNavigator selektierte Datei (LibreOffice Text-Datei)
 	 * (@see it.naturtalent.e4.office.ui.handlers.OpenTextHandler)
 	 * 
-	 * Nur im OpenModus wird der Inhalt der Datei eingelesen (ODFTookit)
+	 * Nur im OpenModus 'WIZARDOPENMODE' wird der Inhalt der Datei eingelesen (ODFTookit)
 	 * 
 	 * @param writeFile
 	 */
@@ -277,11 +299,24 @@ public class ODFDefaultWriteAdapterWizard extends Wizard
 	/**
 	 * den Modus-Flag abfragen
 	 * @return
-	 */
+	 */	
 	public boolean isWizardModus()
 	{
 		return wizardModus;
 	}
+
+	
+	/**
+	 * von diesem Knoten werden die benoetigten Praeferenzen geholt
+	 * @return
+	 */
+	/*
+	IEclipsePreferences getInstancePreferenceNode()
+	{
+		return instancePreferenceNode;
+	}
+	*/
+
 
 	
 }

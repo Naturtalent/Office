@@ -9,7 +9,7 @@ import org.eclipse.jface.wizard.IWizard;
 import it.naturtalent.office.model.address.Receivers;
 
 /**
- * Interface eines Adapters mit dem TextDocument unterschiedlicher Anschreibenformate einheitlich bearbeitet werden koennen.
+ * Interface eines Adapters mit dem TextDokumente unterschiedlicher Anschreibenformate einheitlich bearbeitet werden koennen.
  * Die Vorlagen koennen unterschiedliche Layouts haben. Der Zugriff auf die Daten
  * erfolgt im ODF (OpenDocumentFormat) ueber den jeweiligen Wizard @see createWizard().
  * 

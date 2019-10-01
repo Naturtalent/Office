@@ -1,5 +1,6 @@
 package it.naturtalent.e4.office.ui.wizards;
 
+import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.odftoolkit.simple.TextDocument;
 
@@ -21,4 +22,10 @@ public interface IWriteWizardPage
 	
 	// Cancel ermoeglicht den Pages UnDo-Funktionen durchzufuehren 
 	public void cancelPage (TextDocument odfDocument);
+	
+	// rueckname aller temporaer eingefuegten EMF-Elemende 
+	public void unDo (TextDocument odfDocument);
+	
+	
+
 }

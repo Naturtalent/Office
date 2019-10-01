@@ -23,13 +23,19 @@ public class OfficeDefaultPreferenceUtils
 	// Preferenzname der Preferenz
 	public static final String REFERENZ_PREFERENCE= "referenzpreference"; //$NON-NLS-1$
 
+	// Preferenzname der FootNotes
+	public static final String FOOTNOTE_PREFERENCE= "footnotepreference"; //$NON-NLS-1$
+
 	
-	// unter diesem Namen wird der Defautabsender gespeichert
+	// unter diesem Namen wird der Defaultabsender gespeichert
 	public static final String DEFAULT_ABSENDERNAME = "Defaultabsender"; //$NON-NLS-1$
 	
-	// unter diesem Namen wird die Defautreferenz gespeichert
+	// unter diesem Namen wird die Defaultreferenz gespeichert
 	public static final String DEFAULT_REFERENZNAME = "Defaultreferenz"; //$NON-NLS-1$
-	
+
+	// unter diesem Namen wird die Defaultfootnote gespeichert
+	public static final String DEFAULT_FOOTNOTENAME = "Defaultfootnote"; //$NON-NLS-1$
+
 	
 	// E4Context DefaultName 
 	public static final String E4CONTEXT_DEFAULTNAME = "defaultName"; //$NON-NLS-1$

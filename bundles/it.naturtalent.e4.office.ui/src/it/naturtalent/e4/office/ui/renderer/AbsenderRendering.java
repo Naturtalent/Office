@@ -36,6 +36,7 @@ import it.naturtalent.office.model.address.Absender;
  * Modifiziert WidgetStyle so, dass das Eingabefeld deaktiviert ist.
  * 
  * Der 'defaultName' muss im E4Context unter dem Namen 'E4CONTEXT_DEFAULTNAME' hinterlegt sein.
+ * Ist kein 'defaultName' definiert wird das Eingabefeld ebenfalls gesperrt.
  * 
  * Der EventBroker liefert den momentan editierten Namen.
  * 
@@ -100,7 +101,7 @@ public class AbsenderRendering extends TextControlSWTRenderer
 	}
 
 	/*
-	 * im DefaultAbsender wir das Eingabefeld Text-Widget deaktiviert
+	 * mit 'defaultName' kann Eingabefeld aktiviert/deaktiviert werden
 	 * 
 	 */
 	@Override
@@ -108,10 +109,15 @@ public class AbsenderRendering extends TextControlSWTRenderer
 	{
 		int style = super.getTextWidgetStyle();
 		
-		String name = absender.getName();
-		if(StringUtils.equals(name, defaultName))		
-			style = style | SWT.Deactivate;
+		// Textfeld wird deaktiviert, wenn kein 'defaultName' uebergeben wurde
+		if(StringUtils.isEmpty(defaultName))
+			return style | SWT.Deactivate;
+				
+		// Textfeld wird deaktiviert, wenn Inhalt == 'defaultName' ist
+		if(StringUtils.equals(absender.getName(), defaultName))		
+			return style | SWT.Deactivate;
 						
+		// normale Texteingabe wenn 'defaultName != Inhalt
 		return style;
 	}
 

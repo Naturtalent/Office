@@ -42,12 +42,13 @@ public class SendersRendererService extends TreeMasterDetailSWTRendererService
 	@Override
 	public double isApplicable(VElement vElement,ViewModelContext viewModelContext)
 	{		
+		
 		if (VTreeMasterDetail.class.isInstance(vElement))
 		{	
 			if(viewModelContext.getDomainModel() instanceof Sender)
 				return 30d;
 		}
-	
+		
 		return NOT_APPLICABLE;
 	}
 	

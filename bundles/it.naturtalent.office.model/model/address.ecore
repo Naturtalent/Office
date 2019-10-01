@@ -55,9 +55,8 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="footnoteitems" upperBound="-1"
         eType="#//FootNoteItem" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="FooteNoteSet">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="footeNotes" upperBound="-1"
+  <eClassifiers xsi:type="ecore:EClass" name="FootNotes">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="footNotes" upperBound="-1"
         eType="#//FootNote" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Referenz">

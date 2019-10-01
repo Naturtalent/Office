@@ -41,32 +41,23 @@ import org.eclipse.swt.widgets.Composite;
 
 import it.naturtalent.e4.office.ui.OfficeUtils;
 import it.naturtalent.office.model.address.Absender;
+import it.naturtalent.office.model.address.Referenz;
 
 
 /**
- *  Den Absender-Detail-Renderer anpassen.
+ *  Referenzen Detailrenderer
  *  
  *  - filtern nach OfficeContext-Flag, das im Eclipse4 Context unter dem Namen 'OfficeUtils.OFFICE_CONTEXT' hinterlegt sein muss.
- *  - Absender (genauer die Adresse) kann aus der Kontaktdatenbank uebernommen werden. 
- *  - DELETE-Button dauerhaft disablen TpDo: komplett entfernen
  *  
  * @author dieter
  *
  */
-public class SenderDetailsRenderer extends MultiReferenceSWTRenderer
+public class ReferenzenDetailRenderer extends MultiReferenceSWTRenderer
 {
 
 	private IEventBroker eventBroker;
 	private String officeContext;
 	private TableViewer tableViewer ;
-	
-	private Button delButton;
-	
-	//private EditingDomain domain;
-	
-	// Liste mit den statischen Absendern (steuert delButton-Status)
-	private List<Absender>unremoveableAbsender;
-
 	
 	// filtert nach dem Office - Context
 	private class ContextFilter extends ViewerFilter
@@ -81,14 +72,14 @@ public class SenderDetailsRenderer extends MultiReferenceSWTRenderer
 
 		@Override
 		public boolean select(Viewer viewer, Object parentElement, Object element)
-		{					
-			if (element instanceof Absender)
-			{	
-				Absender absender = (Absender)element;				
-				String elementContext = ((Absender)element).getContext();
-					return(StringUtils.equals(elementContext, officeContext));															
+		{
+			if (element instanceof Referenz)
+			{
+				Referenz referenz = (Referenz) element;
+				return (StringUtils.equals(referenz.getContext(),
+						officeContext));
 			}
-			
+
 			return true;
 		}
 	}
@@ -105,7 +96,7 @@ public class SenderDetailsRenderer extends MultiReferenceSWTRenderer
 	 * @param imageRegistryService
 	 */
 	@Inject
-	public SenderDetailsRenderer(VControl vElement,
+	public ReferenzenDetailRenderer(VControl vElement,
 			ViewModelContext viewContext, ReportService reportService,
 			EMFFormsDatabinding emfFormsDatabinding,
 			EMFFormsLabelProvider emfFormsLabelProvider,
@@ -137,8 +128,8 @@ public class SenderDetailsRenderer extends MultiReferenceSWTRenderer
 			{
 				IStructuredSelection selection = ((IStructuredSelection) event.getSelection());
 				Object selObj = selection.getFirstElement();
-				if (selObj instanceof Absender)				
-					eventBroker.post(OfficeUtils.GET_ABSENDER_DETAIL_SELECTED_EVENT, selObj);					
+				//if (selObj instanceof Absender)				
+					//eventBroker.post(OfficeUtils.GET_ABSENDER_DETAIL_SELECTED_EVENT, selObj);					
 			}
 		});
 		
@@ -149,10 +140,8 @@ public class SenderDetailsRenderer extends MultiReferenceSWTRenderer
 	 * Buttons werden ausgeblendet
 	 */
 	@Override
-	protected Composite createButtonComposite(Composite parent)
-			throws DatabindingFailedException
-	{
-		
+	protected Composite createButtonComposite(Composite parent) throws DatabindingFailedException
+	{		
 		IObservableValue observableValue = getEMFFormsDatabinding()
 				.getObservableValue(getVElement().getDomainModelReference(), getViewModelContext().getDomainModel());
 			Object container = (EObject) ((IObserving) observableValue).getObserved();
@@ -163,101 +152,6 @@ public class SenderDetailsRenderer extends MultiReferenceSWTRenderer
 		final Composite buttonComposite = new Composite(parent, SWT.NONE);
 		return buttonComposite;
 	}
-	
-	
-
-	/*
-	@Override
-	protected Control renderMultiReferenceControl(SWTGridCell cell,
-			Composite parent)
-			throws NoRendererFoundException, NoPropertyDescriptorFoundExeption
-	{
-		Control control = super.renderMultiReferenceControl(cell, parent);
-		
-		TableViewer tableViewer = getTableViewer();
-		tableViewer.addSelectionChangedListener(new ISelectionChangedListener()
-		{			
-			@Override
-			public void selectionChanged(SelectionChangedEvent event)
-			{
-				IStructuredSelection selection = ((IStructuredSelection) event.getSelection());
-				Object selObj = selection.getFirstElement();
-				if (selObj instanceof Absender)
-				{
-					// nur nichtstatische Absender duerfen geloescht werdxen
-					if ((unremoveableAbsender != null) && (!unremoveableAbsender.isEmpty()))					
-						delButton.setEnabled(!unremoveableAbsender.contains((Absender) selObj));						
-				}				
-				
-				if (selObj != null)
-				{
-					// den im Detail selektierten Absender melden damit z.B. der Wizard nachziehen kann
-					if (eventBroker != null)
-						eventBroker.send(OfficeUtils.ABSENDER_DETAIL_SELECTED_EVENT, selObj);					
-				}
-				
-				
-				
-			}
-		});
-		
-		// Filter in TableViewer auf 'officeContext' setzen
-		String officeContext = (String) E4Workbench.getServiceContext().get(OfficeUtils.E4CONTEXTKEY_OFFICECONTEXT);
-		tableViewer.setFilters(new ViewerFilter []{new ContextFilter(officeContext)});
-		
-		// Liste der Nichtloeschbaren aus dem Eclipse4Context holen
-		unremoveableAbsender = (List<Absender>) E4Workbench.getServiceContext().get(OfficeUtils.ABSENDER_UNREMOVABLES);
-		
-		return control;
-	}
-	*/
-	
-	/*
-	@Override
-	protected Button createDeleteButton(Composite parent,EStructuralFeature structuralFeature)
-	{
-		delButton = super.createDeleteButton(parent, structuralFeature);		
-		return delButton;
-	}
-	*/
-	
-	/*
-	 * ADD-Button auf Datenbankselektion umdekorieren
-	 * 
-	 */
-	/*
-	@Override
-	protected Button createAddExistingButton(Composite parent, EStructuralFeature structuralFeature)
-	{
-		Button btn = super.createAddExistingButton(parent, structuralFeature);
-		btn.setImage(Icon.ICON_DATABASE.getImage(IconSize._16x16_DefaultIconSize));
-		btn.setToolTipText("aus Datenbank kopieren");
-		return btn;
-	}
-	*/
-
-	/* 
-	 * Aktion "aus Datenbank kopieren" ausfuehren.
-	 * Ein neues Absenderobjekt erzeugen, mit dem DefaultOfficekontext versehen, die Kontaktadresse hinzufuegen und
-	 * diesen Absender ueber den Broker melden.
-	 */ 
-	/*
-	@Override
-	protected void handleAddExisting(TableViewer tableViewer, EObject eObject, EStructuralFeature structuralFeature)
-	{				
-		eventBroker.post(OfficeUtils.ADD_EXISTING_SENDER , eObject);
-	}
-*/
-	/*
-	@Override
-	protected void handleAddNew(TableViewer tableViewer, EObject eObject,
-			EStructuralFeature structuralFeature)
-	{
-		// TODO Auto-generated method stub
-		super.handleAddNew(tableViewer, eObject, structuralFeature);
-		eventBroker.post(OfficeUtils.ADD_NEWSENDER_EVENT , eObject);
-	}
-*/
 	
 
 

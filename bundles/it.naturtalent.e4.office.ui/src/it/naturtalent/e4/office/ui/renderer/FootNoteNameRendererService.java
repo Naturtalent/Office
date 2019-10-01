@@ -11,11 +11,17 @@ import org.eclipse.emfforms.spi.core.services.databinding.DatabindingFailedExcep
 import org.eclipse.emfforms.spi.core.services.databinding.DatabindingFailedReport;
 import org.eclipse.emfforms.spi.core.services.databinding.EMFFormsDatabinding;
 import org.eclipse.emfforms.spi.swt.core.AbstractSWTRenderer;
+import org.eclipse.emfforms.spi.swt.core.di.EMFFormsDIRendererService;
 
 import it.naturtalent.office.model.address.AddressPackage;
 
-public class SenderDetailsRendererService extends MultiReferenceSWTRendererService
-{
+/**
+ * 
+ * 
+ * @author dieter
+ *
+ */
+public class FootNoteNameRendererService implements EMFFormsDIRendererService<VControl> {
 
 	private EMFFormsDatabinding databindingService;
 	private ReportService reportService;
@@ -70,30 +76,22 @@ public class SenderDetailsRendererService extends MultiReferenceSWTRendererServi
 			return NOT_APPLICABLE;
 		}
 		
-		final EStructuralFeature feature = (EStructuralFeature) valueProperty.getValueType();
-		if (!feature.isMany())
+		// Feature des Elements
+		final EStructuralFeature feature = EStructuralFeature.class.cast(valueProperty.getValueType());
+		
+		if (feature.isMany())
 		{
 			return NOT_APPLICABLE;
-		}
-		
-		/*
-		if (EAttribute.class.isInstance(feature))
-		{
-			return NOT_APPLICABLE;
-		}
-		*/
-		
-		//if (ArchivPackage.eINSTANCE.getRegister_NumericData().equals(eStructuralFeature))
-		//if (AddressPackage.eINSTANCE.getReferenzGruppe_Referenz().equals(feature))	
-		if (AddressPackage.eINSTANCE.getSender_Senders().equals(feature))
-		{
-			return 12.0;					
 		}
 	
+		
+		if (AddressPackage.eINSTANCE.getFootNote_Name().equals(feature))
+		{
+			return 20.0;					
+		}
+		
 
 		return NOT_APPLICABLE;
-		
-		//return 5;
 	}
 
 	/**
@@ -103,6 +101,6 @@ public class SenderDetailsRendererService extends MultiReferenceSWTRendererServi
 	 */
 	@Override
 	public Class<? extends AbstractSWTRenderer<VControl>> getRendererClass() {
-		return SenderDetailsRenderer.class;
+		return FootNoteNameRenderer.class;
 	}
 }

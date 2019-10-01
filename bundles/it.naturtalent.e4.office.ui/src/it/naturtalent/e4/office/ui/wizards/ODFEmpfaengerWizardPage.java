@@ -10,6 +10,7 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.core.services.events.IEventBroker;
@@ -66,10 +67,19 @@ import it.naturtalent.office.model.address.Sender;
  */
 public class ODFEmpfaengerWizardPage extends WizardPage implements IWriteWizardPage
 {
-	public final static String SENDER_PAGE_NAME = "ODF_SENDER";
+	public final static String EMPFAENGER_PAGE_NAME = "receiverpage"; //$NON-NLS-N$
 	
+	static final String LOADED_EMPFAENGER = "Empfänger aus der Datei"; //$NON-NLS-N$
+	
+	// OfficeKontext 
+	private String officeContext;
+	
+	// Container aller Empfaenger die dem jeweiligen Projekt zugeordnet sindl
 	private Receivers receivers;
+	
+	// der selektierte Empfaenger
 	private Empfaenger selectedEmpfaenger;
+	
 	private IEventBroker eventBroker;
 	
 	// wird im WIZARDCREATEMODE selektiert 
@@ -80,20 +90,25 @@ public class ODFEmpfaengerWizardPage extends WizardPage implements IWriteWizardP
 	 */
 	public ODFEmpfaengerWizardPage()
 	{
-		super(SENDER_PAGE_NAME);
-		setMessage("Einen Empfänger definieren, dessen Adresse in das Dokument übernommen wird");
+		super(EMPFAENGER_PAGE_NAME);
+		setMessage("Einen Empfänger definieren oder auswählen");
 		setTitle("Empfänger");
 		setDescription("einen Empfänger festlegen");
 		
-		// Receivers (Container aller Empfaenger) anlegen
+		// Receivers (Container aller projektspezisischen Empfaenger) anlegen
 		EClass receiversClass = AddressPackage.eINSTANCE.getReceivers();
-		receivers = (Receivers) EcoreUtil.create(receiversClass);				
+		receivers = (Receivers) EcoreUtil.create(receiversClass);
+		
+		// den eingelesenen Absender temporaer in das EMF-Modell uebernehemn			
+		//domain = AdapterFactoryEditingDomain.getEditingDomainFor(receivers);
+		//eReference = AddressPackage.eINSTANCE.getReceivers_Receivers();
 	}
 	
 	@PostConstruct
-	private void postConstuct(@Optional IEventBroker eventBroker)
+	private void postConstuct(@Optional IEventBroker eventBroker, IEclipseContext context)
 	{
 		this.eventBroker = eventBroker;
+		officeContext = (String) context.get(OfficeUtils.E4CONTEXTKEY_OFFICECONTEXT);
 	}
 	
 	/*
@@ -181,6 +196,8 @@ public class ODFEmpfaengerWizardPage extends WizardPage implements IWriteWizardP
 		{
 			IResource resource = (IResource) selObject;
 			IProject iProject = resource.getProject();
+			
+			// alle dem Projekt zugeordneten Kontakte ermitteln
 			NtProjektKontakte kontakte = OfficeUtils.getProjectKontacts(iProject.getName());
 			EList<Kontakt>kontacts = kontakte.getKontakte();
 			if((kontacts != null) && (!kontacts.isEmpty()))
@@ -197,7 +214,7 @@ public class ODFEmpfaengerWizardPage extends WizardPage implements IWriteWizardP
 					empfaenger.setName(kontact.getName());
 					empfaenger.setAdresse(EcoreUtil.copy(kontact.getAdresse()));
 					ODFDefaultWriteAdapterWizard wizard = (ODFDefaultWriteAdapterWizard) getWizard();									
-					empfaenger.setContext(wizard.getOfficeContext());
+					empfaenger.setContext(officeContext);
 					receivers.getReceivers().add(empfaenger);
 				}
 			}			
@@ -264,24 +281,26 @@ public class ODFEmpfaengerWizardPage extends WizardPage implements IWriteWizardP
 		{
 			EClass empfaengerClass = AddressPackage.eINSTANCE.getEmpfaenger();
 			Empfaenger empfaenger = (Empfaenger) EcoreUtil.create(empfaengerClass);
-			empfaenger.setContext(((ODFDefaultWriteAdapterWizard) getWizard()).getOfficeContext());
-			empfaenger.setName(ODFDefaultWriteAdapterWizard.LOADED_EMPFAENGER);
+			empfaenger.setContext(officeContext);
+			empfaenger.setName(LOADED_EMPFAENGER);
 			
 			// Modell 'Adresse' erzeugen, Empfaengeradresse einlesen
 			EClass adressClass = AddressPackage.eINSTANCE.getAdresse();
 			Adresse address = (Adresse) EcoreUtil.create(adressClass);
 			readDefaultAddress(address, table);
 			
-			empfaenger.setAdresse(address);
+			empfaenger.setAdresse(address);			
 			receivers.getReceivers().add(empfaenger);
+			
+			// den vom Dokument eingelesenen Empfaenger im Master selektieren
+			eventBroker.post(OfficeUtils.SET_OFFICEMASTER_SELECTION_EVENT, empfaenger);
 		}		
 	}
 	
 	@Override
 	public void cancelPage(TextDocument odfDocument)
 	{
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub		
 	}
 
 	private void readDefaultAddress(Adresse address, Table table)
@@ -447,7 +466,11 @@ public class ODFEmpfaengerWizardPage extends WizardPage implements IWriteWizardP
 		}
 		return trimmedAdressTable;
 	}
+
+	@Override
+	public void unDo(TextDocument odfDocument)
+	{
+		// es werden keine temporaeren Objekte erzeugt die wieder entfernt werden muessten		
+	}
 	
-
-
 }

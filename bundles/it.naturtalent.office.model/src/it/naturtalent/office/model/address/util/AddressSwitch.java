@@ -135,10 +135,10 @@ public class AddressSwitch<T> extends Switch<T>
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case AddressPackage.FOOTE_NOTE_SET:
+			case AddressPackage.FOOT_NOTES:
 			{
-				FooteNoteSet footeNoteSet = (FooteNoteSet)theEObject;
-				T result = caseFooteNoteSet(footeNoteSet);
+				FootNotes footNotes = (FootNotes)theEObject;
+				T result = caseFootNotes(footNotes);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -342,17 +342,17 @@ public class AddressSwitch<T> extends Switch<T>
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Foote Note Set</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Foot Notes</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Foote Note Set</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Foot Notes</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseFooteNoteSet(FooteNoteSet object)
+	public T caseFootNotes(FootNotes object)
 	{
 		return null;
 	}

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="it.naturtalent.e4.office.ui.FootNoteSet">
-   <implementation class="it.naturtalent.e4.office.ui.renderer.FootNoteSetRendererService"/>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="it.naturtalent.e4.office.ui.footnotestable">
+   <implementation class="it.naturtalent.e4.office.ui.renderer.FootNotesRendererService"/>
    <service>
       <provide interface="org.eclipse.emfforms.spi.swt.core.di.EMFFormsDIRendererService"/>
    </service>

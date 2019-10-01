@@ -5,7 +5,7 @@ package it.naturtalent.office.model.address.provider;
 
 import it.naturtalent.office.model.address.AddressFactory;
 import it.naturtalent.office.model.address.AddressPackage;
-import it.naturtalent.office.model.address.FooteNoteSet;
+import it.naturtalent.office.model.address.FootNotes;
 
 import java.util.Collection;
 import java.util.List;
@@ -17,24 +17,22 @@ import org.eclipse.emf.common.util.ResourceLocator;
 
 import org.eclipse.emf.ecore.EStructuralFeature;
 
-import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
-import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
- * This is the item provider adapter for a {@link it.naturtalent.office.model.address.FooteNoteSet} object.
+ * This is the item provider adapter for a {@link it.naturtalent.office.model.address.FootNotes} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class FooteNoteSetItemProvider 
+public class FootNotesItemProvider 
 	extends ItemProviderAdapter
 	implements
 		IEditingDomainItemProvider,
@@ -49,7 +47,7 @@ public class FooteNoteSetItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public FooteNoteSetItemProvider(AdapterFactory adapterFactory)
+	public FootNotesItemProvider(AdapterFactory adapterFactory)
 	{
 		super(adapterFactory);
 	}
@@ -67,32 +65,8 @@ public class FooteNoteSetItemProvider
 		{
 			super.getPropertyDescriptors(object);
 
-			addNamePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
-	}
-
-	/**
-	 * This adds a property descriptor for the Name feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addNamePropertyDescriptor(Object object)
-	{
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_FooteNoteSet_name_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_FooteNoteSet_name_feature", "_UI_FooteNoteSet_type"),
-				 AddressPackage.Literals.FOOTE_NOTE_SET__NAME,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
 	}
 
 	/**
@@ -109,7 +83,7 @@ public class FooteNoteSetItemProvider
 		if (childrenFeatures == null)
 		{
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(AddressPackage.Literals.FOOTE_NOTE_SET__FOOTE_NOTES);
+			childrenFeatures.add(AddressPackage.Literals.FOOT_NOTES__FOOT_NOTES);
 		}
 		return childrenFeatures;
 	}
@@ -129,7 +103,7 @@ public class FooteNoteSetItemProvider
 	}
 
 	/**
-	 * This returns FooteNoteSet.gif.
+	 * This returns FootNotes.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -137,7 +111,7 @@ public class FooteNoteSetItemProvider
 	@Override
 	public Object getImage(Object object)
 	{
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/FooteNoteSet"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/FootNotes"));
 	}
 
 	/**
@@ -149,10 +123,7 @@ public class FooteNoteSetItemProvider
 	@Override
 	public String getText(Object object)
 	{
-		String label = ((FooteNoteSet)object).getName();
-		return label == null || label.length() == 0 ?
-			getString("_UI_FooteNoteSet_type") :
-			getString("_UI_FooteNoteSet_type") + " " + label;
+		return getString("_UI_FootNotes_type");
 	}
 
 
@@ -168,12 +139,9 @@ public class FooteNoteSetItemProvider
 	{
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(FooteNoteSet.class))
+		switch (notification.getFeatureID(FootNotes.class))
 		{
-			case AddressPackage.FOOTE_NOTE_SET__NAME:
-				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
-				return;
-			case AddressPackage.FOOTE_NOTE_SET__FOOTE_NOTES:
+			case AddressPackage.FOOT_NOTES__FOOT_NOTES:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -194,7 +162,7 @@ public class FooteNoteSetItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(AddressPackage.Literals.FOOTE_NOTE_SET__FOOTE_NOTES,
+				(AddressPackage.Literals.FOOT_NOTES__FOOT_NOTES,
 				 AddressFactory.eINSTANCE.createFootNote()));
 	}
 

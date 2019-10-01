@@ -31,36 +31,40 @@ import org.osgi.service.prefs.BackingStoreException;
 
 import it.naturtalent.e4.office.ui.OfficeUtils;
 import it.naturtalent.e4.office.ui.dialogs.AbsenderDialog;
+import it.naturtalent.e4.office.ui.dialogs.FootNoteDialog;
 import it.naturtalent.e4.office.ui.dialogs.OfficePreferenzDialog;
 import it.naturtalent.e4.preferences.CheckListEditorComposite;
 import it.naturtalent.office.model.address.Absender;
 import it.naturtalent.office.model.address.AddressPackage;
 import it.naturtalent.office.model.address.Adresse;
+import it.naturtalent.office.model.address.FootNote;
+import it.naturtalent.office.model.address.FootNoteItem;
+import it.naturtalent.office.model.address.FootNotes;
 import it.naturtalent.office.model.address.Sender;
 
 
 
 
 /**
- * Eine Praeferenzliste (Checkliste) mit den Namen der Absenderpraeferenznamen,
+ * Eine Praeferenzliste (Checkliste) mit den Namen der FootNootepraeferenznamen,
  * 
  * @author dieter
  *
  */
-public class OfficeAbsenderPreferenceComposite extends CheckListEditorComposite
+public class OfficeFootNotePreferenceComposite extends CheckListEditorComposite
 {
-	
+	// Office-Praeferenzknoten
 	protected IEclipsePreferences instancePreferenceNode = InstanceScope.INSTANCE
 			.getNode(OfficeDefaultPreferenceUtils.ROOT_DEFAULTOFFICE_PREFERENCES_NODE);
 	
-	// Liste aller Absender in diesem Context
-	protected List<Absender>contextAbsender = new ArrayList<Absender>();
+	// Liste aller FootNotes in diesem Context
+	protected List<FootNote>contextFootNotes = new ArrayList<FootNote>();
 
 	// Kontext 
 	protected String officeContext = OfficeDefaultPreferenceUtils.DEFAULT_OFFICE_CONTEXT;
 
-	// Default Praeferenzname des Absenders 
-	protected String defaultName = OfficeDefaultPreferenceUtils.DEFAULT_ABSENDERNAME;
+	// Default Praeferenzname der FootNotes 
+	protected String defaultName = OfficeDefaultPreferenceUtils.DEFAULT_FOOTNOTENAME;
 	
 	// erfoerderlich fuer EMF-Commandos
 	private EObject container;
@@ -76,7 +80,7 @@ public class OfficeAbsenderPreferenceComposite extends CheckListEditorComposite
 	 * @param parent
 	 * @param style
 	 */	
-	public OfficeAbsenderPreferenceComposite(Composite parent, int style)
+	public OfficeFootNotePreferenceComposite(Composite parent, int style)
 	{
 		super(parent, style);
 		
@@ -97,26 +101,28 @@ public class OfficeAbsenderPreferenceComposite extends CheckListEditorComposite
 	
 	protected void init()
 	{
-		// Absender(Adresse) via EMF-Commands handeln
-		container = OfficeUtils.findObject(AddressPackage.eINSTANCE.getSender());
+		// Footnotes via EMF-Commands handeln
+		container = OfficeUtils.findObject(AddressPackage.eINSTANCE.getFootNotes());
 		domain = AdapterFactoryEditingDomain.getEditingDomainFor(container);	
-		eReference = AddressPackage.eINSTANCE.getSender_Senders();
+		eReference = AddressPackage.eINSTANCE.getFootNotes_FootNotes();
 	
-		// die Kontextabsender laden
-		loadContextAbsender();
+		// die KontextFootNotes laden
+		loadContextFootNotes();
 		
-		// Praeferenznamen der Absender in Praeferenzliste anzeigen
+		// Praeferenznamen der FootNotes in der Praeferenzliste anzeigen
 		setPreferenceList();
 		
-		// Name der aktuelle Absenderpraeferenz in der Praeferenzliste checken
-		String absenderPreferenz = instancePreferenceNode.get(
-				OfficeDefaultPreferenceUtils.ABSENDER_PREFERENCE,
-				OfficeDefaultPreferenceUtils.DEFAULT_ABSENDERNAME);		
+		// Name der aktuelle FootNotePraeferenz in der Praeferenzliste checken
+		String footNotePreferenz = instancePreferenceNode.get(
+				OfficeDefaultPreferenceUtils.FOOTNOTE_PREFERENCE,
+				OfficeDefaultPreferenceUtils.DEFAULT_FOOTNOTENAME);		
 		
-		// existiert der Absender noch im Modell
-		if(findAbsender(absenderPreferenz) == null)
-			absenderPreferenz = OfficeDefaultPreferenceUtils.DEFAULT_ABSENDERNAME;			
-		setCheckedElements(new String [] {absenderPreferenz});
+		// existiert die FootNote noch im Modell
+		if(findFootNote(footNotePreferenz) == null)
+			footNotePreferenz = OfficeDefaultPreferenceUtils.DEFAULT_FOOTNOTENAME;
+		
+		//checken
+		setCheckedElements(new String [] {footNotePreferenz});
 		
 		updateWidgets();
 
@@ -133,13 +139,13 @@ public class OfficeAbsenderPreferenceComposite extends CheckListEditorComposite
 		Object selObj = selection.getFirstElement();
 		if (selObj instanceof String)
 		{
-			// den selektierten Absender suchen
+			// die selektierte FootNote suchen
 			String prefName = (String) selObj;
-			Absender absender = findAbsender(prefName);
-			if(absender != null)
+			FootNote footNote = findFootNote(prefName);
+			if(footNote != null)
 			{		
-				// DefaultAbsender wird nicht geloescht
-				btnRemove.setEnabled(!StringUtils.equals(absender.getName(), defaultName));
+				// DefaultFootNote wird nicht geloescht
+				btnRemove.setEnabled(!StringUtils.equals(footNote.getName(), defaultName));
 				
 				btnCopy.setEnabled(true);
 			}
@@ -147,33 +153,33 @@ public class OfficeAbsenderPreferenceComposite extends CheckListEditorComposite
 	}
 
 	/*
-	 * die Absendernamen in die Praeferenzliste eintragen 
+	 * die FootNotenamen in die Praeferenzliste eintragen 
 	 */
 	private void setPreferenceList()
 	{
 		List<String>preferenceNames = new ArrayList<String>();
-		for(Absender absender : contextAbsender)
-			preferenceNames.add(absender.getName());		
+		for(FootNote footNote: contextFootNotes)
+			preferenceNames.add(footNote.getName());		
 		checkboxTableViewer.setInput(preferenceNames);
 	}
 		
 	/*
-	 * einen neuen Absender hinzufuegen
+	 * eine neue FootNote hinzufuegen
 	 */
 	@Override
 	protected void doAdd()
 	{
-		// TODO Auto-generated method stub
-		Absender absender = generateContextAbsender();
+		// neue FootNote fuer diesen Context generieren 
+		FootNote newFootNote = generateContextFootNote();
 		
-		// neuen Absender mit Dialog bearbeiten
+		// neue FootNote mit Dialog bearbeiten
 		IEclipseContext context = E4Workbench.getServiceContext();
 		OfficePreferenzDialog dialog = ContextInjectionFactory.make(OfficePreferenzDialog.class, context);
-		dialog.setPreferenz(absender);
+		dialog.setPreferenz(newFootNote);
 		
 		/*
-		AbsenderDialog dialog = ContextInjectionFactory.make(AbsenderDialog.class, context);
-		dialog.setAbsender(absender);
+		FootNoteDialog dialog = ContextInjectionFactory.make(FootNoteDialog.class, context);
+		dialog.setFootNote(newFootNote);
 		*/		
 		
 		// Default-Praeferenznamen via E4Context dem Renderer uebergeben
@@ -181,14 +187,14 @@ public class OfficeAbsenderPreferenceComposite extends CheckListEditorComposite
 		
 		if (dialog.open() == OfficePreferenzDialog.OK)
 		{			
-			// DefaultAbsender zum Modell hinzufuegen und speichern
-			Command addCommand = AddCommand.create(domain, container , eReference, absender);
+			// DefaultFootNote zum Modell hinzufuegen und speichern
+			Command addCommand = AddCommand.create(domain, container , eReference, newFootNote);
 			if(addCommand.canExecute())	
 			{
 				domain.getCommandStack().execute(addCommand);	
 				
-				// den neuen Absender zur ContextAbsender-Liste hinzufuegen
-				contextAbsender.add(absender);
+				// die neue FootNote zur ContextFootNote-Liste hinzufuegen
+				contextFootNotes.add(newFootNote);
 				
 				// Praeferenzliste aktualisieren
 				setPreferenceList();
@@ -199,7 +205,7 @@ public class OfficeAbsenderPreferenceComposite extends CheckListEditorComposite
 	}
 
 	/* 
-	 * Den selektierten Absender bearbeiten
+	 * Die selektierte FootNote bearbeiten
 	 */
 	@Override
 	protected void doEdit()
@@ -210,19 +216,21 @@ public class OfficeAbsenderPreferenceComposite extends CheckListEditorComposite
 		{
 			// den selektierten Absender suchen
 			String prefName = (String) selObj;
-			Absender absender = findAbsender(prefName);
+			FootNote footNote = findFootNote(prefName);
 			
-			if(absender != null)
+			if(footNote != null)
 			{
-				Absender absenderCopy = EcoreUtil.copy(absender);
+				FootNote footNoteCopy = EcoreUtil.copy(footNote);
 				
 				// Kopie mit dem Dialog bearbeiten
 				IEclipseContext context = E4Workbench.getServiceContext();
 				OfficePreferenzDialog dialog = ContextInjectionFactory.make(OfficePreferenzDialog.class, context);
-				dialog.setPreferenz(absenderCopy);
-
-				//AbsenderDialog dialog = ContextInjectionFactory.make(AbsenderDialog.class, context);
-				//dialog.setAbsender(absenderCopy);
+				
+				FootNotes dlgNotes = getFootNotes(footNoteCopy);
+								
+				//dialog.setPreferenz(dlgNotes);
+				dialog.setPreferenz(footNoteCopy);
+				
 				
 				// Default-Praeferenznamen via E4Context dem Renderer uebergeben
 				E4Workbench.getServiceContext().set(OfficeDefaultPreferenceUtils.E4CONTEXT_DEFAULTNAME, defaultName);
@@ -230,25 +238,25 @@ public class OfficeAbsenderPreferenceComposite extends CheckListEditorComposite
 				if (dialog.open() == OfficePreferenzDialog.OK)
 				{
 					// Original-Absender aus dem Modell entfernen
-					Command removeCommand = RemoveCommand.create(domain,container, eReference, absender);
+					Command removeCommand = RemoveCommand.create(domain,container, eReference, footNote);
 					if (removeCommand.canExecute())		
 					{
 						domain.getCommandStack().execute(removeCommand);
-						contextAbsender.remove(absender);
+						contextFootNotes.remove(footNote);
 					}
 					
-					Command addCommand = AddCommand.create(domain, container , eReference, absenderCopy);
+					Command addCommand = AddCommand.create(domain, container , eReference, footNoteCopy);
 					if(addCommand.canExecute())	
 					{
 						domain.getCommandStack().execute(addCommand);	
-						contextAbsender.add(absenderCopy);
+						contextFootNotes.add(footNoteCopy);
 					}
 					
 					// Praeferenzliste aktualisieren
 					setPreferenceList();
 					
 					// Defaultadresse checken						
-					setCheckedElements(new String[]{absenderCopy.getName()});
+					setCheckedElements(new String[]{footNoteCopy.getName()});
 				}
 				
 				E4Workbench.getServiceContext().remove(OfficeDefaultPreferenceUtils.E4CONTEXT_DEFAULTNAME);
@@ -266,21 +274,21 @@ public class OfficeAbsenderPreferenceComposite extends CheckListEditorComposite
 		{
 			// den selektierten Absender suchen
 			String prefName = (String) selObj;
-			Absender absender = findAbsender(prefName);
-			if(absender != null)
+			FootNote footNote = findFootNote(prefName);
+			if(footNote != null)
 			{
 				// DefaultAbsender wird nicht geloescht
-				if (!StringUtils.equals(absender.getName(), defaultName))
+				if (!StringUtils.equals(footNote.getName(), defaultName))
 				{
 					// Absender aus dem Modell entfernen
 					Command removeCommand = RemoveCommand.create(domain,
-							container, eReference, absender);
+							container, eReference, footNote);
 					if (removeCommand.canExecute())
 					{
 						domain.getCommandStack().execute(removeCommand);
 
 						// den alten Absender aus der ContextAbsender-Liste entfernen
-						contextAbsender.remove(absender);
+						contextFootNotes.remove(footNote);
 						
 						// Praeferenzliste aktualisieren
 						setPreferenceList();
@@ -301,11 +309,11 @@ public class OfficeAbsenderPreferenceComposite extends CheckListEditorComposite
 		// das Modell festschreiben
 		ECPHandlerHelper.saveProject(OfficeUtils.getOfficeProject());
 		
-		// das gecheckte Element wird als Absenderpraeferenz gespeichert
+		// das gecheckte Element wird als FootNotepraeferenz gespeichert
 		String [] checkedElements = getCheckedElements();
 		if(ArrayUtils.isNotEmpty(checkedElements))
 		{
-			instancePreferenceNode.put(OfficeDefaultPreferenceUtils.ABSENDER_PREFERENCE,checkedElements[0]);
+			instancePreferenceNode.put(OfficeDefaultPreferenceUtils.FOOTNOTE_PREFERENCE,checkedElements[0]);
 			try
 			{
 				instancePreferenceNode.flush();
@@ -337,21 +345,21 @@ public class OfficeAbsenderPreferenceComposite extends CheckListEditorComposite
 		{
 			// den selektierten Absender suchen
 			String prefName = (String) selObj;
-			Absender absender = findAbsender(prefName);
+			FootNote footNote = findFootNote(prefName);
 			
-			if(absender != null)
+			if(footNote != null)
 			{
-				Absender absenderCopy = EcoreUtil.copy(absender);
-				absenderCopy.setName(prefName+"copy");
+				FootNote footNoteCopy = EcoreUtil.copy(footNote);
+				footNoteCopy.setName(prefName+"copy");
 				
 				// die Kopie hinzufuegen
-				Command addCommand = AddCommand.create(domain, container , eReference, absenderCopy);
+				Command addCommand = AddCommand.create(domain, container , eReference, footNoteCopy);
 				if(addCommand.canExecute())	
 				{
 					domain.getCommandStack().execute(addCommand);	
 					
 					// den neuen Absender zur ContextAbsender-Liste hinzufuegen
-					contextAbsender.add(absenderCopy);
+					contextFootNotes.add(footNoteCopy);
 					
 					// Praeferenzliste aktualisieren
 					setPreferenceList();
@@ -361,37 +369,36 @@ public class OfficeAbsenderPreferenceComposite extends CheckListEditorComposite
 	}
 	
 	/*
-	 * Alle Absenderdaten aus dem Modell einlesen und nach dem Kontext filtern
-	 * Einen Defaultabsender erzeugen und hinzufuegen
+	 * Alle FootNotes aus dem Modell einlesen und nach dem Kontext filtern
+	 * Eine Default-FootNote erzeugen und hinzufuegen
 	 */
-	protected List<Absender> loadContextAbsender()
+	protected List<FootNote> loadContextFootNotes()
 	{
-		// alle gespeicherten Absender aus dem Modell einlesen
-		Sender sender = (Sender) OfficeUtils.findObject(AddressPackage.eINSTANCE.getSender());		
-		EList<Absender>allAbsender = sender.getSenders();
+		// alle gespeicherten FootNotes aus dem Modell einlesen
+		FootNotes footNotes = (FootNotes) OfficeUtils.findObject(AddressPackage.eINSTANCE.getFootNotes());		
+		EList<FootNote>allFootNotes = footNotes.getFootNotes();
 		
-		// Absender filtern
-		contextAbsender.clear();
-		if(allAbsender != null)
+		// FootNotes nach Contect filtern
+		contextFootNotes.clear();
+		if(allFootNotes != null)
 		{
-			for (Absender absender : allAbsender)
+			for (FootNote footNote : allFootNotes)
 			{
-				if(StringUtils.equals(absender.getContext(),officeContext))
-					contextAbsender.add(absender);
+				if(StringUtils.equals(footNote.getContext(),officeContext))
+					contextFootNotes.add(footNote);
 			}
 		}
 				
-		// Defaultadresse erzeugen, wenn noch kein Absender mit diesem Kontext existiert 
-		//if(contextAbsender.isEmpty())
-		if(findAbsender(defaultName) == null)
+		// Default-FootNote erzeugen, wenn noch keine FootNote mit diesem Kontext existiert 		
+		if(findFootNote(defaultName) == null)
 		{
-			// Kontextabsender erzeugen mit Default-Praeferenznamen
-			Absender defAbsender = generateContextAbsender();		
-			defAbsender.setName(defaultName);			
-			contextAbsender.add(defAbsender);
+			// Kontextfootnote erzeugen mit Default-Praeferenznamen
+			FootNote defFootNote = generateContextFootNote();		
+			defFootNote.setName(defaultName);			
+			contextFootNotes.add(defFootNote);
 			
-			// DefaultAbsender zum Modell hinzufuegen und speichern
-			Command addCommand = AddCommand.create(domain, container , eReference, defAbsender);
+			// Default-FootNote zum Modell hinzufuegen und speichern
+			Command addCommand = AddCommand.create(domain, container , eReference, defFootNote);
 			if(addCommand.canExecute())	
 			{
 				domain.getCommandStack().execute(addCommand);		
@@ -400,92 +407,81 @@ public class OfficeAbsenderPreferenceComposite extends CheckListEditorComposite
 		}
 		
 		// die gefilterten Daten zurueckgeben
-		return contextAbsender;
+		return contextFootNotes;
 	}
 	
-	// einen neuen Absender generieren
-	protected Absender generateContextAbsender()
+	// eine neue FootNote generieren
+	protected FootNote generateContextFootNote()
 	{
-		// einen neuen Absender generieren mit 
-		EClass absenderClass = AddressPackage.eINSTANCE.getAbsender();
-		Absender defAbsender = (Absender) EcoreUtil.create(absenderClass);
-		defAbsender.setContext(officeContext);
+		// eine neue FootNote generieren 
+		EClass footNoteClass = AddressPackage.eINSTANCE.getFootNote();
+		FootNote footNote = (FootNote) EcoreUtil.create(footNoteClass);
+		footNote.setContext(officeContext);
 
-		// neue Adresse erzeugen und dem Absender hinzufuegen			
-		EClass addressClass = AddressPackage.eINSTANCE.getAdresse();
-		Adresse addresse = (Adresse)EcoreUtil.create(addressClass);		
-		defAbsender.setAdresse(addresse);
+		// neue FootNoteItem erzeugen und der Fussnote hinzufuegen			
+		EClass itemClass = AddressPackage.eINSTANCE.getFootNoteItem();
+		FootNoteItem footNoteItem = (FootNoteItem)EcoreUtil.create(itemClass);		
+		footNoteItem.setKey("Thema"); //$NON-NLS-N$
+		footNoteItem.setValue("Beschreibung"); //$NON-NLS-N$
+		footNote.getFootnoteitems().add(footNoteItem);
 		
-		return defAbsender;		
+		return footNote;		
+	}
+	
+	private FootNotes getFootNotes(FootNote footNote)
+	{
+		EClass footNotesClass = AddressPackage.eINSTANCE.getFootNotes();
+		FootNotes footNotes = (FootNotes) EcoreUtil.create(footNotesClass);		
+		footNotes.getFootNotes().add(footNote);		
+		return footNotes;
 	}
 
-	private Absender findAbsender(String absenderName)
+	private FootNote findFootNote(String footNoteName)
 	{
-		for (Absender absender : contextAbsender)
+		for (FootNote footNote : contextFootNotes)
 		{
-			if(StringUtils.equals(absender.getName(), absenderName))
-				return absender;
+			if(StringUtils.equals(footNote.getName(), footNoteName))
+				return footNote;
 		}
 
 		return null;
 	}
 	
 	/**
-	 */
-	/*
-	public void copyAbsender()
-	{
-		IStructuredSelection selection = checkboxTableViewer.getStructuredSelection();
-		Object selObj = selection.getFirstElement();
-		if (selObj instanceof String)
-		{
-			// den selektierten Absender suchen
-			String prefName = (String) selObj;
-			Absender absender = findAbsender(prefName);
-			
-			if(absender != null)
-			{
-				System.out.println("kopieren");				
-			}
-		}
-	}
-	*/
-	
-	/**
-	 * Importierte Absender uebernehmen, filtert nach OfficeContext
+	 * Importierte FootNotes, nach OfficeContext gefiltert, uebernehmen.
 	 * Bestehende (gleicher Name) werden durch die Importierten ersetzt - neue werden hinzugefuegt. 
 	 * 
 	 * @param importedReferences - Liste der importierten Absender
 	 */
-	public void importAbsender(List<Absender>importedAbsender)
+	public void importFootNotes(List<FootNote>importedFootNotes)
 	{
-		if((importedAbsender != null))
+		if((importedFootNotes != null))
 		{
-			for(Absender importAbsender : importedAbsender)
+			for(FootNote importFootNote : importedFootNotes)
 			{
-				String importedName = importAbsender.getName();
+				String importedName = importFootNote.getName();
 				if ((StringUtils.isNotEmpty(importedName)
-						&& StringUtils.equals(importAbsender.getContext(), officeContext)))
-				{					
-					// existiert bereits ein gleichnamiger Absender 
-					Absender existAbsender = findAbsender(importedName);
-					if(existAbsender != null)
+						&& StringUtils.equals(importFootNote.getContext(), officeContext)))
+				{
+					// existiert bereits ein gleichnamiger FootNote
+					FootNote existFootNote = findFootNote(importedName);
+					if(existFootNote != null)
 					{
-						// existierender Absender wird geloescht
-						Command removeCommand = RemoveCommand.create(domain,container, eReference, existAbsender);
+						// existierende FootNote wird geloescht
+						Command removeCommand = RemoveCommand.create(domain,container, eReference, existFootNote);
 						if (removeCommand.canExecute())
 						{
 							domain.getCommandStack().execute(removeCommand);
-							contextAbsender.remove(existAbsender);
+							contextFootNotes.remove(existFootNote);
 						}
-					}				
+					}
 										
-					// die importierte Referenz wird zum Modell hinzugefuegt
-					Command addCommand = AddCommand.create(domain,container, eReference, importAbsender);
+					// die importierte FootNote wird zum Modell hinzugefuegt
+					Command addCommand = AddCommand.create(domain,container, eReference, importFootNote);
 					if (addCommand.canExecute())
 					{
 						domain.getCommandStack().execute(addCommand);
-						contextAbsender.add(importAbsender);
+						contextFootNotes.add(importFootNote);
 					}
 				}
 			}

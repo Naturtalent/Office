@@ -76,23 +76,12 @@ public class ReceiverDetailsRendererService extends MultiReferenceSWTRendererSer
 			return NOT_APPLICABLE;
 		}
 		
-		/*
-		if (EAttribute.class.isInstance(feature))
-		{
-			return NOT_APPLICABLE;
-		}
-		*/
-		
-		//if (ArchivPackage.eINSTANCE.getRegister_NumericData().equals(eStructuralFeature))
-		//if (AddressPackage.eINSTANCE.getReferenzGruppe_Referenz().equals(feature))
 		if (AddressPackage.eINSTANCE.getReceivers_Receivers().equals(feature))
 		{
 			return 12.0;				
 		}
 
 		return NOT_APPLICABLE;
-		
-		//return 5;
 	}
 
 	/**

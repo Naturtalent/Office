@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="it.naturtalent.e4.office.ui.footnotesmaster">
+   <implementation class="it.naturtalent.e4.office.ui.renderer.FootNotesMasterService"/>
+   <service>
+      <provide interface="org.eclipse.emfforms.spi.swt.core.di.EMFFormsDIRendererService"/>
+   </service>
+</scr:component>

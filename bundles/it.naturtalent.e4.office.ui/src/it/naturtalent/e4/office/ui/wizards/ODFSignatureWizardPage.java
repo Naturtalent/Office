@@ -7,6 +7,7 @@ import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
 import org.apache.commons.lang3.StringUtils;
+import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.ui.di.UIEventTopic;
@@ -93,7 +94,7 @@ public class ODFSignatureWizardPage extends WizardPage  implements IWriteWizardP
 		new Label(container, SWT.NONE);				
 			
 		// OfficeContext aus dem Wizard uebernehmen
-		officeContext = ((ODFDefaultWriteAdapterWizard)getWizard()).getOfficeContext();
+		//officeContext = ((ODFDefaultWriteAdapterWizard)getWizard()).getOfficeContext();
 		
 		try
 		{
@@ -307,5 +308,14 @@ public class ODFSignatureWizardPage extends WizardPage  implements IWriteWizardP
 		
 		signatureSet.getSignatures().removeAll(removeList);
 	}
+
+	@Override
+	public void unDo(TextDocument odfDocument)
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+
 
 }

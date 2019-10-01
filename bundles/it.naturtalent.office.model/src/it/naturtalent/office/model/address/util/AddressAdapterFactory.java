@@ -120,9 +120,9 @@ public class AddressAdapterFactory extends AdapterFactoryImpl
 				return createFootNoteAdapter();
 			}
 			@Override
-			public Adapter caseFooteNoteSet(FooteNoteSet object)
+			public Adapter caseFootNotes(FootNotes object)
 			{
-				return createFooteNoteSetAdapter();
+				return createFootNotesAdapter();
 			}
 			@Override
 			public Adapter caseReferenz(Referenz object)
@@ -322,16 +322,16 @@ public class AddressAdapterFactory extends AdapterFactoryImpl
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link it.naturtalent.office.model.address.FooteNoteSet <em>Foote Note Set</em>}'.
+	 * Creates a new adapter for an object of class '{@link it.naturtalent.office.model.address.FootNotes <em>Foot Notes</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see it.naturtalent.office.model.address.FooteNoteSet
+	 * @see it.naturtalent.office.model.address.FootNotes
 	 * @generated
 	 */
-	public Adapter createFooteNoteSetAdapter()
+	public Adapter createFootNotesAdapter()
 	{
 		return null;
 	}

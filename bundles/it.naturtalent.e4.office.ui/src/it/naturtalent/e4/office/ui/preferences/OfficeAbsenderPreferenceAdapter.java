@@ -17,13 +17,32 @@ import it.naturtalent.e4.office.ui.OfficeUtils;
 import it.naturtalent.e4.preferences.AbstractPreferenceAdapter;
 import it.naturtalent.office.model.address.Absender;
 import it.naturtalent.office.model.address.AddressPackage;
+import it.naturtalent.office.model.address.Referenz;
 import it.naturtalent.office.model.address.Sender;
 
-
+/**
+ * Adapter zur Verwaltung der AbsenderPraeferenzen 
+ * 
+ * Ein Absender ist definiert als eine Adresse erweitert mit einem zusaetzlichen Namen und einem OfficeContext.
+ * 
+ * Als Praeferenz werden die Absender definiert, deren Adresse üblicherweise im Briefkopf angegeben werden. Es koennen
+ * verschiedene Absender definiert und unter einem Namen gespeichert werden. Der 'gecheckte' Absender wird aktuell beim
+ * Erstellen eines Anschreibens benutzt.
+ * 
+ * Mit dem OfficeContext kann die Adresse einem bestimmten Bereich zugeordnet werden (Business, Privat, ...).
+ * Der OfficeContext wird in den Eclips4 Context eigetragen und steuert wiederum den Filter des Renderers.
+ * Im Modell sind alle Absender dem Container Sender zugeordnet.
+ * 
+ * 
+ * @author dieter
+ *
+ */
 public class OfficeAbsenderPreferenceAdapter extends AbstractPreferenceAdapter
 {
 	// UI der Absender-Praeferenzliste
-	private OfficeAbsenderPreferenceComposite preferenceComposite;
+	private OfficeAbsenderPreferenceComposite absenderComposite;
+	
+	//protected List<Absender>importedAbsenderList;
 	
 	
 	@Override
@@ -51,7 +70,7 @@ public class OfficeAbsenderPreferenceAdapter extends AbstractPreferenceAdapter
 	@Override
 	public void appliedPressed()
 	{
-		preferenceComposite.appliedPressed();		
+		absenderComposite.appliedPressed();		
 	}
 
 	@Override
@@ -60,20 +79,27 @@ public class OfficeAbsenderPreferenceAdapter extends AbstractPreferenceAdapter
 		// Composite beschriften
 		referenceNode.setTitle(getLabel());
 		
-		// Absender 
-		preferenceComposite = new OfficeAbsenderPreferenceComposite(referenceNode.getParentNode(), SWT.NONE);
+		// Absender UI
+		absenderComposite = new OfficeAbsenderPreferenceComposite(referenceNode.getParentNode(), SWT.NONE);
 		
+		init(absenderComposite);
+				
+		return absenderComposite;
+	}
+	
+	protected void init(Composite composite)
+	{
 		// einen Infotext hinzufuegen
-		Label label = new Label(preferenceComposite, SWT.NONE);
-		label.setText("Absender definieren, einen präferenzierten selektieren"); //$NON-NLS-N$;
+		Label label = new Label(composite, SWT.NONE);
+		label.setText("Absender definieren, einen Präferenzierten selektieren"); //$NON-NLS-N$;
 		
-		new Label(preferenceComposite, SWT.NONE);
-		new Label(preferenceComposite, SWT.NONE);
-		new Label(preferenceComposite, SWT.NONE);
+		new Label(composite, SWT.NONE);
+		new Label(composite, SWT.NONE);
+		new Label(composite, SWT.NONE);
 		
-		Hyperlink hyperlinkExport = new Hyperlink(preferenceComposite, SWT.NONE);
-		hyperlinkExport.setText("exportieren");
-		hyperlinkExport.setToolTipText("alle Absender exportieren");
+		Hyperlink hyperlinkExport = new Hyperlink(composite, SWT.NONE);
+		hyperlinkExport.setText("exportieren"); //$NON-NLS-N$
+		hyperlinkExport.setToolTipText("alle Absender exportieren"); //$NON-NLS-N$
 		hyperlinkExport.addListener(SWT.MouseDown, new Listener() {
 
             @Override
@@ -84,11 +110,11 @@ public class OfficeAbsenderPreferenceAdapter extends AbstractPreferenceAdapter
             }
         });
 		
-		new Label(preferenceComposite, SWT.NONE);
+		new Label(composite, SWT.NONE);
 				
-		Hyperlink hyperlinkImport = new Hyperlink(preferenceComposite, SWT.NONE);
-		hyperlinkImport.setText("importieren");
-		hyperlinkImport.setToolTipText("Absender importieren");
+		Hyperlink hyperlinkImport = new Hyperlink(composite, SWT.NONE);
+		hyperlinkImport.setText("importieren"); //$NON-NLS-N$
+		hyperlinkImport.setToolTipText("Absender importieren"); //$NON-NLS-N$
 		hyperlinkImport.addListener(SWT.MouseDown, new Listener() {
 
             @Override
@@ -107,20 +133,21 @@ public class OfficeAbsenderPreferenceAdapter extends AbstractPreferenceAdapter
             			{
             				List<Absender>importedAbsenderList = new ArrayList<Absender>();            				
             				for(Absender importAbsender : importedAbsender)            				
-            					importedAbsenderList.add(importAbsender);
-            				
-            				preferenceComposite.importAbsender(importedAbsenderList);
+            					importedAbsenderList.add(importAbsender);            				
+            				postImport(importedAbsenderList);
             			}
             		}
             	}
             }
         });
-		
-		
-		
-		
-		return preferenceComposite;
 	}
+	
+	// realisiert die zum Import anstehenden Absender
+	protected void postImport(List<Absender>importedAbsenderList)
+	{
+		absenderComposite.importAbsender(importedAbsenderList);
+	}
+
 
 	/*
 	 * Canceln der Eingabe
@@ -128,7 +155,7 @@ public class OfficeAbsenderPreferenceAdapter extends AbstractPreferenceAdapter
 	@Override
 	public void cancelPressed()
 	{
-		preferenceComposite.doCancel();
+		absenderComposite.doCancel();
 	}
 	
 	

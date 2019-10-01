@@ -11,7 +11,7 @@ import it.naturtalent.office.model.address.Adresse;
 import it.naturtalent.office.model.address.Empfaenger;
 import it.naturtalent.office.model.address.FootNote;
 import it.naturtalent.office.model.address.FootNoteItem;
-import it.naturtalent.office.model.address.FooteNoteSet;
+import it.naturtalent.office.model.address.FootNotes;
 import it.naturtalent.office.model.address.Kontakt;
 import it.naturtalent.office.model.address.Kontakte;
 import it.naturtalent.office.model.address.NtProjektKontakte;
@@ -102,7 +102,7 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass footeNoteSetEClass = null;
+	private EClass footNotesEClass = null;
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -621,9 +621,9 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 	 * @generated
 	 */
 	@Override
-	public EClass getFooteNoteSet()
+	public EClass getFootNotes()
 	{
-		return footeNoteSetEClass;
+		return footNotesEClass;
 	}
 
 	/**
@@ -632,20 +632,9 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 	 * @generated
 	 */
 	@Override
-	public EAttribute getFooteNoteSet_Name()
+	public EReference getFootNotes_FootNotes()
 	{
-		return (EAttribute)footeNoteSetEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EReference getFooteNoteSet_FooteNotes()
-	{
-		return (EReference)footeNoteSetEClass.getEStructuralFeatures().get(1);
+		return (EReference)footNotesEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -909,9 +898,8 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 		createEAttribute(footNoteEClass, FOOT_NOTE__CONTEXT);
 		createEReference(footNoteEClass, FOOT_NOTE__FOOTNOTEITEMS);
 
-		footeNoteSetEClass = createEClass(FOOTE_NOTE_SET);
-		createEAttribute(footeNoteSetEClass, FOOTE_NOTE_SET__NAME);
-		createEReference(footeNoteSetEClass, FOOTE_NOTE_SET__FOOTE_NOTES);
+		footNotesEClass = createEClass(FOOT_NOTES);
+		createEReference(footNotesEClass, FOOT_NOTES__FOOT_NOTES);
 
 		referenzEClass = createEClass(REFERENZ);
 		createEAttribute(referenzEClass, REFERENZ__NAME);
@@ -1016,9 +1004,8 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 		initEAttribute(getFootNote_Context(), ecorePackage.getEString(), "context", null, 0, 1, FootNote.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFootNote_Footnoteitems(), this.getFootNoteItem(), null, "footnoteitems", null, 0, -1, FootNote.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(footeNoteSetEClass, FooteNoteSet.class, "FooteNoteSet", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getFooteNoteSet_Name(), ecorePackage.getEString(), "name", null, 0, 1, FooteNoteSet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getFooteNoteSet_FooteNotes(), this.getFootNote(), null, "footeNotes", null, 0, -1, FooteNoteSet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(footNotesEClass, FootNotes.class, "FootNotes", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getFootNotes_FootNotes(), this.getFootNote(), null, "footNotes", null, 0, -1, FootNotes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(referenzEClass, Referenz.class, "Referenz", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getReferenz_Name(), ecorePackage.getEString(), "name", null, 0, 1, Referenz.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

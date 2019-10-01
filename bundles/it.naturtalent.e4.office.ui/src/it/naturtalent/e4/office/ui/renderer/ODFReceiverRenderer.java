@@ -99,12 +99,15 @@ public class ODFReceiverRenderer extends TreeMasterDetailSWTRenderer
 	/*
 	 * Eine Selektion im MasterView erzwingen.
 	 */
-	@Inject
+	
+	@Inject 
 	@Optional
-	public void handleModelChangedEvent(@UIEventTopic(OfficeUtils.SET_RECEIVERMASTER_SELECTION_EVENT) Empfaenger empfaenger)
+	public void handleReferenceSelection(@UIEventTopic(OfficeUtils.SET_OFFICEMASTER_SELECTION_EVENT) Object empfaenger)
 	{
-		treeViewer.setSelection(new StructuredSelection(empfaenger));
+		if (empfaenger instanceof Empfaenger)		
+			treeViewer.setSelection(new StructuredSelection(empfaenger));
 	}
+
 
 	
 

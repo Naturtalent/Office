@@ -24,28 +24,31 @@ import org.eclipse.swt.widgets.Composite;
 import it.naturtalent.e4.office.ui.OfficeUtils;
 import it.naturtalent.office.model.address.Absender;
 import it.naturtalent.office.model.address.Adresse;
+import it.naturtalent.office.model.address.FootNote;
+import it.naturtalent.office.model.address.Referenz;
+import it.naturtalent.office.model.address.Referenzen;
 
 
 
 /**
- * Den Absender Master-Renderer anpassen.
- * 
- * - filtern nach OfficeContext-Flag, das im Eclipse4 Context unter dem Namen 'OfficeUtils.OFFICE_CONTEXT' hinterlegt sein muss.
- * - meldet die Selektion eines Absenders mit einem 'OfficeUtils.SET_ABSENDERMASTER_SELECTION_EVENT' Event  
+ *  ein Multi TreeMasterRenderer der Elemente nach OfficeContext filtert
  * 
  * @author dieter
  *
  */
-public class SendersRenderer extends TreeMasterDetailSWTRenderer
+public class OfficeContextTreeMasterRenderer extends TreeMasterDetailSWTRenderer
 {
 
 	@Inject private IEventBroker eventBroker;
 	
 	private TreeViewer treeViewer;
 	
-	/*
-	 *  filtert Absender nach dem in 'officeContext' hinterlegten Referenzwert
-	 *   
+
+	/**
+	 * OfficeContext - Filter
+	 * 
+	 * @author dieter
+	 *
 	 */
 	private class ContextFilter extends ViewerFilter
 	{
@@ -59,12 +62,35 @@ public class SendersRenderer extends TreeMasterDetailSWTRenderer
 
 		@Override
 		public boolean select(Viewer viewer, Object parentElement, Object element)
-		{					
+		{	
+			/*
+			if (element instanceof EObject)
+			{
+				EObject eObject = (EObject) element;
+				System.out.println(eObject);
+			}
+			*/
+			
+			if (element instanceof FootNote)
+			{
+				FootNote footNote = (FootNote) element;
+				return(StringUtils.equals(footNote.getContext(), officeContext));		
+			}
+						
 			if (element instanceof Absender)
 			{					
 				String elementContext = ((Absender)element).getContext();
 					return(StringUtils.equals(elementContext, officeContext));				
 			}
+			
+			
+			if (element instanceof Referenz)
+			{					
+				Referenz referenz = (Referenz) element;				
+					return(StringUtils.equals(referenz.getContext(), officeContext));				
+			}
+			
+
 			
 			// nicht fuer diesen Filter bestimmt
 			return true;
@@ -80,20 +106,27 @@ public class SendersRenderer extends TreeMasterDetailSWTRenderer
 		@Override
 		public void selectionChanged(SelectionChangedEvent event)
 		{
-			Absender absender = null;
 			IStructuredSelection selection = event.getStructuredSelection();
-			Object selObject = selection.getFirstElement();
-			if (selObject instanceof Absender)
+			EObject selObject = (EObject) selection.getFirstElement();
+			
+/*			
+			if (selObject instanceof EObject)
+			{
+				EObject eObject = selObject;
+				
+			}
 				absender = (Absender) selObject;
 			else
 			{
 				if (selObject instanceof Adresse)									
 					absender = (Absender) ((Adresse) selObject).eContainer();				
 			}
+			*/
 			
 			// Broker informiert ueber die Selektion 
 			// @see it.naturtalent.e4.office.ui.wizards.ODFSenderWizardPage
-			eventBroker.post(OfficeUtils.ABSENDERMASTER_SELECTED_EVENT , absender);
+			if(selObject != null)
+				eventBroker.post(OfficeUtils.GET_OFFICEMASTER_SELECTION_EVENT, selObject);
 		}
 	};
 	
@@ -105,14 +138,14 @@ public class SendersRenderer extends TreeMasterDetailSWTRenderer
 	 * @param reportService
 	 */
 	@Inject
-	public SendersRenderer(VTreeMasterDetail vElement,
+	public OfficeContextTreeMasterRenderer(VTreeMasterDetail vElement,
 			ViewModelContext viewContext, ReportService reportService)
 	{
 		super(vElement, viewContext, reportService);	
 	}
 	
 	/** 
-	 *  Erweiterung 'createMasterTree()' zur Realisiereung der o.g. Features
+	 *  diese Funktion wird genutzt, um den OfficeFilter dem TreeViewer hinzuzufuegen
 	 */
 	@Override
 	protected TreeViewer createMasterTree(Composite masterPanel)
@@ -127,8 +160,7 @@ public class SendersRenderer extends TreeMasterDetailSWTRenderer
 	
 	
 	/*
-	 * Kontextmenue im Master abschalten, es soll an dieser Stelle keine neuen Absender eingegeben werden
-	 * sondern nur ueber den Referenzenmodus.
+	 * Kontextmenue im TreeMaster abschalten, 
 	 * 
 	 */
 	@Override
@@ -139,7 +171,7 @@ public class SendersRenderer extends TreeMasterDetailSWTRenderer
 
 	@Inject
 	@Optional
-	public void handleModelChangedEvent(@UIEventTopic(OfficeUtils.SET_ABSENDERMASTER_SELECTION_EVENT) EObject eObject)
+	public void handleModelChangedEvent(@UIEventTopic(OfficeUtils.SET_OFFICEMASTER_SELECTION_EVENT) EObject eObject)
 	{		
 		if(eObject != null)
 		{

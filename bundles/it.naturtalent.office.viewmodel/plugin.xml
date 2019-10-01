@@ -3,6 +3,32 @@
 <plugin>
    <extension
          point="org.eclipse.emf.ecp.view.model.provider.xmi.file">
+<file
+      filePath="viewmodels/ReferenzenDetail.view">
+   <filter
+         key="detail"
+         value="true">
+   </filter>
+</file>
+
+<file filePath="viewmodels/ReferenzenMaster.view"/>
+
+
+
+<file
+      filePath="viewmodels/FootNote.view">
+</file>
+
+<file
+      filePath="viewmodels/FootNotesDetail.view">
+   <filter
+         key="detail"
+         value="true">
+   </filter>
+</file>
+
+<file filePath="viewmodels/FootNotesMaster.view"/>
+
 
 
 
@@ -15,10 +41,6 @@
 <file filePath="viewmodels/Signature.view"/>
 
 <file filePath="viewmodels/SignatureSet.view"/>
-
-<file filePath="viewmodels/FooteNoteSet.view"/>
-
-<file filePath="viewmodels/FootNote.view"/>
 
 
 <file filePath="viewmodels/Empfaenger.view"/>

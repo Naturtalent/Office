@@ -14,21 +14,28 @@ import org.eclipse.emfforms.spi.swt.core.AbstractSWTRenderer;
 
 import it.naturtalent.office.model.address.AddressPackage;
 
-public class SenderDetailsRendererService extends MultiReferenceSWTRendererService
+/**
+ * Einen FootNotes-Renderer zur Verfuegung stellen.
+ * 
+ * @author dieter
+ *
+ */
+public class FootNotesRendererService  extends MultiReferenceSWTRendererService
 {
 
 	private EMFFormsDatabinding databindingService;
 	private ReportService reportService;
-
+	
 	/**
 	 * Called by the initializer to set the EMFFormsDatabinding.
 	 *
 	 * @param databindingService The EMFFormsDatabinding
 	 */
-	protected void setEMFFormsDatabinding(EMFFormsDatabinding databindingService) {
-		this.databindingService = databindingService;
+	protected void setEMFFormsDatabinding(EMFFormsDatabinding databindingService)
+	{
+		this.databindingService = databindingService;		
 	}
-
+	
 	/**
 	 * Called by the initializer to set the ReportService.
 	 *
@@ -36,16 +43,10 @@ public class SenderDetailsRendererService extends MultiReferenceSWTRendererServi
 	 */
 	protected void setReportService(ReportService reportService) {
 		this.reportService = reportService;
-		
 	}
-	/**
-	 * {@inheritDoc}
-	 *
-	 * @see org.eclipse.emfforms.spi.swt.core.di.EMFFormsDIRendererService#isApplicable(VElement,ViewModelContext)
-	 */
+	
 	@Override
-	public double isApplicable(VElement vElement,
-			ViewModelContext viewModelContext)
+	public double isApplicable(VElement vElement, ViewModelContext viewModelContext)
 	{
 		if (!VControl.class.isInstance(vElement))
 		{
@@ -53,12 +54,7 @@ public class SenderDetailsRendererService extends MultiReferenceSWTRendererServi
 		}
 		
 		final VControl control = (VControl) vElement;
-		if (control.getDomainModelReference() == null)
-		{
-			return NOT_APPLICABLE;
-		}
-		
-		IValueProperty valueProperty;
+		IValueProperty<?, ?> valueProperty;
 		try
 		{
 			valueProperty = databindingService.getValueProperty(
@@ -70,39 +66,25 @@ public class SenderDetailsRendererService extends MultiReferenceSWTRendererServi
 			return NOT_APPLICABLE;
 		}
 		
-		final EStructuralFeature feature = (EStructuralFeature) valueProperty.getValueType();
-		if (!feature.isMany())
-		{
-			return NOT_APPLICABLE;
-		}
-		
-		/*
-		if (EAttribute.class.isInstance(feature))
-		{
-			return NOT_APPLICABLE;
-		}
-		*/
-		
-		//if (ArchivPackage.eINSTANCE.getRegister_NumericData().equals(eStructuralFeature))
-		//if (AddressPackage.eINSTANCE.getReferenzGruppe_Referenz().equals(feature))	
-		if (AddressPackage.eINSTANCE.getSender_Senders().equals(feature))
-		{
-			return 12.0;					
-		}
+		// Feature des Elements
+		final EStructuralFeature eStructuralFeature = EStructuralFeature.class
+				.cast(valueProperty.getValueType());
+				
 	
-
-		return NOT_APPLICABLE;
+		if (AddressPackage.eINSTANCE.getFootNotes_FootNotes().equals(eStructuralFeature))
+		{
+			// FootNotes Referenz wurde gefunden
+			return 20.0;					
+		}
 		
-		//return 5;
+		return NOT_APPLICABLE;		
 	}
 
-	/**
-	 * {@inheritDoc}
-	 *
-	 * @see org.eclipse.emfforms.spi.swt.core.di.EMFFormsDIRendererService#getRendererClass()
-	 */
 	@Override
-	public Class<? extends AbstractSWTRenderer<VControl>> getRendererClass() {
-		return SenderDetailsRenderer.class;
+	public Class<? extends AbstractSWTRenderer<VControl>> getRendererClass()
+	{
+		// erweiterter Referenz-Renderer mit OfficeContextFilter 
+		return FootNotesRenderer.class;		
 	}
+
 }

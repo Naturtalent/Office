@@ -26,12 +26,13 @@ import org.odftoolkit.simple.TextDocument;
 import org.odftoolkit.simple.table.CellRange;
 import org.odftoolkit.simple.table.Table;
 
+import it.naturtalent.e4.office.ui.preferences.OfficeDefaultPreferenceUtils;
 import it.naturtalent.e4.office.ui.wizards.ODFDefaultWriteAdapterWizard;
 import it.naturtalent.office.model.address.Absender;
 import it.naturtalent.office.model.address.AddressPackage;
 import it.naturtalent.office.model.address.Adresse;
 import it.naturtalent.office.model.address.FootNote;
-import it.naturtalent.office.model.address.FooteNoteSet;
+import it.naturtalent.office.model.address.FootNotes;
 import it.naturtalent.office.model.address.Kontakt;
 import it.naturtalent.office.model.address.Kontakte;
 import it.naturtalent.office.model.address.NtProjektKontakte;
@@ -48,6 +49,17 @@ public class OfficeUtils
 
 	// Name des Office - ECP Projekt
 	public final static String OFFICEPROJECTNAME = "OfficeEMFProject";
+	
+	// Name unter dem der aktuelle OfficeContext im E4Context hinterlegt wird  
+	public static final String E4CONTEXTKEY_OFFICECONTEXT = "officecontext";
+
+	// Name unter dem der aktuelle Praeferenzknoten im E4Context hinterlegt wird  
+	public static final String E4CONTEXTKEY_OFFICEPRAEFERENZNODE = "officepraeferenznode";
+
+	// EventBroker Keys
+	public static final String SET_OFFICEMASTER_SELECTION_EVENT = "setofficemasterselection"; // $NON-NLS-N$	
+	public static final String GET_OFFICEMASTER_SELECTION_EVENT = "getofficemasterselection"; // $NON-NLS-N$
+
 
 	// MasterTreeRefreshing erforderlich
 	public final static String KONTAKTE_REFRESH_MASTER_REQUEST = "kontakterefreshmasterrequest";
@@ -64,18 +76,15 @@ public class OfficeUtils
 	// Modify-Event einer Texteingabe 
 	public static final String MODIFY_EDITOR_EVENT = "modifyeditorevent"; // $NON-NLS-N$
 	
-	
-	// E4Context DefaultName 
-	//public static final String E4CONTEXT_DEFAULTNAME = "defaultName";
-	
 	// E4Context Name fuer die Hinterlegungn eines WidgetStyle 
 	//public static final String E4CONTEXT_WIDGETSTYLE = "officewidgetstyle";
 
 	// Selektanforderungen an den Rederer
-	public static final String SET_ABSENDERMASTER_SELECTION_EVENT = "setabsendermasterselection"; // $NON-NLS-N$
+	public static final String SET_ABSENDERMASTER_SELECTION_EVENT = "setabsendermasterselection"; // $NON-NLS-N$	
 	public static final String SET_RECEIVERMASTER_SELECTION_EVENT = "setreceivermasterselection"; // $NON-NLS-N$
 	public static final String REFERENZSET_REQUESTSELECTREFERENCEEVENT = "requestselectgroupreferenceselectionevent"; // $NON-NLS-N$
-	public static final String FOOTNOTESET_REQUESTSELECTREFERENCEEVENT = "requestfootnoteselectionevent"; // $NON-NLS-N$	
+	public static final String FOOTNOTESET_REQUESTSELECTREFERENCEEVENT = "requestfootnoteselectionevent"; // $NON-NLS-N$
+	public static final String SET_FOOTNOTEMASTER_SELECTION_EVENT = "setfootnotemasterselection"; // $NON-NLS-N$
 	public static final String SIGNATURE_REQUESTSELECTIONEVENT = "requestsignatureselectionevent"; // $NON-NLS-N$
 
 	//
@@ -83,7 +92,7 @@ public class OfficeUtils
 	//
 	// Renderer melden die Selektion eines Ojekcs
 	public static final String ABSENDERMASTER_SELECTED_EVENT = "absenderselected"; // $NON-NLS-N$
-	public static final String ABSENDER_DETAIL_SELECTED_EVENT = "absenderdetailselected"; // $NON-NLS-N$
+	public static final String GET_ABSENDER_DETAIL_SELECTED_EVENT = "getabsenderdetailselected"; // $NON-NLS-N$
 	public static final String RECEIVER_MASTER_SELECTED_EVENT = "receiverselected"; // $NON-NLS-N$
 	public static final String SELECT_REFERENZ_EVENT = "selectreferezevent"; // $NON-NLS-N$
 	public static final String SELECT_FOOTNOTE_EVENT = "selectfootnoteevent"; // $NON-NLS-N$
@@ -236,8 +245,7 @@ public class OfficeUtils
 	 */
 	public static Absender findAbsenderByName(String absenderName,String officeContext)
 	{
-		Sender sender = (Sender) OfficeUtils
-				.findObject(AddressPackage.eINSTANCE.getSender());
+		Sender sender = (Sender) OfficeUtils.findObject(AddressPackage.eINSTANCE.getSender());
 		EList<Absender> absenders = sender.getSenders();
 		for (Absender absender : absenders)
 		{
@@ -300,12 +308,12 @@ public class OfficeUtils
 	public static FootNote findFootNoteByName(String footNoteName, String officeContext)
 	{
 		// FooteNoteSet ist der Container aller FootNotes
-		FooteNoteSet footNoteSet =  (FooteNoteSet) OfficeUtils.findObject(AddressPackage.eINSTANCE.getFooteNoteSet());
+		FootNotes footNotes =  (FootNotes) OfficeUtils.findObject(AddressPackage.eINSTANCE.getFootNotes());
 				
-		EList<FootNote> footNotes = footNoteSet.getFooteNotes();
+		EList<FootNote> allFootNotes = footNotes.getFootNotes();
 		if (footNotes != null)
 		{
-			for (FootNote footNote : footNotes)
+			for (FootNote footNote : allFootNotes)
 			{
 				if (StringUtils.equals(footNote.getName(), footNoteName)
 						&& StringUtils.equals(footNote.getContext(),officeContext))
@@ -342,7 +350,7 @@ public class OfficeUtils
 			tempAbsender.setName(LOADED_ABSENDER);
 
 			// StandardOfficeContext eintragen
-			tempAbsender.setContext(ODFDefaultWriteAdapterWizard.DEFAULT_OFFICECONTEXT);
+			tempAbsender.setContext(OfficeDefaultPreferenceUtils.DEFAULT_OFFICE_CONTEXT);
 
 			// Absenderadresse erzeugen
 			EClass adresseClass = AddressPackage.eINSTANCE.getAdresse();
@@ -350,12 +358,11 @@ public class OfficeUtils
 			tempAbsender.setAdresse(adresse);
 
 			// den eingelesenen Absender temporaer zum EMF-Modell hinzufuegen
-			EditingDomain domain = AdapterFactoryEditingDomain
-					.getEditingDomainFor(senders);
-			EReference eReference = AddressPackage.eINSTANCE
-					.getSender_Senders();
-			Command addCommand = AddCommand.create(domain, senders, eReference,
-					tempAbsender);
+			EObject container = OfficeUtils.findObject(AddressPackage.eINSTANCE.getSender());
+			EditingDomain domain = AdapterFactoryEditingDomain.getEditingDomainFor(container);
+			EReference eReference = AddressPackage.eINSTANCE.getSender_Senders();
+			
+			Command addCommand = AddCommand.create(domain, container, eReference,tempAbsender);
 			if (addCommand.canExecute())
 				domain.getCommandStack().execute(addCommand);
 
