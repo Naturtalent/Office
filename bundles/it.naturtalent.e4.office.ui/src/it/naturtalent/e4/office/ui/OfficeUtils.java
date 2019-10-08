@@ -41,7 +41,7 @@ import it.naturtalent.office.model.address.ReferenzSet;
 import it.naturtalent.office.model.address.Referenzen;
 import it.naturtalent.office.model.address.Sender;
 import it.naturtalent.office.model.address.Signature;
-import it.naturtalent.office.model.address.SignatureSet;
+import it.naturtalent.office.model.address.Signatures;
 
 
 public class OfficeUtils
@@ -216,7 +216,7 @@ public class OfficeUtils
 	}
 
 	/**
-	 * Sucht ein Absender-EObject ueber den Namen und den OfficeContext
+	 * Sucht ein Signatur-EObject ueber den Namen und den OfficeContext
 	 * 
 	 * @param absenderName
 	 * @param officeContext
@@ -224,8 +224,8 @@ public class OfficeUtils
 	 */
 	public static Signature findSignatureByName(String signatureName,String officeContext)
 	{		
-		SignatureSet signatureSet = (SignatureSet) OfficeUtils.findObject(AddressPackage.eINSTANCE.getSignatureSet());
-		EList<Signature> sigatures = signatureSet.getSignatures();
+		Signatures signatures = (Signatures) OfficeUtils.findObject(AddressPackage.eINSTANCE.getSignatures());
+		EList<Signature> sigatures = signatures.getSignatures();
 		for (Signature signature : sigatures)
 		{
 			if (StringUtils.equals(signature.getName(), signatureName)

@@ -25,6 +25,9 @@ public class OfficeDefaultPreferenceUtils
 
 	// Preferenzname der FootNotes
 	public static final String FOOTNOTE_PREFERENCE= "footnotepreference"; //$NON-NLS-1$
+	
+	// Preferenzname der Signature
+	public static final String SIGNATURE_PREFERENCE= "signaturepreference"; //$NON-NLS-1$
 
 	
 	// unter diesem Namen wird der Defaultabsender gespeichert
@@ -35,6 +38,10 @@ public class OfficeDefaultPreferenceUtils
 
 	// unter diesem Namen wird die Defaultfootnote gespeichert
 	public static final String DEFAULT_FOOTNOTENAME = "Defaultfootnote"; //$NON-NLS-1$
+	
+	// unter diesem Namen wird die Defaultfootnote gespeichert
+	public static final String DEFAULT_SIGNATURENAME = "Defaultsignature"; //$NON-NLS-1$
+
 
 	
 	// E4Context DefaultName 

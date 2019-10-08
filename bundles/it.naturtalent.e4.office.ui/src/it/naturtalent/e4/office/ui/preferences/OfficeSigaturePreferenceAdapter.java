@@ -15,23 +15,21 @@ import org.eclipse.ui.forms.widgets.Hyperlink;
 import it.naturtalent.application.IPreferenceNode;
 import it.naturtalent.e4.office.ui.OfficeUtils;
 import it.naturtalent.e4.preferences.AbstractPreferenceAdapter;
-import it.naturtalent.office.model.address.Absender;
 import it.naturtalent.office.model.address.AddressPackage;
-import it.naturtalent.office.model.address.Referenz;
-import it.naturtalent.office.model.address.Referenzen;
-import it.naturtalent.office.model.address.Sender;
+import it.naturtalent.office.model.address.Signature;
+import it.naturtalent.office.model.address.Signatures;
 
 
 /**
- * Adapter zur Anpassung der Office-Referenzen Praeferenz
+ * Adapter zur Anpassung der Office-Signatures Praeferenz
  * 
  * @author dieter
  *
  */
-public class OfficeReferenzPreferenceAdapter extends AbstractPreferenceAdapter
+public class OfficeSigaturePreferenceAdapter extends AbstractPreferenceAdapter
 {
-	// UI der Referenz-Praeferenzliste
-	private OfficeReferenzPreferenceComposite referenceComposite;
+	// UI der Signature-Praeferenzliste
+	private OfficeSignaturePreferenceComposite signatureComposite;
 	
 	//protected List<Referenz>importedReferenzenList;
 	
@@ -45,7 +43,7 @@ public class OfficeReferenzPreferenceAdapter extends AbstractPreferenceAdapter
 	@Override
 	public String getLabel()
 	{
-		return "Referenzen"; //$NON-NLS-N$
+		return "Signaturen"; //$NON-NLS-N$
 	}
 
 	@Override
@@ -61,7 +59,7 @@ public class OfficeReferenzPreferenceAdapter extends AbstractPreferenceAdapter
 	@Override
 	public void appliedPressed()
 	{
-		referenceComposite.appliedPressed();		
+		signatureComposite.appliedPressed();		
 	}
 
 	@Override
@@ -70,19 +68,19 @@ public class OfficeReferenzPreferenceAdapter extends AbstractPreferenceAdapter
 		// Composite beschriften
 		referenceNode.setTitle(getLabel());
 		
-		// Checkliste zur Anzeige der Referenznamen
-		referenceComposite = new OfficeReferenzPreferenceComposite(referenceNode.getParentNode(), SWT.NONE);
+		// Checkliste zur Anzeige der Signaturenamen
+		signatureComposite = new OfficeSignaturePreferenceComposite(referenceNode.getParentNode(), SWT.NONE);
 		
-		init(referenceComposite);
+		init(signatureComposite);
 		
-		return referenceComposite;
+		return signatureComposite;
 	}
 	
 	protected void init(Composite composite)
 	{
 		// einen Infotext hinzufuegen
 		Label label = new Label(composite, SWT.NONE);
-		label.setText("Referenzen definieren, einen präferenzierten selektieren"); //$NON-NLS-N$;
+		label.setText("Signatureen definieren, einen präferenzierten selektieren"); //$NON-NLS-N$;
 		
 		new Label(composite, SWT.NONE);
 		new Label(composite, SWT.NONE);
@@ -90,14 +88,14 @@ public class OfficeReferenzPreferenceAdapter extends AbstractPreferenceAdapter
 		
 		Hyperlink hyperlinkExport = new Hyperlink(composite, SWT.NONE);
 		hyperlinkExport.setText("exportieren");
-		hyperlinkExport.setToolTipText("alle Referenzen exportieren");
+		hyperlinkExport.setToolTipText("alle Signatureen exportieren");
 		hyperlinkExport.addListener(SWT.MouseDown, new Listener() {
 
             @Override
             public void handleEvent(Event event) 
             {
-            	Referenzen referenzen = (Referenzen) OfficeUtils.findObject(AddressPackage.eINSTANCE.getReferenzen());
-            	OfficeDefaultPreferenceUtils.exportPreference(referenzen);
+            	Signatures signatures = (Signatures) OfficeUtils.findObject(AddressPackage.eINSTANCE.getSignatures());
+            	OfficeDefaultPreferenceUtils.exportPreference(signatures);
             }
         });
 		
@@ -105,7 +103,7 @@ public class OfficeReferenzPreferenceAdapter extends AbstractPreferenceAdapter
 				
 		Hyperlink hyperlinkImport = new Hyperlink(composite, SWT.NONE);
 		hyperlinkImport.setText("importieren");
-		hyperlinkImport.setToolTipText("Referenzen importieren");
+		hyperlinkImport.setToolTipText("Signaturen importieren");
 		hyperlinkImport.addListener(SWT.MouseDown, new Listener() {
 
             @Override
@@ -114,18 +112,18 @@ public class OfficeReferenzPreferenceAdapter extends AbstractPreferenceAdapter
             	List<EObject>eObjects = OfficeDefaultPreferenceUtils.importPreference();
             	if((eObjects != null) && (!eObjects.isEmpty()))
             	{
-            		if(eObjects.get(0) instanceof Referenzen)
+            		if(eObjects.get(0) instanceof Signatures)
             		{     
-            			Referenzen referenzen = (Referenzen) eObjects.get(0); 
-            			EList<Referenz>allReferenzen = referenzen.getReferenzen();            			
+            			Signatures signatures = (Signatures) eObjects.get(0); 
+            			EList<Signature>allSignatures = signatures.getSignatures();            			
             			
-            			// importierte Referenzen in einer Liste sammeln
-            			if(allReferenzen != null)
+            			// importierte Signaturen in einer Liste sammeln
+            			if(allSignatures != null)
             			{
-            				List<Referenz>importedReferenzenList = new ArrayList<Referenz>();            				
-            				for(Referenz importReferenz : allReferenzen)            				
-            					importedReferenzenList.add(importReferenz);
-            				postImport(importedReferenzenList);          				
+            				List<Signature>importedSignatureList = new ArrayList<Signature>();            				
+            				for(Signature importSignature : allSignatures)            				
+            					importedSignatureList.add(importSignature);
+            				postImport(importedSignatureList);          				
             			}
             		}
             	}
@@ -133,9 +131,9 @@ public class OfficeReferenzPreferenceAdapter extends AbstractPreferenceAdapter
         });
 	}
 	
-	protected void postImport(List<Referenz>importedReferenzenList)
+	protected void postImport(List<Signature>importedSignatureList)
 	{
-		referenceComposite.importReferenzen(importedReferenzenList);
+		signatureComposite.importSignatures(importedSignatureList);
 	}
 
 	/*
@@ -144,7 +142,7 @@ public class OfficeReferenzPreferenceAdapter extends AbstractPreferenceAdapter
 	@Override
 	public void cancelPressed()
 	{
-		referenceComposite.doCancel();
+		signatureComposite.doCancel();
 	}
 	
 	

@@ -170,10 +170,10 @@ public class AddressSwitch<T> extends Switch<T>
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case AddressPackage.SIGNATURE_SET:
+			case AddressPackage.SIGNATURES:
 			{
-				SignatureSet signatureSet = (SignatureSet)theEObject;
-				T result = caseSignatureSet(signatureSet);
+				Signatures signatures = (Signatures)theEObject;
+				T result = caseSignatures(signatures);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -390,17 +390,17 @@ public class AddressSwitch<T> extends Switch<T>
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Signature Set</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Signatures</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Signature Set</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Signatures</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseSignatureSet(SignatureSet object)
+	public T caseSignatures(Signatures object)
 	{
 		return null;
 	}

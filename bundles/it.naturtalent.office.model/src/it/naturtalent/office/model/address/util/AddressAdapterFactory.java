@@ -145,9 +145,9 @@ public class AddressAdapterFactory extends AdapterFactoryImpl
 				return createSignatureAdapter();
 			}
 			@Override
-			public Adapter caseSignatureSet(SignatureSet object)
+			public Adapter caseSignatures(Signatures object)
 			{
-				return createSignatureSetAdapter();
+				return createSignaturesAdapter();
 			}
 			@Override
 			public Adapter defaultCase(EObject object)
@@ -367,16 +367,16 @@ public class AddressAdapterFactory extends AdapterFactoryImpl
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link it.naturtalent.office.model.address.SignatureSet <em>Signature Set</em>}'.
+	 * Creates a new adapter for an object of class '{@link it.naturtalent.office.model.address.Signatures <em>Signatures</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see it.naturtalent.office.model.address.SignatureSet
+	 * @see it.naturtalent.office.model.address.Signatures
 	 * @generated
 	 */
-	public Adapter createSignatureSetAdapter()
+	public Adapter createSignaturesAdapter()
 	{
 		return null;
 	}

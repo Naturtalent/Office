@@ -140,13 +140,13 @@ public interface AddressFactory extends EFactory
 	Signature createSignature();
 
 	/**
-	 * Returns a new object of class '<em>Signature Set</em>'.
+	 * Returns a new object of class '<em>Signatures</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Signature Set</em>'.
+	 * @return a new object of class '<em>Signatures</em>'.
 	 * @generated
 	 */
-	SignatureSet createSignatureSet();
+	Signatures createSignatures();
 
 	/**
 	 * Returns a new object of class '<em>Absender</em>'.

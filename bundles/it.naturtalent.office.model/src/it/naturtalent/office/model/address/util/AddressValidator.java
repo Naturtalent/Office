@@ -117,8 +117,6 @@ public class AddressValidator extends EObjectValidator
 				return validateSender((Sender)value, diagnostics, context);
 			case AddressPackage.SIGNATURE:
 				return validateSignature((Signature)value, diagnostics, context);
-			case AddressPackage.SIGNATURE_SET:
-				return validateSignatureSet((SignatureSet)value, diagnostics, context);
 			case AddressPackage.ADDRESS_TYPE:
 				return validateAddressType((AddressType)value, diagnostics, context);
 			default:
@@ -254,16 +252,6 @@ public class AddressValidator extends EObjectValidator
 	public boolean validateSignature(Signature signature, DiagnosticChain diagnostics, Map<Object, Object> context)
 	{
 		return validate_EveryDefaultConstraint(signature, diagnostics, context);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public boolean validateSignatureSet(SignatureSet signatureSet, DiagnosticChain diagnostics, Map<Object, Object> context)
-	{
-		return validate_EveryDefaultConstraint(signatureSet, diagnostics, context);
 	}
 
 	/**

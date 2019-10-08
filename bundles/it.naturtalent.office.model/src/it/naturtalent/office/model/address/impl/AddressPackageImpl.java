@@ -20,7 +20,7 @@ import it.naturtalent.office.model.address.Referenz;
 import it.naturtalent.office.model.address.Referenzen;
 import it.naturtalent.office.model.address.Sender;
 import it.naturtalent.office.model.address.Signature;
-import it.naturtalent.office.model.address.SignatureSet;
+import it.naturtalent.office.model.address.Signatures;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EEnum;
@@ -120,7 +120,7 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass signatureSetEClass = null;
+	private EClass signaturesEClass = null;
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -753,9 +753,9 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 	 * @generated
 	 */
 	@Override
-	public EClass getSignatureSet()
+	public EClass getSignatures()
 	{
-		return signatureSetEClass;
+		return signaturesEClass;
 	}
 
 	/**
@@ -764,9 +764,9 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 	 * @generated
 	 */
 	@Override
-	public EReference getSignatureSet_Signatures()
+	public EReference getSignatures_Signatures()
 	{
-		return (EReference)signatureSetEClass.getEStructuralFeatures().get(0);
+		return (EReference)signaturesEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -923,8 +923,8 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 		createEAttribute(signatureEClass, SIGNATURE__STATUS1);
 		createEAttribute(signatureEClass, SIGNATURE__STATUS2);
 
-		signatureSetEClass = createEClass(SIGNATURE_SET);
-		createEReference(signatureSetEClass, SIGNATURE_SET__SIGNATURES);
+		signaturesEClass = createEClass(SIGNATURES);
+		createEReference(signaturesEClass, SIGNATURES__SIGNATURES);
 
 		// Create enums
 		addressTypeEEnum = createEEnum(ADDRESS_TYPE);
@@ -1029,8 +1029,8 @@ public class AddressPackageImpl extends EPackageImpl implements AddressPackage
 		initEAttribute(getSignature_Status1(), ecorePackage.getEString(), "status1", null, 0, 1, Signature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getSignature_Status2(), ecorePackage.getEString(), "status2", null, 0, 1, Signature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(signatureSetEClass, SignatureSet.class, "SignatureSet", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getSignatureSet_Signatures(), this.getSignature(), null, "signatures", null, 0, -1, SignatureSet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(signaturesEClass, Signatures.class, "Signatures", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getSignatures_Signatures(), this.getSignature(), null, "signatures", null, 0, -1, Signatures.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(addressTypeEEnum, AddressType.class, "AddressType");

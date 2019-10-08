@@ -1,24 +1,25 @@
 package it.naturtalent.e4.office.ui.wizards;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
 import org.apache.commons.lang3.StringUtils;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
+import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.ui.di.UIEventTopic;
-import org.eclipse.e4.ui.internal.workbench.E4Workbench;
-import org.eclipse.e4.ui.internal.workbench.swt.WorkbenchSWTActivator;
-import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecp.ui.view.ECPRendererException;
 import org.eclipse.emf.ecp.ui.view.swt.ECPSWTViewRenderer;
-import org.eclipse.jface.dialogs.IDialogSettings;
+import org.eclipse.emf.edit.command.AddCommand;
+import org.eclipse.emf.edit.command.RemoveCommand;
+import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
+import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridLayout;
@@ -30,9 +31,11 @@ import org.odftoolkit.simple.table.Table;
 
 import it.naturtalent.e4.office.ui.ODFDocumentUtils;
 import it.naturtalent.e4.office.ui.OfficeUtils;
+import it.naturtalent.e4.office.ui.preferences.OfficeDefaultPreferenceUtils;
 import it.naturtalent.office.model.address.AddressPackage;
 import it.naturtalent.office.model.address.Signature;
-import it.naturtalent.office.model.address.SignatureSet;
+import it.naturtalent.office.model.address.Signatures;
+
 
 /**
  * Seite zum Bearbeiten der Office Signaturen
@@ -44,7 +47,7 @@ public class ODFSignatureWizardPage extends WizardPage  implements IWriteWizardP
 {
 
 	// Name dieser WizardPage
-	public static final String DEFAULT_SIGNATUREPAGE_NAME = "ODF_Signature";
+	public static final String SIGNATURE_PAGE_NAME = "ODF_Signature";
 	
 	private static final String DEFAULT_SIGNATURENAME = "DefaultSignatur"; //$NON-NLS-1$
 	private static final String DEFAULT_GREETING = "Mit freundlichen Grüßen";
@@ -54,17 +57,19 @@ public class ODFSignatureWizardPage extends WizardPage  implements IWriteWizardP
 	
 	// Label fuer die aus dem ODF-Dokument eingelesene Signatur
 	private static final String LOADSIGNATURE = "Signatur aus der Datei";
+	private EditingDomain domain;
+	private EReference eReference;
 	
+	// Telekom-Praeferenzknoten
+	private IEclipsePreferences instancePreferenceNode;
+	
+	// OfficeKontext 
 	private String officeContext;
 	
 	private IEventBroker eventBroker;	
+		
+	private Signatures signatures;
 	
-	// DialogSetting der Signatur
-	private IDialogSettings dialogSettings  = WorkbenchSWTActivator.getDefault().getDialogSettings();
-	private static final String DEFAULT_SIGNATURE_SETTING = "signaturesetting";
-	protected String dialogSettingName = DEFAULT_SIGNATURE_SETTING;
-	
-	private SignatureSet signatureSet;
 	private Signature selectedSignature;
 
 	/**
@@ -72,7 +77,7 @@ public class ODFSignatureWizardPage extends WizardPage  implements IWriteWizardP
 	 */
 	public ODFSignatureWizardPage()
 	{
-		super(DEFAULT_SIGNATUREPAGE_NAME);
+		super(SIGNATURE_PAGE_NAME);
 		setMessage("Signatur erstellen und bearbeiten");
 		setTitle("Signaturen");
 		setDescription("Signaturen auswählen");
@@ -93,57 +98,21 @@ public class ODFSignatureWizardPage extends WizardPage  implements IWriteWizardP
 		new Label(container, SWT.NONE);
 		new Label(container, SWT.NONE);				
 			
-		// OfficeContext aus dem Wizard uebernehmen
-		//officeContext = ((ODFDefaultWriteAdapterWizard)getWizard()).getOfficeContext();
+		// Container aller Signaturen
+		signatures =  (Signatures) OfficeUtils.findObject(AddressPackage.eINSTANCE.getSignatures());
+					
+		// Parameter fuer die EMF Command (add)			
+		domain = AdapterFactoryEditingDomain.getEditingDomainFor(signatures);
+		eReference = AddressPackage.eINSTANCE.getSignatures_Signatures();
+
 		
 		try
 		{
-			// Container aller Signaturen
-			signatureSet =  (SignatureSet) OfficeUtils.findObject(AddressPackage.eINSTANCE.getSignatureSet());
-			
-			// gibt es schon Signaturen oder muss initialisiert werden
-			EList<Signature>signatures = signatureSet.getSignatures();
-
-			Signature existSignature = null;
-			if((signatures != null) && !signatures.isEmpty())
-			{
-				for (Signature signature : signatures)
-					if (StringUtils.equals(signature.getContext(), officeContext))
-					{
-						existSignature = signature;
-						break;
-					}											
-			}
-			
-			// noch keine Signaturen vorhanden oder keine mit OfficeContext
-			if((signatures == null) || signatures.isEmpty() || existSignature == null)
-			{							
-				Signature signature = createSignature(DEFAULT_SIGNATURENAME, officeContext);			
-				signature.setGreeting(DEFAULT_GREETING);
-				signatureSet.getSignatures().add(signature);
-			}
-			
-			// Liste der nichtloeschbaren Signaturen in den Eclipse4Context einbringen 		
-			List<Signature>unRemovables = new ArrayList<Signature>();
-			selectedSignature = OfficeUtils.findSignatureByName(DEFAULT_SIGNATURENAME, officeContext);					
-			unRemovables.add(selectedSignature);
-			E4Workbench.getServiceContext().set(OfficeUtils.SIGNATURE_UNREMOVABLES, unRemovables);
-			
 			// die gespeicherten Signaturen anzeigen (gefiltert nach OfficeContext)
-			ECPSWTViewRenderer.INSTANCE.render(container, signatureSet);
+			ECPSWTViewRenderer.INSTANCE.render(container, signatures);
 			
-			// im WizardCreate-Modus wird 'signature' im Renderer selektiert
-			ODFDefaultWriteAdapterWizard defaultWizard =  (ODFDefaultWriteAdapterWizard) getWizard();
-			if(defaultWizard.isWizardModus() == ODFDefaultWriteAdapterWizard.WIZARDCREATEMODE)
-			{
-				// Signatur mit dem im Setting hinterlegten Namen wird selektiert
-				String settingSignatureName = dialogSettings.get(dialogSettingName);
-				if(StringUtils.isNotEmpty(settingSignatureName))
-				{
-					selectedSignature = OfficeUtils.findSignatureByName(settingSignatureName, officeContext);							
-					eventBroker.send(OfficeUtils.SIGNATURE_REQUESTSELECTIONEVENT, selectedSignature);
-				}
-			}
+			selectDefaultSignature();
+			
 		} catch (ECPRendererException e)
 		{
 			// TODO Auto-generated catch block
@@ -151,69 +120,35 @@ public class ODFSignatureWizardPage extends WizardPage  implements IWriteWizardP
 		}
 	}
 	
+	/**
+	 * im 'Create-Modus' wird die praeferenzierte Signature im Master selektiert. 
+	 *  
+	 * @return
+	 */
+	public void selectDefaultSignature()
+	{
+		ODFDefaultWriteAdapterWizard defaultWizard = (ODFDefaultWriteAdapterWizard) getWizard();
+		if (defaultWizard.isWizardModus() == ODFDefaultWriteAdapterWizard.WIZARDCREATEMODE)		
+		{
+			String preferenceName = instancePreferenceNode.get(OfficeDefaultPreferenceUtils.SIGNATURE_PREFERENCE, null);
+			Signature signature = OfficeUtils.findSignatureByName(preferenceName, officeContext);
+			
+			eventBroker.post(OfficeUtils.SET_OFFICEMASTER_SELECTION_EVENT, signature);
+		}
+	}
+
+	
 	@PostConstruct
-	private void postConstruct(@Optional IEventBroker eventBroker)
+	private void postConstruct(@Optional IEventBroker eventBroker, IEclipseContext context)
 	{
 		this.eventBroker = eventBroker;
+		
+		// der Wizard hat den zubenutzenden OfficeContext im E4Context hinterlegt
+		officeContext = (String) context.get(OfficeUtils.E4CONTEXTKEY_OFFICECONTEXT);
+		
+		instancePreferenceNode = (IEclipsePreferences) context.get(OfficeUtils.E4CONTEXTKEY_OFFICEPRAEFERENZNODE);
 	}
 	
-	/**
-	 * SignatureSetRenderer meldet die Nauaufnahmee einer Signature im Modell
-	 * 
-	 * @param event
-	 */
-	@Inject
-	@Optional
-	public void handleAddEvent(@UIEventTopic(OfficeUtils.ADD_SIGNATURE_EVENT) Object event)
-	{
-		if (event instanceof SignatureSet)
-		{
-			List<Signature>signatures = ((SignatureSet)event).getSignatures(); 
-			Signature addedSignature = signatures.get(signatures.size() - 1);
-			
-			// Standardgreeting einfuegen
-			if(StringUtils.isEmpty(addedSignature.getGreeting()))
-					addedSignature.setGreeting(DEFAULT_GREETING);
-						
-			addedSignature.setContext(officeContext);
-			eventBroker.post(OfficeUtils.SIGNATURE_REQUESTSELECTIONEVENT, addedSignature);	
-		}		
-	}
-	
-	/**
-	 * SignatureSetRenderer meldet geloeschte Signature
-	 * 
-	 * @param event
-	 */
-	@Inject
-	@Optional
-	public void handlRemoveEvent(@UIEventTopic(OfficeUtils.REMOVE_SIGNATURE_EVENT) Object event)
-	{
-		if (event instanceof Signature)
-		{
-			//Signature removeSignature = (Signature) event;
-			//System.out.println("Delete: " + removeSignature.getName());			
-		}		
-	}
-
-	/*
-	 * Renderer meldet die Selektion einer Signatur
-	 * (die selektierte Signatur wird in das Dokument geschrieben)
-	 */
-	@Inject 
-	@Optional
-	public void handleSignatureSelection(@UIEventTopic(OfficeUtils.SELECT_SIGNATURE_EVENT) Object object)
-	{
-		if (object instanceof Signature)		
-			this.selectedSignature =  (Signature) object;							
-	}
-
-	/*
-	public IEventBroker getEventBroker()
-	{
-		return eventBroker;
-	}
-	*/
 
 	/* 
 	 * Signatur aus dem Dokument einlesen 
@@ -233,20 +168,19 @@ public class ODFSignatureWizardPage extends WizardPage  implements IWriteWizardP
 			readSignature.setSigner(ODFDocumentUtils.readTableText(table, 2, 0));
 			readSignature.setCosigner(ODFDocumentUtils.readTableText(table, 2, 1));
 			
-			signatureSet.getSignatures().add(readSignature);
+			Command addCommand = AddCommand.create(domain, eReference, eReference, readSignature);
+			if (addCommand.canExecute())
+				domain.getCommandStack().execute(addCommand);
 		}
 	}
 
 	/* 
-	 * Dieser Aufruf erfolgt im Zuge einer 'doPerformFinish()' Action des Wizards.
-	 * Die selektierte Signatur in das Dokument schreiben.
-	 * Name der Signatur im DialogSetting speichern.
+	 * Ist eine Sinatur im Master selektiert, wird diese beim Beenden des Wizards mit 'OK' in das ODFDokument geschrieben.
+	 * 
 	 */
 	@Override
 	public void writeToDocument(TextDocument odfDocument)
 	{
-		removeTemporaereSignaturen();
-		
 		if((selectedSignature != null) && (odfDocument != null))
 		{
 			Table table = odfDocument.getTableByName(ODF_WRITESIGNATURE);
@@ -268,9 +202,6 @@ public class ODFSignatureWizardPage extends WizardPage  implements IWriteWizardP
 				if(StringUtils.isNotEmpty(value))
 					ODFDocumentUtils.writeTableText(table, 2, 1, value);
 			}
-			
-			// Signaturnamen im Setting ablegen
-			dialogSettings.put(dialogSettingName, selectedSignature.getName());
 		}		
 	}
 	
@@ -289,33 +220,32 @@ public class ODFSignatureWizardPage extends WizardPage  implements IWriteWizardP
 	@Override
 	public void cancelPage(TextDocument odfDocument)
 	{
-		removeTemporaereSignaturen();
+		
 	}
 	
-	/*
-	 * die temporaer erzeugten Objekte (z.B. beim Einlesen aus dem Dokument erzeugt) wieder loeschen
-	 */
-	private void removeTemporaereSignaturen()
-	{
-		List<Signature>removeList = new ArrayList<Signature>();
-		
-		EList<Signature>signatures = signatureSet.getSignatures();
-		for(Signature signature : signatures)
-		{
-			if(StringUtils.equals(signature.getName(), LOADSIGNATURE))
-				removeList.add(signature);
-		}
-		
-		signatureSet.getSignatures().removeAll(removeList);
-	}
 
 	@Override
 	public void unDo(TextDocument odfDocument)
 	{
-		// TODO Auto-generated method stub
-		
+		Signature toRemove = OfficeUtils.findSignatureByName(LOADSIGNATURE, officeContext);
+		if(toRemove != null)
+		{
+			Command removeCommand = RemoveCommand.create(domain, eReference, eReference, toRemove);
+			if (removeCommand.canExecute())
+				removeCommand.execute();
+		}				
 	}
 
-
+	/*
+	 * der Broker hat eine Selection im Master empangen und meldet diese
+	 */
+	@Inject
+	@Optional
+	public void handleSelectionChangedEvent(@UIEventTopic(OfficeUtils.GET_OFFICEMASTER_SELECTION_EVENT) EObject eObject)
+	{
+		// handelt es sich bei der Selektion um eine Referenz, dann wird diese als 'aktuelle' gespeichert
+		if (eObject instanceof Signature)
+			selectedSignature =  (Signature) eObject;
+	}
 
 }

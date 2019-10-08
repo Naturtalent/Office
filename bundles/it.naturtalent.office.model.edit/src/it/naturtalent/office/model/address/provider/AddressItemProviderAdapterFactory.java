@@ -399,28 +399,28 @@ public class AddressItemProviderAdapterFactory extends AddressAdapterFactory imp
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link it.naturtalent.office.model.address.SignatureSet} instances.
+	 * This keeps track of the one adapter used for all {@link it.naturtalent.office.model.address.Signatures} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected SignatureSetItemProvider signatureSetItemProvider;
+	protected SignaturesItemProvider signaturesItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link it.naturtalent.office.model.address.SignatureSet}.
+	 * This creates an adapter for a {@link it.naturtalent.office.model.address.Signatures}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createSignatureSetAdapter()
+	public Adapter createSignaturesAdapter()
 	{
-		if (signatureSetItemProvider == null)
+		if (signaturesItemProvider == null)
 		{
-			signatureSetItemProvider = new SignatureSetItemProvider(this);
+			signaturesItemProvider = new SignaturesItemProvider(this);
 		}
 
-		return signatureSetItemProvider;
+		return signaturesItemProvider;
 	}
 
 	/**
@@ -579,7 +579,7 @@ public class AddressItemProviderAdapterFactory extends AddressAdapterFactory imp
 		if (referenzenItemProvider != null) referenzenItemProvider.dispose();
 		if (senderItemProvider != null) senderItemProvider.dispose();
 		if (signatureItemProvider != null) signatureItemProvider.dispose();
-		if (signatureSetItemProvider != null) signatureSetItemProvider.dispose();
+		if (signaturesItemProvider != null) signaturesItemProvider.dispose();
 	}
 
 }

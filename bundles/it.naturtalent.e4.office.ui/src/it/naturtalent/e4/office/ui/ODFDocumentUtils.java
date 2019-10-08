@@ -48,9 +48,11 @@ public class ODFDocumentUtils
 				for(Node oldNode : toDelNodes)
 					para.getOdfElement().removeChild(oldNode);
 			}
+			
+			para.setTextContent(text);
 		}
 
-		para.setTextContent(text);
+		//para.setTextContent(text);
 	}
 
 	public static String readCellText(Cell cell)

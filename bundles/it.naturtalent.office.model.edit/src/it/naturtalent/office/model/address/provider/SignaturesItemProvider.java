@@ -5,7 +5,7 @@ package it.naturtalent.office.model.address.provider;
 
 import it.naturtalent.office.model.address.AddressFactory;
 import it.naturtalent.office.model.address.AddressPackage;
-import it.naturtalent.office.model.address.SignatureSet;
+import it.naturtalent.office.model.address.Signatures;
 
 import java.util.Collection;
 import java.util.List;
@@ -27,12 +27,12 @@ import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
- * This is the item provider adapter for a {@link it.naturtalent.office.model.address.SignatureSet} object.
+ * This is the item provider adapter for a {@link it.naturtalent.office.model.address.Signatures} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class SignatureSetItemProvider 
+public class SignaturesItemProvider 
 	extends ItemProviderAdapter
 	implements
 		IEditingDomainItemProvider,
@@ -47,7 +47,7 @@ public class SignatureSetItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public SignatureSetItemProvider(AdapterFactory adapterFactory)
+	public SignaturesItemProvider(AdapterFactory adapterFactory)
 	{
 		super(adapterFactory);
 	}
@@ -83,7 +83,7 @@ public class SignatureSetItemProvider
 		if (childrenFeatures == null)
 		{
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(AddressPackage.Literals.SIGNATURE_SET__SIGNATURES);
+			childrenFeatures.add(AddressPackage.Literals.SIGNATURES__SIGNATURES);
 		}
 		return childrenFeatures;
 	}
@@ -103,7 +103,7 @@ public class SignatureSetItemProvider
 	}
 
 	/**
-	 * This returns SignatureSet.gif.
+	 * This returns Signatures.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -111,7 +111,7 @@ public class SignatureSetItemProvider
 	@Override
 	public Object getImage(Object object)
 	{
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/SignatureSet"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/Signatures"));
 	}
 
 	/**
@@ -123,7 +123,7 @@ public class SignatureSetItemProvider
 	@Override
 	public String getText(Object object)
 	{
-		return getString("_UI_SignatureSet_type");
+		return getString("_UI_Signatures_type");
 	}
 
 
@@ -139,9 +139,9 @@ public class SignatureSetItemProvider
 	{
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(SignatureSet.class))
+		switch (notification.getFeatureID(Signatures.class))
 		{
-			case AddressPackage.SIGNATURE_SET__SIGNATURES:
+			case AddressPackage.SIGNATURES__SIGNATURES:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -162,7 +162,7 @@ public class SignatureSetItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(AddressPackage.Literals.SIGNATURE_SET__SIGNATURES,
+				(AddressPackage.Literals.SIGNATURES__SIGNATURES,
 				 AddressFactory.eINSTANCE.createSignature()));
 	}
 

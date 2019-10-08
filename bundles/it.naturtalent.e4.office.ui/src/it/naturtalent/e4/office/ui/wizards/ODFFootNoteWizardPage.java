@@ -31,11 +31,13 @@ import org.odftoolkit.simple.text.Footer;
 
 import it.naturtalent.e4.office.ui.ODFDocumentUtils;
 import it.naturtalent.e4.office.ui.OfficeUtils;
+import it.naturtalent.e4.office.ui.preferences.OfficeDefaultPreferenceUtils;
 import it.naturtalent.office.model.address.Absender;
 import it.naturtalent.office.model.address.AddressPackage;
 import it.naturtalent.office.model.address.FootNote;
 import it.naturtalent.office.model.address.FootNoteItem;
 import it.naturtalent.office.model.address.FootNotes;
+import it.naturtalent.office.model.address.Referenz;
 
 public class ODFFootNoteWizardPage extends WizardPage implements IWriteWizardPage
 {
@@ -99,12 +101,32 @@ public class ODFFootNoteWizardPage extends WizardPage implements IWriteWizardPag
 			// Renderer zur Anzeige der definierten FootNotes  (filtert 'officecontext' im Master) 
 			ECPSWTViewRenderer.INSTANCE.render(container, (EObject) footNotes);
 			
+			selectDefaultFootNote();
+			
 		} catch (ECPRendererException e)
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}			
 	}
+	
+	/**
+	 * im 'Create-Modus' wird die praeferenzierte Referenz im Master selektiert. 
+	 *  
+	 * @return
+	 */
+	public void selectDefaultFootNote()
+	{
+		ODFDefaultWriteAdapterWizard defaultWizard = (ODFDefaultWriteAdapterWizard) getWizard();
+		if (defaultWizard.isWizardModus() == ODFDefaultWriteAdapterWizard.WIZARDCREATEMODE)		
+		{
+			String preferenceName = instancePreferenceNode.get(OfficeDefaultPreferenceUtils.FOOTNOTE_PREFERENCE, null);
+			FootNote footNote = OfficeUtils.findFootNoteByName(preferenceName, officeContext);
+			
+			eventBroker.post(OfficeUtils.SET_OFFICEMASTER_SELECTION_EVENT, footNote);
+		}
+	}
+
 	
 	@Override
 	public void writeToDocument(TextDocument odfDocument)
@@ -210,7 +232,7 @@ public class ODFFootNoteWizardPage extends WizardPage implements IWriteWizardPag
 	public void cancelPage(TextDocument odfDocument)
 	{
 		// TODO Auto-generated method stub
-		
+	
 	}
 
 	@Override

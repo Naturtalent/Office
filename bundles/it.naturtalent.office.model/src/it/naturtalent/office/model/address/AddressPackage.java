@@ -811,14 +811,14 @@ public interface AddressPackage extends EPackage
 	int SIGNATURE_OPERATION_COUNT = 0;
 
 	/**
-	 * The meta object id for the '{@link it.naturtalent.office.model.address.impl.SignatureSetImpl <em>Signature Set</em>}' class.
+	 * The meta object id for the '{@link it.naturtalent.office.model.address.impl.SignaturesImpl <em>Signatures</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see it.naturtalent.office.model.address.impl.SignatureSetImpl
-	 * @see it.naturtalent.office.model.address.impl.AddressPackageImpl#getSignatureSet()
+	 * @see it.naturtalent.office.model.address.impl.SignaturesImpl
+	 * @see it.naturtalent.office.model.address.impl.AddressPackageImpl#getSignatures()
 	 * @generated
 	 */
-	int SIGNATURE_SET = 14;
+	int SIGNATURES = 14;
 
 	/**
 	 * The feature id for the '<em><b>Signatures</b></em>' containment reference list.
@@ -827,25 +827,25 @@ public interface AddressPackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-	int SIGNATURE_SET__SIGNATURES = 0;
+	int SIGNATURES__SIGNATURES = 0;
 
 	/**
-	 * The number of structural features of the '<em>Signature Set</em>' class.
+	 * The number of structural features of the '<em>Signatures</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SIGNATURE_SET_FEATURE_COUNT = 1;
+	int SIGNATURES_FEATURE_COUNT = 1;
 
 	/**
-	 * The number of operations of the '<em>Signature Set</em>' class.
+	 * The number of operations of the '<em>Signatures</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SIGNATURE_SET_OPERATION_COUNT = 0;
+	int SIGNATURES_OPERATION_COUNT = 0;
 
 	/**
 	 * The meta object id for the '{@link it.naturtalent.office.model.address.AddressType <em>Type</em>}' enum.
@@ -1396,25 +1396,25 @@ public interface AddressPackage extends EPackage
 	EAttribute getSignature_Status2();
 
 	/**
-	 * Returns the meta object for class '{@link it.naturtalent.office.model.address.SignatureSet <em>Signature Set</em>}'.
+	 * Returns the meta object for class '{@link it.naturtalent.office.model.address.Signatures <em>Signatures</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Signature Set</em>'.
-	 * @see it.naturtalent.office.model.address.SignatureSet
+	 * @return the meta object for class '<em>Signatures</em>'.
+	 * @see it.naturtalent.office.model.address.Signatures
 	 * @generated
 	 */
-	EClass getSignatureSet();
+	EClass getSignatures();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link it.naturtalent.office.model.address.SignatureSet#getSignatures <em>Signatures</em>}'.
+	 * Returns the meta object for the containment reference list '{@link it.naturtalent.office.model.address.Signatures#getSignatures <em>Signatures</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Signatures</em>'.
-	 * @see it.naturtalent.office.model.address.SignatureSet#getSignatures()
-	 * @see #getSignatureSet()
+	 * @see it.naturtalent.office.model.address.Signatures#getSignatures()
+	 * @see #getSignatures()
 	 * @generated
 	 */
-	EReference getSignatureSet_Signatures();
+	EReference getSignatures_Signatures();
 
 	/**
 	 * Returns the meta object for class '{@link it.naturtalent.office.model.address.Absender <em>Absender</em>}'.
@@ -1870,21 +1870,21 @@ public interface AddressPackage extends EPackage
 		 */
 		EAttribute SIGNATURE__STATUS2 = eINSTANCE.getSignature_Status2();
 		/**
-		 * The meta object literal for the '{@link it.naturtalent.office.model.address.impl.SignatureSetImpl <em>Signature Set</em>}' class.
+		 * The meta object literal for the '{@link it.naturtalent.office.model.address.impl.SignaturesImpl <em>Signatures</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see it.naturtalent.office.model.address.impl.SignatureSetImpl
-		 * @see it.naturtalent.office.model.address.impl.AddressPackageImpl#getSignatureSet()
+		 * @see it.naturtalent.office.model.address.impl.SignaturesImpl
+		 * @see it.naturtalent.office.model.address.impl.AddressPackageImpl#getSignatures()
 		 * @generated
 		 */
-		EClass SIGNATURE_SET = eINSTANCE.getSignatureSet();
+		EClass SIGNATURES = eINSTANCE.getSignatures();
 		/**
 		 * The meta object literal for the '<em><b>Signatures</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference SIGNATURE_SET__SIGNATURES = eINSTANCE.getSignatureSet_Signatures();
+		EReference SIGNATURES__SIGNATURES = eINSTANCE.getSignatures_Signatures();
 		/**
 		 * The meta object literal for the '{@link it.naturtalent.office.model.address.impl.AbsenderImpl <em>Absender</em>}' class.
 		 * <!-- begin-user-doc -->

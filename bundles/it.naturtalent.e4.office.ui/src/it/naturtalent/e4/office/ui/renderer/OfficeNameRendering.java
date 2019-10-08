@@ -4,9 +4,12 @@ import javax.inject.Inject;
 
 import org.apache.commons.lang3.StringUtils;
 import org.eclipse.core.databinding.Binding;
+import org.eclipse.core.databinding.property.value.IValueProperty;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.ui.internal.workbench.E4Workbench;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecp.view.spi.context.ViewModelContext;
 import org.eclipse.emf.ecp.view.spi.core.swt.renderer.TextControlSWTRenderer;
 import org.eclipse.emf.ecp.view.spi.model.VControl;
@@ -30,12 +33,12 @@ import it.naturtalent.office.model.address.Absender;
 
 
 /**
- * Eingabefeld des Absendernamens anpassen.
+ * Eingabefeld der Preferenznamen anpassen.
  * 
- * Verhindert, dass im DefaultAbsender der 'defaultName' editiert werden kann.
+ * Verhindert, dass der jeweilige Defaultnamen editiert werden kann.
  * Modifiziert WidgetStyle so, dass das Eingabefeld deaktiviert ist.
  * 
- * Der 'defaultName' muss im E4Context unter dem Namen 'E4CONTEXT_DEFAULTNAME' hinterlegt sein.
+ * Der zu pruefende 'defaultName' muss im E4Context unter dem Namen 'E4CONTEXT_DEFAULTNAME' hinterlegt sein.
  * Ist kein 'defaultName' definiert wird das Eingabefeld ebenfalls gesperrt.
  * 
  * Der EventBroker liefert den momentan editierten Namen.
@@ -43,17 +46,20 @@ import it.naturtalent.office.model.address.Absender;
  * @author dieter
  *
  */
-public class AbsenderRendering extends TextControlSWTRenderer
+public class OfficeNameRendering extends TextControlSWTRenderer
 {
+	// der per E4Context uebergebene Defaultname
 	private String defaultName;
 	
-	private Absender absender;
+	// dieses Objekt ist momentan in Bearbeitung
+	//private EObject editingPreferenceObject;
+	private String currentName;
 	
 	private IEventBroker eventBroker;
 
 	
 	@Inject
-	public AbsenderRendering(VControl vElement,
+	public OfficeNameRendering(VControl vElement,
 			ViewModelContext viewContext, ReportService reportService,
 			EMFFormsDatabinding emfFormsDatabinding,
 			EMFFormsLabelProvider emfFormsLabelProvider,
@@ -63,8 +69,25 @@ public class AbsenderRendering extends TextControlSWTRenderer
 		super(vElement, viewContext, reportService, emfFormsDatabinding,
 				emfFormsLabelProvider, vtViewTemplateProvider, emfFormsEditSupport);
 		
-		// dieser Absender wird editiert
-		absender = (Absender) viewContext.getDomainModel();
+		// das in Bearbeitung befindliche Objekt
+		EObject editingPreferenceObject = viewContext.getDomainModel();
+				
+		try
+		{
+			IValueProperty valueProperty = emfFormsDatabinding.getValueProperty(
+					vElement.getDomainModelReference(),
+					viewContext.getDomainModel());
+			
+			EStructuralFeature eStructuralFeature = EStructuralFeature.class
+					.cast(valueProperty.getValueType());
+			
+			currentName = (String) editingPreferenceObject.eGet(eStructuralFeature);
+			
+		} catch (DatabindingFailedException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		eventBroker = E4Workbench.getServiceContext().get(IEventBroker.class);
 		
@@ -74,11 +97,12 @@ public class AbsenderRendering extends TextControlSWTRenderer
 	}
 
 	/*
-	 * Methode wir nur benoetigt fuer den Zugriff auf das Text-Eingabefeld
+	 * Methode wir nur benoetigt fuer den Zugriff auf das Text-Eingabefeld.
+	 * Text-Widget wird mit einem Modify-Listener versehen und liefert durch einen EventBroker
+	 * staendig den aktuellen Inhalt. 
 	 */
 	@Override
-	protected Binding[] createBindings(Control control)
-			throws DatabindingFailedException
+	protected Binding[] createBindings(Control control) throws DatabindingFailedException
 	{
 		Binding[] bindings = super.createBindings(control);
 
@@ -101,7 +125,7 @@ public class AbsenderRendering extends TextControlSWTRenderer
 	}
 
 	/*
-	 * mit 'defaultName' kann Eingabefeld aktiviert/deaktiviert werden
+	 * abhaengig von 'defaultName' wird das Eingabefeld aktiviert/deaktiviert
 	 * 
 	 */
 	@Override
@@ -114,7 +138,7 @@ public class AbsenderRendering extends TextControlSWTRenderer
 			return style | SWT.Deactivate;
 				
 		// Textfeld wird deaktiviert, wenn Inhalt == 'defaultName' ist
-		if(StringUtils.equals(absender.getName(), defaultName))		
+		if(StringUtils.equals(currentName, defaultName))		
 			return style | SWT.Deactivate;
 						
 		// normale Texteingabe wenn 'defaultName != Inhalt

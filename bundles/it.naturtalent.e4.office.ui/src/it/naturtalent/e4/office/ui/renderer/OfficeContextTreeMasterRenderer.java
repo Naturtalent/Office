@@ -7,10 +7,13 @@ import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.ui.di.UIEventTopic;
 import org.eclipse.e4.ui.internal.workbench.E4Workbench;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecp.view.spi.context.ViewModelContext;
 import org.eclipse.emf.ecp.view.spi.treemasterdetail.ui.swt.TreeMasterDetailSWTRenderer;
 import org.eclipse.emf.ecp.view.treemasterdetail.model.VTreeMasterDetail;
+import org.eclipse.emf.ecp.view.treemasterdetail.ui.swt.internal.RootObject;
 import org.eclipse.emfforms.spi.common.report.ReportService;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -43,6 +46,8 @@ public class OfficeContextTreeMasterRenderer extends TreeMasterDetailSWTRenderer
 	
 	private TreeViewer treeViewer;
 	
+	private String officeContext;
+	
 
 	/**
 	 * OfficeContext - Filter
@@ -52,45 +57,24 @@ public class OfficeContextTreeMasterRenderer extends TreeMasterDetailSWTRenderer
 	 */
 	private class ContextFilter extends ViewerFilter
 	{
-		String officeContext;
-		
-		public ContextFilter(String officeContext)
-		{
-			super();
-			this.officeContext = officeContext;
-		}
-
 		@Override
 		public boolean select(Viewer viewer, Object parentElement, Object element)
 		{	
-			/*
-			if (element instanceof EObject)
+			// 'context' - Attribut aus dem element auslesen und mit 'officeContext' vergleichen
+			Object resultObject = null;
+			EObject refObject = (EObject)element;
+			EList<EStructuralFeature> eAllAttributes = refObject.eClass().getEAllStructuralFeatures();
+			for (EStructuralFeature eAttribute : eAllAttributes)
 			{
-				EObject eObject = (EObject) element;
-				System.out.println(eObject);
-			}
-			*/
-			
-			if (element instanceof FootNote)
-			{
-				FootNote footNote = (FootNote) element;
-				return(StringUtils.equals(footNote.getContext(), officeContext));		
-			}
-						
-			if (element instanceof Absender)
-			{					
-				String elementContext = ((Absender)element).getContext();
-					return(StringUtils.equals(elementContext, officeContext));				
-			}
-			
-			
-			if (element instanceof Referenz)
-			{					
-				Referenz referenz = (Referenz) element;				
-					return(StringUtils.equals(referenz.getContext(), officeContext));				
-			}
-			
+				if (StringUtils.equals(eAttribute.getName(),"context"))
+				{
+					resultObject = refObject.eGet(eAttribute);
+					break;
+				}   
+		    }
 
+			if (resultObject instanceof String)
+				return (StringUtils.equals((String)resultObject, officeContext));
 			
 			// nicht fuer diesen Filter bestimmt
 			return true;
@@ -150,11 +134,11 @@ public class OfficeContextTreeMasterRenderer extends TreeMasterDetailSWTRenderer
 	@Override
 	protected TreeViewer createMasterTree(Composite masterPanel)
 	{		
-		String officeContext = (String) E4Workbench.getServiceContext().get(OfficeUtils.E4CONTEXTKEY_OFFICECONTEXT);		
+		officeContext = (String) E4Workbench.getServiceContext().get(OfficeUtils.E4CONTEXTKEY_OFFICECONTEXT);		
 		
 		treeViewer = super.createMasterTree(masterPanel);
 		treeViewer.addSelectionChangedListener(selectionListener);	
-		treeViewer.setFilters(new ViewerFilter []{new ContextFilter(officeContext)});
+		treeViewer.setFilters(new ViewerFilter []{new ContextFilter()});
 		return treeViewer;
 	}
 	
@@ -171,12 +155,18 @@ public class OfficeContextTreeMasterRenderer extends TreeMasterDetailSWTRenderer
 
 	@Inject
 	@Optional
-	public void handleModelChangedEvent(@UIEventTopic(OfficeUtils.SET_OFFICEMASTER_SELECTION_EVENT) EObject eObject)
+	public void handleSelectionChangedEvent(@UIEventTopic(OfficeUtils.SET_OFFICEMASTER_SELECTION_EVENT) EObject eObject)
 	{		
 		if(eObject != null)
 		{
-			treeViewer.refresh();
-			treeViewer.setSelection(new StructuredSelection(eObject));
+			// beinhaltet 'treeViewer' die Elemente von 'eObject'
+			RootObject ro = (RootObject) treeViewer.getInput();			
+			EObject container = ro.getRoot();			
+			if(eObject.eContainer().equals(container))
+			{				
+				treeViewer.refresh();
+				treeViewer.setSelection(new StructuredSelection(eObject));
+			}			
 		}
 	}
 

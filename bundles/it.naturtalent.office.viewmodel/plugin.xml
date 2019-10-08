@@ -4,6 +4,16 @@
    <extension
          point="org.eclipse.emf.ecp.view.model.provider.xmi.file">
 <file
+      filePath="viewmodels/SignaturesDetail.view">
+   <filter
+         key="detail"
+         value="true">
+   </filter>
+</file>
+
+<file filePath="viewmodels/SignaturesMaster.view"/>
+
+<file
       filePath="viewmodels/ReferenzenDetail.view">
    <filter
          key="detail"
@@ -40,7 +50,6 @@
 
 <file filePath="viewmodels/Signature.view"/>
 
-<file filePath="viewmodels/SignatureSet.view"/>
 
 
 <file filePath="viewmodels/Empfaenger.view"/>

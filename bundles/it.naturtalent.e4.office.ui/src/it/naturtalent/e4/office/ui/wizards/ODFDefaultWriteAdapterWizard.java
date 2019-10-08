@@ -125,15 +125,15 @@ public class ODFDefaultWriteAdapterWizard extends Wizard
 		ODFAbsenderWizardPage absenderWizardPage = ContextInjectionFactory.make(ODFAbsenderWizardPage.class, context);
 		ODFReferenzWizardPage referenzWizardPage = ContextInjectionFactory.make(ODFReferenzWizardPage.class, context);
 		ODFFootNoteWizardPage footNoteWizardPage = ContextInjectionFactory.make(ODFFootNoteWizardPage.class, context);
+		ODFSignatureWizardPage signatureWizardPage = ContextInjectionFactory.make(ODFSignatureWizardPage.class, context);
 		
 		
 		// WizardPages hinzufuegen
 		addPage(receiverWizardPage);
 		addPage(absenderWizardPage);
-		addPage(referenzWizardPage);
-		//addPage(ContextInjectionFactory.make(ODFSignatureWizardPage.class, context));
+		addPage(referenzWizardPage);		
 		addPage(footNoteWizardPage);
-		
+		addPage(signatureWizardPage);
 		
 		
 	}
@@ -306,16 +306,7 @@ public class ODFDefaultWriteAdapterWizard extends Wizard
 	}
 
 	
-	/**
-	 * von diesem Knoten werden die benoetigten Praeferenzen geholt
-	 * @return
-	 */
-	/*
-	IEclipsePreferences getInstancePreferenceNode()
-	{
-		return instancePreferenceNode;
-	}
-	*/
+	
 
 
 	

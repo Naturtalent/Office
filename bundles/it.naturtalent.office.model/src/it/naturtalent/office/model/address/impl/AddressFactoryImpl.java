@@ -79,7 +79,7 @@ public class AddressFactoryImpl extends EFactoryImpl implements AddressFactory
 			case AddressPackage.REFERENZEN: return createReferenzen();
 			case AddressPackage.SENDER: return createSender();
 			case AddressPackage.SIGNATURE: return createSignature();
-			case AddressPackage.SIGNATURE_SET: return createSignatureSet();
+			case AddressPackage.SIGNATURES: return createSignatures();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -281,10 +281,10 @@ public class AddressFactoryImpl extends EFactoryImpl implements AddressFactory
 	 * @generated
 	 */
 	@Override
-	public SignatureSet createSignatureSet()
+	public Signatures createSignatures()
 	{
-		SignatureSetImpl signatureSet = new SignatureSetImpl();
-		return signatureSet;
+		SignaturesImpl signatures = new SignaturesImpl();
+		return signatures;
 	}
 
 	/**

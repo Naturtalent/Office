@@ -4,36 +4,22 @@ import org.eclipse.emf.ecp.view.spi.context.ViewModelContext;
 import org.eclipse.emf.ecp.view.spi.model.VElement;
 import org.eclipse.emf.ecp.view.treemasterdetail.model.VTreeMasterDetail;
 import org.eclipse.emf.ecp.view.treemasterdetail.ui.swt.internal.TreeMasterDetailSWTRendererService;
-import org.eclipse.emfforms.spi.common.report.ReportService;
-import org.eclipse.emfforms.spi.core.services.databinding.EMFFormsDatabinding;
 import org.eclipse.emfforms.spi.swt.core.AbstractSWTRenderer;
 
+import it.naturtalent.office.model.address.FootNotes;
+import it.naturtalent.office.model.address.Referenzen;
 import it.naturtalent.office.model.address.Sender;
+import it.naturtalent.office.model.address.Signatures;
 
-public class SendersRendererService extends TreeMasterDetailSWTRendererService
+/**
+ * Dieser Service stellt den Renderer fuer den FootNotes TreeMaster zur Verfuegung
+ * 
+ * @author dieter
+ *
+ */
+public class OfficeContextTreeMasterRendererService extends TreeMasterDetailSWTRendererService
 {
 
-	private EMFFormsDatabinding databindingService;
-	private ReportService reportService;
-
-	/**
-	 * Called by the initializer to set the EMFFormsDatabinding.
-	 *
-	 * @param databindingService The EMFFormsDatabinding
-	 */
-	protected void setEMFFormsDatabinding(EMFFormsDatabinding databindingService) {
-		this.databindingService = databindingService;
-	}
-
-	/**
-	 * Called by the initializer to set the ReportService.
-	 *
-	 * @param reportService The ReportService
-	 */
-	protected void setReportService(ReportService reportService) {
-		this.reportService = reportService;
-		
-	}
 	/**
 	 * {@inheritDoc}
 	 *
@@ -45,21 +31,37 @@ public class SendersRendererService extends TreeMasterDetailSWTRendererService
 		
 		if (VTreeMasterDetail.class.isInstance(vElement))
 		{	
+			// Absender
 			if(viewModelContext.getDomainModel() instanceof Sender)
 				return 30d;
+			
+			// FootNotes
+			if(viewModelContext.getDomainModel() instanceof FootNotes)
+				return 30d;
+			
+			// Referenzen
+			if(viewModelContext.getDomainModel() instanceof Referenzen)
+				return 40d;
+			
+			// Signaturen
+			if(viewModelContext.getDomainModel() instanceof Signatures)
+				return 20d;
+
 		}
 		
 		return NOT_APPLICABLE;
 	}
 	
-
 	/**
 	 * {@inheritDoc}
 	 *
 	 * @see org.eclipse.emfforms.spi.swt.core.di.EMFFormsDIRendererService#getRendererClass()
 	 */
 	@Override
-	public Class<? extends AbstractSWTRenderer<VTreeMasterDetail>> getRendererClass() {
-		return SendersRenderer.class;
+	public Class<? extends AbstractSWTRenderer<VTreeMasterDetail>> getRendererClass() 
+	{
+		// erweiterter TreeMaster-Renderer mit OfficeContextFilter 
+		return OfficeContextTreeMasterRenderer.class;
 	}
+
 }

@@ -4,7 +4,7 @@ package it.naturtalent.office.model.address.impl;
 
 import it.naturtalent.office.model.address.AddressPackage;
 import it.naturtalent.office.model.address.Signature;
-import it.naturtalent.office.model.address.SignatureSet;
+import it.naturtalent.office.model.address.Signatures;
 
 import java.util.Collection;
 
@@ -22,18 +22,18 @@ import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Signature Set</b></em>'.
+ * An implementation of the model object '<em><b>Signatures</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link it.naturtalent.office.model.address.impl.SignatureSetImpl#getSignatures <em>Signatures</em>}</li>
+ *   <li>{@link it.naturtalent.office.model.address.impl.SignaturesImpl#getSignatures <em>Signatures</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class SignatureSetImpl extends MinimalEObjectImpl.Container implements SignatureSet
+public class SignaturesImpl extends MinimalEObjectImpl.Container implements Signatures
 {
 	/**
 	 * The cached value of the '{@link #getSignatures() <em>Signatures</em>}' containment reference list.
@@ -50,7 +50,7 @@ public class SignatureSetImpl extends MinimalEObjectImpl.Container implements Si
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected SignatureSetImpl()
+	protected SignaturesImpl()
 	{
 		super();
 	}
@@ -63,7 +63,7 @@ public class SignatureSetImpl extends MinimalEObjectImpl.Container implements Si
 	@Override
 	protected EClass eStaticClass()
 	{
-		return AddressPackage.Literals.SIGNATURE_SET;
+		return AddressPackage.Literals.SIGNATURES;
 	}
 
 	/**
@@ -76,7 +76,7 @@ public class SignatureSetImpl extends MinimalEObjectImpl.Container implements Si
 	{
 		if (signatures == null)
 		{
-			signatures = new EObjectContainmentEList<Signature>(Signature.class, this, AddressPackage.SIGNATURE_SET__SIGNATURES);
+			signatures = new EObjectContainmentEList<Signature>(Signature.class, this, AddressPackage.SIGNATURES__SIGNATURES);
 		}
 		return signatures;
 	}
@@ -91,7 +91,7 @@ public class SignatureSetImpl extends MinimalEObjectImpl.Container implements Si
 	{
 		switch (featureID)
 		{
-			case AddressPackage.SIGNATURE_SET__SIGNATURES:
+			case AddressPackage.SIGNATURES__SIGNATURES:
 				return ((InternalEList<?>)getSignatures()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
@@ -107,7 +107,7 @@ public class SignatureSetImpl extends MinimalEObjectImpl.Container implements Si
 	{
 		switch (featureID)
 		{
-			case AddressPackage.SIGNATURE_SET__SIGNATURES:
+			case AddressPackage.SIGNATURES__SIGNATURES:
 				return getSignatures();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -124,7 +124,7 @@ public class SignatureSetImpl extends MinimalEObjectImpl.Container implements Si
 	{
 		switch (featureID)
 		{
-			case AddressPackage.SIGNATURE_SET__SIGNATURES:
+			case AddressPackage.SIGNATURES__SIGNATURES:
 				getSignatures().clear();
 				getSignatures().addAll((Collection<? extends Signature>)newValue);
 				return;
@@ -142,7 +142,7 @@ public class SignatureSetImpl extends MinimalEObjectImpl.Container implements Si
 	{
 		switch (featureID)
 		{
-			case AddressPackage.SIGNATURE_SET__SIGNATURES:
+			case AddressPackage.SIGNATURES__SIGNATURES:
 				getSignatures().clear();
 				return;
 		}
@@ -159,10 +159,10 @@ public class SignatureSetImpl extends MinimalEObjectImpl.Container implements Si
 	{
 		switch (featureID)
 		{
-			case AddressPackage.SIGNATURE_SET__SIGNATURES:
+			case AddressPackage.SIGNATURES__SIGNATURES:
 				return signatures != null && !signatures.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
 
-} //SignatureSetImpl
+} //SignaturesImpl

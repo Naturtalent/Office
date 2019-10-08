@@ -1,18 +1,15 @@
 package it.naturtalent.e4.office.ui.renderer;
 
-import java.util.List;
-
 import javax.inject.Inject;
 
 import org.apache.commons.lang3.StringUtils;
 import org.eclipse.core.databinding.observable.IObserving;
 import org.eclipse.core.databinding.observable.value.IObservableValue;
-import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.core.services.events.IEventBroker;
-import org.eclipse.e4.ui.di.UIEventTopic;
 import org.eclipse.e4.ui.internal.workbench.E4Workbench;
 import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.workbench.IWorkbench;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecp.view.internal.control.multireference.MultiReferenceSWTRenderer;
@@ -24,56 +21,38 @@ import org.eclipse.emfforms.spi.common.report.ReportService;
 import org.eclipse.emfforms.spi.core.services.databinding.DatabindingFailedException;
 import org.eclipse.emfforms.spi.core.services.databinding.EMFFormsDatabinding;
 import org.eclipse.emfforms.spi.core.services.label.EMFFormsLabelProvider;
-import org.eclipse.jface.viewers.IOpenListener;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jface.viewers.OpenEvent;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
-import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.FocusEvent;
-import org.eclipse.swt.events.FocusListener;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 
 import it.naturtalent.e4.office.ui.OfficeUtils;
-import it.naturtalent.office.model.address.Absender;
-import it.naturtalent.office.model.address.FootNote;
 
 
 /**
- * FootNotes ist ein Container in dem alle FootNote-Referenzen gespeichert sind. Dieser Renderer
- * fuegt dem TableViewer ein OfficeContext - Filter hinzu, so dass nur die FootNotes des im
- * E4Context hinterlegten OfficeContext angezeigt werden. 
+ *  universeller Detailrenderer im OfficeContext mit folgenden Aufgaben: 
+ *  
+ *  - filtern nach OfficeContext-Flag, das im Eclipse4 Context unter dem Namen 'OfficeUtils.OFFICE_CONTEXT' 
+ *    hinterlegt sein muss
+ *  
+ *  - blendet die Tooltips auf Containerebene aus und verhndert somit (add, edit, etc)
+ *    In diesem Kontext soll nur ausgewaehlt werden - bleibende Aenderungen am Modell nur ueber die Preferenzen 
  *  
  * @author dieter
  *
  */
-public class FootNotesRenderer extends MultiReferenceSWTRenderer
+public class OfficeDetailRenderer extends MultiReferenceSWTRenderer
 {
 
 	private IEventBroker eventBroker;
 	private String officeContext;
 	private TableViewer tableViewer ;
 	
-	private Button delButton;
-	
-	//private EditingDomain domain;
-	
-	// Liste mit den statischen Absendern (steuert delButton-Status)
-	private List<Absender>unremoveableAbsender;
-
-	
-	
-	/**
-	 * OfficeContext Filter erzeugen
-	 * 
-	 * @author dieter
-	 *
-	 */
+	// filtert nach dem Office - Context
 	private class ContextFilter extends ViewerFilter
 	{
 		String officeContext;
@@ -86,13 +65,23 @@ public class FootNotesRenderer extends MultiReferenceSWTRenderer
 
 		@Override
 		public boolean select(Viewer viewer, Object parentElement, Object element)
-		{					
-			if (element instanceof FootNote)
-			{	
-				FootNote footNote = (FootNote) element;
-				return(StringUtils.equals(footNote.getContext(), officeContext));															
-			}
-			
+		{
+			// 'context' - Attribut aus dem element auslesen und mit 'officeContext' vergleichen
+			Object resultObject = null;
+			EObject refObject = (EObject)element;
+			EList<EStructuralFeature> eAllAttributes = refObject.eClass().getEAllStructuralFeatures();
+			for (EStructuralFeature eAttribute : eAllAttributes)
+			{
+				if (StringUtils.equals(eAttribute.getName(),"context"))
+				{
+					resultObject = refObject.eGet(eAttribute);
+					break;
+				}   
+		    }
+
+			if (resultObject instanceof String)
+				return (StringUtils.equals((String)resultObject, officeContext));
+		
 			return true;
 		}
 	}
@@ -109,7 +98,7 @@ public class FootNotesRenderer extends MultiReferenceSWTRenderer
 	 * @param imageRegistryService
 	 */
 	@Inject
-	public FootNotesRenderer(VControl vElement,
+	public OfficeDetailRenderer(VControl vElement,
 			ViewModelContext viewContext, ReportService reportService,
 			EMFFormsDatabinding emfFormsDatabinding,
 			EMFFormsLabelProvider emfFormsLabelProvider,
@@ -119,10 +108,7 @@ public class FootNotesRenderer extends MultiReferenceSWTRenderer
 		super(vElement, viewContext, reportService, emfFormsDatabinding,
 				emfFormsLabelProvider, vtViewTemplateProvider, imageRegistryService);
 		
-		// den hinterlegten OfficeContext verfuegbar machen
 		officeContext = (String) E4Workbench.getServiceContext().get(OfficeUtils.E4CONTEXTKEY_OFFICECONTEXT);
-		
-		// Broker bereitstellen
 		MApplication currentApplication = E4Workbench.getServiceContext().get(IWorkbench.class).getApplication();
 		eventBroker = currentApplication.getContext().get(IEventBroker.class);
 	}
@@ -142,18 +128,34 @@ public class FootNotesRenderer extends MultiReferenceSWTRenderer
 			@Override
 			public void selectionChanged(SelectionChangedEvent event)
 			{
-				/*
 				IStructuredSelection selection = ((IStructuredSelection) event.getSelection());
 				Object selObj = selection.getFirstElement();
-				if (selObj instanceof Absender)				
-					eventBroker.post(OfficeUtils.GET_ABSENDER_DETAIL_SELECTED_EVENT, selObj);
-					*/					
+				//if (selObj instanceof Absender)				
+					//eventBroker.post(OfficeUtils.GET_ABSENDER_DETAIL_SELECTED_EVENT, selObj);					
 			}
 		});
 		
 		return tableViewer;
 	}
 
+	/*
+	 * Buttons werden ausgeblendet
+	 */
+	@Override
+	protected Composite createButtonComposite(Composite parent) throws DatabindingFailedException
+	{		
+		IObservableValue observableValue = getEMFFormsDatabinding()
+				.getObservableValue(getVElement().getDomainModelReference(), getViewModelContext().getDomainModel());
+			Object container = (EObject) ((IObserving) observableValue).getObserved();
+			final EStructuralFeature structuralFeature = (EStructuralFeature) observableValue.getValueType();
+		
+		// TODO Auto-generated method stub
+		//return super.createButtonComposite(parent);
+		final Composite buttonComposite = new Composite(parent, SWT.NONE);
+		return buttonComposite;
+	}
+	
+	
 
 
 }

@@ -24,6 +24,7 @@ import org.eclipse.e4.ui.internal.workbench.swt.WorkbenchSWTActivator;
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.command.CommandStackListener;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecp.ui.view.ECPRendererException;
@@ -41,14 +42,17 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.ui.dialogs.PreferencesUtil;
 import org.odftoolkit.simple.TextDocument;
 import org.odftoolkit.simple.table.CellRange;
 import org.odftoolkit.simple.table.Table;
 
 import it.naturtalent.e4.office.ui.ODFDocumentUtils;
 import it.naturtalent.e4.office.ui.OfficeUtils;
+import it.naturtalent.e4.office.ui.preferences.OfficeDefaultPreferenceUtils;
 import it.naturtalent.e4.office.ui.wizards.IWriteWizardPage;
 import it.naturtalent.e4.office.ui.wizards.ODFDefaultWriteAdapterWizard;
+import it.naturtalent.office.model.address.Absender;
 import it.naturtalent.office.model.address.AddressPackage;
 import it.naturtalent.office.model.address.FootNote;
 import it.naturtalent.office.model.address.Referenz;
@@ -85,10 +89,11 @@ public class ODFReferenzWizardPage extends WizardPage  implements IWriteWizardPa
 	
 	private IEventBroker eventBroker;	
 		
-	private Text textReferences;
-	
-	//private ReferenzSet referenzSet;
+	//private Text textReferences;
+		
 	private Referenzen referenzen;
+	
+	// die aktuelle Referenz
 	private Referenz referenz;
 	
 	/**
@@ -130,53 +135,39 @@ public class ODFReferenzWizardPage extends WizardPage  implements IWriteWizardPa
 		
 		referenzen = (Referenzen) OfficeUtils.findObject(AddressPackage.eINSTANCE.getReferenzen());
 		
-		// den eingelesenen Absender temporaer in das EMF-Modell uebernehemn			
+		// Parameter fuer die EMF Command (add)
 		domain = AdapterFactoryEditingDomain.getEditingDomainFor(referenzen);
 		eReference = AddressPackage.eINSTANCE.getReferenzen_Referenzen();
 		
 		try
 		{	
-			// die Referenzen der praeferenzierten Gruppe anzeigen
-			ECPSWTViewRenderer.INSTANCE.render(container, referenzen);			
+			// die Referenzen im officeContext anzeigen
+			ECPSWTViewRenderer.INSTANCE.render(container, referenzen);	
+			
+			selectDefaultReferenz();
 			
 		} catch (ECPRendererException e1)
 		{
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
-		// Einen CommandStackListener installieren		
-		//EMFStoreBasicCommandStack commandStack = (EMFStoreBasicCommandStack) domain.getCommandStack();
-		//domain.getCommandStack().addCommandStackListener(referenzCommandListener);
 	}
 	
-	/*
-	 * Eine Referenz in der Referenzgruppe wurde ausgewaehlt
+	/**
+	 * im 'Create-Modus' wird die praeferenzierte Referenz im Master selektiert. 
+	 *  
+	 * @return
 	 */
-	@Inject 
-	@Optional
-	public void handleReferenceSelection(@UIEventTopic(OfficeUtils.SELECT_REFERENZ_EVENT) Object reference )
+	public void selectDefaultReferenz()
 	{
-		if (reference instanceof Referenz)		
-			this.referenz =  (Referenz) reference;							
-	}
-	
-
-	/*
-	public ReferenzGruppe getReferenceGroup()
-	{
-		return referenceGroup;
-	}
-	*/
-
-	public Referenz getSelectedReference()
-	{
-		return referenz;
-	}
-
-	public Text getComboReferences()
-	{
-		return textReferences;
+		ODFDefaultWriteAdapterWizard defaultWizard = (ODFDefaultWriteAdapterWizard) getWizard();
+		if (defaultWizard.isWizardModus() == ODFDefaultWriteAdapterWizard.WIZARDCREATEMODE)		
+		{
+			String preferenceName = instancePreferenceNode.get(OfficeDefaultPreferenceUtils.REFERENZ_PREFERENCE, null);
+			Referenz referenz = OfficeUtils.findReferenz(preferenceName, officeContext);
+			
+			eventBroker.post(OfficeUtils.SET_OFFICEMASTER_SELECTION_EVENT, referenz);
+		}
 	}
 
 	/* 
@@ -232,18 +223,27 @@ public class ODFReferenzWizardPage extends WizardPage  implements IWriteWizardPa
 		}
 	}
 
-	/* 
-	 * Die aus dem ODFDokument eingelesene Referenz wird temporaer dem Modell hinzugefuegt. Dies darf aber nur temporaer geschehen und
-	 * muss wieder entfernt werden. @see cancenPage()
-	 */
 	@Override
 	public void readFromDocument(TextDocument odfDocument)
 	{
+		referenz = readReferenz(odfDocument);
+		
+		eventBroker.post(OfficeUtils.SET_OFFICEMASTER_SELECTION_EVENT, referenz);
+	}
+	
+	/* 
+	 * Die aus dem ODFDokument eingelesene Referenz wird temporaer dem Modell hinzugefuegt. 
+	 * 
+	 */	
+	private Referenz readReferenz(TextDocument odfDocument)
+	{
+		Referenz tempReferenz = null;
+		
 		Table table = odfDocument.getTableByName(ODF_WRITEREFERENZ);
 		if (table != null)
 		{
 			EClass referenzClass = AddressPackage.eINSTANCE.getReferenz();
-			Referenz tempReferenz = (Referenz) EcoreUtil.create(referenzClass);
+			tempReferenz = (Referenz) EcoreUtil.create(referenzClass);
 			
 			tempReferenz.setName(LOADEDREFERENCE);
 			tempReferenz.setContext(officeContext);
@@ -255,6 +255,8 @@ public class ODFReferenzWizardPage extends WizardPage  implements IWriteWizardPa
 			if (addCommand.canExecute())
 				domain.getCommandStack().execute(addCommand);
 		}
+		
+		return tempReferenz;
 	}
 	
 	/* 
@@ -277,11 +279,21 @@ public class ODFReferenzWizardPage extends WizardPage  implements IWriteWizardPa
 			Command removeCommand = RemoveCommand.create(domain, referenzen, eReference, toRemove);
 			if (removeCommand.canExecute())
 				removeCommand.execute();
-		}		
-		
+		}				
 	}
 
-
+	/*
+	 * der Broker hat eine Selection im Master empangen und meldet diese
+	 */
+	@Inject
+	@Optional
+	public void handleSelectionChangedEvent(@UIEventTopic(OfficeUtils.GET_OFFICEMASTER_SELECTION_EVENT) EObject eObject)
+	{
+		// handelt es sich bei der Selektion um eine Referenz, dann wird diese als 'aktuelle' gespeichert
+		if (eObject instanceof Referenz)
+			referenz =  (Referenz) eObject;
+	}
+	
 	
 
 }
