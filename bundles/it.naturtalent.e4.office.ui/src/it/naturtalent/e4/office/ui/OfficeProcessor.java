@@ -39,6 +39,7 @@ import it.naturtalent.e4.office.ui.preferences.OfficeAbsenderPreferenceAdapter;
 import it.naturtalent.e4.office.ui.preferences.OfficeFootNotePreferenceAdapter;
 import it.naturtalent.e4.office.ui.preferences.OfficeReferenzPreferenceAdapter;
 import it.naturtalent.e4.office.ui.preferences.OfficeSigaturePreferenceAdapter;
+import it.naturtalent.e4.office.ui.preferences.OfficeTemplatePreferenceAdapter;
 import it.naturtalent.e4.preferences.IPreferenceRegistry;
 import it.naturtalent.e4.project.IExportAdapterRepository;
 import it.naturtalent.e4.project.IImportAdapterRepository;
@@ -108,6 +109,7 @@ public class OfficeProcessor
 		// Praeferenceadapter in das Repository eintragen
 		if(preferenceRegistry != null)	
 		{
+			preferenceRegistry.getPreferenceAdapters().add(new OfficeTemplatePreferenceAdapter());
 			preferenceRegistry.getPreferenceAdapters().add(new OfficeAbsenderPreferenceAdapter());
 			preferenceRegistry.getPreferenceAdapters().add(new OfficeReferenzPreferenceAdapter());
 			preferenceRegistry.getPreferenceAdapters().add(new OfficeFootNotePreferenceAdapter());
@@ -134,7 +136,7 @@ public class OfficeProcessor
 				newMenu.addHandledDynamicItem(NEW_OFFICE_MENUE_ID,label,command,6);
 				continue;
 			}
-					}
+		}
 		
 		
 		

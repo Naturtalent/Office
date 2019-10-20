@@ -93,20 +93,6 @@ public class OfficeContextTreeMasterRenderer extends TreeMasterDetailSWTRenderer
 			IStructuredSelection selection = event.getStructuredSelection();
 			EObject selObject = (EObject) selection.getFirstElement();
 			
-/*			
-			if (selObject instanceof EObject)
-			{
-				EObject eObject = selObject;
-				
-			}
-				absender = (Absender) selObject;
-			else
-			{
-				if (selObject instanceof Adresse)									
-					absender = (Absender) ((Adresse) selObject).eContainer();				
-			}
-			*/
-			
 			// Broker informiert ueber die Selektion 
 			// @see it.naturtalent.e4.office.ui.wizards.ODFSenderWizardPage
 			if(selObject != null)

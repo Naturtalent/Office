@@ -145,6 +145,18 @@ public class OfficeAbsenderPreferenceComposite extends CheckListEditorComposite
 			}
 		}
 	}
+	
+	@Override
+	protected void doChecked()
+	{
+		IStructuredSelection selection = checkboxTableViewer.getStructuredSelection();
+		Object selObj = selection.getFirstElement();
+		if (selObj instanceof String)
+		{
+			// gecheckten Absender als Preferenz speichern (aber noch nicht festschreiben)
+			instancePreferenceNode.put(OfficeDefaultPreferenceUtils.ABSENDER_PREFERENCE, (String) selObj);
+		}
+	}
 
 	/*
 	 * die Absendernamen in die Praeferenzliste eintragen 

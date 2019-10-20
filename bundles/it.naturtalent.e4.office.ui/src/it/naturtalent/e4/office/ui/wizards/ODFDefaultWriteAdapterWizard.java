@@ -14,10 +14,6 @@ import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.ui.di.UIEventTopic;
 import org.eclipse.e4.ui.internal.workbench.E4Workbench;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecp.spi.ui.util.ECPHandlerHelper;
-import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
-import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.swt.custom.BusyIndicator;
@@ -27,7 +23,6 @@ import org.odftoolkit.simple.TextDocument;
 import it.naturtalent.e4.office.ui.IODFWriteAdapter;
 import it.naturtalent.e4.office.ui.OfficeUtils;
 import it.naturtalent.e4.office.ui.preferences.OfficeDefaultPreferenceUtils;
-import it.naturtalent.office.model.address.AddressPackage;
 
 /**
  * Dieser Wizard wird vom Adapter 'ODFDefaultWriteAdapter' bereitgestellt und ermoeglicht die erforderlichen Abfragen
@@ -119,7 +114,7 @@ public class ODFDefaultWriteAdapterWizard extends Wizard
 	
 	@Override
 	public void addPages()
-	{
+	{		
 		// WizardPages (ODFReceiverWizardPage,ODFSenderWizardPage) erzeugen
 		ODFEmpfaengerWizardPage receiverWizardPage = ContextInjectionFactory.make(ODFEmpfaengerWizardPage.class, context);		
 		ODFAbsenderWizardPage absenderWizardPage = ContextInjectionFactory.make(ODFAbsenderWizardPage.class, context);

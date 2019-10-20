@@ -143,6 +143,19 @@ public class OfficeSignaturePreferenceComposite extends CheckListEditorComposite
 			}
 		}
 	}
+	
+	@Override
+	protected void doChecked()
+	{
+		IStructuredSelection selection = checkboxTableViewer.getStructuredSelection();
+		Object selObj = selection.getFirstElement();
+		if (selObj instanceof String)
+		{
+			// gecheckte Signature  als Preferenz speichern (aber noch nicht festschreiben)
+			instancePreferenceNode.put(OfficeDefaultPreferenceUtils.SIGNATURE_PREFERENCE, (String) selObj);
+		}
+	}
+
 
 	/*
 	 * die Signaturenamen in die Praeferenzliste eintragen 

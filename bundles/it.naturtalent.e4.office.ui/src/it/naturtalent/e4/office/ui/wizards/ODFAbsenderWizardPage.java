@@ -124,20 +124,8 @@ public class ODFAbsenderWizardPage extends WizardPage implements IWriteWizardPag
 			if(StringUtils.isNotEmpty(prefSender))
 			{
 				selectedAbsender = OfficeUtils.findAbsenderByName(prefSender, officeContext);				
-				eventBroker.post(OfficeUtils.SET_ABSENDERMASTER_SELECTION_EVENT, selectedAbsender);
+				eventBroker.post(OfficeUtils.SET_OFFICEMASTER_SELECTION_EVENT, selectedAbsender);
 			}
-			
-
-			/*
-			vmc.registerDomainChangeListener(new ModelChangeListener()
-			{				
-				@Override
-				public void notifyChange(ModelChangeNotification notification)
-				{					
-					System.out.println("ModelChangeListener: notifier: "+notification.getNotifier());					
-				}
-			});
-			*/
 						
 		} catch (ECPRendererException e)
 		{
@@ -181,7 +169,7 @@ public class ODFAbsenderWizardPage extends WizardPage implements IWriteWizardPag
 		selectedAbsender = readAbsenderFromDocument(odfDocument);		
 		
 		// den vom Dokument eingelesenen Absender im Master selektieren
-		eventBroker.post(OfficeUtils.SET_ABSENDERMASTER_SELECTION_EVENT, selectedAbsender);
+		eventBroker.post(OfficeUtils.SET_OFFICEMASTER_SELECTION_EVENT, selectedAbsender);
 	}
 
 	/**

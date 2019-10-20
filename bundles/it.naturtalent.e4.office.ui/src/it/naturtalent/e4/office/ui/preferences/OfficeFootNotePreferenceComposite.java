@@ -151,6 +151,18 @@ public class OfficeFootNotePreferenceComposite extends CheckListEditorComposite
 			}
 		}
 	}
+	
+	@Override
+	protected void doChecked()
+	{
+		IStructuredSelection selection = checkboxTableViewer.getStructuredSelection();
+		Object selObj = selection.getFirstElement();
+		if (selObj instanceof String)
+		{
+			// gecheckte Footnote als Preferenz speichern (noch nicht geflushed)
+			instancePreferenceNode.put(OfficeDefaultPreferenceUtils.FOOTNOTE_PREFERENCE, (String) selObj);
+		}
+	}
 
 	/*
 	 * die FootNotenamen in die Praeferenzliste eintragen 

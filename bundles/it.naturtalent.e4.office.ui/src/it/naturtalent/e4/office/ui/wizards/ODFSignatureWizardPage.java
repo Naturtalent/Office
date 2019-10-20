@@ -146,6 +146,7 @@ public class ODFSignatureWizardPage extends WizardPage  implements IWriteWizardP
 		// der Wizard hat den zubenutzenden OfficeContext im E4Context hinterlegt
 		officeContext = (String) context.get(OfficeUtils.E4CONTEXTKEY_OFFICECONTEXT);
 		
+		// Preferenceknoten ist ebenfalls im E4Context hinterlegt
 		instancePreferenceNode = (IEclipsePreferences) context.get(OfficeUtils.E4CONTEXTKEY_OFFICEPRAEFERENZNODE);
 	}
 	

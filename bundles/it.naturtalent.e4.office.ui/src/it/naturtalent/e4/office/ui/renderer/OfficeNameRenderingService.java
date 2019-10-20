@@ -77,25 +77,25 @@ public class OfficeNameRenderingService implements EMFFormsDIRendererService<VCo
 		// Absendername
 		if (AddressPackage.eINSTANCE.getAbsender_Name().equals(eStructuralFeature))
 		{			
-			return 20.0;					
+			return 21.0;					
 		}
 		
 		// Signaturname
 		if (AddressPackage.eINSTANCE.getSignature_Name().equals(eStructuralFeature))
 		{
-			return 20.0;					
+			return 21.0;					
 		}
 
 		// Referenzname
 		if (AddressPackage.eINSTANCE.getReferenz_Name().equals(eStructuralFeature))
 		{			
-			return 20.0;					
+			return 21.0;					
 		}
 		
 		// FootNoteName
 		if (AddressPackage.eINSTANCE.getFootNote_Name().equals(eStructuralFeature))
 		{
-			return 20.0;					
+			return 21.0;					
 		}
 		
 	

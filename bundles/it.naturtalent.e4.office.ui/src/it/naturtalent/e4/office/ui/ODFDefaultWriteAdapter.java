@@ -3,21 +3,28 @@ package it.naturtalent.e4.office.ui;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.io.filefilter.FileFilterUtils;
+import org.apache.commons.io.filefilter.IOFileFilter;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.wizard.IWizard;
+import org.eclipse.swt.widgets.Display;
 import org.odftoolkit.simple.TextDocument;
 import org.odftoolkit.simple.meta.Meta;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.FrameworkUtil;
 
+import it.naturtalent.e4.office.ui.dialogs.ODFSelectVorlagenDialog;
 import it.naturtalent.e4.office.ui.wizards.ODFDefaultWriteAdapterWizard;
 
 /**
@@ -31,11 +38,16 @@ import it.naturtalent.e4.office.ui.wizards.ODFDefaultWriteAdapterWizard;
 public class ODFDefaultWriteAdapter implements IODFWriteAdapter
 {
 	
-	// Basisname der neuen Textdatei (Zieldatei)
-	public static final String ODFTEXT_FILENAME = "text.odt"; //$NON-NLS-1$
+	public static final String OFFICEWRITEDOCUMENT_EXTENSION = "odt"; //$NON-NLS-N$
 	
+	// Basisname der neuen Textdatei (Zieldatei)
+	public static final String BASE_ODFTEXT_FILENAME = "text.odt"; //$NON-NLS-1$
+
 	// Template der mit diesem Adapter verwendete ODF-Datei  
-	private static final String ODFTEXT_TEMPLATE = "/templates/ODFText.odt"; //$NON-NLS-1$
+	public static final String ODFTEXT_TEMPLATE_DIRECTORY = "/templates/"; //$NON-NLS-1$
+
+	// Default Template Name
+	public static final String ODFTEXT_TEMPLATE_NAME = "ODFText"; //$NON-NLS-1$
 
 	// ODF - Dokument
 	private TextDocument odfDocument;
@@ -60,57 +72,68 @@ public class ODFDefaultWriteAdapter implements IODFWriteAdapter
 	@Override
 	public File createODF(File destDir)
 	{
+		File newFile = null;
+		
 		if(destDir.isDirectory())
 		{
-			// sicherstellen, dass kein bereits vorhandener Name benutzt wird
-			String newFileName = getAutoFileName(destDir,ODFTEXT_FILENAME);
-			File newFile = new File(destDir, newFileName);
-			createODFFile(newFile);
-			try
+			// Vorlage auswaehlen und in die neue Datei kopieren
+			newFile = createODFFile(destDir);			
+			if (newFile != null)
 			{
-				// die Factoryklassname des Adapters als Property im Dokument speichern
-				TextDocument odfDocument = TextDocument.loadDocument(newFile);
-				Meta meta = odfDocument.getOfficeMetadata();
-				meta.setUserDefinedData(ODFADAPTERFACTORY, "Text",
-						DefaultWriteAdapterFactory.class.getName()); // $NON-NLS-N$
-				odfDocument.save(newFile);
-				
-				
-			} catch (Exception e)
-			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			return newFile;
+				try
+				{
+					// die Factoryklassname des Adapters als Property im
+					// Dokument speichern
+					TextDocument odfDocument = TextDocument.loadDocument(newFile);
+					Meta meta = odfDocument.getOfficeMetadata();
+					meta.setUserDefinedData(ODFADAPTERFACTORY, "Text",
+							DefaultWriteAdapterFactory.class.getName()); // $NON-NLS-N$
+					odfDocument.save(newFile);
+
+				} catch (Exception e)
+				{
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}			
 		}		
-		return null;
+		return newFile;
 	}
 
 	/*
 	 * Vorlage kopieren
 	 */
-	private static void createODFFile(File newODFFile)
-	{
-		Bundle bundle = FrameworkUtil.getBundle(Activator.class);
-		BundleContext bundleContext = bundle.getBundleContext();
-		URL urlTemplate = FileLocator.find(bundleContext.getBundle(),new Path(ODFTEXT_TEMPLATE), null);
-		try
+	private File createODFFile(File destDir)
+	{		
+		// Vorlage im Dialog auswaehlen
+		ODFSelectVorlagenDialog selectLayoutDialog = new ODFSelectVorlagenDialog(Display.getDefault().getActiveShell());
+		if(selectLayoutDialog.open() == ODFSelectVorlagenDialog.OK)
 		{
-			urlTemplate = FileLocator.resolve(urlTemplate);
-			try
-			{				
-				FileUtils.copyURLToFile(urlTemplate, newODFFile);				
-			} catch (IOException e)
-			{							
-				//log.error(Messages.DesignUtils_ErrorCreateDrawFile);
-				e.printStackTrace();
-			}
+			// neue Datei im Zielverzeichnis erzeugen
+			// sicherstellen, dass kein bereits vorhandener Name benutzt wird
+			String newFileName = getAutoFileName(destDir,BASE_ODFTEXT_FILENAME);
+			File newFile = new File(destDir, newFileName);
 			
-		} catch (IOException e1)
-		{						
-			//log.error(Messages.DesignUtils_ErrorCreateDrawFile);
-			e1.printStackTrace();
+			// die selektierte Vorlage in die neue Datei kopieren
+			String vorlagenName = selectLayoutDialog.getSelectedName();
+			Bundle bundle = FrameworkUtil.getBundle(Activator.class);
+			BundleContext bundleContext = bundle.getBundleContext();
+			URL urlTemplate = FileLocator.find(bundleContext.getBundle(),
+					new Path(ODFDefaultWriteAdapter.ODFTEXT_TEMPLATE_DIRECTORY + vorlagenName + "." + ODFDefaultWriteAdapter.OFFICEWRITEDOCUMENT_EXTENSION),null);
+			try
+			{
+				// Vorlage in 'newODFFile' kopieren
+				urlTemplate = FileLocator.resolve(urlTemplate);
+				FileUtils.copyURLToFile(urlTemplate, newFile);
+				return newFile;
+				
+			} catch (IOException e1)
+			{						
+				//log.error(Messages.DesignUtils_ErrorCreateDrawFile);
+				e1.printStackTrace();
+			}			
 		}
+		return null;
 	}
 
 	/*
@@ -170,5 +193,77 @@ public class ODFDefaultWriteAdapter implements IODFWriteAdapter
 			counter++;
 		}
 	}
+	
+	/*
+	 * 
+	 */
+	public static List<String> readTemplateNames()
+	{
+		List<String>templateNames = new ArrayList<String>();
+		
+		Bundle bundle = FrameworkUtil.getBundle(Activator.class);
+		BundleContext bundleContext = bundle.getBundleContext();
+		URL urlTemplate = FileLocator.find(bundleContext.getBundle(),new Path(ODFTEXT_TEMPLATE_DIRECTORY), null);
+		
+		try
+		{
+			urlTemplate = FileLocator.resolve(urlTemplate);
+			File tempDir = FileUtils.toFile(urlTemplate);
+			
+			IOFileFilter suffixFilter = FileFilterUtils.or(FileFilterUtils
+					.suffixFileFilter(OFFICEWRITEDOCUMENT_EXTENSION));
+			Collection<File> tempFiles = FileUtils.listFiles(tempDir,suffixFilter,null);
+						
+			for(File tmpFile : tempFiles)
+				templateNames.add(FilenameUtils.getBaseName(tmpFile.getPath()));
+			
+		} catch (IOException e1)
+		{						
+			e1.printStackTrace();
+		}
+		
+		return templateNames;
+	}
+	
+	/*
+	 * 
+	 */
+	public static File templateDirectory()
+	{
+		Bundle bundle = FrameworkUtil.getBundle(Activator.class);
+		BundleContext bundleContext = bundle.getBundleContext();
+		URL urlTemplate = FileLocator.find(bundleContext.getBundle(),new Path(ODFTEXT_TEMPLATE_DIRECTORY), null);
+
+		try
+		{
+			urlTemplate = FileLocator.resolve(urlTemplate);
+			return FileUtils.toFile(urlTemplate);
+			
+		} catch (IOException e1)
+		{						
+			e1.printStackTrace();
+		}
+		return null;
+	}
+
+	// Rueckgabe eines Verzeichnisses in diesem PlugIn
+	public static File getPluginDirectory(String dirName)
+	{
+		Bundle bundle = FrameworkUtil.getBundle(Activator.class);
+		BundleContext bundleContext = bundle.getBundleContext();
+		URL urlPluginDir = FileLocator.find(bundleContext.getBundle(),new Path(dirName), null);
+
+		try
+		{
+			urlPluginDir = FileLocator.resolve(urlPluginDir);
+			return FileUtils.toFile(urlPluginDir);
+			
+		} catch (IOException e1)
+		{						
+			e1.printStackTrace();
+		}
+		return null;
+	}
+
 
 }

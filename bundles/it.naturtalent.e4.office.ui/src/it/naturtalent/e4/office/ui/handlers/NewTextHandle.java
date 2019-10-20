@@ -83,34 +83,46 @@ public class NewTextHandle
 					IPath path = iResource.getLocation();					
 					File newODF = writeAdapter.createODF(path.toFile());
 					
-					// Refresh IContainer (neue Datei im ResourceNavigator anzeigen)
-					RefreshResource refreshResource = new RefreshResource();
-					refreshResource.refresh(shell, iResource);
-					
-					// neue Datei im ResourceNavigator anzeigen
-					IWorkspace workspace = ResourcesPlugin.getWorkspace();				
-					IPath location = Path.fromOSString(newODF.getAbsolutePath());
-					IFile ifile = workspace.getRoot().getFileForLocation(location);
-					eventBroker.post(IResourceNavigator.NAVIGATOR_EVENT_SELECT_REQUEST,ifile);
-					
-					// Wizard Daten zu dem Anschreibes abfragen 
-					// der Adapter wiederum erzeugt den dokumentspezifischen Wizard
-					context.set(ODFDefaultWriteAdapterWizard.E4CONTEXT_WIZARDMODE, ODFDefaultWriteAdapterWizard.WIZARDCREATEMODE);
-					WizardDialog wizardDialog = new WizardDialog(shell,writeAdapter.createWizard(context));
-					eventBroker.post(IODFWriteAdapter.ODFWRITE_FILEDEFINITIONEVENT,ifile);
-					if(wizardDialog.open() == WizardDialog.OK)
+					if (newODF != null)
 					{
-						// Dokument in LibreOffice oeffnen
-						String filePath;
-						try
+						// Refresh IContainer (neue Datei im ResourceNavigator
+						// anzeigen)
+						RefreshResource refreshResource = new RefreshResource();
+						refreshResource.refresh(shell, iResource);
+
+						// neue Datei im ResourceNavigator anzeigen
+						IWorkspace workspace = ResourcesPlugin.getWorkspace();
+						IPath location = Path.fromOSString(newODF.getAbsolutePath());
+						IFile ifile = workspace.getRoot().getFileForLocation(location);
+						eventBroker.post(IResourceNavigator.NAVIGATOR_EVENT_SELECT_REQUEST,ifile);
+
+						// Wizard Daten zu dem Anschreibes abfragen
+						// der Adapter wiederum erzeugt den dokumentspezifischen
+						// Wizard
+						context.set(
+								ODFDefaultWriteAdapterWizard.E4CONTEXT_WIZARDMODE,
+								ODFDefaultWriteAdapterWizard.WIZARDCREATEMODE);
+						
+						WizardDialog wizardDialog = new WizardDialog(shell,
+								writeAdapter.createWizard(context));
+						
+						eventBroker.post(IODFWriteAdapter.ODFWRITE_FILEDEFINITIONEVENT,ifile);
+						if (wizardDialog.open() == WizardDialog.OK)
 						{
-							filePath = FileUtils.toFile(ifile.getLocationURI().toURL()).getPath();
-							OpenLoDocument.loadLoDocument(filePath);
-						} catch (Exception e)
-						{
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}					
+							// Dokument in LibreOffice oeffnen
+							String filePath;
+							try
+							{
+								filePath = FileUtils
+										.toFile(ifile.getLocationURI().toURL())
+										.getPath();
+								OpenLoDocument.loadLoDocument(filePath);
+							} catch (Exception e)
+							{
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+						}
 					}
 				}
 			}

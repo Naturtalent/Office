@@ -13,22 +13,27 @@ public class OfficeDefaultPreferenceUtils
 {
 	// Name des OfficePreferenzknoten
 	public static final String ROOT_DEFAULTOFFICE_PREFERENCES_NODE = "it.naturtalent.office"; //$NON-NLS-1$
-	
+
+	// Praeferenzname der Signature
+	public static final String SIGNATURE_PREFERENCE= "signaturepreference"; //$NON-NLS-1$
+
 	// DefaultOffice Context 
 	public static final String DEFAULT_OFFICE_CONTEXT = "defaultofficecontext"; //$NON-NLS-1$
 	
-	// Preferenzname des Absenders
+	// Praeferenzname des Absenders
 	public static final String ABSENDER_PREFERENCE= "absenderpreference"; //$NON-NLS-1$
 	
-	// Preferenzname der Preferenz
+	// Praeferenzname der Preferenz
 	public static final String REFERENZ_PREFERENCE= "referenzpreference"; //$NON-NLS-1$
 
-	// Preferenzname der FootNotes
+	// Praeferenzname der FootNotes
 	public static final String FOOTNOTE_PREFERENCE= "footnotepreference"; //$NON-NLS-1$
 	
-	// Preferenzname der Signature
-	public static final String SIGNATURE_PREFERENCE= "signaturepreference"; //$NON-NLS-1$
+	// Praeferenzname der Signature
+	public static final String TEMPLATE_PREFERENCE= "templatepreference"; //$NON-NLS-1$
 
+	// unter diesem Namen wird der Defaultabsender gespeichert
+	//public static final String DEFAULT_TEMPLATENAME = "Defaultvorlagen"; //$NON-NLS-1$
 	
 	// unter diesem Namen wird der Defaultabsender gespeichert
 	public static final String DEFAULT_ABSENDERNAME = "Defaultabsender"; //$NON-NLS-1$
@@ -57,7 +62,7 @@ public class OfficeDefaultPreferenceUtils
 		FileDialog dlg = new FileDialog(shell, SWT.SAVE);
 
 		// 'xml' - Files filtern
-		dlg.setText("Importverzeichnis"); //$NON-NLS-1$
+		dlg.setText("Exportverzeichnis"); //$NON-NLS-1$
 		dlg.setFilterExtensions(new String[]{"*.xml"}); //$NON-NLS-1$
 		dlg.setFilterPath(exportPath);
 		

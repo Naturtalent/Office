@@ -1,18 +1,9 @@
 package it.naturtalent.e4.office.ui;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.commons.lang3.StringUtils;
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.ui.internal.workbench.E4Workbench;
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecp.core.ECPProject;
 import org.eclipse.emf.ecp.spi.ui.util.ECPHandlerHelper;
@@ -20,13 +11,10 @@ import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
 import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.wizard.IWizardPage;
-import org.eclipse.swt.custom.BusyIndicator;
-import org.eclipse.swt.widgets.Display;
 
 import it.naturtalent.e4.office.ui.actions.ProjectKontakteAction;
 import it.naturtalent.e4.office.ui.wizards.KontakteProjectPropertyWizardPage;
 import it.naturtalent.e4.project.INtProjectProperty;
-import it.naturtalent.e4.project.expimp.ecp.ECPExportHandlerHelper;
 import it.naturtalent.e4.project.ui.emf.ExpImpUtils;
 import it.naturtalent.e4.project.ui.emf.NtProjectPropertyFactory;
 import it.naturtalent.office.model.address.Kontakt;
@@ -42,7 +30,7 @@ import it.naturtalent.office.model.address.NtProjektKontakte;
 public class KontakteProjectProperty implements INtProjectProperty
 {
 	// beim Export wird diese Datei erzeugt und beinhaltet die projektspezifischen Kontaktdaten
-	private String EXPIMP_NTPROJECTKONTAKTDATA_FILE = ".kontaktData.xmi";
+	public static final String EXPIMP_NTPROJECTKONTAKTDATA_FILE = ".kontaktData.xmi";
 	
 	// ID des Projekts, auf das sich die Eigenschaft bezieht
 	protected String ntProjectID;

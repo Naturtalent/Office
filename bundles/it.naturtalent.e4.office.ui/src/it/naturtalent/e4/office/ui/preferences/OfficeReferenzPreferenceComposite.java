@@ -144,6 +144,18 @@ public class OfficeReferenzPreferenceComposite extends CheckListEditorComposite
 			}
 		}
 	}
+	
+	@Override
+	protected void doChecked()
+	{
+		IStructuredSelection selection = checkboxTableViewer.getStructuredSelection();
+		Object selObj = selection.getFirstElement();
+		if (selObj instanceof String)
+		{
+			// gecheckte Referenz als Preferenz speichern (aber noch nicht geflushed)
+			instancePreferenceNode.put(OfficeDefaultPreferenceUtils.REFERENZ_PREFERENCE, (String) selObj);
+		}
+	}
 
 	/*
 	 * die Referenznamen in die Praeferenzliste eintragen 
