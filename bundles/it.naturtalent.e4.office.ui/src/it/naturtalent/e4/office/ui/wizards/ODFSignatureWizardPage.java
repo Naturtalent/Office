@@ -195,13 +195,21 @@ public class ODFSignatureWizardPage extends WizardPage  implements IWriteWizardP
 				if(StringUtils.isNotEmpty(value))
 					ODFDocumentUtils.writeTableText(table, 0, 0, value);
 
-				value = selectedSignature.getSigner();
+				value = selectedSignature.getStatus1();
 				if(StringUtils.isNotEmpty(value))
 					ODFDocumentUtils.writeTableText(table, 2, 0, value);
 
-				value = selectedSignature.getCosigner();
+				value = selectedSignature.getSigner();
+				if(StringUtils.isNotEmpty(value))
+					ODFDocumentUtils.writeTableText(table, 4, 0, value);
+
+				value = selectedSignature.getStatus2();
 				if(StringUtils.isNotEmpty(value))
 					ODFDocumentUtils.writeTableText(table, 2, 1, value);
+
+				value = selectedSignature.getCosigner();
+				if(StringUtils.isNotEmpty(value))
+					ODFDocumentUtils.writeTableText(table, 4, 1, value);
 			}
 		}		
 	}

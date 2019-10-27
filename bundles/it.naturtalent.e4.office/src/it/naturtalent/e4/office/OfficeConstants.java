@@ -1,5 +1,6 @@
 package it.naturtalent.e4.office;
 
+@Deprecated
 public class OfficeConstants
 {
 	// Plugin ID (MANIFEST.MF)

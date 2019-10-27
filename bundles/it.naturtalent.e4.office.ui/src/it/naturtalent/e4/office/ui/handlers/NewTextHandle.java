@@ -76,7 +76,7 @@ public class NewTextHandle
 				IODFWriteAdapter writeAdapter = adapterDialog.getSelectedAdapter();
 				if(writeAdapter != null)
 				{
-					// ODF-Datei erzeugen
+					// ODF-Datei erzeugen (createODF-Auftuf im ausgewahlten Wizard)
 					IResource iResource = (IResource) selObject;
 					if (iResource.getType() == IResource.FILE)
 						iResource = iResource.getParent();					

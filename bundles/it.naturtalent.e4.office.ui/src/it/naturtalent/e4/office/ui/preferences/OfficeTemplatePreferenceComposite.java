@@ -13,6 +13,7 @@ import org.apache.commons.io.filefilter.FileFilterUtils;
 import org.apache.commons.io.filefilter.IOFileFilter;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.ArrayUtils;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
@@ -53,21 +54,20 @@ import it.naturtalent.libreoffice.OpenLoDocument;
 public class OfficeTemplatePreferenceComposite extends CheckListEditorComposite
 {
 	
-	private static final String TEMPLATE_DIRNAME = "templates"; //$NON-NLS-N$
-	private static final String BACKUP_VORLAGEN_DIRNAME = "vorlagen"; //$NON-NLS-N$
-	private static final String ORIGINAL_DIRNAME = "original"; //$NON-NLS-N$
+	//private static final String TEMPLATE_DIRNAME = "templates"; //$NON-NLS-N$
+	private static final String TEMPORARY_VORLAGEN_DIRNAME = "vorlagen"; //$NON-NLS-N$
 
 	// Knoten der Office-Praeferenzen
 	protected IEclipsePreferences instancePreferenceNode;
 	
-	// in diesem Verzeichnis befinden sich die Vorlagen 
-	private File templateDir;
+	// Workspaceverzeichnis in dem die Vorlagen gehalten werden
+	protected File templateWSDir;
 	
-	// die Namen der existierenden Vorlagen
+	// Liste mit den Namen der existierenden Vorlagen
 	protected List<String>templateNames;
 	
-	// in dieses Verzeichnis werden die momentanen Vorlagen gerettet
-	private File templatesCopyDir;
+	// fuer die Bearbeitung der Vorlagen werden diese in ein tempraeres Verzeichnis kopiert
+	private File temporaryDir;
 	
 	// zusaetzliche Copy-Button
 	private Button btnRename;
@@ -84,6 +84,10 @@ public class OfficeTemplatePreferenceComposite extends CheckListEditorComposite
 		
 		initPreferenceNode();
 		
+		// Tooltip fuer Add)
+		btnAdd.setToolTipText("Hinzufüge durch Kopieren der selektierten Vorlage"); 
+		
+		// Umbenennen
 		btnRename = new Button(btnComposite, SWT.NONE);		
 		btnRename.setText("Rename"); //$NON-NLS-N$
 		btnRename.setToolTipText("Vorlage umbenennen"); //$NON-NLS-N$
@@ -99,8 +103,8 @@ public class OfficeTemplatePreferenceComposite extends CheckListEditorComposite
 					String newName = renameDialog((String) selObj);
 					if(StringUtils.isNotEmpty(newName))
 					{									
-						File srcFile = new File(templatesCopyDir,((String) selObj)+"."+ODFDefaultWriteAdapter.OFFICEWRITEDOCUMENT_EXTENSION);
-						File destFile = new File(templatesCopyDir,newName+"."+ODFDefaultWriteAdapter.OFFICEWRITEDOCUMENT_EXTENSION);
+						File srcFile = new File(temporaryDir,((String) selObj)+"."+ODFDefaultWriteAdapter.OFFICEWRITEDOCUMENT_EXTENSION);
+						File destFile = new File(temporaryDir,newName+"."+ODFDefaultWriteAdapter.OFFICEWRITEDOCUMENT_EXTENSION);
 						try
 						{
 							FileUtils.moveFile(srcFile, destFile);
@@ -115,18 +119,18 @@ public class OfficeTemplatePreferenceComposite extends CheckListEditorComposite
 			}
 		});
 		
-		templateDir = getPlugInDirectory(TEMPLATE_DIRNAME);
-		
+		// Verzeichnis der Vorlagen im Workspace
+		templateWSDir = getWSTemplateDirectory();
 		
 		try
 		{
 			// die vorhandenen Vorlagen in ein temporaeres Verzeichnis kopieren
 			IOFileFilter suffixFilter = FileFilterUtils.or(FileFilterUtils
 					.suffixFileFilter(ODFDefaultWriteAdapter.OFFICEWRITEDOCUMENT_EXTENSION));
-			templatesCopyDir = new File(FileUtils.getTempDirectory(), BACKUP_VORLAGEN_DIRNAME);	
-			if(templatesCopyDir.exists())
-				FileUtils.cleanDirectory(templatesCopyDir);
-			FileUtils.copyDirectory(templateDir,templatesCopyDir,suffixFilter);
+			temporaryDir = new File(FileUtils.getTempDirectory(), TEMPORARY_VORLAGEN_DIRNAME);	
+			if(temporaryDir.exists())
+				FileUtils.cleanDirectory(temporaryDir);
+			FileUtils.copyDirectory(templateWSDir,temporaryDir,suffixFilter);
 			
 		} catch (IOException e)
 		{
@@ -152,14 +156,11 @@ public class OfficeTemplatePreferenceComposite extends CheckListEditorComposite
 				.getNode(OfficeDefaultPreferenceUtils.ROOT_DEFAULTOFFICE_PREFERENCES_NODE);	
 	}
 
-	/*
-	 * Gibt das absolute Verzeichnis von 'relativePath' innerhalb eines PlugIn zurueck.
-	 */
-	protected File getPlugInDirectory(String relativePath)
+	// gibt das Verzeichnis der Vorlagen im Workspace zurueck
+	protected File getWSTemplateDirectory()
 	{
-		return ODFDefaultWriteAdapter.getPluginDirectory(relativePath);
+		return ODFDefaultWriteAdapter.getWorkspaceTemplateDirectory();
 	}
-	
 	
 	protected void init()
 	{
@@ -175,6 +176,7 @@ public class OfficeTemplatePreferenceComposite extends CheckListEditorComposite
 		// TODO Auto-generated method stub
 		super.updateWidgets();
 		
+		btnAdd.setEnabled(false);
 		btnRemove.setEnabled(false);
 		btnRename.setEnabled(false);
 		IStructuredSelection selection = checkboxTableViewer.getStructuredSelection();
@@ -184,6 +186,9 @@ public class OfficeTemplatePreferenceComposite extends CheckListEditorComposite
 			// Default-Tempfile wird nicht geloescht oder umbenannt werden			
 			btnRemove.setEnabled(!StringUtils.equals(ODFDefaultWriteAdapter.ODFTEXT_TEMPLATE_NAME,(String) selObj));
 			btnRename.setEnabled(btnRemove.getEnabled());
+			
+			// Add (Kopieren) nur moeglich wenn eine Vorlage selektiert ist
+			btnAdd.setEnabled(true);
 		}
 	}
 	
@@ -214,8 +219,8 @@ public class OfficeTemplatePreferenceComposite extends CheckListEditorComposite
 			String newName = renameDialog((String) selObj);
 			if(StringUtils.isNotEmpty(newName))
 			{						
-				File destFile = new File(templatesCopyDir, newName+"."+ODFDefaultWriteAdapter.OFFICEWRITEDOCUMENT_EXTENSION);				
-				File srcFile = new File(templatesCopyDir, ((String) selObj)+"."+ODFDefaultWriteAdapter.OFFICEWRITEDOCUMENT_EXTENSION);				
+				File destFile = new File(temporaryDir, newName+"."+ODFDefaultWriteAdapter.OFFICEWRITEDOCUMENT_EXTENSION);				
+				File srcFile = new File(temporaryDir, ((String) selObj)+"."+ODFDefaultWriteAdapter.OFFICEWRITEDOCUMENT_EXTENSION);				
 				try
 				{
 					FileUtils.copyFile(srcFile, destFile);
@@ -243,7 +248,7 @@ public class OfficeTemplatePreferenceComposite extends CheckListEditorComposite
 		{
 			// Vorlage oeffnen					
 			String tempName = (String) selObj+"."+ODFDefaultWriteAdapter.OFFICEWRITEDOCUMENT_EXTENSION;			
-			File templateFile = new File(templatesCopyDir,tempName); 			
+			File templateFile = new File(temporaryDir,tempName); 			
 			OpenLoDocument.loadLoDocument(templateFile.getPath());
 		}
 	}
@@ -258,7 +263,7 @@ public class OfficeTemplatePreferenceComposite extends CheckListEditorComposite
 		{
 			// Vorlage loeschen				
 			String tempName = (String) selObj+"."+ODFDefaultWriteAdapter.OFFICEWRITEDOCUMENT_EXTENSION;			
-			File templateFile = new File(templatesCopyDir,tempName); 			
+			File templateFile = new File(temporaryDir,tempName); 			
 			try
 			{
 				FileUtils.forceDelete(templateFile);				
@@ -272,25 +277,24 @@ public class OfficeTemplatePreferenceComposite extends CheckListEditorComposite
 	}
 	
 	/*
-	 * Backupdateien aus dem 'templatesCopyDir' zurueckspeichern.
+	 * die temporaer zwischengespeicherten Dateien wieder in das Originalverzeichnis zurueckspeichern
 	 */
 	public void doApplied()
-	{
-		// zurueckspeichern der Backupdaten
+	{		
 		try
 		{
-			// die 'alten' Vorlagen loeschen
+			// die 'alten' Vorlagen im Originalverzeichnis loeschen
 			IOFileFilter suffixFilter = FileFilterUtils.or(FileFilterUtils
 					.suffixFileFilter(ODFDefaultWriteAdapter.OFFICEWRITEDOCUMENT_EXTENSION));
-			Collection<File> tempFiles = FileUtils.listFiles(templateDir,suffixFilter,null);						
+			Collection<File> tempFiles = FileUtils.listFiles(templateWSDir,suffixFilter,null);						
 			for(File tmpFile : tempFiles)			
 				FileUtils.forceDelete(tmpFile);
 			
 			// alle Vorlagen zurueckspeichern
-			FileUtils.copyDirectory(templatesCopyDir,templateDir);
+			FileUtils.copyDirectory(temporaryDir,templateWSDir);
 			init();
 			
-			// das gecheckte Element wird als Praeferenz gespeichert
+			// Name der gecheckten Vorlage als Praeferenz soeichern
 			String [] checkedElements = getCheckedElements();
 			if(ArrayUtils.isNotEmpty(checkedElements))
 			{
@@ -336,18 +340,25 @@ public class OfficeTemplatePreferenceComposite extends CheckListEditorComposite
 	}
 	
 	/*
-	 * Die Originaldateien werden wiederhergestellt
+	 * Die im PlugIn gespeicherten hardcodierten Vorlagn werden in das Workspaceverzeichnis kopiert
 	 */
 	public void doRestoreDefaultPressed()
-	{
+	{		
+		// existiert das Verzeichnis noch nicht wird es initialisiert
+		Bundle bundle = FrameworkUtil.getBundle(this.getClass());
+		BundleContext bundleContext = bundle.getBundleContext();
+		URL urlPluginTemplate = FileLocator.find(bundleContext.getBundle(),
+				new Path(ODFDefaultWriteAdapter.PLUGIN_TEMPLATES_DIR), null);
 		try
 		{
-			File originalDir = getPlugInDirectory(ORIGINAL_DIRNAME);			
-			FileUtils.copyDirectory(originalDir,templateDir);
-			init();
+			// Quelle ist das Verzeichnis mit den hardcodierten Vorlagen im PlugIn
+			urlPluginTemplate = FileLocator.resolve(urlPluginTemplate);
+
+			// die hardcoded Vorlagen werden kopiert
+			FileUtils.copyDirectory(FileUtils.toFile(urlPluginTemplate),templateWSDir);
+			
 		} catch (IOException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -392,11 +403,18 @@ public class OfficeTemplatePreferenceComposite extends CheckListEditorComposite
 		
 		IOFileFilter suffixFilter = FileFilterUtils.or(FileFilterUtils
 				.suffixFileFilter(ODFDefaultWriteAdapter.OFFICEWRITEDOCUMENT_EXTENSION));
-		Collection<File> tempFiles = FileUtils.listFiles(templatesCopyDir,suffixFilter,null);
+		Collection<File> tempFiles = FileUtils.listFiles(temporaryDir,suffixFilter,null);
 					
 		for(File tmpFile : tempFiles)
 			templateNames.add(FilenameUtils.getBaseName(tmpFile.getPath()));
 		
 		return templateNames;
 	}
+
+	public File getTemporaryDir()
+	{
+		return temporaryDir;
+	}
+	
+	
 }

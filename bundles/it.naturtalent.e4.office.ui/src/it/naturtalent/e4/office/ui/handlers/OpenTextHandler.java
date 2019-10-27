@@ -200,7 +200,7 @@ public class OpenTextHandler
 	{
 		Object selObject = selectionService.getSelection(ResourceNavigator.RESOURCE_NAVIGATOR_ID);
 		String factoryName = getAdapterFactoryName(selObject);
-		IODFWriteAdapterFactory writeAdapterFactory = writeAdapterFactoryRepository.getWriteAdapter(factoryName);
+		IODFWriteAdapterFactory writeAdapterFactory = writeAdapterFactoryRepository.getWriteAdapter(factoryName);		
 		return (writeAdapterFactory != null);
 	}
 	

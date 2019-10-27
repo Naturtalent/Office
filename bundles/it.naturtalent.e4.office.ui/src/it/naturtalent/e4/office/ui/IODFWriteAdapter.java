@@ -23,6 +23,9 @@ public interface IODFWriteAdapter
 	// der verwendete Adapter (Adapterfactory) gespeichert
 	public static final String ODFADAPTERFACTORY = "ODFAdapter";
 	
+	// Name der Betrefftabelle
+	public static String ODF_BETREFF = "Betrefftabelle";
+	
 	// Name der Tabelle im ODF-Dokument in die die Absenderdaten (im Kopf des Dokuments) geschrieben werden 
 	public static String ODF_WRITESENDER = "Absendertabelle";
 

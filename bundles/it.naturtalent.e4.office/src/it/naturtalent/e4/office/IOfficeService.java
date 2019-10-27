@@ -7,6 +7,7 @@ import it.naturtalent.e4.office.spreadsheet.ISpreadSheetAdapter;
 
 import java.util.List;
 
+@Deprecated
 public interface IOfficeService
 {
 	public static final String OFFICEDATADIR = "office";

@@ -11,6 +11,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.filefilter.FileFilterUtils;
 import org.apache.commons.io.filefilter.IOFileFilter;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
@@ -40,11 +41,12 @@ public class ODFDefaultWriteAdapter implements IODFWriteAdapter
 	
 	public static final String OFFICEWRITEDOCUMENT_EXTENSION = "odt"; //$NON-NLS-N$
 	
-	// Basisname der neuen Textdatei (Zieldatei)
-	public static final String BASE_ODFTEXT_FILENAME = "text.odt"; //$NON-NLS-1$
+	// in diesem Verzeichnis befinden sich die Default Vorlagen
+	public static final String PLUGIN_TEMPLATES_DIR = "templates"; //$NON-NLS-1$
 
-	// Template der mit diesem Adapter verwendete ODF-Datei  
-	public static final String ODFTEXT_TEMPLATE_DIRECTORY = "/templates/"; //$NON-NLS-1$
+
+	// Subdirectory der Vorlagen relativ zu Workspace/OFFICEDATADIR 
+	public static final String ODFTEXT_TEMPLATE_DIRECTORY = "templates"; //$NON-NLS-1$
 
 	// Default Template Name
 	public static final String ODFTEXT_TEMPLATE_NAME = "ODFText"; //$NON-NLS-1$
@@ -109,22 +111,28 @@ public class ODFDefaultWriteAdapter implements IODFWriteAdapter
 		ODFSelectVorlagenDialog selectLayoutDialog = new ODFSelectVorlagenDialog(Display.getDefault().getActiveShell());
 		if(selectLayoutDialog.open() == ODFSelectVorlagenDialog.OK)
 		{
+			// Name der Vorlage wird 'Basis'-Name der neuen Datei
+			String baseName = selectLayoutDialog.getSelectedName();
+			
 			// neue Datei im Zielverzeichnis erzeugen
 			// sicherstellen, dass kein bereits vorhandener Name benutzt wird
-			String newFileName = getAutoFileName(destDir,BASE_ODFTEXT_FILENAME);
+			//String newFileName = getAutoFileName(destDir,BASE_ODFTEXT_FILENAME);
+			String newFileName = getAutoFileName(destDir, baseName+"."+ODFDefaultWriteAdapter.OFFICEWRITEDOCUMENT_EXTENSION);
 			File newFile = new File(destDir, newFileName);
 			
 			// die selektierte Vorlage in die neue Datei kopieren
 			String vorlagenName = selectLayoutDialog.getSelectedName();
-			Bundle bundle = FrameworkUtil.getBundle(Activator.class);
-			BundleContext bundleContext = bundle.getBundleContext();
-			URL urlTemplate = FileLocator.find(bundleContext.getBundle(),
-					new Path(ODFDefaultWriteAdapter.ODFTEXT_TEMPLATE_DIRECTORY + vorlagenName + "." + ODFDefaultWriteAdapter.OFFICEWRITEDOCUMENT_EXTENSION),null);
+			
+			// Verzeichnis mit den Vorlagen
+			File destOfficeWorkspaceDir = new File(ResourcesPlugin.getWorkspace().getRoot().getLocation().toFile(),
+					it.naturtalent.e4.office.ui.Activator.OFFICEDATADIR + File.separator + ODFDefaultWriteAdapter.ODFTEXT_TEMPLATE_DIRECTORY);			
+			File destOfficeWorkspaceFile = new File(destOfficeWorkspaceDir,vorlagenName + "."
+							+ ODFDefaultWriteAdapter.OFFICEWRITEDOCUMENT_EXTENSION);
+			
 			try
 			{
-				// Vorlage in 'newODFFile' kopieren
-				urlTemplate = FileLocator.resolve(urlTemplate);
-				FileUtils.copyURLToFile(urlTemplate, newFile);
+				// Vorlage in 'newODFFile' kopieren				
+				FileUtils.copyFile(destOfficeWorkspaceFile, newFile);
 				return newFile;
 				
 			} catch (IOException e1)
@@ -201,6 +209,21 @@ public class ODFDefaultWriteAdapter implements IODFWriteAdapter
 	{
 		List<String>templateNames = new ArrayList<String>();
 		
+		IOFileFilter suffixFilter = FileFilterUtils.or(FileFilterUtils
+				.suffixFileFilter(OFFICEWRITEDOCUMENT_EXTENSION));
+		Collection<File> tempFiles = FileUtils.listFiles(getWorkspaceTemplateDirectory(),suffixFilter,null);
+					
+		for(File tmpFile : tempFiles)
+			templateNames.add(FilenameUtils.getBaseName(tmpFile.getPath()));
+		
+		return templateNames;
+	}	
+	
+	/*
+	public static List<String> readTemplateNames()
+	{
+		List<String>templateNames = new ArrayList<String>();
+		
 		Bundle bundle = FrameworkUtil.getBundle(Activator.class);
 		BundleContext bundleContext = bundle.getBundleContext();
 		URL urlTemplate = FileLocator.find(bundleContext.getBundle(),new Path(ODFTEXT_TEMPLATE_DIRECTORY), null);
@@ -224,6 +247,7 @@ public class ODFDefaultWriteAdapter implements IODFWriteAdapter
 		
 		return templateNames;
 	}
+	*/
 	
 	/*
 	 * 
@@ -263,6 +287,20 @@ public class ODFDefaultWriteAdapter implements IODFWriteAdapter
 			e1.printStackTrace();
 		}
 		return null;
+	}
+
+	/**
+	 * Rueckgabe eines Verzeichnisses der Volagen im Workspace. 	 
+	 * @param subDir
+	 * @return
+	 */
+	public static File getWorkspaceTemplateDirectory()
+	{
+		File destOfficeWorkspaceDir = new File(
+				ResourcesPlugin.getWorkspace().getRoot().getLocation().toFile(),
+				it.naturtalent.e4.office.ui.Activator.OFFICEDATADIR + File.separator + ODFTEXT_TEMPLATE_DIRECTORY);
+
+		return destOfficeWorkspaceDir;
 	}
 
 

@@ -3,10 +3,12 @@ package it.naturtalent.e4.office.ui;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.odftoolkit.simple.table.Cell;
 import org.odftoolkit.simple.table.CellRange;
 import org.odftoolkit.simple.table.Table;
 import org.odftoolkit.simple.text.Paragraph;
+import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
@@ -70,7 +72,14 @@ public class ODFDocumentUtils
 				StringBuilder textContext = new StringBuilder();
 				for (int i = 0; i < n; i++)
 				{
-					Node node = nodes.item(i);
+					Node node = nodes.item(i);		
+					
+					String name = node.getLocalName();
+					if(StringUtils.equals(name, "line-break")) //$NON-NLS-N$
+					{
+						textContext.append("\n"); //$NON-NLS-N$
+						continue;
+					}
 					textContext.append(node.getTextContent());
 				}
 				return textContext.toString();

@@ -2,6 +2,8 @@ package it.naturtalent.e4.office.ui;
 
 
 import java.io.File;
+import java.io.IOException;
+import java.net.URL;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -13,6 +15,9 @@ import org.apache.commons.io.filefilter.FileFilterUtils;
 import org.apache.commons.io.filefilter.IOFileFilter;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.SystemUtils;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.FileLocator;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.preferences.DefaultScope;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 import org.eclipse.e4.core.contexts.IEclipseContext;
@@ -24,6 +29,9 @@ import org.eclipse.e4.ui.model.application.commands.MCommand;
 import org.eclipse.e4.ui.workbench.IWorkbench;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
+import org.osgi.framework.Bundle;
+import org.osgi.framework.BundleContext;
+import org.osgi.framework.FrameworkUtil;
 
 import it.naturtalent.application.IShowViewAdapterRepository;
 import it.naturtalent.application.services.IOpenWithEditorAdapterRepository;
@@ -70,6 +78,7 @@ public class OfficeProcessor
 	private @Inject @Optional EModelService modelService;			
 	private @Inject @Optional MApplication application;
 	
+	
 	private static final int OFFICE_MENUE_POSITION = 5;
 	
 	// Dynamic New
@@ -115,6 +124,59 @@ public class OfficeProcessor
 			preferenceRegistry.getPreferenceAdapters().add(new OfficeFootNotePreferenceAdapter());
 			preferenceRegistry.getPreferenceAdapters().add(new OfficeSigaturePreferenceAdapter());
 		}
+		
+		// WorkspaceDir in dem die Telekomvorlagen gespeichert werden 
+		File destOfficeWorkspaceDir = new File(
+				ResourcesPlugin.getWorkspace().getRoot().getLocation().toFile(),
+				it.naturtalent.e4.office.ui.Activator.OFFICEDATADIR + File.separator + ODFDefaultWriteAdapter.ODFTEXT_TEMPLATE_DIRECTORY);
+
+		if(!destOfficeWorkspaceDir.exists())
+		{
+			// existiert das Verzeichnis noch nicht wird es initialisiert
+			Bundle bundle = FrameworkUtil.getBundle(this.getClass());
+			BundleContext bundleContext = bundle.getBundleContext();
+			URL urlPluginTemplate = FileLocator.find(bundleContext.getBundle(),
+					new Path(ODFDefaultWriteAdapter.PLUGIN_TEMPLATES_DIR), null);
+			try
+			{
+				// Quelle ist das Verzeichnis mit den hardcodierten Vorlagen im PlugIn
+				urlPluginTemplate = FileLocator.resolve(urlPluginTemplate);
+
+				// die hardcoded Vorlagen werden kopiert
+				FileUtils.copyDirectory(FileUtils.toFile(urlPluginTemplate),destOfficeWorkspaceDir);
+				
+			} catch (IOException e)
+			{
+				e.printStackTrace();
+			}
+		}
+
+		
+		
+		// kopiert die Default Vorlagen vom PlugIn Verzeichnis 'templates' in das Workspace-Vorlagenverzeichnis
+		/*
+		Bundle bundle = FrameworkUtil.getBundle(this.getClass());
+		BundleContext bundleContext = bundle.getBundleContext();
+		URL urlPluginTemplate = FileLocator.find(bundleContext.getBundle(),new Path(TEMPLATES_DIR), null);
+		try
+		{
+			// Quelle ist PlugIn 'templates' - Dir
+			urlPluginTemplate = FileLocator.resolve(urlPluginTemplate);
+				
+			// Ziel ist WorkspaceDir mit den Telekomvorlagen 
+			File destOfficeWorkspaceDir = new File(
+					ResourcesPlugin.getWorkspace().getRoot().getLocation().toFile(),
+					it.naturtalent.e4.office.ui.Activator.OFFICEDATADIR + File.separator + TEMPLATES_DIR);
+			
+			// Defaultvorlagen kopieren
+			FileUtils.copyDirectory(FileUtils.toFile(urlPluginTemplate), destOfficeWorkspaceDir);
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+		*/
+
 		
 		// Kontakte Projectproperties
 		List<INtProjectPropertyFactory>ntPropertyFactories = ntProjektDataFactoryRepository.getAllProjektDataFactories();

@@ -6,11 +6,6 @@
       <domainModelEFeature xsi:type="ecore:EAttribute" href="http://it.naturtalent/address#//FootNote/name"/>
     </domainModelReference>
   </children>
-  <children xsi:type="org.eclipse.emf.ecp.view.model:Control" xmi:id="_lqWtMN6eEemL4N8XQqbxZQ" name="Control Context">
-    <domainModelReference xsi:type="org.eclipse.emf.ecp.view.model:FeaturePathDomainModelReference" xmi:id="_ojuuEN6eEemL4N8XQqbxZQ">
-      <domainModelEFeature xsi:type="ecore:EAttribute" href="http://it.naturtalent/address#//FootNote/context"/>
-    </domainModelReference>
-  </children>
   <children xsi:type="org.eclipse.emf.ecp.view.table.model:TableControl" xmi:id="_M2rEUP1WEeishIJtEGUNyg" name="Table Items" detailEditing="WithPanel" duplicateDisabled="false">
     <domainModelReference xsi:type="org.eclipse.emf.ecp.view.table.model:TableDomainModelReference" xmi:id="_R7ozAP1WEeishIJtEGUNyg">
       <columnDomainModelReferences xsi:type="org.eclipse.emf.ecp.view.model:FeaturePathDomainModelReference" xmi:id="_DpQDEN8REemVSMqOgSv7JQ">

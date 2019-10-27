@@ -98,10 +98,6 @@ public class ODFEmpfaengerWizardPage extends WizardPage implements IWriteWizardP
 		// Receivers (Container aller projektspezisischen Empfaenger) anlegen
 		EClass receiversClass = AddressPackage.eINSTANCE.getReceivers();
 		receivers = (Receivers) EcoreUtil.create(receiversClass);
-		
-		// den eingelesenen Absender temporaer in das EMF-Modell uebernehemn			
-		//domain = AdapterFactoryEditingDomain.getEditingDomainFor(receivers);
-		//eReference = AddressPackage.eINSTANCE.getReceivers_Receivers();
 	}
 	
 	@PostConstruct
@@ -170,7 +166,7 @@ public class ODFEmpfaengerWizardPage extends WizardPage implements IWriteWizardP
 			{
 				ODFDefaultWriteAdapterWizard defaultWizard = (ODFDefaultWriteAdapterWizard) getWizard();
 				if (defaultWizard.isWizardModus() == ODFDefaultWriteAdapterWizard.WIZARDCREATEMODE)			
-					eventBroker.post(OfficeUtils.SET_RECEIVERMASTER_SELECTION_EVENT, firstEmpfaenger);			
+					eventBroker.post(OfficeUtils.SET_OFFICEMASTER_SELECTION_EVENT, firstEmpfaenger);			
 			}
 			
 		} catch (ECPRendererException e1)

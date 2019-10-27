@@ -116,6 +116,7 @@ public class ODFDefaultWriteAdapterWizard extends Wizard
 	public void addPages()
 	{		
 		// WizardPages (ODFReceiverWizardPage,ODFSenderWizardPage) erzeugen
+		ODFBetreffWizardPage betreffWizardPage = ContextInjectionFactory.make(ODFBetreffWizardPage.class, context);
 		ODFEmpfaengerWizardPage receiverWizardPage = ContextInjectionFactory.make(ODFEmpfaengerWizardPage.class, context);		
 		ODFAbsenderWizardPage absenderWizardPage = ContextInjectionFactory.make(ODFAbsenderWizardPage.class, context);
 		ODFReferenzWizardPage referenzWizardPage = ContextInjectionFactory.make(ODFReferenzWizardPage.class, context);
@@ -124,6 +125,7 @@ public class ODFDefaultWriteAdapterWizard extends Wizard
 		
 		
 		// WizardPages hinzufuegen
+		addPage(betreffWizardPage);
 		addPage(receiverWizardPage);
 		addPage(absenderWizardPage);
 		addPage(referenzWizardPage);		

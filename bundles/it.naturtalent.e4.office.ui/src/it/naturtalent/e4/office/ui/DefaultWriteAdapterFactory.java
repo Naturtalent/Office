@@ -9,12 +9,18 @@ package it.naturtalent.e4.office.ui;
 public class DefaultWriteAdapterFactory implements IODFWriteAdapterFactory
 {
 
+	/*
+	 * Anzeige unter diesem Namen im KontextMenue
+	 */
 	@Override
 	public String getAdapterLabel()
 	{		
-		return "DefaultWrite";
+		return "Anschreiben";
 	}
 
+	/*
+	 * Diesen Adapter erzeugt die Factory
+	 */
 	@Override
 	public IODFWriteAdapter createAdapter()
 	{		

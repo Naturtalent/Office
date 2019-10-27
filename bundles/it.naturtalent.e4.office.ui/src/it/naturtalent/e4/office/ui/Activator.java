@@ -23,6 +23,12 @@ import org.osgi.framework.BundleContext;
 public class Activator implements BundleActivator
 {
 	private static BundleContext context;
+	
+	// Plugin ID (MANIFEST.MF)
+	public static final String PLUGIN_ID = "it.naturtalent.e4.office.ui"; //$NON-NLS-1$
+	
+	// Unterverzeichnis im Workspace fuer Office-Daten
+	public static final String OFFICEDATADIR = "office";
 
 	public static final String PLUGIN_TEMPLATE_DIR = File.separator + "templates"; //$NON-NLS-1$
 	
@@ -55,14 +61,17 @@ public class Activator implements BundleActivator
 	{
 		Activator.context = bundleContext;
 		
-		// Vorlagen in Workspace kopieren					
+		// Vorlagen in Workspace kopieren	
+		/*
 		File templateSrcDir = OpenDocumentUtils.getPluginTemplateDir(this.getClass()); 
 		OpenDocumentUtils.copyTemplatesToWorkspace(templateSrcDir, IOfficeService.OFFICEDATADIR+File.separator+IOfficeService.NTOFFICE_CONTEXT, "ods");
 		OpenDocumentUtils.copyTemplatesToWorkspace(templateSrcDir, IOfficeService.OFFICEDATADIR+File.separator+IOfficeService.NTOFFICE_CONTEXT, "odt");
 		OpenDocumentUtils.copyTemplatesToWorkspace(templateSrcDir, IOfficeService.OFFICEDATADIR+File.separator+IOfficeService.NTOFFICE_CONTEXT, "odg");
 		OpenDocumentUtils.copyTemplatesToWorkspace(templateSrcDir, IOfficeService.OFFICEDATADIR+File.separator+IOfficeService.NTOFFICE_CONTEXT, "xml");
-		
-		initProperties();		
+		*/
+
+		// Zugriff auf plugin.properties
+		initProperties();	
 	}
 
 	/*
@@ -90,11 +99,12 @@ public class Activator implements BundleActivator
 		return null;
 	}
 
+	// ermoeglicht den Zugriff auf 'plugin.properties' ueber die definierten Keys
 	private void initProperties()
 	{
 		try
 		{
-			String path = "platform:/plugin/"+OfficeConstants.PLUGIN_ID+"/plugin.properties";
+			String path = "platform:/plugin/"+PLUGIN_ID+"/plugin.properties";
 			URL url = new URL(path);	
 			InputStream inputStream = url.openConnection().getInputStream();			
 			properties.load(inputStream);			
@@ -102,6 +112,7 @@ public class Activator implements BundleActivator
 		{
 		}
 	}
+	
 	
 	/**
 	 * Returns the platform resource URI for the provided class
@@ -116,7 +127,7 @@ public class Activator implements BundleActivator
 	
 	public static final String PLATFORM_PREFIX = "platform:/plugin"; //$NON-NLS-1$
 	
-	public static final String PLUGIN_ID = "it.naturtalent.e4.office.ui";
+	//public static final String PLUGIN_ID = "it.naturtalent.e4.office.ui";
 
 	public static String getResourceURI(Class<?> clazz)
 	{

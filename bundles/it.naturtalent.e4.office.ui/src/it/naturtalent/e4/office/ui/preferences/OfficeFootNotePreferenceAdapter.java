@@ -33,7 +33,7 @@ import it.naturtalent.office.model.address.Sender;
 public class OfficeFootNotePreferenceAdapter extends AbstractPreferenceAdapter
 {
 	// UI der FootNote-Praeferenzliste
-	private OfficeFootNotePreferenceComposite  footNoteComposite;
+	protected OfficeFootNotePreferenceComposite  footNoteComposite;
 	
 	
 	@Override

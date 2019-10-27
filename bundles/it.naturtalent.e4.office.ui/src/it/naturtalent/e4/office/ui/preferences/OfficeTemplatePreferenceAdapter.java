@@ -2,48 +2,32 @@ package it.naturtalent.e4.office.ui.preferences;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.filefilter.FileFilterUtils;
 import org.apache.commons.io.filefilter.IOFileFilter;
-import org.eclipse.core.runtime.FileLocator;
-import org.eclipse.core.runtime.Path;
-import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
+import org.apache.commons.lang3.StringUtils;
+import org.eclipse.e4.ui.internal.workbench.swt.WorkbenchSWTActivator;
+import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.DirectoryDialog;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
-import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.forms.widgets.Hyperlink;
-import org.osgi.framework.Bundle;
-import org.osgi.framework.BundleContext;
-import org.osgi.framework.FrameworkUtil;
 
 import it.naturtalent.application.IPreferenceNode;
-import it.naturtalent.e4.office.ui.Activator;
 import it.naturtalent.e4.office.ui.ODFDefaultWriteAdapter;
-import it.naturtalent.e4.office.ui.OfficeUtils;
 import it.naturtalent.e4.preferences.AbstractPreferenceAdapter;
-import it.naturtalent.e4.project.ui.emf.ExpImpUtils;
-import it.naturtalent.office.model.address.Absender;
-import it.naturtalent.office.model.address.AddressPackage;
-import it.naturtalent.office.model.address.Referenz;
-import it.naturtalent.office.model.address.Sender;
 
 /**
  * Adapter zur Verwaltung der Vorlagen (Layouts)
  * 
  * Eine Praeferenzliste (Checkliste) mit den Namen (vom Path separierter Name) der Vorlagen.
- * Der Path der Vorlagen wird als Praeferenz gespeichert.   
+ * Der Name der Vorlagen wird als Praeferenz gespeichert.   
  * 
  * @author dieter
  *
@@ -53,7 +37,8 @@ public class OfficeTemplatePreferenceAdapter extends AbstractPreferenceAdapter
 	// UI der Template-Praeferenzliste
 	protected OfficeTemplatePreferenceComposite templateComposite;
 	
-	
+	IDialogSettings settings = WorkbenchSWTActivator.getDefault().getDialogSettings();
+	private static final String EXPORT_VORLAGEN_PATH = "exportvorlagenpath";
 	
 	@Override
 	public String getNodePath()
@@ -88,7 +73,7 @@ public class OfficeTemplatePreferenceAdapter extends AbstractPreferenceAdapter
 		// Composite beschriften
 		referenceNode.setTitle(getLabel());
 		
-		// Absender UI
+		// Template UI Composite
 		templateComposite = new OfficeTemplatePreferenceComposite(referenceNode.getParentNode(), SWT.NONE);
 		
 		init(templateComposite);
@@ -114,23 +99,30 @@ public class OfficeTemplatePreferenceAdapter extends AbstractPreferenceAdapter
             @Override
             public void handleEvent(Event event) 
             {
-            	String exportPath = null;
-            	
-        		// Filedialog im 'SAVE*-Modus
+            	String exportDir;
         		Shell shell = Display.getCurrent().getActiveShell();
-        		FileDialog dlg = new FileDialog(shell, SWT.SAVE);
-
-        		// 'xml' - Files filtern
-        		dlg.setText("Exportverzeichnis"); //$NON-NLS-1$
-        		dlg.setFilterExtensions(new String[]{"*.xml"}); //$NON-NLS-1$
-        		dlg.setFilterPath(exportPath);
-        		
+        		DirectoryDialog dlg = new DirectoryDialog(shell, SWT.SAVE);
+        		dlg.setText("Export Office-Vorlagen"); //$NON-NLS-N$
+				dlg.setMessage("ein Verzeichnis zum Exportieren der Vorlagen auswählen"); //$NON-NLS-N$
+				String expostSettingPath = getExportPathSetting(settings);
+				dlg.setFilterPath(expostSettingPath);
+			
         		// Exportpath ueber den Dialog festlegen
-        		exportPath = dlg.open();
-        		if(exportPath != null)
-        		{
-        			//templateComposite.
-        			//ExpImpUtils.saveEObjectToResource(preferenceData, exportPath);
+        		exportDir = dlg.open();
+        		if(exportDir != null)
+        		{        			
+        			try
+					{        				
+        				IOFileFilter suffixFilter = FileFilterUtils.or(FileFilterUtils
+        						.suffixFileFilter(ODFDefaultWriteAdapter.OFFICEWRITEDOCUMENT_EXTENSION));        				
+        				File wsTeplateDir = getTemporaryPath();
+						FileUtils.copyDirectory(wsTeplateDir, new File(exportDir),suffixFilter);
+						setExportPathSetting(settings, exportDir);
+					} catch (IOException e)
+					{
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
         		}
 
             }
@@ -146,16 +138,58 @@ public class OfficeTemplatePreferenceAdapter extends AbstractPreferenceAdapter
             @Override
             public void handleEvent(Event event) 
             {
+            	String exportDir;
+        		Shell shell = Display.getCurrent().getActiveShell();
+        		DirectoryDialog dlg = new DirectoryDialog(shell, SWT.SAVE);
+        		dlg.setText("Import Office-Vorlagen"); //$NON-NLS-N$
+				dlg.setMessage("ein Verzeichnis zum Importieren der Vorlagen auswählen"); //$NON-NLS-N$
+				String expostSettingPath = getExportPathSetting(settings);
+				dlg.setFilterPath(expostSettingPath);
+
+        		// Exportpath ueber den Dialog festlegen
+        		exportDir = dlg.open();
+        		if(exportDir != null)
+				{
+					try
+					{
+						IOFileFilter suffixFilter = FileFilterUtils.or(FileFilterUtils.suffixFileFilter(
+								ODFDefaultWriteAdapter.OFFICEWRITEDOCUMENT_EXTENSION));
+						File wsTeplateDir = getTemporaryPath();
+						FileUtils.copyDirectory(new File(exportDir),wsTeplateDir,suffixFilter);
+					} catch (IOException e)
+					{
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
             }
         });
 	}
 	
-	// realisiert die zum Import anstehenden Absender
-	protected void postImport(List<Absender>importedAbsenderList)
-	{
-		
+	/*
+	 * Export-,Importpfad aus den Dialogsetting lesen 
+	 */
+	protected String getExportPathSetting(IDialogSettings settings)
+	{		
+		String settingPath = settings.get(EXPORT_VORLAGEN_PATH);
+		return StringUtils.isNotEmpty(settingPath) ? settingPath : System.getProperty("user.dir");
 	}
 
+	/*
+	 * Export-,Importpfad in Dialogsetting schreiben 
+	 */
+	protected void setExportPathSetting(IDialogSettings settings, String path)
+	{		
+		settings.put(EXPORT_VORLAGEN_PATH, path);		
+	}
+	
+	/*
+	 * Rueckgabe des Vorlagenverzeichnis
+	 */
+	protected File getTemporaryPath()
+	{
+		return templateComposite.getTemporaryDir();
+	}
 
 	/*
 	 * Canceln der Eingabe
