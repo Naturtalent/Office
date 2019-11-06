@@ -16,6 +16,7 @@ import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.eclipse.e4.ui.internal.workbench.E4Workbench;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.wizard.IWizard;
 import org.eclipse.swt.widgets.Display;
@@ -53,6 +54,8 @@ public class ODFDefaultWriteAdapter implements IODFWriteAdapter
 
 	// ODF - Dokument
 	private TextDocument odfDocument;
+	
+	
 	 
 	/*
 	 * Wizard, mit dem Eintragungen (Adresse, Absender etc.) 'von aussen' im Anschreiben  vorgenommen werden koennen.
@@ -78,20 +81,22 @@ public class ODFDefaultWriteAdapter implements IODFWriteAdapter
 		
 		if(destDir.isDirectory())
 		{
-			// Vorlage auswaehlen und in die neue Datei kopieren
+			// neues Dokument als Kopie der Vorlage erzeugen
 			newFile = createODFFile(destDir);			
 			if (newFile != null)
 			{
 				try
 				{
-					// die Factoryklassname des Adapters als Property im
-					// Dokument speichern
+					// die Factoryklassname des Adapters als Property im neuen ODF-Dokument speichern 
 					TextDocument odfDocument = TextDocument.loadDocument(newFile);
 					Meta meta = odfDocument.getOfficeMetadata();
 					meta.setUserDefinedData(ODFADAPTERFACTORY, "Text",
 							DefaultWriteAdapterFactory.class.getName()); // $NON-NLS-N$
 					odfDocument.save(newFile);
-
+					
+					// das neue ODF-Dokument im E4Context hinterlegen
+					E4Workbench.getServiceContext().set(OfficeUtils.E4CONTEXTKEY_CREATED_ODFDOCUMENT, odfDocument);
+					
 				} catch (Exception e)
 				{
 					// TODO Auto-generated catch block

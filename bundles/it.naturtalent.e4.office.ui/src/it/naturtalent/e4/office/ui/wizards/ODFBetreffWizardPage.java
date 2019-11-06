@@ -4,11 +4,17 @@ import javax.inject.Inject;
 
 import org.apache.commons.lang3.StringUtils;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.ui.di.UIEventTopic;
+import org.eclipse.e4.ui.internal.workbench.E4Workbench;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
+import org.eclipse.jface.wizard.IWizard;
+import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
@@ -21,6 +27,7 @@ import org.odftoolkit.simple.table.Table;
 
 import it.naturtalent.e4.office.ui.IODFWriteAdapter;
 import it.naturtalent.e4.office.ui.ODFDocumentUtils;
+import it.naturtalent.e4.office.ui.OfficeUtils;
 import it.naturtalent.e4.project.INtProject;
 import it.naturtalent.e4.project.ui.navigator.ResourceNavigator;
 
@@ -34,6 +41,7 @@ public class ODFBetreffWizardPage extends WizardPage implements IWriteWizardPage
 {
 	
 	@Inject @Optional private ESelectionService selectionService;
+	
 	
 	// Name dieser WizardPage	
 	private final static String BETREFF_PAGE_NAME = "ODF_BETREFF";
@@ -71,53 +79,49 @@ public class ODFBetreffWizardPage extends WizardPage implements IWriteWizardPage
 		gd_textBetreff.heightHint = 86;
 		textBetreff.setLayoutData(gd_textBetreff);
 		
-		// im CreateMode wird Projektname als Betreff voreingestellt
+		// im CreateMode wird versucht ein Betrefftrext vorzugeben
 		ODFDefaultWriteAdapterWizard wizard = (ODFDefaultWriteAdapterWizard) getWizard();
-		if(wizard.isWizardModus() == ODFDefaultWriteAdapterWizard.WIZARDCREATEMODE)				
-		{
+		if(wizard.isWizardModus() == ODFDefaultWriteAdapterWizard.WIZARDCREATEMODE)						
 			autoSetBetreff();
-			
-			/*
-			IResourceNavigator navigator = Activator.findNavigator();
-			IStructuredSelection selection = navigator.getViewer().getStructuredSelection();
-			Object selObj = selection.getFirstElement();
-			if (selObj instanceof IResource)
-			{
-				IResource selResource = (IResource) selObj;
-				IProject iProject = selResource.getProject();
-				try
-				{
-					String value = iProject.getPersistentProperty(INtProject.projectNameQualifiedName);
-					textBetreff.setText(value);
-				} catch (CoreException e)
-				{
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}					
-			}
-			*/
-			
-		}
+		
 	}
 	
+	// ist in der Vorlage ein Betreff vorgegeben, darf dieser nicht ueberschrieben werden
 	private void autoSetBetreff()
 	{		
-		/*
-		Table table = odfDocument.getTableByName(IODFWriteAdapter.ODF_BETREFF);
-		if (table != null)
-			textBetreff.setText(ODFDocumentUtils.readTableText(table, 0, 1));
-			*/
+		// die selektierte Vorlage ermitteln
+		IEclipseContext context = E4Workbench.getServiceContext();
+		TextDocument odfDocument = (TextDocument) context.get(OfficeUtils.E4CONTEXTKEY_CREATED_ODFDOCUMENT);
+		if(odfDocument != null)
+		{
+			// den vorgegebenen Betrefftext uebernehmen 
+			context.remove(OfficeUtils.E4CONTEXTKEY_CREATED_ODFDOCUMENT);
+			Table table = odfDocument.getTableByName(IODFWriteAdapter.ODF_BETREFF);
+			String value = ODFDocumentUtils.readTableText(table, 0, 1); 
+			if(StringUtils.isNotEmpty(value))
+			{
+				textBetreff.setText(value);
+				return;
+			}				
+		}
 		
 		// Name des im Navigator selektierten Projekts als Betreff vorbesetzen
 		Object selProject = selectionService.getSelection(ResourceNavigator.RESOURCE_NAVIGATOR_ID);
-		try
+		if (selProject instanceof IResource)
 		{
-			String value = ((IResource) selProject).getPersistentProperty(INtProject.projectNameQualifiedName);
-			textBetreff.setText(value);
-		} catch (CoreException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			try
+			{
+				// den Projektname als Betreff vorgeben 
+				IProject iProject = ((IResource) selProject).getProject();
+				String value = iProject.getPersistentProperty(INtProject.projectNameQualifiedName);
+				//String value = ((IResource) selProject).getPersistentProperty(INtProject.projectNameQualifiedName);
+				textBetreff.setText(value);
+			} catch (CoreException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
 		}
 	}
 

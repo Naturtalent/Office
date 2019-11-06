@@ -10,6 +10,7 @@ import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.ui.di.UIEventTopic;
 import org.eclipse.emf.common.command.Command;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
@@ -49,8 +50,10 @@ public class ODFSignatureWizardPage extends WizardPage  implements IWriteWizardP
 	// Name dieser WizardPage
 	public static final String SIGNATURE_PAGE_NAME = "ODF_Signature";
 	
+	/*
 	private static final String DEFAULT_SIGNATURENAME = "DefaultSignatur"; //$NON-NLS-1$
 	private static final String DEFAULT_GREETING = "Mit freundlichen Grüßen";
+	*/
 	
 	// Name der Signaturtabelle im ODFDokument (Template)
 	public static String ODF_WRITESIGNATURE = "Signaturtabelle";
@@ -100,10 +103,12 @@ public class ODFSignatureWizardPage extends WizardPage  implements IWriteWizardP
 			
 		// Container aller Signaturen
 		signatures =  (Signatures) OfficeUtils.findObject(AddressPackage.eINSTANCE.getSignatures());
+		signatures = EcoreUtil.copy(signatures);
+		
 					
 		// Parameter fuer die EMF Command (add)			
-		domain = AdapterFactoryEditingDomain.getEditingDomainFor(signatures);
-		eReference = AddressPackage.eINSTANCE.getSignatures_Signatures();
+		//domain = AdapterFactoryEditingDomain.getEditingDomainFor(signatures);
+		//eReference = AddressPackage.eINSTANCE.getSignatures_Signatures();
 
 		
 		try
@@ -131,11 +136,25 @@ public class ODFSignatureWizardPage extends WizardPage  implements IWriteWizardP
 		if (defaultWizard.isWizardModus() == ODFDefaultWriteAdapterWizard.WIZARDCREATEMODE)		
 		{
 			String preferenceName = instancePreferenceNode.get(OfficeDefaultPreferenceUtils.SIGNATURE_PREFERENCE, null);
-			Signature signature = OfficeUtils.findSignatureByName(preferenceName, officeContext);
+			Signature signature = findSignatureByName(signatures, preferenceName, officeContext);
 			
 			eventBroker.post(OfficeUtils.SET_OFFICEMASTER_SELECTION_EVENT, signature);
 		}
 	}
+	
+	public static Signature findSignatureByName(Signatures signatures, String signatureName,String officeContext)
+	{		
+		EList<Signature> sigatures = signatures.getSignatures();
+		for (Signature signature : sigatures)
+		{
+			if (StringUtils.equals(signature.getName(), signatureName)
+					&& StringUtils.equals(signature.getContext(), officeContext))
+				return signature;
+		}
+
+		return null;
+	}
+
 
 	
 	@PostConstruct
@@ -168,12 +187,38 @@ public class ODFSignatureWizardPage extends WizardPage  implements IWriteWizardP
 			readSignature.setGreeting(ODFDocumentUtils.readTableText(table, 0, 0));
 			readSignature.setSigner(ODFDocumentUtils.readTableText(table, 2, 0));
 			readSignature.setCosigner(ODFDocumentUtils.readTableText(table, 2, 1));
+
+			signatures.getSignatures().add(readSignature);
+			
+			/*
+			Command addCommand = AddCommand.create(domain, eReference, eReference, readSignature);
+			if (addCommand.canExecute())
+				domain.getCommandStack().execute(addCommand);
+				*/
+		}
+	}
+
+	/*
+	public void readFromDocument(TextDocument odfDocument)
+	{
+		Table table = odfDocument.getTableByName(ODF_WRITESIGNATURE);
+		if (table != null)
+		{
+			EClass signatureClass = AddressPackage.eINSTANCE.getSignature();
+			Signature readSignature = (Signature) EcoreUtil.create(signatureClass);
+			
+			readSignature.setName(LOADSIGNATURE);
+			readSignature.setContext(officeContext);
+			readSignature.setGreeting(ODFDocumentUtils.readTableText(table, 0, 0));
+			readSignature.setSigner(ODFDocumentUtils.readTableText(table, 2, 0));
+			readSignature.setCosigner(ODFDocumentUtils.readTableText(table, 2, 1));
 			
 			Command addCommand = AddCommand.create(domain, eReference, eReference, readSignature);
 			if (addCommand.canExecute())
 				domain.getCommandStack().execute(addCommand);
 		}
 	}
+	*/
 
 	/* 
 	 * Ist eine Sinatur im Master selektiert, wird diese beim Beenden des Wizards mit 'OK' in das ODFDokument geschrieben.
@@ -217,6 +262,7 @@ public class ODFSignatureWizardPage extends WizardPage  implements IWriteWizardP
 	/*
 	 * Neue Signature erzeugen mit Namen und OfficeContext
 	 */
+	/*
 	private Signature createSignature(String signatureName, String officeContext)
 	{
 		EClass signatureClass = AddressPackage.eINSTANCE.getSignature();
@@ -225,6 +271,7 @@ public class ODFSignatureWizardPage extends WizardPage  implements IWriteWizardP
 		signature.setContext(officeContext);
 		return signature;
 	}
+	*/
 
 	@Override
 	public void cancelPage(TextDocument odfDocument)
@@ -236,13 +283,15 @@ public class ODFSignatureWizardPage extends WizardPage  implements IWriteWizardP
 	@Override
 	public void unDo(TextDocument odfDocument)
 	{
+		/*
 		Signature toRemove = OfficeUtils.findSignatureByName(LOADSIGNATURE, officeContext);
 		if(toRemove != null)
 		{
 			Command removeCommand = RemoveCommand.create(domain, eReference, eReference, toRemove);
 			if (removeCommand.canExecute())
 				removeCommand.execute();
-		}				
+		}
+		*/				
 	}
 
 	/*

@@ -2,6 +2,7 @@ package it.naturtalent.e4.office.ui.preferences;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.FileFilterUtils;
@@ -143,8 +144,8 @@ public class OfficeTemplatePreferenceAdapter extends AbstractPreferenceAdapter
         		DirectoryDialog dlg = new DirectoryDialog(shell, SWT.SAVE);
         		dlg.setText("Import Office-Vorlagen"); //$NON-NLS-N$
 				dlg.setMessage("ein Verzeichnis zum Importieren der Vorlagen auswählen"); //$NON-NLS-N$
-				String expostSettingPath = getExportPathSetting(settings);
-				dlg.setFilterPath(expostSettingPath);
+				String exportSettingPath = getExportPathSetting(settings);
+				dlg.setFilterPath(exportSettingPath);
 
         		// Exportpath ueber den Dialog festlegen
         		exportDir = dlg.open();
@@ -152,10 +153,13 @@ public class OfficeTemplatePreferenceAdapter extends AbstractPreferenceAdapter
 				{
 					try
 					{
+						// die Importdateien in den temporaeren Zwischenspeicher kopieren
 						IOFileFilter suffixFilter = FileFilterUtils.or(FileFilterUtils.suffixFileFilter(
 								ODFDefaultWriteAdapter.OFFICEWRITEDOCUMENT_EXTENSION));
-						File wsTeplateDir = getTemporaryPath();
-						FileUtils.copyDirectory(new File(exportDir),wsTeplateDir,suffixFilter);
+						File wsTeplateDir = getTemporaryPath();						
+						FileUtils.copyDirectory(new File(exportDir),wsTeplateDir,suffixFilter);						
+						templateComposite.setTemplateNames();
+						
 					} catch (IOException e)
 					{
 						// TODO Auto-generated catch block

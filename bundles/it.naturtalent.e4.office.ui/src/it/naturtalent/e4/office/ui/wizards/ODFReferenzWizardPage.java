@@ -23,6 +23,7 @@ import org.eclipse.e4.ui.internal.workbench.E4Workbench;
 import org.eclipse.e4.ui.internal.workbench.swt.WorkbenchSWTActivator;
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.command.CommandStackListener;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
@@ -77,8 +78,9 @@ public class ODFReferenzWizardPage extends WizardPage  implements IWriteWizardPa
 	
 	// Label fuer die aus dem ODF-Dokument eingelesene Referenz
 	private static final String LOADEDREFERENCE = "Referenz aus der Datei";
-	private EditingDomain domain;
-	private EReference eReference;
+	
+	//private EditingDomain domain;
+	//private EReference eReference;
 	
 	// Office-Praeferenzknoten
 	private IEclipsePreferences instancePreferenceNode;
@@ -134,10 +136,11 @@ public class ODFReferenzWizardPage extends WizardPage  implements IWriteWizardPa
 		new Label(container, SWT.NONE);				
 		
 		referenzen = (Referenzen) OfficeUtils.findObject(AddressPackage.eINSTANCE.getReferenzen());
+		referenzen = EcoreUtil.copy(referenzen);
 		
 		// Parameter fuer die EMF Command (add)
-		domain = AdapterFactoryEditingDomain.getEditingDomainFor(referenzen);
-		eReference = AddressPackage.eINSTANCE.getReferenzen_Referenzen();
+		//domain = AdapterFactoryEditingDomain.getEditingDomainFor(referenzen);
+		//eReference = AddressPackage.eINSTANCE.getReferenzen_Referenzen();
 		
 		try
 		{	
@@ -164,12 +167,27 @@ public class ODFReferenzWizardPage extends WizardPage  implements IWriteWizardPa
 		if (defaultWizard.isWizardModus() == ODFDefaultWriteAdapterWizard.WIZARDCREATEMODE)		
 		{
 			String preferenceName = instancePreferenceNode.get(OfficeDefaultPreferenceUtils.REFERENZ_PREFERENCE, null);
-			Referenz referenz = OfficeUtils.findReferenz(preferenceName, officeContext);
+			Referenz referenz = findReferenz(referenzen, preferenceName, officeContext);
 			
 			eventBroker.post(OfficeUtils.SET_OFFICEMASTER_SELECTION_EVENT, referenz);
 		}
 	}
-
+	
+	public static Referenz findReferenz(Referenzen referenzen, String referenzName, String officeContext)
+	{
+		EList<Referenz> allReferenzen = referenzen.getReferenzen();
+		if (referenzen != null)
+		{
+			for (Referenz referenz : allReferenzen)
+			{
+				if (StringUtils.equals(referenz.getName(), referenzName)
+						&& StringUtils.equals(referenz.getContext(),officeContext))
+					return referenz;
+			}
+		}
+		return null;
+	}
+	
 	/* 
 	 * Ist eine Referenz im Modell selektiert, wird diese beim Beenden des Wizards mit 'OK' in das ODFDokument geschrieben.
 	 * @see handleReferenceSelection()
@@ -251,9 +269,12 @@ public class ODFReferenzWizardPage extends WizardPage  implements IWriteWizardPa
 			tempReferenz.setReferenz2(ODFDocumentUtils.readTableText(table, 1, 1));
 			tempReferenz.setReferenz3(ODFDocumentUtils.readTableText(table, 2, 1));
 			
+			referenzen.getReferenzen().add(tempReferenz);
+			/*
 			Command addCommand = AddCommand.create(domain, referenzen, eReference, tempReferenz);
 			if (addCommand.canExecute())
 				domain.getCommandStack().execute(addCommand);
+				*/
 		}
 		
 		return tempReferenz;
@@ -273,13 +294,15 @@ public class ODFReferenzWizardPage extends WizardPage  implements IWriteWizardPa
 	@Override
 	public void unDo(TextDocument odfDocument)
 	{
+		/*
 		Referenz toRemove = OfficeUtils.findReferenz(LOADEDREFERENCE, officeContext);
 		if(toRemove != null)
 		{
 			Command removeCommand = RemoveCommand.create(domain, referenzen, eReference, toRemove);
 			if (removeCommand.canExecute())
 				removeCommand.execute();
-		}				
+		}
+		*/				
 	}
 
 	/*

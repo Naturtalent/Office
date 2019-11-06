@@ -3,6 +3,7 @@ package it.naturtalent.e4.office.ui.wizards;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
+import org.apache.commons.lang3.StringUtils;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.Optional;
@@ -49,8 +50,8 @@ public class ODFFootNoteWizardPage extends WizardPage implements IWriteWizardPag
 	
 	// Label fuer die aus dem ODF-Dokument eingelesene Referenz
 	private static final String LOADEDFOOTNOTE_LABEL = "Fußnoten aus der Datei"; //$NON-NLS-N$
-	private EditingDomain domain;
-	private EReference eReference;
+	//private EditingDomain domain;
+	//private EReference eReference;
 		
 	// Office-Praeferenzknoten
 	protected IEclipsePreferences instancePreferenceNode;
@@ -95,6 +96,7 @@ public class ODFFootNoteWizardPage extends WizardPage implements IWriteWizardPag
 		container.setLayout(new GridLayout(2, false));
 
 		footNotes = (FootNotes) OfficeUtils.findObject(AddressPackage.eINSTANCE.getFootNotes());
+		footNotes = EcoreUtil.copy(footNotes);
 				
 		try
 		{
@@ -121,11 +123,27 @@ public class ODFFootNoteWizardPage extends WizardPage implements IWriteWizardPag
 		if (defaultWizard.isWizardModus() == ODFDefaultWriteAdapterWizard.WIZARDCREATEMODE)		
 		{
 			String preferenceName = instancePreferenceNode.get(OfficeDefaultPreferenceUtils.FOOTNOTE_PREFERENCE, null);
-			FootNote footNote = OfficeUtils.findFootNoteByName(preferenceName, officeContext);
+			FootNote footNote = findFootNoteByName(footNotes, preferenceName, officeContext);
 			
 			eventBroker.post(OfficeUtils.SET_OFFICEMASTER_SELECTION_EVENT, footNote);
 		}
 	}
+	
+	private FootNote findFootNoteByName(FootNotes footNotes, String footNoteName, String officeContext)
+	{
+		EList<FootNote> allFootNotes = footNotes.getFootNotes();
+		if (footNotes != null)
+		{
+			for (FootNote footNote : allFootNotes)
+			{
+				if (StringUtils.equals(footNote.getName(), footNoteName)
+						&& StringUtils.equals(footNote.getContext(),officeContext))
+					return footNote;
+			}
+		}
+		return null;
+	}
+
 
 	
 	@Override
@@ -214,6 +232,9 @@ public class ODFFootNoteWizardPage extends WizardPage implements IWriteWizardPag
 				footNote.getFootnoteitems().add(footNoteItem);
 			}
 			
+			footNotes.getFootNotes().add(footNote);
+			
+			/*
 			// die eingelesenen Fussnote temporaer in das EMF-Modell uebernehemn			
 			domain = AdapterFactoryEditingDomain.getEditingDomainFor(footNotes);
 			eReference = AddressPackage.eINSTANCE.getFootNotes_FootNotes();
@@ -221,6 +242,7 @@ public class ODFFootNoteWizardPage extends WizardPage implements IWriteWizardPag
 			Command addCommand = AddCommand.create(domain, footNotes, eReference, footNote);
 			if (addCommand.canExecute())
 				domain.getCommandStack().execute(addCommand);
+				*/
 			
 			
 		}
@@ -238,6 +260,7 @@ public class ODFFootNoteWizardPage extends WizardPage implements IWriteWizardPag
 	@Override
 	public void unDo(TextDocument odfDocument)
 	{
+		/*
 		FootNote toRemove = OfficeUtils.findFootNoteByName(LOADEDFOOTNOTE_LABEL, officeContext);
 		if(toRemove != null)
 		{
@@ -245,6 +268,7 @@ public class ODFFootNoteWizardPage extends WizardPage implements IWriteWizardPag
 			if (removeCommand.canExecute())
 				removeCommand.execute();
 		}
+		*/
 	}
 	
 	@Inject

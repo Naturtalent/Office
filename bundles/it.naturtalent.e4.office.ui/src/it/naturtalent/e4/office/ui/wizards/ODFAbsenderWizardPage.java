@@ -11,6 +11,7 @@ import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.ui.di.UIEventTopic;
 import org.eclipse.emf.common.command.Command;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -75,8 +76,8 @@ public class ODFAbsenderWizardPage extends WizardPage implements IWriteWizardPag
 	private Absender selectedAbsender;
 	
 	public static final String LOADED_ABSENDER = "Absender aus der Datei";
-	private EditingDomain domain;
-	private EReference eReference;
+	//private EditingDomain domain;
+	//private EReference eReference;
 	
 	/**
 	 * Create the wizard.
@@ -111,6 +112,7 @@ public class ODFAbsenderWizardPage extends WizardPage implements IWriteWizardPag
 		{
 			// alle gespeicherten Absender aus dem Modell einlesen
 			sender = (Sender) OfficeUtils.findObject(AddressPackage.eINSTANCE.getSender());	
+			sender = EcoreUtil.copy(sender);
 						
 			// Renderer zeigt die Absender  (filtert die Absender auf 'officecontext' im MasterDetailView) 
 			//ECPSWTViewRenderer.INSTANCE.render(container, (EObject) sender);	
@@ -123,7 +125,7 @@ public class ODFAbsenderWizardPage extends WizardPage implements IWriteWizardPag
 			String prefSender = instancePreferenceNode.get(OfficeDefaultPreferenceUtils.ABSENDER_PREFERENCE, null);
 			if(StringUtils.isNotEmpty(prefSender))
 			{
-				selectedAbsender = OfficeUtils.findAbsenderByName(prefSender, officeContext);				
+				selectedAbsender = findAbsenderByName(sender, prefSender, officeContext);				
 				eventBroker.post(OfficeUtils.SET_OFFICEMASTER_SELECTION_EVENT, selectedAbsender);
 			}
 						
@@ -133,6 +135,20 @@ public class ODFAbsenderWizardPage extends WizardPage implements IWriteWizardPag
 			e.printStackTrace();
 		}		
 	}
+	
+	private Absender findAbsenderByName(Sender sender, String absenderName,String officeContext)
+	{
+		EList<Absender> absenders = sender.getSenders();
+		for (Absender absender : absenders)
+		{
+			if (StringUtils.equals(absender.getName(), absenderName)
+					&& StringUtils.equals(absender.getContext(), officeContext))
+				return absender;
+		}
+
+		return null;
+	}
+
 	
 	/*
 	 * Beim Oeffnen eines Dokuments wird der Absender eingelesen und temporaer im Modell gespeichert.
@@ -150,13 +166,15 @@ public class ODFAbsenderWizardPage extends WizardPage implements IWriteWizardPag
 	@Override
 	public void unDo(TextDocument odfDocument)
 	{
+		/*
 		Absender toRemove = OfficeUtils.findAbsenderByName(LOADED_ABSENDER, officeContext);
 		if(toRemove != null)
 		{
 			Command removeCommand = RemoveCommand.create(domain, sender, eReference, toRemove);
 			if (removeCommand.canExecute())
 				removeCommand.execute();
-		}		
+		}
+		*/		
 	}
 
 	/* 
@@ -196,13 +214,17 @@ public class ODFAbsenderWizardPage extends WizardPage implements IWriteWizardPag
 			Adresse adresse = (Adresse) EcoreUtil.create(adresseClass);
 			tempAbsender.setAdresse(adresse);
 
-			// den eingelesenen Absender temporaer in das EMF-Modell uebernehemn			
+			// den eingelesenen Absender temporaer in das EMF-Modell uebernehemn	
+			/*
 			domain = AdapterFactoryEditingDomain.getEditingDomainFor(sender);
 			eReference = AddressPackage.eINSTANCE.getSender_Senders();
 			
 			Command addCommand = AddCommand.create(domain, sender, eReference,tempAbsender);
 			if (addCommand.canExecute())
 				domain.getCommandStack().execute(addCommand);
+				*/
+			
+			sender.getSenders().add(tempAbsender);
 
 			// Absenderadresse aus dem Dokument lesen
 			int rowCount = table.getRowCount();

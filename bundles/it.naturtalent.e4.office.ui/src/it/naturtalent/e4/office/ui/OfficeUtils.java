@@ -55,6 +55,10 @@ public class OfficeUtils
 
 	// Name unter dem der aktuelle Praeferenzknoten im E4Context hinterlegt wird  
 	public static final String E4CONTEXTKEY_OFFICEPRAEFERENZNODE = "officepraeferenznode";
+	
+	// das neu erzeugte ODFDocument wird unter diesem Namen hinterlegt
+	public static final String E4CONTEXTKEY_CREATED_ODFDOCUMENT = "createdodfdocument";
+	
 
 	// EventBroker Keys
 	public static final String SET_OFFICEMASTER_SELECTION_EVENT = "setofficemasterselection"; // $NON-NLS-N$	

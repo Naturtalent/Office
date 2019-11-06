@@ -13,7 +13,6 @@ import org.apache.commons.io.filefilter.FileFilterUtils;
 import org.apache.commons.io.filefilter.IOFileFilter;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.ArrayUtils;
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
@@ -21,7 +20,6 @@ import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.jface.dialogs.IInputValidator;
 import org.eclipse.jface.dialogs.InputDialog;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -32,7 +30,6 @@ import org.osgi.framework.BundleContext;
 import org.osgi.framework.FrameworkUtil;
 import org.osgi.service.prefs.BackingStoreException;
 
-import it.naturtalent.e4.office.ui.Activator;
 import it.naturtalent.e4.office.ui.ODFDefaultWriteAdapter;
 import it.naturtalent.e4.preferences.CheckListEditorComposite;
 import it.naturtalent.libreoffice.OpenLoDocument;
@@ -169,6 +166,21 @@ public class OfficeTemplatePreferenceComposite extends CheckListEditorComposite
 		checkboxTableViewer.setInput(templateNames);
 		updateWidgets();
 	}
+
+	public void setTemplateNames()
+	{
+		List<String>templateNames = readTempCopyNames();		
+		setTemplateNames(templateNames);		
+	}
+
+	/*
+	 * die Namen der Vorlagen in den 'checkboxTableViewer' speichern 
+	 */
+	public void setTemplateNames(List<String>templateNames)
+	{
+		checkboxTableViewer.setInput(templateNames);
+		updateWidgets();
+	}
 	
 	@Override
 	protected void updateWidgets()
@@ -190,6 +202,13 @@ public class OfficeTemplatePreferenceComposite extends CheckListEditorComposite
 			// Add (Kopieren) nur moeglich wenn eine Vorlage selektiert ist
 			btnAdd.setEnabled(true);
 		}
+		
+		// sicherstellen, dass ein Eintrag gecheckt ist
+		if(checkboxTableViewer.getElementAt(0) != null)
+		{
+			if(ArrayUtils.isEmpty(checkboxTableViewer.getCheckedElements()))
+				checkboxTableViewer.setChecked(checkboxTableViewer.getElementAt(0), true);
+		}
 	}
 	
 	@Override
@@ -206,7 +225,7 @@ public class OfficeTemplatePreferenceComposite extends CheckListEditorComposite
 
 	/*
 	 * Eine neue Vorlage durch Kopieren der selektierten erzeugen.
-	 * Die neue Vorlage wird zunaechst im 'templatesCopyDir' erzeugt.
+	 * Die neue Vorlage wird im temporaeren Arbeitsverzeichnis erzeugt
 	 */
 	@Override
 	protected void doAdd()
@@ -216,16 +235,18 @@ public class OfficeTemplatePreferenceComposite extends CheckListEditorComposite
 		if (selObj instanceof String)
 		{
 			// Name der neuen Vorlage
-			String newName = renameDialog((String) selObj);
-			if(StringUtils.isNotEmpty(newName))
+			String newTemplateName = renameDialog((String) selObj);
+			if(StringUtils.isNotEmpty(newTemplateName))
 			{						
-				File destFile = new File(temporaryDir, newName+"."+ODFDefaultWriteAdapter.OFFICEWRITEDOCUMENT_EXTENSION);				
+				File destFile = new File(temporaryDir, newTemplateName+"."+ODFDefaultWriteAdapter.OFFICEWRITEDOCUMENT_EXTENSION);				
 				File srcFile = new File(temporaryDir, ((String) selObj)+"."+ODFDefaultWriteAdapter.OFFICEWRITEDOCUMENT_EXTENSION);				
 				try
 				{
+					// die neue Datei ist die Kopie der selektierten mit anderem Namen
 					FileUtils.copyFile(srcFile, destFile);
-					addEntry(newName);
-					checkboxTableViewer.setSelection(new StructuredSelection(newName));
+					
+					// Praeferenzliste aktualisieren
+					setTemplateNames();
 					
 				} catch (IOException e)
 				{
@@ -266,14 +287,16 @@ public class OfficeTemplatePreferenceComposite extends CheckListEditorComposite
 			File templateFile = new File(temporaryDir,tempName); 			
 			try
 			{
-				FileUtils.forceDelete(templateFile);				
+				FileUtils.forceDelete(templateFile);
+				
+				// Praeferenzliste aktualisieren
+				setTemplateNames();
+				
 			} catch (IOException e)
 			{				
 				e.printStackTrace();
 			}
 		}
-		super.doRemove();
-		checkboxTableViewer.setSelection(new StructuredSelection(ODFDefaultWriteAdapter.ODFTEXT_TEMPLATE_NAME));
 	}
 	
 	/*
@@ -340,7 +363,7 @@ public class OfficeTemplatePreferenceComposite extends CheckListEditorComposite
 	}
 	
 	/*
-	 * Die im PlugIn gespeicherten hardcodierten Vorlagn werden in das Workspaceverzeichnis kopiert
+	 * Die im PlugIn gespeicherten hardcodierten Vorlagn werden in das temporaere Arbeitsverzeichnis kopiert
 	 */
 	public void doRestoreDefaultPressed()
 	{		
@@ -353,9 +376,17 @@ public class OfficeTemplatePreferenceComposite extends CheckListEditorComposite
 		{
 			// Quelle ist das Verzeichnis mit den hardcodierten Vorlagen im PlugIn
 			urlPluginTemplate = FileLocator.resolve(urlPluginTemplate);
-
-			// die hardcoded Vorlagen werden kopiert
-			FileUtils.copyDirectory(FileUtils.toFile(urlPluginTemplate),templateWSDir);
+			
+			// Ziel ist temporaere Arbeitsverzeichnis
+			File wsTeplateDir = getTemporaryDir();
+			
+			// hardcodierte 'odt'-Files kopieren
+			IOFileFilter suffixFilter = FileFilterUtils.or(FileFilterUtils.suffixFileFilter(
+					ODFDefaultWriteAdapter.OFFICEWRITEDOCUMENT_EXTENSION));
+			FileUtils.copyDirectory(FileUtils.toFile(urlPluginTemplate),wsTeplateDir,suffixFilter);	
+			
+			// Praeferenzliste aktualisieren
+			setTemplateNames();
 			
 		} catch (IOException e)
 		{
@@ -395,7 +426,7 @@ public class OfficeTemplatePreferenceComposite extends CheckListEditorComposite
 	}
 	
 	/*
-	 * Die Namen der Vorlagen im 'templatesCopyDir' auflisten.
+	 * Die Namen der Vorlagen im temporaeren Arbeitsverzeichnis 'templatesCopyDir' auflisten.
 	 */
 	public List<String> readTempCopyNames()
 	{
