@@ -6,14 +6,20 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.inject.Inject;
 
+import org.apache.commons.io.FileUtils;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.Optional;
+import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.ui.di.UIEventTopic;
 import org.eclipse.e4.ui.internal.workbench.E4Workbench;
+import org.eclipse.e4.ui.model.application.MApplication;
+import org.eclipse.e4.ui.workbench.IWorkbench;
+import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.swt.custom.BusyIndicator;
@@ -23,6 +29,9 @@ import org.odftoolkit.simple.TextDocument;
 import it.naturtalent.e4.office.ui.IODFWriteAdapter;
 import it.naturtalent.e4.office.ui.OfficeUtils;
 import it.naturtalent.e4.office.ui.preferences.OfficeDefaultPreferenceUtils;
+import it.naturtalent.e4.project.IResourceNavigator;
+import it.naturtalent.e4.project.ui.navigator.ResourceNavigator;
+import it.naturtalent.e4.project.ui.utils.RefreshResource;
 
 /**
  * Dieser Wizard wird vom Adapter 'ODFDefaultWriteAdapter' bereitgestellt und ermoeglicht die erforderlichen Abfragen
@@ -47,6 +56,8 @@ public class ODFDefaultWriteAdapterWizard extends Wizard
 	
 	// erforderlich fuer das Erstellen der Pages via ContextInjectionFactory
 	protected IEclipseContext context;
+	
+	private ESelectionService selectionService;
 
 	// Modus-Flag zeigt an, ob der Wizard im New- (create) oder im OpenModus laeuft 
 	// Flag wird vom jeweiligen Handler (OpenTextHandler/NewTextHandler) im E4Context abgelegt
@@ -80,9 +91,10 @@ public class ODFDefaultWriteAdapterWizard extends Wizard
 	}
 
 	@PostConstruct
-	private void postConstuct(IEclipseContext context)
+	private void postConstuct(IEclipseContext context, ESelectionService selectionService)
 	{
 		this.context = context;
+		this.selectionService = selectionService;
 		
 		// der Wizard hinterlegt im E4Context den OfficeContext fuer die zugehoerigen Pages		
 		E4Workbench.getServiceContext().set(OfficeUtils.E4CONTEXTKEY_OFFICECONTEXT, officeContext);
@@ -109,7 +121,7 @@ public class ODFDefaultWriteAdapterWizard extends Wizard
 		
 		E4Workbench.getServiceContext().remove(E4CONTEXT_WIZARDMODE);
 		
-		performUnDo();
+		//performUnDo();
 	}
 	
 	@Override
@@ -164,10 +176,6 @@ public class ODFDefaultWriteAdapterWizard extends Wizard
 	{
 		// alle implizierten Pages schreiben Iíhren part in das Dokument
 		doPerformFinish();
-		
-		// alle implizierten Pages fuehren ihre undo-Funktion aus
-		performUnDo();
-		
 		return true;
 	}
 	
@@ -235,6 +243,26 @@ public class ODFDefaultWriteAdapterWizard extends Wizard
 					writeWizardPage.unDo(odfDocument);
 				}
 			}
+			
+			// im Create-Mode wird die beeits erzeugte Datei wieder zurueckgenommen
+			if(wizardModus == WIZARDCREATEMODE)		
+			{
+				// IConteiner der zuloeschende Resource ermitteln 
+				IResource newCreatedResouce = (IResource) selectionService.getSelection(ResourceNavigator.RESOURCE_NAVIGATOR_ID);
+				IResource parentResouce = newCreatedResouce.getParent();
+				
+				// Datei loeschen	
+				FileUtils.forceDelete(odfDocumentFile);
+
+				// Container refreshen
+				RefreshResource refreshResource = new RefreshResource();
+				refreshResource.refresh(Display.getDefault().getActiveShell(), parentResouce);					
+				
+				// Container im Navigator selektieren
+				MApplication currentApplication = E4Workbench.getServiceContext().get(IWorkbench.class).getApplication();
+				IEventBroker eventBroker = currentApplication.getContext().get(IEventBroker.class);				
+				eventBroker.post(IResourceNavigator.NAVIGATOR_EVENT_SELECT_REQUEST, parentResouce);
+			}		
 			
 		} catch (Exception e1)
 		{

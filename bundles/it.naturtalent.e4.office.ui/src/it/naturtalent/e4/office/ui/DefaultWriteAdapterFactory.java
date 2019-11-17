@@ -15,7 +15,7 @@ public class DefaultWriteAdapterFactory implements IODFWriteAdapterFactory
 	@Override
 	public String getAdapterLabel()
 	{		
-		return "Anschreiben";
+		return "Standard";
 	}
 
 	/*

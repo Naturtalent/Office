@@ -14,6 +14,13 @@ import org.eclipse.emfforms.spi.swt.core.AbstractSWTRenderer;
 
 import it.naturtalent.office.model.address.AddressPackage;
 
+/**
+ * Liefert einen Renderer der die standardmaessige Toolbox ausblendet.
+ *  
+ * 
+ * @author dieter
+ *
+ */
 public class OfficeDetailRendererService extends MultiReferenceSWTRendererService
 {
 

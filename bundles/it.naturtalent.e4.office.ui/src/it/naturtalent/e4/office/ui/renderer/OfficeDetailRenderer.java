@@ -34,7 +34,7 @@ import it.naturtalent.e4.office.ui.OfficeUtils;
 
 
 /**
- *  universeller Detailrenderer im OfficeContext mit folgenden Aufgaben: 
+ *  Renderer, der den MultiReferenceSWTRenderer modifiziert: 
  *  
  *  - filtern nach OfficeContext-Flag, das im Eclipse4 Context unter dem Namen 'OfficeUtils.OFFICE_CONTEXT' 
  *    hinterlegt sein muss
