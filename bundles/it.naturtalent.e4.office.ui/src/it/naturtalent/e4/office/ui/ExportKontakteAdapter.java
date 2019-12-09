@@ -5,6 +5,8 @@ import org.eclipse.swt.graphics.Image;
 
 import it.naturtalent.e4.office.ui.actions.KontakteExportAction;
 import it.naturtalent.e4.project.IExportAdapter;
+import it.naturtalent.icons.core.Icon;
+import it.naturtalent.icons.core.IconSize;
 
 public class ExportKontakteAdapter implements IExportAdapter
 {
@@ -18,8 +20,7 @@ public class ExportKontakteAdapter implements IExportAdapter
 	@Override
 	public Image getImage()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return Icon.ICON_CONNECT.getImage(IconSize._16x16_DefaultIconSize);				
 	}
 
 	@Override

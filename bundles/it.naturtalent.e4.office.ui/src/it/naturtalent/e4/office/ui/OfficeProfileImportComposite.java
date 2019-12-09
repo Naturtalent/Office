@@ -1,14 +1,9 @@
 package it.naturtalent.e4.office.ui;
 
-import it.naturtalent.e4.office.letter.OfficeLetterProfile;
-import it.naturtalent.e4.office.letter.OfficeLetterProfiles;
-
-import java.io.File;
-import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.bind.JAXB;
+//import javax.xml.bind.JAXB;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.ArrayUtils;
@@ -22,7 +17,6 @@ import org.eclipse.e4.ui.internal.workbench.swt.WorkbenchSWTActivator;
 import org.eclipse.jface.databinding.viewers.ObservableListContentProvider;
 import org.eclipse.jface.databinding.viewers.ObservableMapLabelProvider;
 import org.eclipse.jface.dialogs.IDialogSettings;
-import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.CheckStateChangedEvent;
 import org.eclipse.jface.viewers.CheckboxTableViewer;
 import org.eclipse.jface.viewers.ICheckStateListener;
@@ -43,6 +37,9 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
+
+import it.naturtalent.e4.office.letter.OfficeLetterProfile;
+import it.naturtalent.e4.office.letter.OfficeLetterProfiles;
 
 public class OfficeProfileImportComposite extends Composite
 {
@@ -194,7 +191,11 @@ public class OfficeProfileImportComposite extends Composite
 	}
 	
 	private void loadImportSources()
-	{				
+	{		
+		
+		System.out.println("it.naturtalent.e4.office.ui.OfficeProfileImportComposite.loadImportSources() - entfernen wegen JAXB");
+		
+		/*
 		File srcFile = new File(comboPath.getText());
 		if(srcFile.exists())
 		{
@@ -213,6 +214,7 @@ public class OfficeProfileImportComposite extends Composite
 			}
 		}
 		updateWidgetStatus();
+		*/
 	}
 	
 	private void setProfiles(OfficeLetterProfiles profiles)

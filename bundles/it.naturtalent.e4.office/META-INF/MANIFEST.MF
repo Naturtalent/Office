@@ -16,7 +16,6 @@ Require-Bundle: org.eclipse.core.resources,
  it.wp.common.io,
  it.naturtalent.e4.project,
  it.naturtalent.jdom,
- it.naturtalent.e4.project.address,
  it.naturtalent.libreoffice.ui;bundle-version="1.0.0",
  it.wp.common.logger,
  it.naturtalent.libreoffice.odf;bundle-version="1.0.0"

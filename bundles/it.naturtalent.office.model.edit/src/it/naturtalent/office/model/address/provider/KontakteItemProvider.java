@@ -3,6 +3,8 @@
 package it.naturtalent.office.model.address.provider;
 
 
+import it.naturtalent.icons.core.Icon;
+import it.naturtalent.icons.core.IconSize;
 import it.naturtalent.office.model.address.AddressFactory;
 import it.naturtalent.office.model.address.AddressPackage;
 
@@ -109,8 +111,9 @@ public class KontakteItemProvider
 	 */
 	@Override
 	public Object getImage(Object object)
-	{
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/Kontakte"));
+	{		
+		//return overlayImage(object, getResourceLocator().getImage("full/obj16/Kontakte"));
+		return overlayImage(object, Icon.ICON_CONNECT.getImage(IconSize._16x16_DefaultIconSize));
 	}
 
 	/**

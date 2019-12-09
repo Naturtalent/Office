@@ -35,6 +35,12 @@ import it.naturtalent.icons.core.IconSize;
 import it.naturtalent.office.model.address.Kontakt;
 import it.naturtalent.office.model.address.NtProjektKontakte;
 
+/**
+ * Der zur Bearbeitung des NtProjektKontaktes angepasste Renderer.
+ * 
+ * @author dieter
+ *
+ */
 public class NtKontactRenderer extends MultiReferenceSWTRenderer
 {
 	//private ESelectionService eSelectionService;	
@@ -62,25 +68,33 @@ public class NtKontactRenderer extends MultiReferenceSWTRenderer
 	}
 	
 	
-	
+	/*
+	 * den standardmaessingen 'existButton' ausblenden
+	 */
 	@Override
 	protected boolean showAddExistingButton()
 	{
 		return false;
 	}
 
+	/*
+	 * den MoveUp - Button 'zweckentfremdet' einblenden (dient der Auswahl aus der Datenbank) 
+	 */
 	protected boolean showMoveUpButton() 
 	{
 		return true;
 	}
 	
+	/*
+	 * MoveUp-Button anpassen (DatenbankImage und Tooltip)
+	 */
 	@Override
 	protected Button createMoveUpButton(Composite parent,
 			EStructuralFeature structuralFeature)
 	{
 		btnMoveUp = super.createMoveUpButton(parent, structuralFeature);
 		btnMoveUp.setImage(Icon.ICON_DATABASE.getImage(IconSize._16x16_DefaultIconSize));
-		btnMoveUp.setToolTipText("Kontakt aus der Datenbank kopieren");
+		btnMoveUp.setToolTipText("Kontakt aus der Datenbank kopieren"); //$NON-NLS-N$
 		return btnMoveUp;
 	}
 
@@ -102,14 +116,10 @@ public class NtKontactRenderer extends MultiReferenceSWTRenderer
 			btnMoveUp.setEnabled(true);
 	}
 
-
-
-	/**
-	 * {@inheritDoc}
-	 *
-	 * @since 1.5
+	/*
+	 * Mit dem ECP-SelectWizard einen Kontakt auswahlen, kopieren und dem Contaimerelemen 'NtProjektKontakte' hinzufuegen.
+	 * 
 	 */
-
 	private void addExistingModelElements(EObject eObject, EReference eReference)
 	{		
 		// Kontakte fuer den SelectWizard in einem Set vorbereiten

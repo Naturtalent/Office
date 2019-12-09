@@ -2,6 +2,8 @@ package it.naturtalent.e4.office.ui;
 
 import it.naturtalent.e4.office.ui.actions.KontakteImportAction;
 import it.naturtalent.e4.project.IImportAdapter;
+import it.naturtalent.icons.core.Icon;
+import it.naturtalent.icons.core.IconSize;
 
 import org.eclipse.jface.action.Action;
 import org.eclipse.swt.graphics.Image;
@@ -24,8 +26,7 @@ public class ImportKontakteAdapter implements IImportAdapter
 	@Override
 	public Image getImage()
 	{
-		//return SWTResourceManager.getImage(this.getClass(), "/icons/full/elcl16/pin_view.gif"); //$NON-NLS-1$;
-		return null;
+		return Icon.ICON_CONNECT.getImage(IconSize._16x16_DefaultIconSize);			
 	}
 
 	@Override

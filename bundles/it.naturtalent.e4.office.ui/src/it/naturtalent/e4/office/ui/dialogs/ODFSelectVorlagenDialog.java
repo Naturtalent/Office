@@ -30,6 +30,8 @@ import it.naturtalent.icons.core.IconSize;
 /**
  * Mit diesem Dialog wird die Vorlage fuer das Textdokument festgelegt.
  * 
+ * Die praeferenzierte Vorlage wird voreingestellt
+ * 
  * @author dieter
  *
  */

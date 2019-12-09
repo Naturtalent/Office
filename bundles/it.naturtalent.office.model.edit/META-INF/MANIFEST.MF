@@ -13,7 +13,8 @@ Require-Bundle: org.eclipse.core.runtime,
  it.naturtalent.office.model;visibility:=reexport,
  org.eclipse.emf.edit;visibility:=reexport,
  org.eclipse.ui,
- org.eclipse.core.runtime
+ org.eclipse.core.runtime,
+ it.naturtalent.icons
 Automatic-Module-Name: it.naturtalent.office.model.edit
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8

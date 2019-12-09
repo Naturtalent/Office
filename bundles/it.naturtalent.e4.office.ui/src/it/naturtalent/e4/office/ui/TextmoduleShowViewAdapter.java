@@ -1,10 +1,8 @@
 package it.naturtalent.e4.office.ui;
 
-import it.naturtalent.application.IShowViewAdapter;
-import it.naturtalent.e4.office.ui.part.TextbausteinePart;
-
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.wb.swt.SWTResourceManager;
+
+import it.naturtalent.application.IShowViewAdapter;
 
 public class TextmoduleShowViewAdapter implements IShowViewAdapter		
 {
@@ -18,8 +16,8 @@ public class TextmoduleShowViewAdapter implements IShowViewAdapter
 	@Override
 	public Image getImage()
 	{		
-		return SWTResourceManager.getImage(TextbausteinePart.class,
-				"/icons/full/obj16/font.gif");
+		System.out.println("it.naturtalent.e4.office.ui.TextmoduleShowViewAdapter.getImage()");
+		return null;
 	}
 
 	@Override
@@ -31,7 +29,9 @@ public class TextmoduleShowViewAdapter implements IShowViewAdapter
 	@Override
 	public String partID()
 	{		
-		return TextbausteinePart.TEXTBAUSTEINE_VIEW_ID;
+		System.out.println("it.naturtalent.e4.office.ui.TextmoduleShowViewAdapter.partID");
+		return null;
+		
 	}
 
 }

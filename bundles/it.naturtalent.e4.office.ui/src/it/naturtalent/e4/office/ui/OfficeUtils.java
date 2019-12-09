@@ -70,6 +70,9 @@ public class OfficeUtils
 
 	// Selection im Master anfordern
 	public static final String KONTACTMASTER_SELECTIONREQUEST = "kontactselectionrequest"; // $NON-NLS-N$
+	
+	// die Zuruecksetzung des Kontaktnamenfilter anfordern
+	public static final String KONTACTFILTER_CLEARREQUEST = "kontactfilterclearrequest"; // $NON-NLS-N$
 
 	// Inhalt des OfficeProjekt wurde gespeichert
 	public static final String OFFICEPROJECT_CONTENTSAVEACCOMPLISHED = "officesaveaccomplished"; // $NON-NLS-N$

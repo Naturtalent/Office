@@ -2,11 +2,15 @@ package it.naturtalent.e4.office.ui.dialogs;
 
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
+import org.eclipse.e4.ui.internal.workbench.swt.WorkbenchSWTActivator;
 import org.eclipse.jface.dialogs.IDialogConstants;
+import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
@@ -23,12 +27,21 @@ import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.jface.viewers.IDoubleClickListener;
+import org.eclipse.jface.viewers.DoubleClickEvent;
 
+/**
+ * Zeigt alle verfügbaren WriteAdapterFactories und ermöglicht die Auswahl.
+ * 
+ * @author dieter
+ *
+ */
 public class SelectWriteAdapterDialog extends TitleAreaDialog
 {
-	
-	private class TableLabelProvider extends LabelProvider
-			implements ITableLabelProvider
+	/*
+	 * Labelprovider gibt die Namen der gelisteten WriteAdapterFactories zurueck 
+	 */
+	private class TableLabelProvider extends LabelProvider implements ITableLabelProvider
 	{
 		public Image getColumnImage(Object element, int columnIndex)
 		{
@@ -50,7 +63,10 @@ public class SelectWriteAdapterDialog extends TitleAreaDialog
 	private TableViewer tableViewer;
 	
 	private IODFWriteAdapter selectedAdapter;
-
+	
+	private IDialogSettings settings = WorkbenchSWTActivator.getDefault().getDialogSettings();
+	private static final String ADAPTER_LABEL_SETTINGS_KEY = "writeadaptersettingkey";
+	
 	/**
 	 * Create the dialog.
 	 * @param parentShell
@@ -78,12 +94,41 @@ public class SelectWriteAdapterDialog extends TitleAreaDialog
 		lblAvailableAdapter.setText(Messages.SelectWriteAdapter_lblAvailableAdapter_text);
 		
 		tableViewer = new TableViewer(container, SWT.BORDER | SWT.FULL_SELECTION);
+		tableViewer.addDoubleClickListener(new IDoubleClickListener()
+		{
+			public void doubleClick(DoubleClickEvent event)
+			{
+				// Ok durch DoppelClick
+				SelectWriteAdapterDialog.this.okPressed();
+			}
+		});
 		table = tableViewer.getTable();
 		table.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
 		tableViewer.setLabelProvider(new TableLabelProvider());
 		tableViewer.setContentProvider(new ArrayContentProvider());
 
 		return area;
+	}
+	
+	private void selectSettingAdapter()
+	{
+		String adapterLabel = settings.get(ADAPTER_LABEL_SETTINGS_KEY);
+		if(StringUtils.isNotEmpty(adapterLabel))
+		{
+			Object tableContent = tableViewer.getInput();
+			if (tableContent instanceof List)
+			{
+				List<IODFWriteAdapterFactory> factories = (List<IODFWriteAdapterFactory>) tableViewer.getInput();
+				for(IODFWriteAdapterFactory factory : factories)
+				{
+					if(StringUtils.equals(adapterLabel, factory.getAdapterLabel()))
+					{
+						tableViewer.setSelection(new StructuredSelection(factory));
+						break;
+					}					
+				}				
+			}			
+		}
 	}
 
 	/**
@@ -110,20 +155,26 @@ public class SelectWriteAdapterDialog extends TitleAreaDialog
 	public void setAdapter(List<IODFWriteAdapterFactory> writeAdapterFactories)
 	{
 		tableViewer.setInput(writeAdapterFactories);
+		selectSettingAdapter();
 	}
 
 	@Override
 	protected void okPressed()
 	{
+		IODFWriteAdapterFactory adapter = null;
+		
 		// der selektierte Factory erzeugt den eigentlichen Adapter
 		StructuredSelection selection = (StructuredSelection) tableViewer.getSelection();
 		Object selObject = selection.getFirstElement();
 		if (selObject instanceof IODFWriteAdapterFactory)
 		{
-			IODFWriteAdapterFactory adaptor = (IODFWriteAdapterFactory) selObject;
-			selectedAdapter = adaptor.createAdapter();			
+			adapter = (IODFWriteAdapterFactory) selObject;
+			selectedAdapter = adapter.createAdapter();			
 		}
 		
+		// DialogSettings
+		if(adapter != null)
+			settings.put(ADAPTER_LABEL_SETTINGS_KEY, adapter.getAdapterLabel());
 		super.okPressed();
 	}
 

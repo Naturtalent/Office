@@ -1,22 +1,12 @@
 package it.naturtalent.e4.office.ui;
 
-import it.naturtalent.e4.office.INtOffice;
-import it.naturtalent.e4.office.IOfficeService;
-import it.naturtalent.e4.office.OfficeConstants;
-import it.naturtalent.e4.office.OpenDocumentUtils;
-import it.naturtalent.libreoffice.odf.ODFOfficeDocumentHandler;
-
 import java.io.File;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.Properties;
 
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.SystemUtils;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.core.runtime.preferences.IEclipsePreferences;
-import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 

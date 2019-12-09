@@ -1,6 +1,5 @@
 package it.naturtalent.e4.office.ui.dialogs;
 
-import java.io.File;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -11,20 +10,15 @@ import org.eclipse.jface.dialogs.TitleAreaDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.layout.GridLayout;
 
-import it.naturtalent.e4.office.INtOffice;
-import it.naturtalent.e4.office.ITextModuleDataFactory;
 import it.naturtalent.e4.office.ITextModuleModel;
 import it.naturtalent.e4.office.TextModuleTheme;
 import it.naturtalent.e4.office.ui.TextModuleExportComposite;
-import it.naturtalent.e4.office.ui.TextModuleImportComposite;
-
-import org.eclipse.swt.widgets.Label;
 
 /**
  * @author dieter

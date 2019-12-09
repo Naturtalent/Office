@@ -1,52 +1,44 @@
 package it.naturtalent.e4.office.ui;
 
-import it.naturtalent.e4.office.ITextModuleModel;
-import it.naturtalent.e4.office.OpenDocumentUtils;
-import it.naturtalent.e4.office.TextModule;
-import it.naturtalent.e4.office.TextModuleModel;
-import it.naturtalent.e4.office.TextModuleTheme;
-import it.naturtalent.e4.office.ui.dialogs.TextmoduleTreeContentProvider;
-import it.naturtalent.e4.office.ui.dialogs.TextmoduleTreeLabelProvider;
-
 import java.io.File;
-import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.xml.bind.JAXB;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.DirectoryDialog;
-import org.eclipse.swt.widgets.FileDialog;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Tree;
 import org.eclipse.e4.ui.internal.workbench.swt.WorkbenchSWTActivator;
 import org.eclipse.jface.dialogs.IDialogSettings;
-import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.jface.viewers.CheckboxTreeViewer;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.custom.CCombo;
-import org.eclipse.swt.widgets.Button;
-import org.eclipse.ui.dialogs.ContainerCheckedTreeViewer;
-import org.eclipse.swt.widgets.TreeColumn;
+import org.eclipse.jface.viewers.CheckStateChangedEvent;
+import org.eclipse.jface.viewers.ICheckStateListener;
+import org.eclipse.jface.viewers.ISelectionChangedListener;
+import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.SelectionChangedEvent;
+import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.TreeViewerColumn;
-import org.eclipse.swt.layout.FillLayout;
-import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
-import org.eclipse.jface.viewers.ICheckStateListener;
-import org.eclipse.jface.viewers.CheckStateChangedEvent;
-import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jface.viewers.TreeViewer;
-import org.eclipse.jface.viewers.ISelectionChangedListener;
-import org.eclipse.jface.viewers.SelectionChangedEvent;
+import org.eclipse.swt.layout.FillLayout;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.DirectoryDialog;
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.widgets.Tree;
+import org.eclipse.swt.widgets.TreeColumn;
+import org.eclipse.ui.dialogs.ContainerCheckedTreeViewer;
+
+import it.naturtalent.e4.office.ITextModuleModel;
+import it.naturtalent.e4.office.TextModule;
+import it.naturtalent.e4.office.TextModuleTheme;
+import it.naturtalent.e4.office.ui.dialogs.TextmoduleTreeContentProvider;
+import it.naturtalent.e4.office.ui.dialogs.TextmoduleTreeLabelProvider;
 
 public class TextModuleExportComposite extends Composite
 {

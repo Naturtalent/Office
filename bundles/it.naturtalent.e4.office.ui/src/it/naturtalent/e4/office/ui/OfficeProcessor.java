@@ -4,22 +4,16 @@ package it.naturtalent.e4.office.ui;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.filefilter.FileFilterUtils;
-import org.apache.commons.io.filefilter.IOFileFilter;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.SystemUtils;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.core.runtime.preferences.DefaultScope;
-import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.di.annotations.Execute;
 import org.eclipse.e4.core.di.annotations.Optional;
@@ -35,14 +29,6 @@ import org.osgi.framework.FrameworkUtil;
 
 import it.naturtalent.application.IShowViewAdapterRepository;
 import it.naturtalent.application.services.IOpenWithEditorAdapterRepository;
-import it.naturtalent.e4.office.IOfficeDocumentHandler;
-import it.naturtalent.e4.office.IOfficeService;
-import it.naturtalent.e4.office.OfficeConstants;
-import it.naturtalent.e4.office.OpenDocumentUtils;
-import it.naturtalent.e4.office.ui.expimp.OfficeProfileExportAdapter;
-import it.naturtalent.e4.office.ui.expimp.OfficeProfileImportAdapter;
-import it.naturtalent.e4.office.ui.expimp.TextmoduleExportAdapter;
-import it.naturtalent.e4.office.ui.expimp.TextmoduleImportAdapter;
 import it.naturtalent.e4.office.ui.preferences.OfficeAbsenderPreferenceAdapter;
 import it.naturtalent.e4.office.ui.preferences.OfficeFootNotePreferenceAdapter;
 import it.naturtalent.e4.office.ui.preferences.OfficeReferenzPreferenceAdapter;
@@ -57,6 +43,12 @@ import it.naturtalent.e4.project.INtProjectPropertyFactoryRepository;
 import it.naturtalent.e4.project.ui.DynamicNewMenu;
 
 
+/**
+ * Initialisierung officespezfischer Funktionen.
+ * 
+ * @author dieter
+ *
+ */
 public class OfficeProcessor
 {
 
@@ -71,7 +63,6 @@ public class OfficeProcessor
 	private @Inject @Optional IExportAdapterRepository exportAdapterRepository;
 	private @Inject @Optional IShowViewAdapterRepository showViewAdapterRepository;
 	private @Optional @Inject INewActionAdapterRepository newWizardRepository;
-	private @Inject @Optional IOfficeService officeService;
 	private @Inject @Optional IPreferenceRegistry preferenceRegistry;
 	
 	private @Inject @Optional EPartService partService;
@@ -125,7 +116,7 @@ public class OfficeProcessor
 			preferenceRegistry.getPreferenceAdapters().add(new OfficeSigaturePreferenceAdapter());
 		}
 		
-		// WorkspaceDir in dem die Telekomvorlagen gespeichert werden 
+		// WorkspaceDir in dem die Vorlagen gespeichert werden (deprecated) 
 		File destOfficeWorkspaceDir = new File(
 				ResourcesPlugin.getWorkspace().getRoot().getLocation().toFile(),
 				it.naturtalent.e4.office.ui.Activator.OFFICEDATADIR + File.separator + ODFDefaultWriteAdapter.ODFTEXT_TEMPLATE_DIRECTORY);
@@ -255,6 +246,8 @@ public class OfficeProcessor
 		 * 
 		 */
 		
+		/*
+		
 		// Zugriff auf die plugin Templates (SRC-Dir)			
 		File pluginTemplateDir = OpenDocumentUtils.getPluginTemplateDir(this.getClass());
 		
@@ -271,26 +264,32 @@ public class OfficeProcessor
 						IOfficeService.NTOFFICE_CONTEXT, officeService);
 			}			
 		}
+		*/
 
 		if(importAdapterRepository != null)
 		{
 			importAdapterRepository.addImportAdapter(new ImportKontakteAdapter());
-			importAdapterRepository.addImportAdapter(new TextmoduleImportAdapter());
-			importAdapterRepository.addImportAdapter(new OfficeProfileImportAdapter());
+			//importAdapterRepository.addImportAdapter(new TextmoduleImportAdapter());
+			//importAdapterRepository.addImportAdapter(new OfficeProfileImportAdapter());
 		}
 				
 		if(exportAdapterRepository != null)
 		{
 			exportAdapterRepository.addExportAdapter(new ExportKontakteAdapter());
-			exportAdapterRepository.addExportAdapter(new TextmoduleExportAdapter());
-			exportAdapterRepository.addExportAdapter(new OfficeProfileExportAdapter());
+			//exportAdapterRepository.addExportAdapter(new TextmoduleExportAdapter());
+			//exportAdapterRepository.addExportAdapter(new OfficeProfileExportAdapter());
 		}
 
 		if(showViewAdapterRepository != null)
-			showViewAdapterRepository.addShowViewAdapter(new TextmoduleShowViewAdapter());
+		{
+			showViewAdapterRepository.addShowViewAdapter(new ShowKontakteViewAdapter());
+			//showViewAdapterRepository.addShowViewAdapter(new TextmoduleShowViewAdapter());
+		}
 		
+		/*
 		if(newWizardRepository != null)
 			newWizardRepository.addNewActionAdapter(new NewLetterAdapter());
+			*/
 			
 	}
 	

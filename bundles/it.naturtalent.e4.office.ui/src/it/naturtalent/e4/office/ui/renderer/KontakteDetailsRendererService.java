@@ -14,16 +14,16 @@ import org.eclipse.emfforms.spi.swt.core.AbstractSWTRenderer;
 
 import it.naturtalent.office.model.address.AddressPackage;
 
-
 /**
- * Dieser Service bringt zur Bearbeitung des 'NrProjektKontakte' - Objects einen angepassten Multireferenzrenderer ins
- * Spiel.
- *  
+ * Dieser Service bringt einen KontakteRenderer ins Spiel, der es ermöglicht das Kontaktehandling in der
+ * Detailansicht zu modifiziern.
+ * 
  * @author dieter
  *
  */
-public class NtKontactRendererService extends MultiReferenceSWTRendererService
+public class KontakteDetailsRendererService extends MultiReferenceSWTRendererService
 {
+
 	private EMFFormsDatabinding databindingService;
 	private ReportService reportService;
 
@@ -83,22 +83,13 @@ public class NtKontactRendererService extends MultiReferenceSWTRendererService
 			return NOT_APPLICABLE;
 		}
 		
-		/*
-		if (EAttribute.class.isInstance(feature))
+		// filtert nach Kontakte
+		if (AddressPackage.eINSTANCE.getKontakte_Kontakte().equals(feature))
 		{
-			return NOT_APPLICABLE;
-		}
-		*/
-		
-		// Filtert das Object 'NrProjektKontakte'
-		if (AddressPackage.eINSTANCE.getNtProjektKontakte_Kontakte().equals(feature))
-		{
-			return 12.0;					
+			return 12.0;				
 		}
 
 		return NOT_APPLICABLE;
-		
-		//return 5;
 	}
 
 	/**
@@ -108,6 +99,6 @@ public class NtKontactRendererService extends MultiReferenceSWTRendererService
 	 */
 	@Override
 	public Class<? extends AbstractSWTRenderer<VControl>> getRendererClass() {
-		return NtKontactRenderer.class;
+		return KontakteDetailsRenderer.class;
 	}
 }

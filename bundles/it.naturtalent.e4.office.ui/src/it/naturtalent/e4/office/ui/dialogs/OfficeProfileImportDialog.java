@@ -8,23 +8,15 @@ import org.eclipse.jface.dialogs.TitleAreaDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.Table;
-import org.eclipse.swt.layout.GridLayout;
-
-import it.naturtalent.e4.office.OfficeProfiles;
-import it.naturtalent.e4.office.letter.OfficeLetterProfiles;
-import it.naturtalent.e4.office.ui.OfficeProfileComposite;
-
-import org.eclipse.swt.widgets.Label;
-
-import it.naturtalent.e4.office.ui.OfficeProfileImportComposite;
-
-import org.eclipse.swt.widgets.Tree;
 import org.eclipse.wb.swt.SWTResourceManager;
+
+import it.naturtalent.e4.office.letter.OfficeLetterProfiles;
+import it.naturtalent.e4.office.ui.OfficeProfileImportComposite;
 
 public class OfficeProfileImportDialog extends TitleAreaDialog
 {

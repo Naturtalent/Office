@@ -5,31 +5,26 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-import it.naturtalent.e4.office.OfficeProfiles;
-
-import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Table;
-import org.eclipse.jface.viewers.CheckboxTableViewer;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.core.databinding.DataBindingContext;
-import org.eclipse.jface.databinding.viewers.ObservableListContentProvider;
-import org.eclipse.core.databinding.observable.map.IObservableMap;
+import org.eclipse.core.databinding.beans.BeanProperties;
 import org.eclipse.core.databinding.beans.BeansObservables;
+import org.eclipse.core.databinding.observable.list.IObservableList;
+import org.eclipse.core.databinding.observable.map.IObservableMap;
+import org.eclipse.jface.databinding.viewers.ObservableListContentProvider;
+import org.eclipse.jface.databinding.viewers.ObservableMapLabelProvider;
+import org.eclipse.jface.viewers.CheckStateChangedEvent;
+import org.eclipse.jface.viewers.CheckboxTableViewer;
+import org.eclipse.jface.viewers.ICheckStateListener;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Table;
+import org.eclipse.swt.widgets.TableColumn;
 
 import it.naturtalent.e4.office.letter.OfficeLetterProfile;
 import it.naturtalent.e4.office.letter.OfficeLetterProfiles;
 import it.naturtalent.e4.office.ui.dialogs.OfficeProfileExportDialog;
-
-import org.eclipse.jface.databinding.viewers.ObservableMapLabelProvider;
-import org.eclipse.core.databinding.observable.list.IObservableList;
-import org.eclipse.core.databinding.beans.BeanProperties;
-import org.eclipse.jface.viewers.ICheckStateListener;
-import org.eclipse.jface.viewers.CheckStateChangedEvent;
 
 public class OfficeProfileComposite extends Composite
 {
