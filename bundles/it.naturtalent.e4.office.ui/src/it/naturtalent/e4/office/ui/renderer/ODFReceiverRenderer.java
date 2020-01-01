@@ -28,7 +28,7 @@ import it.naturtalent.office.model.address.Adresse;
 import it.naturtalent.office.model.address.Empfaenger;
 
 /**
- * Angepasster Renderer 
+ * Angepasster Renderer fuer den Receiver MasterView 
  * SelektionListener meldet den ausgeaehlten Empfaenger 
  * @author dieter
  *
@@ -41,7 +41,7 @@ public class ODFReceiverRenderer extends TreeMasterDetailSWTRenderer
 	private TreeViewer treeViewer;
 	
 	/*
-	 * Listener meldet die Selektion eines Empfaegers im MasterView. 
+	 * TreeViewer-SelectionListener meldet die Selektion eines Empfaegers im MasterView. 
 	 */
 	private ISelectionChangedListener selectionListener = new ISelectionChangedListener()
 	{		
@@ -102,10 +102,17 @@ public class ODFReceiverRenderer extends TreeMasterDetailSWTRenderer
 	
 	@Inject 
 	@Optional
-	public void handleReferenceSelection(@UIEventTopic(OfficeUtils.SET_OFFICEMASTER_SELECTION_EVENT) Object empfaenger)
+	public void handleReferenceSelection(@UIEventTopic(OfficeUtils.SET_OFFICEMASTER_SELECTION_EVENT) Object empfaengerObj)
 	{
-		if (empfaenger instanceof Empfaenger)		
-			treeViewer.setSelection(new StructuredSelection(empfaenger));
+		if (empfaengerObj instanceof Empfaenger)	
+		{
+			Empfaenger empfaenger = (Empfaenger) empfaengerObj;
+			treeViewer.expandToLevel(empfaenger, 1);
+			
+			Adresse adresse = empfaenger.getAdresse();
+			treeViewer.setSelection(new StructuredSelection(adresse));
+						
+		}
 	}
 
 

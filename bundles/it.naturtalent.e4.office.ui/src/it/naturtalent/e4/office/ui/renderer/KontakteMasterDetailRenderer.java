@@ -1,8 +1,6 @@
 package it.naturtalent.e4.office.ui.renderer;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -19,7 +17,6 @@ import org.eclipse.emf.ecp.view.spi.renderer.NoRendererFoundException;
 import org.eclipse.emf.ecp.view.spi.treemasterdetail.ui.swt.TreeMasterDetailSWTRenderer;
 import org.eclipse.emf.ecp.view.treemasterdetail.model.VTreeMasterDetail;
 import org.eclipse.emf.ecp.view.treemasterdetail.ui.swt.internal.RootObject;
-import org.eclipse.emf.edit.command.AddCommand;
 import org.eclipse.emf.edit.command.DeleteCommand;
 import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
 import org.eclipse.emf.edit.domain.EditingDomain;
@@ -62,6 +59,7 @@ import it.naturtalent.office.model.address.Kontakt;
  * Angepasster Renderer der den Masterbereich des Containers 'Kontakte' repraesentiert.
  * 
  * Fuegt ein Textfeld im Kopf der Tabelle ein mit dem nach einem Kontaktnamen gesucht werden kann.
+ * Definiert Kontextmenu in Abhaengigkeit der Selektion.
  * 
  * 
  * @author dieter
@@ -85,6 +83,7 @@ public class KontakteMasterDetailRenderer extends TreeMasterDetailSWTRenderer
 	private EditingDomain domain;
 	private EReference eReference;
 	
+	// Aktion ID's zum Speichern in der ActionMap
 	public enum MenueID
 	{
 		DelKontakID("Kontakt löschen"),
@@ -104,13 +103,11 @@ public class KontakteMasterDetailRenderer extends TreeMasterDetailSWTRenderer
 	}	
 	private Map<MenueID, Action>menuMap = new HashMap<MenueID, Action>();
 	
-	
 	// Ein Filter fuer die Kontaktnamen
 	private class NameFilter extends ViewerFilter
 	{
 		@Override
-		public boolean select(Viewer viewer, Object parentElement,
-				Object element)
+		public boolean select(Viewer viewer, Object parentElement, Object element)
 		{					
 			if (element instanceof Kontakt)
 			{	
@@ -168,12 +165,14 @@ public class KontakteMasterDetailRenderer extends TreeMasterDetailSWTRenderer
 		textFilter.addModifyListener(new ModifyListener()
 		{
 			public void modifyText(ModifyEvent e)
-			{				
+			{			
 				stgFilter = textFilter.getText();
 				treeViewer.refresh();
 				treeViewer.expandToLevel(2);
 			}
 		});
+		
+		//Button btnClear = new Button(masterPanel, SWT.NONE);
 		
 		return masterPanel;
 	}
@@ -202,10 +201,12 @@ public class KontakteMasterDetailRenderer extends TreeMasterDetailSWTRenderer
 				{
 					EObject root = ((RootObject) treeViewer.getInput()).getRoot();
 					//contextMenu.getItem(1).setEnabled(!selection.toList().contains(root));
-								
+						
+					// MenuManager loeschen
 					menuMgr.removeAll();
 					if(selection.toList().contains(root))
 					{
+						// ist Root (Kontakte) selektiert - Add Kontakt hinzufuegen
 						menuMgr.add(menuMap.get(MenueID.AddKontakID));
 					}
 					else
@@ -213,15 +214,22 @@ public class KontakteMasterDetailRenderer extends TreeMasterDetailSWTRenderer
 						Object selObject = selection.getFirstElement();
 						if (selObject instanceof Kontakt)
 						{
+							menuMgr.add(menuMap.get(MenueID.AddKontakID));
+							
+							// Kontakt selektiert - Del Kontakt hinzufuegen
 							Kontakt kontakt = (Kontakt) selObject;
 							menuMgr.add(menuMap.get(MenueID.DelKontakID));							
 							if(kontakt.getAdresse() == null)
-								menuMgr.add(menuMap.get(MenueID.AddAddressID));							
+							{
+								// Kontakt ohne Adresse - Add Adresse hinzufuegen
+								menuMgr.add(menuMap.get(MenueID.AddAddressID));
+							}
 						}
 						else
 						{
 							if (selObject instanceof Adresse)
 							{
+								// Kontakt mit Adresse - Del Adresse hinzufuegen
 								menuMgr.add(menuMap.get(MenueID.DelAddressID));								
 							}							
 						}
@@ -258,22 +266,28 @@ public class KontakteMasterDetailRenderer extends TreeMasterDetailSWTRenderer
 			@Override
 			public void run()
 			{
-				IStructuredSelection selection = treeViewer.getStructuredSelection();		
-				Object selObj = selection.getFirstElement();
-				if (selObj instanceof Kontakt)
-				{
-					Kontakt kontakt = (Kontakt) selObj;
-					if (MessageDialog.openQuestion(
-							Display.getDefault().getActiveShell(), "Kontakt",
-							"den selektierten Kontakt löschen")) //$NON-NLS-N$
-					{								
-						Command delCommand = DeleteCommand.create(domain, kontakt);
-						if(delCommand.canExecute())	
-							domain.getCommandStack().execute(delCommand);	
-						treeViewer.refresh();								
-					}							
-				}				
-
+				IStructuredSelection selection = treeViewer.getStructuredSelection();					
+				Object [] selObjects = selection.toArray();				
+				if (MessageDialog.openQuestion(
+						Display.getDefault().getActiveShell(), "Kontakt", "selektierte(n) Kontakt(e) löschen")) //$NON-NLS-N$
+				{					
+					EObject container=null;
+					for (Object selObj : selObjects)
+					{
+						if (selObj instanceof Kontakt)
+						{
+							Kontakt kontakt = (Kontakt) selObj;
+							{
+								container = kontakt.eContainer();
+								Command delCommand = DeleteCommand.create(domain, kontakt);
+								if (delCommand.canExecute())
+									domain.getCommandStack().execute(delCommand);								
+							}
+						}
+					}
+					treeViewer.refresh();
+					treeViewer.setSelection(new StructuredSelection(container),true);	
+				}					
 			}		
 		};
 				

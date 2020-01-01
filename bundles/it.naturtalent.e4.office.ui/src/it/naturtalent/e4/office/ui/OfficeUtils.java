@@ -206,8 +206,11 @@ public class OfficeUtils
 	 */
 	public static Kontakt readKontaktFromDatabase()
 	{
+		
+		System.out.println("Trace in OfficeUtils");
+		
+		// Kontakte fuer anschliessenden Dialog in einem Set aufbereiten 
 		EList<Kontakt> allKontacts = getKontakte().getKontakte();
-
 		Set<EObject> elements = new LinkedHashSet<EObject>();
 		for (Kontakt kontact : allKontacts)
 			elements.add(kontact);
@@ -216,6 +219,8 @@ public class OfficeUtils
 		final Set<EObject> selectedElements = SelectModelElementWizardFactory
 				.openModelElementSelectionDialog(elements, false);
 
+		
+		
 		if ((selectedElements != null) && (!selectedElements.isEmpty()))
 			return (Kontakt) EcoreUtil.copy(selectedElements.iterator().next());
 

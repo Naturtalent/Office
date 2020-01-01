@@ -36,7 +36,10 @@ import it.naturtalent.office.model.address.Kontakt;
 import it.naturtalent.office.model.address.NtProjektKontakte;
 
 /**
- * Der zur Bearbeitung des NtProjektKontaktes angepasste Renderer.
+ * Der zur Bearbeitung des NtProjektKontaktes angepasste Renderer. Dieser Renderer ermoeglicht das Einkopieren
+ * eines Kontakts aus der Kontakt-Datenbank. Im Vordergrund steht hier der Kontakt mit den Kontaktdaten im
+ * Datenbereich. Ist auch eine Adresse definiert, wird diese vom WriteAdapter benutzt und in ein Anschreiben
+ * uebernommen.
  * 
  * @author dieter
  *
@@ -144,6 +147,7 @@ public class NtKontactRenderer extends MultiReferenceSWTRenderer
 			eventBroker.post(OfficeUtils.OFFICEPROJECT_CONTENTSAVEACCOMPLISHED, null);
 		}
 	}
+	
 	
 
 	/*

@@ -15,7 +15,7 @@ import it.naturtalent.office.model.address.Kontakte;
 import it.naturtalent.office.model.address.NtProjektKontakte;
 
 /**
- * Wizardpage zur Definition der projektspezifischen Kontakte
+ * Wizardpage zur Bearbeitung der projektspezifischen Kontakte
  * 
  * @author dieter
  *

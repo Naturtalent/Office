@@ -30,7 +30,6 @@ import org.eclipse.swt.widgets.Composite;
 import org.osgi.service.prefs.BackingStoreException;
 
 import it.naturtalent.e4.office.ui.OfficeUtils;
-import it.naturtalent.e4.office.ui.dialogs.AbsenderDialog;
 import it.naturtalent.e4.office.ui.dialogs.OfficePreferenzDialog;
 import it.naturtalent.e4.preferences.CheckListEditorComposite;
 import it.naturtalent.office.model.address.Absender;

@@ -19,6 +19,12 @@ import org.eclipse.swt.widgets.Text;
 
 
 
+/**
+ * Angepasster Renderer fuer das Datenfeld des Kontakts
+ * 
+ * @author dieter
+ *
+ */
 public class KontakteKommunicationRendering extends TextControlSWTRenderer
 {
 	@Inject
@@ -44,8 +50,8 @@ public class KontakteKommunicationRendering extends TextControlSWTRenderer
 		// Textfeld
 		final Text text = new Text(composite, SWT.BORDER | SWT.WRAP | SWT.V_SCROLL | SWT.H_SCROLL);
 		GridData gd_txtDescription = new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1);
-		gd_txtDescription.heightHint = 180;
-		gd_txtDescription.widthHint = 400;
+		gd_txtDescription.heightHint = 300;
+		gd_txtDescription.widthHint = 100;
 		text.setLayoutData(gd_txtDescription);
 		
 		return composite;

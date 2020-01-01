@@ -5,8 +5,7 @@ import org.eclipse.jface.wizard.IWizardPage;
 import org.odftoolkit.simple.TextDocument;
 
 /**
- * Dieses Inferface erweitert IWizardPage um weitere Funktionen im Zusammenhang mit 
- * dem OfficeWrite handling.  
+ * Dieses Inferface erweitert System-IWizardPage um weitere Funktionen die fuer das OfficeWrite-Handling benoetigt werden.  
  * 
  * @author dieter
  *

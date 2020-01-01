@@ -269,6 +269,7 @@ public class OfficeProcessor
 		if(importAdapterRepository != null)
 		{
 			importAdapterRepository.addImportAdapter(new ImportKontakteAdapter());
+			importAdapterRepository.addImportAdapter(new ImportCSVKontakteAdapter());
 			//importAdapterRepository.addImportAdapter(new TextmoduleImportAdapter());
 			//importAdapterRepository.addImportAdapter(new OfficeProfileImportAdapter());
 		}
@@ -276,7 +277,7 @@ public class OfficeProcessor
 		if(exportAdapterRepository != null)
 		{
 			exportAdapterRepository.addExportAdapter(new ExportKontakteAdapter());
-			//exportAdapterRepository.addExportAdapter(new TextmoduleExportAdapter());
+			exportAdapterRepository.addExportAdapter(new JournalProjectExportAdapter());			
 			//exportAdapterRepository.addExportAdapter(new OfficeProfileExportAdapter());
 		}
 

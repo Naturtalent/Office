@@ -40,7 +40,7 @@ import it.naturtalent.office.model.address.Sender;
 public class OfficeAbsenderPreferenceAdapter extends AbstractPreferenceAdapter
 {
 	// UI der Absender-Praeferenzliste
-	private OfficeAbsenderPreferenceComposite absenderComposite;
+	protected OfficeAbsenderPreferenceComposite absenderComposite;
 	
 	//protected List<Absender>importedAbsenderList;
 	

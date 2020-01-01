@@ -111,9 +111,11 @@ public class OfficeFootNotePreferenceAdapter extends AbstractPreferenceAdapter
             @Override
             public void handleEvent(Event event) 
             {
+            	// mir Importdialog die Quelldatei oeffnen
             	List<EObject>eObjects = OfficeDefaultPreferenceUtils.importPreference();
             	if((eObjects != null) && (!eObjects.isEmpty()))
             	{
+            		// beinhaltet die Datei Footnotes
             		if(eObjects.get(0) instanceof FootNotes)
             		{     
             			FootNotes footNotes = (FootNotes) eObjects.get(0); 
@@ -126,6 +128,7 @@ public class OfficeFootNotePreferenceAdapter extends AbstractPreferenceAdapter
             				for(FootNote importFootNote : allFootnotes)            				
             					importedFooNoteList.add(importFootNote);
             				
+            				// hier kann noch eine Context-Filterfunktion eingeschaltet werden
             				postImport(importedFooNoteList);
             			}
             		}
@@ -135,7 +138,7 @@ public class OfficeFootNotePreferenceAdapter extends AbstractPreferenceAdapter
 	
 	}
 	
-	// realisiert die zum Import anstehenden Absender
+	// abschliessendes contextbezogenes Einlesen der Fussnoten
 	protected void postImport(List<FootNote>importedFooNoteList)
 	{
 		footNoteComposite.importFootNotes(importedFooNoteList);

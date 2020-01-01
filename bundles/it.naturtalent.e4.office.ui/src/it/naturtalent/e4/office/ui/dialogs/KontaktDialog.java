@@ -78,7 +78,7 @@ public class KontaktDialog extends Dialog
 		
 		try
 		{	
-			// einen neuen Kontakt Adresse erzeugen
+			// einen neuen Kontakt erzeugen
 			EClass kontaktClass = AddressPackage.eINSTANCE.getKontakt();
 			newKontakt = (Kontakt) EcoreUtil.create(kontaktClass);
 			

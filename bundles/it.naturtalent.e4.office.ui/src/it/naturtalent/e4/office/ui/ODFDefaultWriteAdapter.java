@@ -20,6 +20,7 @@ import org.eclipse.e4.ui.internal.workbench.E4Workbench;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.wizard.IWizard;
 import org.eclipse.swt.widgets.Display;
+import org.odftoolkit.simple.SpreadsheetDocument;
 import org.odftoolkit.simple.TextDocument;
 import org.odftoolkit.simple.meta.Meta;
 import org.osgi.framework.Bundle;
@@ -30,7 +31,8 @@ import it.naturtalent.e4.office.ui.dialogs.ODFSelectVorlagenDialog;
 import it.naturtalent.e4.office.ui.wizards.ODFDefaultWriteAdapterWizard;
 
 /**
- * Diese Klasse implementiert einen Anschreiben-Adapter der obligatorisch zur Verfuegung steht.
+ * Diese Klasse implementiert einen Anschreiben-Adapter der obligatorisch zur Verfuegung steht und wird
+ * von der Factory ins Spiel gebracht.
  * 
  * Der mit diesem Adapter erzeugte Wizard ermoeglicht das Handling mit dem ODFTextDokument
  * 
@@ -54,8 +56,7 @@ public class ODFDefaultWriteAdapter implements IODFWriteAdapter
 
 	// ODF - Dokument
 	private TextDocument odfDocument;
-	
-	
+
 	 
 	/*
 	 * Wizard, mit dem Eintragungen (Adresse, Absender etc.) 'von aussen' im Anschreiben  vorgenommen werden koennen.
@@ -108,7 +109,7 @@ public class ODFDefaultWriteAdapter implements IODFWriteAdapter
 	}
 
 	/*
-	 * Vorlage kopieren
+	 * Vorlage fuer das TextDokument aus dem Vorratsspeicher kopieren
 	 */
 	private File createODFFile(File destDir)
 	{		

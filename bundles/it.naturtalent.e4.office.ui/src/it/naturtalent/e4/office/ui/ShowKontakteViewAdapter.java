@@ -9,7 +9,7 @@ import it.naturtalent.icons.core.IconSize;
 
 
 /**
- * Adapter zum Anzeigen/Aktivieren der Login-Fensters.
+ * Adapter zum Anzeigen/Aktivieren des Kontakte-Fensters.
  * 
  * @author dieter
  *

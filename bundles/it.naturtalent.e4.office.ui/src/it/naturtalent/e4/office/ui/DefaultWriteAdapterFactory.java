@@ -1,7 +1,7 @@
 package it.naturtalent.e4.office.ui;
 
 /**
- * Ueber diese Factory wird der DefaultWriteAdapter erzeugt.
+ * Diese Factory erzeugt den DefaultWriteAdapter.
  *  
  * @author dieter
  *

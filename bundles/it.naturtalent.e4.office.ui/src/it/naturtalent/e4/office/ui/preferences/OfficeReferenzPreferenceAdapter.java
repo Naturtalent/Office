@@ -15,11 +15,9 @@ import org.eclipse.ui.forms.widgets.Hyperlink;
 import it.naturtalent.application.IPreferenceNode;
 import it.naturtalent.e4.office.ui.OfficeUtils;
 import it.naturtalent.e4.preferences.AbstractPreferenceAdapter;
-import it.naturtalent.office.model.address.Absender;
 import it.naturtalent.office.model.address.AddressPackage;
 import it.naturtalent.office.model.address.Referenz;
 import it.naturtalent.office.model.address.Referenzen;
-import it.naturtalent.office.model.address.Sender;
 
 
 /**
@@ -31,7 +29,7 @@ import it.naturtalent.office.model.address.Sender;
 public class OfficeReferenzPreferenceAdapter extends AbstractPreferenceAdapter
 {
 	// UI der Referenz-Praeferenzliste
-	private OfficeReferenzPreferenceComposite referenceComposite;
+	protected OfficeReferenzPreferenceComposite referenceComposite;
 	
 	//protected List<Referenz>importedReferenzenList;
 	
@@ -78,6 +76,10 @@ public class OfficeReferenzPreferenceAdapter extends AbstractPreferenceAdapter
 		return referenceComposite;
 	}
 	
+	/*
+	 * Erweitert die Composite (Hyperlinks 'export' / 'import' 
+	 * 
+	 */
 	protected void init(Composite composite)
 	{
 		// einen Infotext hinzufuegen
@@ -133,6 +135,9 @@ public class OfficeReferenzPreferenceAdapter extends AbstractPreferenceAdapter
         });
 	}
 	
+	/*
+	 * ueberschreibbare Funktion zur Spezialisierung von OfficeContext und Praeferenzknoten 
+	 */
 	protected void postImport(List<Referenz>importedReferenzenList)
 	{
 		referenceComposite.importReferenzen(importedReferenzenList);

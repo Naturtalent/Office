@@ -53,6 +53,11 @@ public class OfficeDefaultPreferenceUtils
 	public static final String E4CONTEXT_DEFAULTNAME = "defaultName"; //$NON-NLS-1$
 
 	
+	/**
+	 * Mit einem Filedialog die Ziel-Exportdatei auswaehlen.
+	 * 
+	 * @param preferenceData
+	 */
 	public static void exportPreference(EObject preferenceData)
 	{
 		String exportPath = null;
@@ -72,6 +77,11 @@ public class OfficeDefaultPreferenceUtils
 			ExpImpUtils.saveEObjectToResource(preferenceData, exportPath);
 	}
 
+	/**
+	 * Mit einem Filedialog die Quell-Importdatei auswaehlen.
+	 * 
+	 * @return
+	 */
 	public static EList<EObject> importPreference()
 	{	
 		// Filedialog im 'OPEN*-Modus

@@ -37,10 +37,14 @@ import it.naturtalent.e4.project.ui.utils.RefreshResource;
  * Dieser Wizard wird vom Adapter 'ODFDefaultWriteAdapter' bereitgestellt und ermoeglicht die erforderlichen Abfragen
  * mit dem von ihm wiederum erzeugten und hinzugefuegten WizardPages.
  * 
- * Adapter fuer das Handling mit dem TextDokument
+ * Ins Spiel gebracht wird der Wizard von dem Adapter 'ODFDefaultWriteAdapter' und ermoeglicht das Handling 
+ * mit dem ODF-API und der Anwendung Libreoffice.  
  * @see it.naturtalent.e4.office.ui.ODFDefaultWriteAdapter
  * 
- * Dient als Grundlage fuer spezifische Erweiterungen. 
+ * Mit einem speziellen Context 'officeContext' koennen Objekte aus dem EMF-Modell (Referenzen, Signaturen, Fussnoten etc.) 
+ * identifiziert werden (nicht verwechseln mit E4Context).  
+ * 
+ * Duiese Klasse dient als Grundlage fuer weitere spezifische Erweiterungen (z.B. Businesstexte) 
  * Mit 'addPages()' koennen die gewuenschten Pages eingefuegt werden
  * 
  * @author dieter
@@ -48,7 +52,8 @@ import it.naturtalent.e4.project.ui.utils.RefreshResource;
  */
 public class ODFDefaultWriteAdapterWizard extends Wizard
 {	
-	// in diesem Context arbeitet der Wizard, die WizardPages und die Renderer	
+	// in diesem Context arbeitet der Wizard, die WizardPages und die EMF-Renderer	
+	// EMF-Objekte werden mit diesem Context identifizier 
 	protected String officeContext;
 	
 	// Office-Praeferenzknoten
@@ -147,7 +152,7 @@ public class ODFDefaultWriteAdapterWizard extends Wizard
 		
 	}
 	
-	// im WIZARDOPENMODE lesen die WizardPages 'ihre' Daten von der zuoeffnenden Datei		
+	// im WIZARDOPENMODE lesen die WizardPages 'ihre' Daten aus dem goeffnenden Dokument		
 	protected void readDocumentData()
 	{		
 		if (odfDocument != null)
@@ -180,7 +185,7 @@ public class ODFDefaultWriteAdapterWizard extends Wizard
 	}
 	
 	/**
-	 * Mit dieser Funktion ruft der Wizard alle seine Seiten auf und executiert die jeweiligen 
+	 * Mit dieser Funktion ruft der Wizard alle seine Seiten auf und exekutiert die jeweiligen 
 	 * 'writeToDocument(odfDocument)' Funktionen der Pages. 
 	 * 
 	 * Es werden nur die Pages betrachtet, die das Interface 'IWriteWizardPage' implementieren.
@@ -204,6 +209,7 @@ public class ODFDefaultWriteAdapterWizard extends Wizard
 			
 			// ODFDokument speichern 
 			odfDocument.save(odfDocumentFile);
+			odfDocument.close();
 				
 		} catch (Exception e1)
 		{

@@ -29,8 +29,8 @@ import it.naturtalent.office.model.address.Signatures;
 public class OfficeSigaturePreferenceAdapter extends AbstractPreferenceAdapter
 {
 	// UI der Signature-Praeferenzliste
-	private OfficeSignaturePreferenceComposite signatureComposite;
-	
+	protected OfficeSignaturePreferenceComposite signatureComposite;
+
 	//protected List<Referenz>importedReferenzenList;
 	
 	

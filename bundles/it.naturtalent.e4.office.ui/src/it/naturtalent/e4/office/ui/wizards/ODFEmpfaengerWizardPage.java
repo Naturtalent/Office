@@ -56,9 +56,8 @@ import it.naturtalent.office.model.address.Sender;
 
 /**
  * 
- * Wizardseite zur Bearbeitung der projektspezifischen Kontakte. Mit dem Kontakt kann auch eine Adresse definiert werden.
- * Im Zusammenhang mit Anschreiben ist diese Adresse von Interesse und kann als Adressat in das Dokument geschrieben
- * werden. Die selektierte Adresse wird in das Dokument geschrieben.
+ * Wizardseite zur Bearbeitung der projektspezifischen Kontakte. Relevant ist nur die Adresse des Kontakts.
+   Die Adresse des selektierte Kontaks wird in das Dokument geschrieben / aus dem Dokument gelesen.
  * 
  *  ODFDefaultWriteAdapterWizard
  * 
@@ -118,8 +117,10 @@ public class ODFEmpfaengerWizardPage extends WizardPage implements IWriteWizardP
 	}
 	
 	/**
-	 * Die Funktion 'handleAddExisting' (Kopieren aus der Kontaktdatenbank) des DetailRenderers 
-	 * wird hier ausgefuhrt.
+	 * Der EventBroker meldet die Info des Renderers.
+	 * Die Add - Aktion 'handleAddExisting' des Detailrenderers wird hier ausgefuhrt.
+	 * 
+	 * Ermoeglicht das Kopieren aus der Kontaktdatenbank. 
 	 * 
 	 * @param empfaenger
 	 */
@@ -131,7 +132,7 @@ public class ODFEmpfaengerWizardPage extends WizardPage implements IWriteWizardP
 		Kontakt dbKontakt = OfficeUtils.readKontaktFromDatabase();
 		if(dbKontakt != null)			
 		{
-			// der selektierte Kontakt wird als Empfaenger mit der Kontaktadresse uebernaommen
+			// der selektierte Kontakt wird als Empfaenger mit der Kontaktadresse uebernommen
 			EClass empfaengerClass = AddressPackage.eINSTANCE.getEmpfaenger();
 			Empfaenger empfaenger = (Empfaenger) EcoreUtil.create(empfaengerClass);
 			empfaenger.setName(dbKontakt.getName());
@@ -139,7 +140,9 @@ public class ODFEmpfaengerWizardPage extends WizardPage implements IWriteWizardP
 			receivers.getReceivers().add(empfaenger);
 
 			// den Empfaenger selektieren
-			eventBroker.post(OfficeUtils.SET_RECEIVERMASTER_SELECTION_EVENT , empfaenger);
+			//eventBroker.post(OfficeUtils.SET_RECEIVERMASTER_SELECTION_EVENT , empfaenger);
+			eventBroker.post(OfficeUtils.SET_OFFICEMASTER_SELECTION_EVENT, empfaenger);
+			
 		}
 
 	}
@@ -299,6 +302,7 @@ public class ODFEmpfaengerWizardPage extends WizardPage implements IWriteWizardP
 		// TODO Auto-generated method stub		
 	}
 
+	// einlesen der Adresse
 	private void readDefaultAddress(Adresse address, Table table)
 	{
 		// Adresstabelle (getrimmt) aus dem Dokument
@@ -306,9 +310,11 @@ public class ODFEmpfaengerWizardPage extends WizardPage implements IWriteWizardP
 		
 		if(ArrayUtils.isNotEmpty(addressTable))
 		{
+			// Index der PLZ(Ort)-Zeile suchen
 			int plzRowIdx = findPLZRow(address, addressTable);
 			if(plzRowIdx >= 0)
 			{
+				// die weiteren Komponenten in Abhaengigkeit der Adressdefinition
 				switch (plzRowIdx)
 					{
 						case 0:
@@ -316,12 +322,12 @@ public class ODFEmpfaengerWizardPage extends WizardPage implements IWriteWizardP
 							break;
 							
 						case 1:
-							// strasse/hsnr wird unterstellt
+							// es wird unterstellt, dass strasse/hsnr in der ersten Zeile stehen
 							address.setStrasse(addressTable[plzRowIdx-1]);
 							break;
 								
 						case 2:
-							// strasse/hsnr und Name wird unterstellt
+							// es wird unterstellt, dass strasse/hsnr und Name in den darueberliegenden Zeilen stehen
 							address.setStrasse(addressTable[plzRowIdx-1]);
 							address.setName(addressTable[plzRowIdx-2]);
 							break;
@@ -391,13 +397,16 @@ public class ODFEmpfaengerWizardPage extends WizardPage implements IWriteWizardP
 	/*
 	 * Sucht in der Adresstabelle nach der Zeile mit der PLZ (letzte Zeile einer Adressdefinition)
 	 * Wird eine PLZ erkannt, wird die PLZ und der Ort in die Adresse eingetragen und den Index dieser
-	 * Zeile (Indey in der Adressentabelle) wird zuruckgegeben
+	 * Zeile (Index in der Adressentabelle) wird zuruckgegeben
+	 * 
+	 * In der Adresse 'adresse' wird PLZ/Ort eingetragen
 	 */
 	private int findPLZRow(Adresse adresse, String [] addressTable)
 	{
 		int n = addressTable.length;
 		for (int i = 0; i < n; i++)
 		{
+			// Zeile nach plz parsen
 			String plz = extractPLZ(addressTable[i]);
 			if (StringUtils.isNotEmpty(plz))
 			{
@@ -407,7 +416,9 @@ public class ODFEmpfaengerWizardPage extends WizardPage implements IWriteWizardP
 				int idx = StringUtils.indexOf(ort, plz);
 				ort = StringUtils.substring(ort, idx+plz.length());	
 				ort = StringUtils.trim(ort);
-				adresse.setOrt(ort);
+				
+				// PLZ und Ort zusammenfassen
+				adresse.setOrt(adresse.getPlz() + " " + ort);
 				return i;
 			}
 		}

@@ -156,7 +156,7 @@ public class KontakteImportDialog extends AbstractImportDialog
 	 * @see it.naturtalent.e4.project.expimp.dialogs.AbstractImportDialog#doImport()
 	 */
 	@Override
-	public void doImport()
+	public void doImport(ExpImportData [] selectedData)
 	{
 		// die selektierten Kontakte in einer Liste 'allImportKontakte' zusammenfassen
 		final List<Kontakt>allImportKontakte = new ArrayList<Kontakt>();

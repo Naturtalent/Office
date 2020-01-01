@@ -16,7 +16,7 @@ import it.naturtalent.office.model.address.AddressPackage;
 
 
 /**
- * Dieser Service bringt zur Bearbeitung des 'NrProjektKontakte' - Objects einen angepassten Multireferenzrenderer ins
+ * Dieser Service bringt zur Bearbeitung des 'NrProjektKontakte' Objects einen angepassten Multireferenzrenderer ins
  * Spiel.
  *  
  * @author dieter
