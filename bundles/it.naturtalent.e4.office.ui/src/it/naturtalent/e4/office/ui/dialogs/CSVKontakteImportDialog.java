@@ -85,7 +85,7 @@ public class CSVKontakteImportDialog extends AbstractImportDialog
 		// vorhandene Kontakte 'eingrauen'
 		try
 		{
-			disableKontakte();
+			grayExistKontakte();
 		} catch (Exception e)
 		{
 			// TODO Auto-generated catch block
@@ -116,7 +116,10 @@ public class CSVKontakteImportDialog extends AbstractImportDialog
 			txtSource.setText(importFile);
 			
 			// einlesen der Kontake		
-			readImportSource();			
+			readImportSource();		
+			grayExistKontakte();	
+			checkBoxTableViewer.setLabelProvider(new GrayedTableLabelProvider());		
+			checkBoxTableViewer.refresh();
 		}
 	}
 
@@ -163,19 +166,23 @@ public class CSVKontakteImportDialog extends AbstractImportDialog
 	/*
 	 * 
 	 */
-	private void disableKontakte()
+	private void grayExistKontakte()
 	{
-		EList<Kontakt>kontakte =  OfficeUtils.getKontakte().getKontakte();
+		// die bereits gesoeicherten Kontakte laden
+		EList<Kontakt>emfKontakte =  OfficeUtils.getKontakte().getKontakte();
 		
-		List<ExpImportData>lexpimpdata = getModelData();
-		
+		// die eingelesenen Kontakte
+		List<ExpImportData>lexpimpdata = getModelData();		
 		for(ExpImportData lexpimp : lexpimpdata)
 		{
 			Kontakt importKontakt = (Kontakt) lexpimp.getData();			
-			for(Kontakt kontakt : kontakte)
+			for(Kontakt emfKontakt : emfKontakte)
 			{
-				if(StringUtils.equals(importKontakt.getName(), kontakt.getName()))
+				if(StringUtils.equals(importKontakt.getName(), emfKontakt.getName()))
+				{
 					checkBoxTableViewer.setGrayed(lexpimp, true);
+					break;
+				}
 			}
 		}
 	}

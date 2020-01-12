@@ -67,13 +67,13 @@ public class CSVKontaktImportOperation implements IRunnableWithProgress
 	{		
 		try
 		{
-			monitor.beginTask("Kontaktdaten werden eingelesen",IProgressMonitor.UNKNOWN);
-			
 			BufferedReader br =  new BufferedReader(new FileReader(importPath));
 			
 			String line = "";			
 			 //Read to skip the header
 	        br.readLine();
+	        
+	        monitor.beginTask("Kontaktdaten werden eingelesen",IProgressMonitor.UNKNOWN);
 	    
 	        // Kontakte, Zeile fuer Zeile, aus der Datei lesen
 			while ((line = br.readLine()) != null)
@@ -84,8 +84,7 @@ public class CSVKontaktImportOperation implements IRunnableWithProgress
 			}
 		} catch (Exception e)
 		{			
-			MessageDialog.openError(Display.getDefault().getActiveShell(),"Error",e.getMessage());
-			return;
+			throw new InvocationTargetException(e);						
 		}
 		
 		// Zeilen werden geparst und in EMF-Kontakte ueberfuehrt
