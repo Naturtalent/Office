@@ -155,7 +155,7 @@ public class KontakteImportDialog extends AbstractImportDialog
 	 * (non-Javadoc)
 	 * @see it.naturtalent.e4.project.expimp.dialogs.AbstractImportDialog#doImport()
 	 */
-	@Override
+	
 	public void doImport(ExpImportData [] selectedData)
 	{
 		// die selektierten Kontakte in einer Liste 'allImportKontakte' zusammenfassen
@@ -201,11 +201,13 @@ public class KontakteImportDialog extends AbstractImportDialog
 			+ INtProjectPropertyFactory.PROJECTPROPERTYFACTORY_EXTENSION;
 			*/
 	
+	/*
 	@Override
 	public void removeExistedObjects(List<EObject> importObjects)
 	{
 		// TODO Auto-generated method stub
 	}
+	*/
 	
 	
 }

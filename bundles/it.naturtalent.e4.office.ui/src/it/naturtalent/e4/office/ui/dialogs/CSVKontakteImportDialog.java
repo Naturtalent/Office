@@ -188,7 +188,7 @@ public class CSVKontakteImportDialog extends AbstractImportDialog
 	}
 	
 	// die selektierten Kontakte werden in das EMF Modell eingelesen
-	@Override
+	
 	public void doImport(ExpImportData [] selectedData)
 	{		
 		// die selektierten Kontakte in einer Liste 'allImportKontakte' zusammenfassen
@@ -207,10 +207,12 @@ public class CSVKontakteImportDialog extends AbstractImportDialog
 			domain.getCommandStack().execute(addCommand);		 
 	}
 
+	/*
 	@Override
 	public void removeExistedObjects(List<EObject> importObjects)
 	{
 		// TODO Auto-generated method stub
 	}
+	*/
 	
 }
