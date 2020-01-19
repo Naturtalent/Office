@@ -17,6 +17,8 @@ import org.odftoolkit.simple.table.Row;
 import org.odftoolkit.simple.table.Table;
 
 import it.naturtalent.e4.project.INtProject;
+import it.naturtalent.e4.project.expimp.ExpImportData;
+import it.naturtalent.office.model.address.Kontakt;
 
 /**
  * Export der Projektdaten in einer Runningprogress Operation realisieren.
@@ -24,23 +26,20 @@ import it.naturtalent.e4.project.INtProject;
  * @author dieter
  *
  */
-public class JournalProjektExportOperation implements IRunnableWithProgress
+public class JournalKontaktExportOperation implements IRunnableWithProgress
 {
-	private static final String PROJECT_TABLENAME = "Projekte";
+	// Tabellename im SpreadSheet
+	private static final String KONTAKT_TABLENAME = "Kontakte";
 	
 	private File destFile; 
-	private IProject[]selectedProjects;
+	private ExpImportData [] expImportData;
 	
-	
-	
-	public JournalProjektExportOperation(File destFile, IProject[] selectedProjects)
+	public JournalKontaktExportOperation(File destFile, ExpImportData [] selectedKontakts)
 	{
 		super();
 		this.destFile = destFile;
-		this.selectedProjects = selectedProjects;
+		this.expImportData = selectedKontakts;
 	}
-
-
 
 	/**
 	 * 
@@ -50,39 +49,49 @@ public class JournalProjektExportOperation implements IRunnableWithProgress
 	{
 		SpreadsheetDocument calcDoc = null;
 		
-		monitor.beginTask("Projektdaten exportieren",IProgressMonitor.UNKNOWN);
+		monitor.beginTask("Kontaktdaten exportieren",IProgressMonitor.UNKNOWN);
 		
+		// SpreadSheet laden oder neu erzeugen
 		try
 		{
 			calcDoc = (destFile.exists()) ? SpreadsheetDocument.loadDocument(destFile) :  
 				SpreadsheetDocument.newSpreadsheetDocument();
+			
 		} catch (Exception e)
 		{
 			throw new InvocationTargetException(e);			
 		}
 		
-		// Tabelle erzeugen
-		Table projectTable = calcDoc.getSheetByName(PROJECT_TABLENAME);
+		// neues Tabellenblatt erzeugen
+		Table kontaktTable = calcDoc.getSheetByName(KONTAKT_TABLENAME);
 		int lastIdx = calcDoc.getSheetCount(); 
 		for(int idx = 0;idx < lastIdx;idx++)
 		{
-			if(projectTable == calcDoc.getSheetByIndex(idx))
+			if(kontaktTable == calcDoc.getSheetByIndex(idx))
 			{
+				// evtl. bestehendes entfernen
 				calcDoc.removeSheet(idx);
 				break;
 			}
 		}
-		projectTable = calcDoc.appendSheet(PROJECT_TABLENAME);
+		kontaktTable = calcDoc.appendSheet(KONTAKT_TABLENAME);
 		
 		// Tabelle vorbereiten
-		prepareTable(projectTable);
+		prepareTable(kontaktTable);
 		
-		// Projecte uebertragen
-		if(projectTable != null)
+		// Kontakte uebertragen
+		if(kontaktTable != null)
 		{
 			int rowIdx = 1;
-			for(IProject iProject : selectedProjects)			
-				addProjectData (projectTable, rowIdx++, iProject);			
+			for(ExpImportData expImportItem : expImportData)
+			{
+				Object data = expImportItem.getData();
+				if (data instanceof Kontakt)
+				{
+					System.out.println(((Kontakt) data).getName());
+					addKontaktData (kontaktTable, rowIdx++, (Kontakt) data);
+				}
+			}
 		}
 		
 		try
@@ -116,33 +125,24 @@ public class JournalProjektExportOperation implements IRunnableWithProgress
 		Cell cell = row.getCellByIndex(0);	
 		cell.setHorizontalAlignment(HorizontalAlignmentType.CENTER);
 		cell.setFont(new Font("Arial", FontStyle.BOLD, 10));
-		cell.setStringValue("Projekt ID");		
+		cell.setStringValue("Name");		
 				
 		cell = row.getCellByIndex(1);
 		cell.setHorizontalAlignment(HorizontalAlignmentType.CENTER);
 		cell.setFont(new Font("Arial", FontStyle.BOLD, 10));
-		cell.setStringValue("Projektname");
+		cell.setStringValue("Kommunikationsdaten");
 	}
 	
-	private void addProjectData	(Table projectTable, int rowIdx, IProject iProject)
+	private void addKontaktData	(Table projectTable, int rowIdx, Kontakt kontakt)
 	{
 		int cellIndex = 0;
 		Row row = projectTable.getRowByIndex(rowIdx);
-		Cell cell = row.getCellByIndex(cellIndex++);
 		
-		cell.setStringValue(iProject.getName());
+		Cell cell = row.getCellByIndex(cellIndex++);		
+		cell.setStringValue(kontakt.getName());
 		
-		try
-		{
-			String name = iProject.getPersistentProperty(INtProject.projectNameQualifiedName);
-			cell = row.getCellByIndex(cellIndex++);
-			cell.setStringValue(name);
-			
-		} catch (CoreException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}		
+		cell = row.getCellByIndex(cellIndex++);
+		cell.setStringValue(kontakt.getKommunikation());
 	}
 	
 	

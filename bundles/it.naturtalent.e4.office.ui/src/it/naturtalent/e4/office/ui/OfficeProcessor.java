@@ -278,7 +278,7 @@ public class OfficeProcessor
 		{
 			exportAdapterRepository.addExportAdapter(new ExportKontakteAdapter());
 			exportAdapterRepository.addExportAdapter(new JournalProjectExportAdapter());			
-			//exportAdapterRepository.addExportAdapter(new OfficeProfileExportAdapter());
+			exportAdapterRepository.addExportAdapter(new JournalKontaktExportAdapter());
 		}
 
 		if(showViewAdapterRepository != null)
