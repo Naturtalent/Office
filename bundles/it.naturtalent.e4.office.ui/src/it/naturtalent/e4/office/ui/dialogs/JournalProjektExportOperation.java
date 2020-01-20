@@ -2,7 +2,13 @@ package it.naturtalent.e4.office.ui.dialogs;
 
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -17,6 +23,8 @@ import org.odftoolkit.simple.table.Row;
 import org.odftoolkit.simple.table.Table;
 
 import it.naturtalent.e4.project.INtProject;
+import it.naturtalent.e4.project.model.project.NtProject;
+import it.naturtalent.e4.project.ui.Activator;
 
 /**
  * Export der Projektdaten in einer Runningprogress Operation realisieren.
@@ -56,6 +64,13 @@ public class JournalProjektExportOperation implements IRunnableWithProgress
 		{
 			calcDoc = (destFile.exists()) ? SpreadsheetDocument.loadDocument(destFile) :  
 				SpreadsheetDocument.newSpreadsheetDocument();
+			
+			// StandardTabellenseite '0' entfernen
+			List<String>tableNames = getTableNames(calcDoc);
+			if(tableNames.size() > 0)
+				calcDoc.removeSheet(0);
+			
+			
 		} catch (Exception e)
 		{
 			throw new InvocationTargetException(e);			
@@ -81,8 +96,11 @@ public class JournalProjektExportOperation implements IRunnableWithProgress
 		if(projectTable != null)
 		{
 			int rowIdx = 1;
-			for(IProject iProject : selectedProjects)			
-				addProjectData (projectTable, rowIdx++, iProject);			
+			for(IProject iProject : selectedProjects)	
+			{
+				if(iProject.exists())
+					addProjectData (projectTable, rowIdx++, iProject);
+			}
 		}
 		
 		try
@@ -122,6 +140,18 @@ public class JournalProjektExportOperation implements IRunnableWithProgress
 		cell.setHorizontalAlignment(HorizontalAlignmentType.CENTER);
 		cell.setFont(new Font("Arial", FontStyle.BOLD, 10));
 		cell.setStringValue("Projektname");
+
+		cell = row.getCellByIndex(2);
+		cell.setHorizontalAlignment(HorizontalAlignmentType.CENTER);
+		cell.setFont(new Font("Arial", FontStyle.BOLD, 10));
+		cell.setStringValue("Erstellunngsdatum");
+		
+		cell = row.getCellByIndex(3);
+		cell.setHorizontalAlignment(HorizontalAlignmentType.CENTER);
+		cell.setFont(new Font("Arial", FontStyle.BOLD, 10));
+		cell.setStringValue("Projektinfo");
+
+
 	}
 	
 	private void addProjectData	(Table projectTable, int rowIdx, IProject iProject)
@@ -130,13 +160,36 @@ public class JournalProjektExportOperation implements IRunnableWithProgress
 		Row row = projectTable.getRowByIndex(rowIdx);
 		Cell cell = row.getCellByIndex(cellIndex++);
 		
-		cell.setStringValue(iProject.getName());
+		// Id uebertragen
+		String projectID = iProject.getName();
+		cell.setStringValue(projectID);
 		
 		try
 		{
+			// Projektname uebertragen
 			String name = iProject.getPersistentProperty(INtProject.projectNameQualifiedName);
 			cell = row.getCellByIndex(cellIndex++);
 			cell.setStringValue(name);
+			
+			// Erstellungsdatum
+			Calendar createCal = Calendar.getInstance();
+			SimpleDateFormat format1 = new SimpleDateFormat("dd.MM.yyyy");
+			String stgDate = iProject.getName().substring(0, iProject.getName().indexOf('-'));		
+			long createDate = NumberUtils.createLong(stgDate).longValue();
+			createCal.setTimeInMillis(createDate);
+			cell = row.getCellByIndex(cellIndex++);
+			cell.setStringValue(format1.format(createCal.getTime()));
+			
+			// Projektinfo uebertragen
+			NtProject ntProject = Activator.findNtProject(projectID);
+			cell = row.getCellByIndex(cellIndex++);
+			if(ntProject != null)
+			{				
+				String info = ntProject.getDescription();
+				if(StringUtils.isNotEmpty(info))
+					cell.setStringValue(info);				
+			}
+					
 			
 		} catch (CoreException e)
 		{
@@ -145,5 +198,18 @@ public class JournalProjektExportOperation implements IRunnableWithProgress
 		}		
 	}
 	
+	private List<String> getTableNames(SpreadsheetDocument spreadSheet)
+	{
+		List<String>tableNames = new ArrayList<String>();
+		
+		List<Table>tables = spreadSheet.getTableList();
+		if((tables != null ) && (!tables.isEmpty()))
+		{
+			for(Table table : tables)
+				tableNames.add(table.getTableName());
+		}
+						
+		return tableNames;
+	}
 	
 }

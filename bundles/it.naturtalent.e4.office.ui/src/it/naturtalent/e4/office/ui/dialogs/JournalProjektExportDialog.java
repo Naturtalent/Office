@@ -1,9 +1,13 @@
 package it.naturtalent.e4.office.ui.dialogs;
 
 import java.io.File;
+import java.io.IOException;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.fieldassist.ControlDecoration;
@@ -50,6 +54,7 @@ public class JournalProjektExportDialog extends ExportNtProjectDialog
 	// die selektierten Projekte 
 	private IProject[] selectedProjects;
 
+	private Log log = LogFactory.getLog(this.getClass());
 	
 	/**
 	 * @wbp.parser.constructor
@@ -151,7 +156,21 @@ public class JournalProjektExportDialog extends ExportNtProjectDialog
 		}
 
 		if(exitState)
-			super.okPressed();		
+		{		
+			// die Baseklasse erzeugt ein Exportverzeichnis 'EXPORT_DIRECTORY'
+			super.okPressed();
+			
+			// im Journalexport-Modus ist ein 'EXPORT_DIRECTORY' nutzlos und wird wieder entfernt 
+			File exportDir = getResultDestDir();
+			if(StringUtils.contains(exportDir.getPath(), EXPORT_DIRECTORY))
+				try
+				{
+					FileUtils.deleteDirectory(exportDir);
+				} catch (IOException e)
+				{
+					log.info("Fehler beim Entfernen des 'EXPORT_DIRECTORY' im Journal-Modus\n"+e.getMessage());					
+				}			
+		}
 	}
 	
 	@Override
