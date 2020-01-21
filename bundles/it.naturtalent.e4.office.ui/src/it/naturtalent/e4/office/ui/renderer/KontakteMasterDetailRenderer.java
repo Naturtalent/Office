@@ -43,6 +43,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.wb.swt.SWTResourceManager;
 
 import it.naturtalent.e4.office.ui.OfficeUtils;
@@ -270,14 +271,14 @@ public class KontakteMasterDetailRenderer extends TreeMasterDetailSWTRenderer
 				Object [] selObjects = selection.toArray();				
 				if (MessageDialog.openQuestion(
 						Display.getDefault().getActiveShell(), "Kontakt", "selektierte(n) Kontakt(e) löschen")) //$NON-NLS-N$
-				{					
+				{						
 					EObject container=null;
 					for (Object selObj : selObjects)
 					{
 						if (selObj instanceof Kontakt)
 						{
 							Kontakt kontakt = (Kontakt) selObj;
-							{
+							{								
 								container = kontakt.eContainer();
 								Command delCommand = DeleteCommand.create(domain, kontakt);
 								if (delCommand.canExecute())

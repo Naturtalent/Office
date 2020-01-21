@@ -2,7 +2,10 @@ package it.naturtalent.e4.office.ui.dialogs;
 
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -18,6 +21,7 @@ import org.odftoolkit.simple.table.Table;
 
 import it.naturtalent.e4.project.INtProject;
 import it.naturtalent.e4.project.expimp.ExpImportData;
+import it.naturtalent.office.model.address.Adresse;
 import it.naturtalent.office.model.address.Kontakt;
 
 /**
@@ -34,6 +38,14 @@ public class JournalKontaktExportOperation implements IRunnableWithProgress
 	private File destFile; 
 	private ExpImportData [] expImportData;
 	
+	private String[] headerLabel = new String[]
+		{ "Name", "Kommunikationsdaten", "Adresse Name", "Adresse NameZusatz","Adresse Strasse", "Adresse Ort" };
+	
+	/**
+	 * Konstruktion
+	 * @param destFile
+	 * @param selectedKontakts
+	 */
 	public JournalKontaktExportOperation(File destFile, ExpImportData [] selectedKontakts)
 	{
 		super();
@@ -56,6 +68,11 @@ public class JournalKontaktExportOperation implements IRunnableWithProgress
 		{
 			calcDoc = (destFile.exists()) ? SpreadsheetDocument.loadDocument(destFile) :  
 				SpreadsheetDocument.newSpreadsheetDocument();
+						
+			// StandardTabellenseite '0' entfernen
+			List<String>tableNames = getTableNames(calcDoc);
+			if(tableNames.size() > 0)
+				calcDoc.removeSheet(0);
 			
 		} catch (Exception e)
 		{
@@ -87,9 +104,9 @@ public class JournalKontaktExportOperation implements IRunnableWithProgress
 			{
 				Object data = expImportItem.getData();
 				if (data instanceof Kontakt)
-				{
-					System.out.println(((Kontakt) data).getName());
-					addKontaktData (kontaktTable, rowIdx++, (Kontakt) data);
+				{					
+					addKontaktData (kontaktTable, rowIdx, (Kontakt) data);
+					addAddressData (kontaktTable, rowIdx++, ((Kontakt) data).getAdresse());
 				}
 			}
 		}
@@ -120,19 +137,14 @@ public class JournalKontaktExportOperation implements IRunnableWithProgress
 		}
 		
 		// Kopfzeile
-		Row row = projectTable.getRowByIndex(0);
+		Row row = projectTable.getRowByIndex(0);		
+		int n = headerLabel.length;
+		for(int cellIdx = 0; cellIdx < n; cellIdx++)
+			createHeaderCell(row, cellIdx, headerLabel[cellIdx]);
 		
-		Cell cell = row.getCellByIndex(0);	
-		cell.setHorizontalAlignment(HorizontalAlignmentType.CENTER);
-		cell.setFont(new Font("Arial", FontStyle.BOLD, 10));
-		cell.setStringValue("Name");		
-				
-		cell = row.getCellByIndex(1);
-		cell.setHorizontalAlignment(HorizontalAlignmentType.CENTER);
-		cell.setFont(new Font("Arial", FontStyle.BOLD, 10));
-		cell.setStringValue("Kommunikationsdaten");
 	}
 	
+	// Kontaktdaten ausgeben
 	private void addKontaktData	(Table projectTable, int rowIdx, Kontakt kontakt)
 	{
 		int cellIndex = 0;
@@ -145,5 +157,51 @@ public class JournalKontaktExportOperation implements IRunnableWithProgress
 		cell.setStringValue(kontakt.getKommunikation());
 	}
 	
+	// Adressdaten ausgeben
+	private void addAddressData	(Table projectTable, int rowIdx, Adresse adresse)
+	{
+		String name = adresse.getName();
+		if(StringUtils.isNotEmpty(name))
+		{
+			int cellIndex = 2;
+			Row row = projectTable.getRowByIndex(rowIdx);
+
+			Cell cell = row.getCellByIndex(cellIndex++);
+			cell.setStringValue(name);
+
+			cell = row.getCellByIndex(cellIndex++);
+			cell.setStringValue(adresse.getName2());
+			
+			cell = row.getCellByIndex(cellIndex++);
+			cell.setStringValue(adresse.getStrasse());
+			
+			cell = row.getCellByIndex(cellIndex++);
+			cell.setStringValue(adresse.getOrt());
+		}
+	}
+
 	
+	// Header ausgeben
+	private void createHeaderCell(Row headerRow, int cellIdx, String label)
+	{
+		Cell cell = headerRow.getCellByIndex(cellIdx);
+		cell.setHorizontalAlignment(HorizontalAlignmentType.CENTER);
+		cell.setFont(new Font("Arial", FontStyle.BOLD, 10));
+		cell.setStringValue(label);		
+	}
+	
+	//Tabellennamen auflisten und zurueckgeben
+	private List<String> getTableNames(SpreadsheetDocument spreadSheet)
+	{
+		List<String>tableNames = new ArrayList<String>();
+		
+		List<Table>tables = spreadSheet.getTableList();
+		if((tables != null ) && (!tables.isEmpty()))
+		{
+			for(Table table : tables)
+				tableNames.add(table.getTableName());
+		}
+						
+		return tableNames;
+	}
 }

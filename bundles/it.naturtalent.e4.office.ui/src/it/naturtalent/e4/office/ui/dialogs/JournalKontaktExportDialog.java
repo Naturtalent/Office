@@ -36,9 +36,9 @@ public class JournalKontaktExportDialog extends AbstractExportDialog
 	// DialogSettings Journal - Zielverzeichnis und (Project/Workingset - Settings)
 	private static final String KONTAKTEXPORTPATH_SETTING_KEY = "journalexportkontaktpathsetting"; //$NON-NLS-N$	
 
-	 private static Shell parentShell;
+	private static Shell parentShell;
 	 
-	 private File destFile;
+	private File destFile;
 	 
 	/**
 	 * 
@@ -96,8 +96,8 @@ public class JournalKontaktExportDialog extends AbstractExportDialog
 	protected void okPressed()
 	{
 		// das ausgewaehlte Zielverzeichnis
-		String destPath = FilenameUtils.removeExtension(exportPath) + ".ods";
-		destFile = new File(destPath);		
+		exportPath = FilenameUtils.removeExtension(exportPath) + ".ods";
+		destFile = new File(exportPath);		
 		boolean exitState = true;
 		if(destFile.exists())
 		{
