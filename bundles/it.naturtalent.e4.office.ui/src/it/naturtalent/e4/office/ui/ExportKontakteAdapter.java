@@ -20,7 +20,7 @@ public class ExportKontakteAdapter implements IExportAdapter
 	@Override
 	public Image getImage()
 	{
-		return Icon.ICON_CONNECT.getImage(IconSize._16x16_DefaultIconSize);				
+		return Icon.ICON_KONTAKT.getImage(IconSize._16x16_DefaultIconSize);				
 	}
 
 	@Override

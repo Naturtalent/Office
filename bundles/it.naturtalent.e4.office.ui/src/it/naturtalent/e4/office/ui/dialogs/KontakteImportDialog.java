@@ -63,20 +63,8 @@ public class KontakteImportDialog extends AbstractImportDialog
 	{
 		// TODO Auto-generated method stub
 		Control control = super.createDialogArea(parent);
-		checkBoxTableViewer.setLabelProvider(new GrayedTableLabelProvider());		
 		
-		// vorhandene Kontakte 'eingrauen'
-		try
-		{
-			disableKontakte(lexpimpdata);
-		} catch (Exception e)
-		{
-			// TODO Auto-generated catch block
-			//e.printStackTrace();
-		}
-
-		checkBoxTableViewer.refresh();
-		
+		// Button 'existierende Kontakte ueberschreiben' ausblenden
 		btnCheckOverwrite.dispose();
 		return control;
 	}
@@ -99,18 +87,16 @@ public class KontakteImportDialog extends AbstractImportDialog
 		Resource resource = resourceSet.getResource(fileURI, true);
 		EList<EObject>eObjects = resource.getContents();
 		
-		//importKontakte = (Kontakte) eObjects.get(0);
+		importKontakte = (Kontakte) eObjects.get(0);
 		//setTitle("Archiv: "+importKontakte.
 		
 		// alle Kontakte einlesen
 		lexpimpdata = new ArrayList<ExpImportData>();
-		//EList<Kontakt>kontaktList = importKontakte.getKontakte();
-		if (eObjects != null)
+		EList<Kontakt>kontaktList = importKontakte.getKontakte();
+		if (kontaktList != null)
 		{
-			for (EObject eObject : eObjects)
+			for (Kontakt kontakt : kontaktList)
 			{
-				Kontakt kontakt = (Kontakt) eObject;
-
 				ExpImportData expimpdata = new ExpImportData();
 				expimpdata.setLabel(kontakt.getName());
 				expimpdata.setData(kontakt);
@@ -119,34 +105,34 @@ public class KontakteImportDialog extends AbstractImportDialog
 
 			setModelData(lexpimpdata);
 		}
+		
+		// bestehende Kontakte ausgrauen
+		disableKontakte(lexpimpdata);
 	}
 	
 	/*
-	 * 
+	 * Bestehende Kontakte ausgrauen
 	 */
 	private void disableKontakte(List<ExpImportData>lexpimpdata)
 	{
+		checkBoxTableViewer.setLabelProvider(new GrayedTableLabelProvider());
+			
+		Kontakte kontakte = OfficeUtils.getKontakte();
 		for(ExpImportData lexpimp : lexpimpdata)
 		{
-			/*
-			Ordner ordner = (Ordner) lexpimp.getData();
-			for(Register register : ordner.getRegisters())
+			EList<Kontakt>existKontaktList = kontakte.getKontakte();
+			Kontakt importKontakt = (Kontakt) lexpimp.getData(); 
+			for(Kontakt existKontakt : existKontaktList)
 			{
-				String iProjectID = register.getProjectID();
-				if(StringUtils.isNotEmpty(iProjectID))
+				if(StringUtils.equals(existKontakt.getName(), importKontakt.getName()))
 				{
-					// gekoppeltes Projekt
-					IProject iProject = ResourcesPlugin.getWorkspace().getRoot().getProject(iProjectID);
-					if(iProject.exists())
-					{						
-						if(ArchivUtils.findIProjectRegister(iProject.getName()) != null)
-							checkBoxTableViewer.setGrayed(lexpimp, true);
-						break;						
-					}
+					checkBoxTableViewer.setGrayed(lexpimp, true);
+					break;						
 				}				
-			}
-			*/
+			}			
 		}
+		
+		checkBoxTableViewer.refresh();
 	}
 
 	/* 

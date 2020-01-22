@@ -15,12 +15,13 @@ import org.eclipse.swt.widgets.Shell;
 
 import it.naturtalent.e4.office.ui.OfficeUtils;
 import it.naturtalent.e4.project.expimp.ExpImportData;
+import it.naturtalent.e4.project.expimp.dialogs.AbstractExportDialog;
 import it.naturtalent.e4.project.expimp.dialogs.AbstractExportDialog2;
 import it.naturtalent.e4.project.expimp.dialogs.ExportDestinationComposite;
 import it.naturtalent.office.model.address.Kontakt;
 import it.naturtalent.office.model.address.Kontakte;
 
-public class KontakteExportDialog extends AbstractExportDialog2
+public class KontakteExportDialog extends AbstractExportDialog
 {
 	
 	private static final String KONTAKTEXPORTPATH_SETTING_KEY = "exportkontaktpathsetting"; //$NON-NLS-N$
@@ -68,11 +69,6 @@ public class KontakteExportDialog extends AbstractExportDialog2
 		setModelData(lexpimpdata);
 	}
 	
-	
-	@Override
-	public void doExport()
-	{
-		exportEMFModeData();
-	}
+
 
 }
