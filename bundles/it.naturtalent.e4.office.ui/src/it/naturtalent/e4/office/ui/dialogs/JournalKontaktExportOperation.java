@@ -104,9 +104,15 @@ public class JournalKontaktExportOperation implements IRunnableWithProgress
 			{
 				Object data = expImportItem.getData();
 				if (data instanceof Kontakt)
-				{					
-					addKontaktData (kontaktTable, rowIdx, (Kontakt) data);
-					addAddressData (kontaktTable, rowIdx++, ((Kontakt) data).getAdresse());
+				{	
+					Kontakt kontakt = (Kontakt) data;
+					if(StringUtils.equals(kontakt.getName(), "Firma Jost Tiefbau"))
+							System.out.println(kontakt.getName());
+					
+					addKontaktData (kontaktTable, rowIdx, kontakt);					
+					Adresse adresse = kontakt.getAdresse();
+					if(adresse != null)
+						addAddressData (kontaktTable, rowIdx++, kontakt.getAdresse());
 				}
 			}
 		}
