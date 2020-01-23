@@ -302,10 +302,15 @@ public class ODFAbsenderWizardPage extends WizardPage implements IWriteWizardPag
 	}
 
 
+	/**
+	 * Der Renderer 'OfficeContextTreeMasterRenderer' meldet die Selektion eines Absenders
+	 * 
+	 * @param absender
+	 */
 	@Inject
 	@Optional
-	public void handleSelectionChangedEvent(@UIEventTopic(OfficeUtils.ABSENDERMASTER_SELECTED_EVENT) Absender absender)
-	{
+	public void handleSelectionChangedEvent(@UIEventTopic(OfficeUtils.GET_OFFICEMASTER_SELECTION_EVENT) Absender absender)
+	{				
 		selectedAbsender = absender;
 	}
 	
