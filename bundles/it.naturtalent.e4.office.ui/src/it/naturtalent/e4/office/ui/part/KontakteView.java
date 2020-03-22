@@ -19,6 +19,7 @@ import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.command.CommandStackListener;
 import org.eclipse.emf.ecp.ui.view.ECPRendererException;
 import org.eclipse.emf.ecp.ui.view.swt.ECPSWTViewRenderer;
+import org.eclipse.emf.edit.command.AddCommand;
 import org.eclipse.emf.edit.command.CreateChildCommand;
 import org.eclipse.emf.edit.command.DeleteCommand;
 import org.eclipse.emf.edit.command.SetCommand;
@@ -50,7 +51,7 @@ public class KontakteView
 
 	
 	/*
-	 * CommandStackListener ueberwacht Aenderungen am Archiv
+	 * CommandStackListener ueberwacht Aenderungen 
 	 */
 	private class KontakteCommandStackListener implements CommandStackListener
 	{

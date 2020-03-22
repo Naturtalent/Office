@@ -136,8 +136,6 @@ public class OfficeUtils
 
 	private static Log log = LogFactory.getLog(OfficeUtils.class);
 
-	private static Kontakte kontakte;
-
 	private static Sender senders;
 
 	/*
@@ -165,10 +163,13 @@ public class OfficeUtils
 	 * 
 	 * @return
 	 */
+	private static Kontakte kontakte;
 	public static Kontakte getKontakte()
 	{
+		
 		if (kontakte != null)
 			return kontakte;
+		
 
 		ECPProject ecpProject = getOfficeProject();
 		if (ecpProject != null)
